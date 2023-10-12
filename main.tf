@@ -70,7 +70,7 @@ module "subnet" {
         address_prefixes        =   ["10.100.0.0/24"]
         service_endpoints       =   "Microsoft.KeyVault"
         service_endpoint_policy_ids     =   []
-        private_endpoint_network_policies_enabled       =   "false"
+        private_endpoint_network_polices_enabled       =   "false"
         private_link_service_network_policies_enabled   =   "false"
 
         delegation = {
