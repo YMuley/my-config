@@ -68,13 +68,13 @@ module "subnet" {
         resource_group_name     =   "rg-ddi-poc"
         virtual_network_name    =   "vnet-ddi-poc"
         address_prefixes        =   ["10.100.0.0/24"]
-        service_endpoints       =   "Microsoft.KeyVault"
+        service_endpoints       =   ["Microsoft.KeyVault"]
         service_endpoint_policy_ids     =   []
         private_endpoint_network_polices_enabled       =   "false"
         private_link_service_network_policies_enabled   =   "false"
 
         delegation = {
-            name    =  "delegation-container"
+            name    =  "delegation_container"
                 service_delegation ={
                     name    =   "Microsoft.ContainerInstance/containerGroups"
                     actions =   ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
