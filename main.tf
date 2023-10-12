@@ -73,13 +73,13 @@ module "subnet" {
         private_endpoint_network_polices_enabled       =   "false"
         private_link_service_network_policies_enabled   =   "false"
 
-        delegation =[ {
+        delegation = {
             name    =  "delegation"
                 service_delegation = [ {
                     name    =   ["Microsoft.ContainerInstance/containerGroups"]
                     actions =   ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
                 }]
-        } ]
+        } 
 
     } 
 
