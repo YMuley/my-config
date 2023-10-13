@@ -29,17 +29,17 @@ module "vnet" {
   version = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
   virtual_network_list = [
-    {
-        name        = "vnet-ddi-poc"
-        location    = "eastus"
-        resource_group_name = "rg-ddi-poc"
-        address_space = ["10.100.0.0/16"] //["172.21.0.0/16"]
-        dns_server = [] //["172.21.1.40", "172.21.1.41"]
-        tags = {
-            environment = "poc"
-        }
+    # {
+    #     name        = "vnet-ddi-poc"
+    #     location    = "eastus"
+    #     resource_group_name = "rg-ddi-poc"
+    #     address_space = ["10.100.0.0/16"] //["172.21.0.0/16"]
+    #     dns_server = [] //["172.21.1.40", "172.21.1.41"]
+    #     tags = {
+    #         environment = "poc"
+    #     }
 
-    },
+    # },
     # {
     #     name        = "vnet-ddi-dev"
     #     location    = "westus"
