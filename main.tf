@@ -93,7 +93,7 @@ module "subnet" {
 
 module "vnet_dns" {
   source  = "app.terraform.io/Motifworks/vnet-dns/azurerm"
-  version = "1.0.1"
+  version = "1.0.2"
 
   azure_vnet_dns = [
     {
