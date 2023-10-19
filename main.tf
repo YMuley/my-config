@@ -90,6 +90,46 @@ module "subnet" {
   ]
 }
 #
+module "network_security_group" {
+  source                = "app.terraform.io/Motifworks/network_security_group/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+  network_security_group_list = [
+    {
+      name                = "nsg-ddi-poc"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-poc"
+      tags  = {
+        env = "poc"
+      }
+      security_rule = [
+        {
+          name                       = "HTTP"
+          priority                   = 1001
+          direction                  = "Inbound"
+          access                     = "Allow"
+          protocol                   = "Tcp"
+          source_port_range          = "*"
+          destination_port_range     = "80"
+          source_address_prefix      = "*"
+          destination_address_prefix = "*"
+        },
+        {
+          name                       = "HTTPS"
+          priority                   = 1002
+          direction                  = "Inbound"
+          access                     = "Allow"
+          protocol                   = "Tcp"
+          source_port_range          = "*"
+          destination_port_range     = "443"
+          source_address_prefix      = "*"
+          destination_address_prefix = "*"
+        }
+      ]
+  }]
+
+}
+
 
 module "vnet_dns" {
   source  = "app.terraform.io/Motifworks/vnet-dns/azurerm"
