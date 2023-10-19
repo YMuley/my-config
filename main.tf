@@ -59,7 +59,7 @@ module "subnet" {
   version = "1.0.0"
   resource_group_output  = module.resource_Group.resource_group_output
   virtual_network_output = module.vnet.virtual_network_output
-  service_enpoint_policy_output = module.service_endpoint_policy.service_endpoint_policy_output
+  service_endpoint_policy_output = module.service_endpoint_policy.service_endpoint_policy_output
 
   vnet_subnet_list = [
     {
