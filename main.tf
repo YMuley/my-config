@@ -91,14 +91,17 @@ module "subnet" {
 }
 
 module "network_security_group" {
-  source  = "app.terraform.io/Motifworks/network_security_group/azurerm"
-  version = "1.0.0"
-    resource_group_output = module.resource_Group.resource_group_output
+  source                = "app.terraform.io/Motifworks/network_security_group/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
   network_security_group_list = [
     {
       name                = "nsg-ddi-poc"
       location            = "eastus"
       resource_group_name = "rg-ddi-poc"
+      tags  = {
+        env = poc
+      }
       security_rules = [
         {
           name                       = "HTTP"
