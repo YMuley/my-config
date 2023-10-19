@@ -130,7 +130,7 @@ module "service_endpoint_policy" {
           name              = "spe-stg-ddi-poc"
           description       = "poc policy"
           service           = "Microsoft.Storage"
-          service_resources =  [ module.resource_Group.resource_group_output["rg-ddi-poc"].name ]
+          service_resources =  [ module.resource_Group.resource_group_output["rg-ddi-poc"].id ]
 
         }
         
