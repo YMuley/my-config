@@ -125,7 +125,7 @@ module "service_endpoint_policy" {
       resource_group_name   = "rg-ddi-poc"
       location              = "eastus"
 
-      defination = [
+      definition = [
         {
           name              = "spe-stg-ddi-poc"
           description       = "poc policy"
