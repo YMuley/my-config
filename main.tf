@@ -99,7 +99,7 @@ module "network_security_group" {
       name                = "nsg-ddi-poc"
       location            = "eastus"
       resource_group_name = "rg-ddi-poc"
-      tags  = {
+      tags = {
         env = "poc"
       }
       security_rule = [
@@ -126,8 +126,32 @@ module "network_security_group" {
           destination_address_prefix = "*"
         }
       ]
-  }]
 
+    },
+    {
+      name                = "nsg-ddi-poc"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-poc"
+      tags = {
+        env = "poc"
+      }
+      security_rule = [
+        {
+          name                       = "HTTP"
+          priority                   = 1001
+          direction                  = "Inbound"
+          access                     = "Allow"
+          protocol                   = "Tcp"
+          source_port_range          = "*"
+          destination_port_range     = "80"
+          source_address_prefix      = "*"
+          destination_address_prefix = "*"
+        }
+
+      ]
+
+
+  }]
 }
 
 
@@ -137,8 +161,8 @@ module "vnet_dns" {
 
   azure_vnet_dns = [
     {
-        id = "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/RG-KushalPatil/providers/Microsoft.Network/virtualNetworks/kush-vnet"
-        dns_servers = ["10.168.10.1"]
+      id          = "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/RG-KushalPatil/providers/Microsoft.Network/virtualNetworks/kush-vnet"
+      dns_servers = ["10.168.10.1"]
     }
   ]
 }
