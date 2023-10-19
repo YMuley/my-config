@@ -129,7 +129,7 @@ module "network_security_group" {
 
     },
     {
-      name                = "nsg-ddi-poc"
+      name                = "nsg-ddi-poc-one"
       location            = "eastus"
       resource_group_name = "rg-ddi-poc"
       tags = {
