@@ -130,4 +130,15 @@ module "network_security_group" {
 
 }
 
+module "vnet_dns" {
+  source  = "app.terraform.io/Motifworks/vnet-dns/azurerm"
+  version = "1.0.1"
+
+  azure_vnet_dns = [
+    {
+        id = "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/RG-KushalPatil/providers/Microsoft.Network/virtualNetworks/kush-vnet"
+        dns_servers = ["10.168.10.1"]
+    }
+  ]
+}
 
