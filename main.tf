@@ -94,7 +94,7 @@ module "network_security_group" {
   source  = "app.terraform.io/Motifworks/network_security_group/azurerm"
   version = "1.0.0"
     resource_group_output = module.resource_Group.resource_group_output
-  security_group_list = [
+  network_security_group_list = [
     {
       name                = "nsg-ddi-poc"
       location            = "eastus"
