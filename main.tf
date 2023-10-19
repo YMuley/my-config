@@ -93,7 +93,7 @@ module "subnet" {
         virtual_network_name    =   "vnet-ddi-dev"
         address_prefixes        =   ["10.100.0.0/24"]
         service_endpoints       =   []
-        service_endpoint_policy_ids     =   []
+        service_endpoint_policy_ids     =   null
         private_endpoint_network_polices_enabled       =   "false"
         private_link_service_network_policies_enabled   =   "false"
 
