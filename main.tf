@@ -102,7 +102,7 @@ module "network_security_group" {
       tags  = {
         env = "poc"
       }
-      security_rules = [
+      security_rule = [
         {
           name                       = "HTTP"
           priority                   = 1001
