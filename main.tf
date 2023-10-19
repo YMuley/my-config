@@ -89,7 +89,7 @@ module "subnet" {
 
   ]
 }
-
+#
 
 module "vnet_dns" {
   source  = "app.terraform.io/Motifworks/vnet-dns/azurerm"
