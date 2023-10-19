@@ -100,7 +100,7 @@ module "network_security_group" {
       location            = "eastus"
       resource_group_name = "rg-ddi-poc"
       tags  = {
-        env = poc
+        env = "poc"
       }
       security_rules = [
         {
