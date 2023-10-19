@@ -90,7 +90,7 @@ module "subnet" {
   ]
 }
 
-module "network_security_group" {
+/*module "network_security_group" {
   source                = "app.terraform.io/Motifworks/network_security_group/azurerm"
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
@@ -128,7 +128,7 @@ module "network_security_group" {
       ]
   }]
 
-}
+}*/
 
 module "vnet_dns" {
   source  = "app.terraform.io/Motifworks/vnet-dns/azurerm"
