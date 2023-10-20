@@ -231,7 +231,7 @@ module "public-ip" {
       resource_group_name = "rg-ddi-poc"
       allocation_method   = "Static"
       sku                 = "Standard"
-      domain_name_label   = "test-label"
+      domain_name_label   = "testing-lable"
       tags = {
         environment = "poc"
       }
