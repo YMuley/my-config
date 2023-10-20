@@ -230,7 +230,7 @@ module "public-ip" {
       location            = "eastus"
       resource_group_name = "rg-ddi-poc"
       allocation_method   = "Static"
-      sku                 = "Standard"
+      sku                 = "Basic"
       domain_name_label   = "unique-testing-label"  
       tags = {
         environment = "poc"
