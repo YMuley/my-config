@@ -231,7 +231,7 @@ module "public-ip" {
       resource_group_name = "rg-ddi-poc"
       allocation_method   = "Static"
       sku                 = "Standard"
-      domain_name_label   = "testing-lable"
+      domain_name_label   = "unique-testing-label"  
       tags = {
         environment = "poc"
       }
@@ -241,9 +241,9 @@ module "public-ip" {
       name                = "publicip-ddi-dev"
       location            = "westus"
       resource_group_name = "rg-ddi-dev"
-      allocation_method   = "Static"
+      allocation_method   = "Static" 
       sku                 = "Basic"
-      domain_name_label   = "ddi-test-label"
+      domain_name_label   = "another-unique-label" 
       tags = {
         environment = "dev"
       }
@@ -251,3 +251,4 @@ module "public-ip" {
     }
   ]
 }
+
