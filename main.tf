@@ -219,36 +219,36 @@ module "vnet_dns" {
 }
 
 
-module "public-ip" {
-  source                = "app.terraform.io/Motifworks/public-ip/azurerm"
-  version               = "1.0.0"
-  resource_group_output = module.resource_Group.resource_group_output
+ module "public-ip" {
+   source                = "app.terraform.io/Motifworks/public-ip/azurerm"
+   version               = "1.0.0"
+#   resource_group_output = module.resource_Group.resource_group_output
 
-  public_ip_list = [
-    {
-      name                = "publicip-ddi-poc"
-      location            = "eastus"
-      resource_group_name = "rg-ddi-poc"
-      allocation_method   = "Static"
-      sku                 = "Basic"
-      domain_name_label   = "unique-testing-label"  
-      tags = {
-        environment = "poc"
-      }
-      sku_tier = "Regional"
-    },
-    {
-      name                = "publicip-ddi-dev"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev"
-      allocation_method   = "Static" 
-      sku                 = "Basic"
-      domain_name_label   = "another-unique-label" 
-      tags = {
-        environment = "dev"
-      }
-      sku_tier = "Global"
-    }
-  ]
-}
+#   public_ip_list = [
+#     {
+#       name                = "publicip-ddi-poc"
+#       location            = "eastus"
+#       resource_group_name = "rg-ddi-poc"
+#       allocation_method   = "Static"
+#       sku                 = "Basic"
+#       domain_name_label   = "unique-testing-label"  
+#       tags = {
+#         environment = "poc"
+#       }
+#       sku_tier = "Regional"
+#     },
+#     {
+#       name                = "publicip-ddi-dev"
+#       location            = "westus"
+#       resource_group_name = "rg-ddi-dev"
+#       allocation_method   = "Static" 
+#       sku                 = "Basic"
+#       domain_name_label   = "another-unique-label" 
+#       tags = {
+#         environment = "dev"
+#       }
+#       sku_tier = "Global"
+#     }
+#   ]
+ }
 
