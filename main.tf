@@ -219,8 +219,8 @@ module "vnet_dns" {
 }
 
 
-module "public_ip" {
-  source  = "app.terraform.io/Motifworks/public_ip/azurerm"
+module "public-ip" {
+  source  = "app.terraform.io/Motifworks/public-ip/azurerm"
   version = "1.0.0"
 
   public_ip_list = [
