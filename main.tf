@@ -241,7 +241,7 @@ module "public-ip" {
       name                = "publicip-ddi-dev"
       location            = "westus"
       resource_group_name = "rg-ddi-dev"
-      allocation_method   = "Dynamic"
+      allocation_method   = "Static"
       sku                 = "Basic"
       domain_name_label   = "ddi-test-label"
       tags = {
