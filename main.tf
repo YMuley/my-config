@@ -237,16 +237,17 @@ module "public-ip" {
       }
       sku_tier = "Regional"
     },
-    # {
-    #   name                = "publicip-ddi-dev"
-    #   location            = "westus"
-    #   resource_group_name = "rg-ddi-dev"
-    #   allocation_method   = "Dynamic"
-    #   sku                 = "Basic"
-    #   domain_name_label   = "example-label" 
-    #   tags = {
-    #     environment = "dev"
-    #   }
-    # }
+    {
+      name                = "publicip-ddi-dev"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev"
+      allocation_method   = "Dynamic"
+      sku                 = "Basic"
+      domain_name_label   = "ddi-test-label"
+      tags = {
+        environment = "dev"
+      }
+      sku_tier = "Global"
+    }
   ]
 }
