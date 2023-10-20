@@ -220,8 +220,9 @@ module "vnet_dns" {
 
 
 module "public-ip" {
-  source  = "app.terraform.io/Motifworks/public-ip/azurerm"
-  version = "1.0.0"
+  source                = "app.terraform.io/Motifworks/public-ip/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
 
   public_ip_list = [
     {
