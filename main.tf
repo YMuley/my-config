@@ -87,29 +87,29 @@ module "subnet" {
       ]
     },
 
-     {
-        name = "sub-ddi-dev-web"
-        resource_group_name     =   "rg-ddi-dev"
-        virtual_network_name    =   "vnet-ddi-dev"
-        address_prefixes        =   ["10.100.50.0/24"]
-        service_endpoints       =   ["Microsoft.Storage","Microsoft.Sql","Microsoft.Web"]
-        service_endpoint_policy_ids     = []  
-        private_endpoint_network_polices_enabled       =   "false"
-        private_link_service_network_policies_enabled   =   "false"
+    {
+      name                                          = "sub-ddi-dev-web"
+      resource_group_name                           = "rg-ddi-dev"
+      virtual_network_name                          = "vnet-ddi-dev"
+      address_prefixes                              = ["10.100.50.0/24"]
+      service_endpoints                             = ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web"]
+      service_endpoint_policy_ids                   = []
+      private_endpoint_network_polices_enabled      = "false"
+      private_link_service_network_policies_enabled = "false"
 
-        delegation = [
+      delegation = [
+        {
+          name = "delegation"
+          service_delegation = [
             {
-            name    =  "delegation"
-                service_delegation = [ 
-                    {
-                    name    =   null
-                    actions =   []
+              name    = null
+              actions = []
 
-        } 
-        ]
+            }
+          ]
 
-    } 
-    ]
+        }
+      ]
     }
 
   ]
@@ -306,8 +306,8 @@ module "route-table" {
   ]
 }
 
-module "nic" {
-  source                = "app.terraform.io/Motifworks/network-interface-card/azurerm"
+module "network_interface_card" {
+  source                = "app.terraform.io/Motifworks/network_interface_card/azurerm"
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
 
