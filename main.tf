@@ -256,6 +256,7 @@ module "route-table" {
   source                = "app.terraform.io/Motifworks/route-table/azurerm"
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
+  
   route_table_list = [
     {
       name                = "rt-table1"
