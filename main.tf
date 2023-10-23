@@ -93,7 +93,7 @@ module "subnet" {
         virtual_network_name    =   "vnet-ddi-dev"
         address_prefixes        =   ["10.100.50.0/24"]
         service_endpoints       =   ["null"]
-        service_endpoint_policy_ids     = ["null"]
+        service_endpoint_policy_ids     = ["ddi-sep-dev"]
         private_endpoint_network_polices_enabled       =   "false"
         private_link_service_network_policies_enabled   =   "false"
 
@@ -131,6 +131,22 @@ module "service_endpoint_policy" {
           description       = "poc policy"
           service           = "Microsoft.Storage"
           service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc"].id]
+
+        }
+
+      ]
+    },
+    {
+      name                = "ddi-sep-dev"
+      resource_group_name = "rg-ddi-dev"
+      location            = "eastus"
+
+      definition = [
+        {
+          name              = "spe-stg-ddi-dev"
+          description       = "poc policy"
+          service           = "Microsoft.Storage"
+          service_resources = [module.resource_Group.resource_group_output["rg-ddi-dev"].id]
 
         }
 
