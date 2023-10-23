@@ -12,13 +12,13 @@ module "resource_Group" {
       }
     },
     {
-        name        = "rg-ddi-dev" 
-        location    = "westus"
-        tags        = {
-            location      = "westus"
-            subscription  = "iac-dev"
-            environment   = "dev"
-        }
+      name     = "rg-ddi-dev"
+      location = "westus"
+      tags = {
+        location     = "westus"
+        subscription = "iac-dev"
+        environment  = "dev"
+      }
     }
   ]
 }
@@ -40,16 +40,16 @@ module "vnet" {
       }
     },
     {
-        name        = "vnet-ddi-dev"
-        location    = "westus"
-        resource_group_name = "rg-ddi-dev"
-        address_space = ["10.100.50.0/24"] //["172.21.0.0/16"]
-        dns_server = [] //["172.21.1.40", "172.21.1.41"]
-        tags = {
-            environment = "poc"
-        }
+      name                = "vnet-ddi-dev"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev"
+      address_space       = ["10.100.50.0/24"] //["172.21.0.0/16"]
+      dns_server          = []                 //["172.21.1.40", "172.21.1.41"]
+      tags = {
+        environment = "poc"
+      }
     }
-    ]
+  ]
 
 }
 
@@ -72,20 +72,20 @@ module "subnet" {
         private_endpoint_network_polices_enabled       =   "true"
         private_link_service_network_policies_enabled   =   "true"
 
-        delegation = [
-            {
-            name    =  "delegation"
-                service_delegation = [ 
-                    {
-                    name    =   "Microsoft.ContainerInstance/containerGroups"
-                    actions =   ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
-                
-        } 
-        ]
+      delegation = [
+          {
+          name    =  "delegation"
+              service_delegation = [ 
+                  {
+                  name    =   "Microsoft.ContainerInstance/containerGroups"
+                  actions =   ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
 
-    } 
-    ]
-    },
+      } 
+      ]
+
+  } 
+  ]
+  },
 
      {
         name = "sub-ddi-dev-web"
@@ -116,94 +116,94 @@ module "subnet" {
 }
 
 module "service_endpoint_policy" {
-  source  = "app.terraform.io/Motifworks/service_endpoint_policy/azurerm"
-  version = "1.0.0"
-   resource_group_output = module.resource_Group.resource_group_output
+  source                = "app.terraform.io/Motifworks/service_endpoint_policy/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
   service_endpoint_policy_list = [
     {
-      name                  = "ddi-sep-poc"
-      resource_group_name   = "rg-ddi-poc"
-      location              = "eastus"
+      name                = "ddi-sep-poc"
+      resource_group_name = "rg-ddi-poc"
+      location            = "eastus"
 
       definition = [
         {
           name              = "spe-stg-ddi-poc"
           description       = "poc policy"
           service           = "Microsoft.Storage"
-          service_resources =  [ module.resource_Group.resource_group_output["rg-ddi-poc"].id ]
+          service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc"].id]
 
         }
-        
-        ]
+
+      ]
     }
   ]
-  
+
 
 }
 #
 module "network_security_group" {
-  source                = "app.terraform.io/Motifworks/network_security_group/azurerm"
-  version               = "1.0.0"
-#   resource_group_output = module.resource_Group.resource_group_output
-#   network_security_group_list = [
-#     {
-#       name                = "nsg-ddi-poc"
-#       location            = "eastus"
-#       resource_group_name = "rg-ddi-poc"
-#       tags = {
-#         env = "poc"
-#       }
-#       security_rule = [
-#         {
-#           name                       = "HTTP"
-#           priority                   = 1001
-#           direction                  = "Inbound"
-#           access                     = "Allow"
-#           protocol                   = "Tcp"
-#           source_port_range          = "*"
-#           destination_port_range     = "80"
-#           source_address_prefix      = "*"
-#           destination_address_prefix = "*"
-#         },
-#         {
-#           name                       = "HTTPS"
-#           priority                   = 1002
-#           direction                  = "Inbound"
-#           access                     = "Allow"
-#           protocol                   = "Tcp"
-#           source_port_range          = "*"
-#           destination_port_range     = "443"
-#           source_address_prefix      = "*"
-#           destination_address_prefix = "*"
-#         }
-#       ]
+  source  = "app.terraform.io/Motifworks/network_security_group/azurerm"
+  version = "1.0.0"
+  #   resource_group_output = module.resource_Group.resource_group_output
+  #   network_security_group_list = [
+  #     {
+  #       name                = "nsg-ddi-poc"
+  #       location            = "eastus"
+  #       resource_group_name = "rg-ddi-poc"
+  #       tags = {
+  #         env = "poc"
+  #       }
+  #       security_rule = [
+  #         {
+  #           name                       = "HTTP"
+  #           priority                   = 1001
+  #           direction                  = "Inbound"
+  #           access                     = "Allow"
+  #           protocol                   = "Tcp"
+  #           source_port_range          = "*"
+  #           destination_port_range     = "80"
+  #           source_address_prefix      = "*"
+  #           destination_address_prefix = "*"
+  #         },
+  #         {
+  #           name                       = "HTTPS"
+  #           priority                   = 1002
+  #           direction                  = "Inbound"
+  #           access                     = "Allow"
+  #           protocol                   = "Tcp"
+  #           source_port_range          = "*"
+  #           destination_port_range     = "443"
+  #           source_address_prefix      = "*"
+  #           destination_address_prefix = "*"
+  #         }
+  #       ]
 
-#     },
-#     {
-#       name                = "nsg-ddi-poc-one"
-#       location            = "eastus"
-#       resource_group_name = "rg-ddi-poc"
-#       tags = {
-#         env = "poc"
-#       }
-#       security_rule = [
-#         {
-#           name                       = "HTTP"
-#           priority                   = 1001
-#           direction                  = "Inbound"
-#           access                     = "Allow"
-#           protocol                   = "Tcp"
-#           source_port_range          = "*"
-#           destination_port_range     = "80"
-#           source_address_prefix      = "*"
-#           destination_address_prefix = "*"
-#         }
+  #     },
+  #     {
+  #       name                = "nsg-ddi-poc-one"
+  #       location            = "eastus"
+  #       resource_group_name = "rg-ddi-poc"
+  #       tags = {
+  #         env = "poc"
+  #       }
+  #       security_rule = [
+  #         {
+  #           name                       = "HTTP"
+  #           priority                   = 1001
+  #           direction                  = "Inbound"
+  #           access                     = "Allow"
+  #           protocol                   = "Tcp"
+  #           source_port_range          = "*"
+  #           destination_port_range     = "80"
+  #           source_address_prefix      = "*"
+  #           destination_address_prefix = "*"
+  #         }
 
-#       ]
+  #       ]
 
 
-#   }]
- }
+  #   }]
+}
 
 
 module "vnet_dns" {
@@ -218,3 +218,70 @@ module "vnet_dns" {
   ]
 }
 
+
+module "public-ip" {
+  source  = "app.terraform.io/Motifworks/public-ip/azurerm"
+  version = "1.0.0"
+  #   resource_group_output = module.resource_Group.resource_group_output
+
+  #   public_ip_list = [
+  #     {
+  #       name                = "publicip-ddi-poc"
+  #       location            = "eastus"
+  #       resource_group_name = "rg-ddi-poc"
+  #       allocation_method   = "Static"
+  #       sku                 = "Basic"
+  #       domain_name_label   = "unique-testing-label"  
+  #       tags = {
+  #         environment = "poc"
+  #       }
+  #       sku_tier = "Regional"
+  #     },
+  #     {
+  #       name                = "publicip-ddi-dev"
+  #       location            = "westus"
+  #       resource_group_name = "rg-ddi-dev"
+  #       allocation_method   = "Static" 
+  #       sku                 = "Basic"
+  #       domain_name_label   = "another-unique-label" 
+  #       tags = {
+  #         environment = "dev"
+  #       }
+  #       sku_tier = "Global"
+  #     }
+  #   ]
+}
+
+module "route-table" {
+  source                = "app.terraform.io/Motifworks/route-table/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+
+  route_table_list = [
+    {
+      name                = "rt-table1"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-dev"
+      tags = {
+        environment = "poc"
+        application = "example"
+      }
+      
+      disable_bgp_route_propagation = true
+      route_list = [
+        {
+          name                   = "route1"
+          address_prefix         = "10.0.0.0/16"
+          next_hop_type          = "VirtualAppliance"
+          next_hop_in_ip_address = "10.0.0.1"
+        },
+        {
+          name                   = "route2"
+          address_prefix         = "10.1.0.0/16"
+          next_hop_type          = "VirtualAppliance"
+          next_hop_in_ip_address = "10.0.0.2"
+        }
+      ]
+    }
+  ]
+}
