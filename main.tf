@@ -55,37 +55,37 @@ module "vnet" {
 
 
 module "subnet" {
-  source  = "app.terraform.io/Motifworks/subnet/azurerm"
-  version = "1.0.0"
-  resource_group_output  = module.resource_Group.resource_group_output
-  virtual_network_output = module.vnet.virtual_network_output
+  source                         = "app.terraform.io/Motifworks/subnet/azurerm"
+  version                        = "1.0.0"
+  resource_group_output          = module.resource_Group.resource_group_output
+  virtual_network_output         = module.vnet.virtual_network_output
   service_endpoint_policy_output = module.service_endpoint_policy.service_endpoint_policy_output
 
   vnet_subnet_list = [
     {
-        name = "sub-ddi-poc-web"
-        resource_group_name     =   "rg-ddi-poc"
-        virtual_network_name    =   "vnet-ddi-poc"
-        address_prefixes        =   ["10.100.0.0/24"]
-        service_endpoints       =   ["Microsoft.Storage"]
-        service_endpoint_policy_ids     = ["ddi-sep-poc"] # compulsury input value needed otherwise module will throw error #["/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-poc/providers/Microsoft.Network/serviceEndpointPolicies/ddi-test-poc/"]
-        private_endpoint_network_polices_enabled       =   "true"
-        private_link_service_network_policies_enabled   =   "false"
+      name                                          = "sub-ddi-poc-web"
+      resource_group_name                           = "rg-ddi-poc"
+      virtual_network_name                          = "vnet-ddi-poc"
+      address_prefixes                              = ["10.100.0.0/24"]
+      service_endpoints                             = ["Microsoft.Storage"]
+      service_endpoint_policy_ids                   = ["ddi-sep-poc"] # compulsury input value needed otherwise module will throw error #["/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-poc/providers/Microsoft.Network/serviceEndpointPolicies/ddi-test-poc/"]
+      private_endpoint_network_polices_enabled      = "true"
+      private_link_service_network_policies_enabled = "false"
 
       delegation = [
-          {
-          name    =  "delegation"
-              service_delegation = [ 
-                  {
-                  name    =   "Microsoft.ContainerInstance/containerGroups"
-                  actions =   ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+        {
+          name = "delegation"
+          service_delegation = [
+            {
+              name    = "Microsoft.ContainerInstance/containerGroups"
+              actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
 
-      } 
+            }
+          ]
+
+        }
       ]
-
-  } 
-  ]
-  },
+    },
 
     #  {
     #     name = "sub-ddi-dev-web"
@@ -158,67 +158,67 @@ module "service_endpoint_policy" {
 }
 #
 module "network_security_group" {
-  source  = "app.terraform.io/Motifworks/network_security_group/azurerm"
-  version = "1.0.0"
-    resource_group_output = module.resource_Group.resource_group_output
-    network_security_group_list = [
-      {
-        name                = "nsg-ddi-poc"
-        location            = "eastus"
-        resource_group_name = "rg-ddi-poc"
-        tags = {
-          env = "poc"
+  source                = "app.terraform.io/Motifworks/network_security_group/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+  network_security_group_list = [
+    {
+      name                = "nsg-ddi-poc"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-poc"
+      tags = {
+        env = "poc"
+      }
+      security_rule = [
+        {
+          name                       = "HTTP"
+          priority                   = 1001
+          direction                  = "Inbound"
+          access                     = "Allow"
+          protocol                   = "Tcp"
+          source_port_range          = "*"
+          destination_port_range     = "80"
+          source_address_prefix      = "*"
+          destination_address_prefix = "*"
+        },
+        {
+          name                       = "HTTPS"
+          priority                   = 1002
+          direction                  = "Inbound"
+          access                     = "Allow"
+          protocol                   = "Tcp"
+          source_port_range          = "*"
+          destination_port_range     = "443"
+          source_address_prefix      = "*"
+          destination_address_prefix = "*"
         }
-        security_rule = [
-          {
-            name                       = "HTTP"
-            priority                   = 1001
-            direction                  = "Inbound"
-            access                     = "Allow"
-            protocol                   = "Tcp"
-            source_port_range          = "*"
-            destination_port_range     = "80"
-            source_address_prefix      = "*"
-            destination_address_prefix = "*"
-          },
-          {
-            name                       = "HTTPS"
-            priority                   = 1002
-            direction                  = "Inbound"
-            access                     = "Allow"
-            protocol                   = "Tcp"
-            source_port_range          = "*"
-            destination_port_range     = "443"
-            source_address_prefix      = "*"
-            destination_address_prefix = "*"
-          }
-        ]
+      ]
 
-      },
-      {
-        name                = "nsg-ddi-poc-one"
-        location            = "eastus"
-        resource_group_name = "rg-ddi-poc"
-        tags = {
-          env = "poc"
+    },
+    {
+      name                = "nsg-ddi-poc-one"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-poc"
+      tags = {
+        env = "poc"
+      }
+      security_rule = [
+        {
+          name                       = "HTTP"
+          priority                   = 1001
+          direction                  = "Inbound"
+          access                     = "Allow"
+          protocol                   = "Tcp"
+          source_port_range          = "*"
+          destination_port_range     = "80"
+          source_address_prefix      = "*"
+          destination_address_prefix = "*"
         }
-        security_rule = [
-          {
-            name                       = "HTTP"
-            priority                   = 1001
-            direction                  = "Inbound"
-            access                     = "Allow"
-            protocol                   = "Tcp"
-            source_port_range          = "*"
-            destination_port_range     = "80"
-            source_address_prefix      = "*"
-            destination_address_prefix = "*"
-          }
 
-        ]
+      ]
 
 
-    }]
+  }]
 }
 
 
@@ -240,36 +240,36 @@ module "vnet_dns" {
 
 
 module "public-ip" {
-  source  = "app.terraform.io/Motifworks/public-ip/azurerm"
-  version = "1.0.0"
-    resource_group_output = module.resource_Group.resource_group_output
+  source                = "app.terraform.io/Motifworks/public-ip/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
 
-    public_ip_list = [
-      {
-        name                = "publicip-ddi-poc"
-        location            = "eastus"
-        resource_group_name = "rg-ddi-poc"
-        allocation_method   = "Static"
-        sku                 = "Basic"
-        domain_name_label   = "unique-testing-label"  
-        tags = {
-          environment = "poc"
-        }
-        sku_tier = "Regional"
-      },
-      {
-        name                = "publicip-ddi-dev"
-        location            = "westus"
-        resource_group_name = "rg-ddi-dev"
-        allocation_method   = "Static" 
-        sku                 = "Basic"
-        domain_name_label   = "another-unique-label" 
-        tags = {
-          environment = "dev"
-        }
-        sku_tier = "Global"
+  public_ip_list = [
+    {
+      name                = "publicip-ddi-poc"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-poc"
+      allocation_method   = "Static"
+      sku                 = "Basic"
+      domain_name_label   = "unique-testing-label"
+      tags = {
+        environment = "poc"
       }
-    ]
+      sku_tier = "Regional"
+    },
+    {
+      name                = "publicip-ddi-dev"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev"
+      allocation_method   = "Static"
+      sku                 = "Basic"
+      domain_name_label   = "another-unique-label"
+      tags = {
+        environment = "dev"
+      }
+      sku_tier = "Global"
+    }
+  ]
 }
 
 module "route-table" {
@@ -286,7 +286,7 @@ module "route-table" {
         environment = "poc"
         application = "example"
       }
-      
+
       disable_bgp_route_propagation = true
       route_list = [
         {
@@ -305,3 +305,51 @@ module "route-table" {
     }
   ]
 }
+
+module "nic" {
+  source                = "app.terraform.io/Motifworks/network-interface-card/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+
+  network_interface_list = [
+    {
+      name                = "nic1"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-poc"
+      tags = {
+        environment = "poc"
+      }
+      ip_configuration = [
+        {
+          name                          = "config1"
+          virtual_network_name          = "vnet-ddi-poc"
+          subnet_name                   = "sub-ddi-poc-web"
+          private_ip_address_allocation = "dynamic"
+          public_ip_name                = "public-ip1"
+          private_ip_address            = null
+        }
+      ]
+    },
+    {
+      name                = "nic2"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev"
+      tags = {
+        environment = "dev"
+      }
+      ip_configuration = [
+        {
+          name                          = "config2"
+          virtual_network_name          = "vnet-ddi-dev"
+          subnet_name                   = "sub-ddi-dev-web"
+          private_ip_address_allocation = "dynamic"
+          public_ip_name                = null
+          private_ip_address            = null
+        }
+      ]
+    }
+  ]
+}
+
+
+
