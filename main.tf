@@ -100,12 +100,11 @@ module "subnet" {
       delegation = [
         {
           name = "delegation"
-          service_delegation = [
-            {
+          service_delegation = {
              name = null
              actions = []
             }
-          ]
+          
 
         }
       ]
