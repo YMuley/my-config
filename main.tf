@@ -265,6 +265,7 @@ module "route-table" {
         environment = "poc"
         application = "example"
       }
+      disable_bgp_route_propagation = true
       route_list = [
         {
           name                   = "route1"
