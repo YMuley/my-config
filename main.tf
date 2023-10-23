@@ -225,7 +225,7 @@ module "network_security_group" {
 module "vnet_dns" {
   source  = "app.terraform.io/Motifworks/vnet-dns/azurerm"
   version = "1.0.2"
-  virtual_network_output = module.vnet.virtual_network_output
+  #virtual_network_output = module.vnet.virtual_network_output
   azure_vnet_dns = [
     {
       virtual_network_name        = "vnet-ddi-poc"
