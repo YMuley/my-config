@@ -92,8 +92,8 @@ module "subnet" {
         resource_group_name     =   "rg-ddi-dev"
         virtual_network_name    =   "vnet-ddi-dev"
         address_prefixes        =   ["10.100.50.0/24"]
-        service_endpoints       =   null
-        service_endpoint_policy_ids     = null
+        service_endpoints       =   [null]
+        service_endpoint_policy_ids     = [null]
         private_endpoint_network_polices_enabled       =   "false"
         private_link_service_network_policies_enabled   =   "false"
 
