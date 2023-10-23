@@ -266,7 +266,7 @@ module "route-table" {
         application = "example"
       }
       disable_bgp_route_propagation = true
-      routes = [
+      route_list = [
         {
           name                   = "route1"
           address_prefix         = "10.0.0.0/16"
