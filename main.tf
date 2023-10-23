@@ -92,7 +92,7 @@ module "subnet" {
         resource_group_name     =   "rg-ddi-dev"
         virtual_network_name    =   "vnet-ddi-dev"
         address_prefixes        =   ["10.100.50.0/24"]
-        service_endpoints       =   ["null"]
+        service_endpoints       =   []
         service_endpoint_policy_ids     = ["ddi-sep-dev"]  # compulsury input value needed otherwise module will throw error
         private_endpoint_network_polices_enabled       =   "false"
         private_link_service_network_policies_enabled   =   "false"
@@ -139,7 +139,7 @@ module "service_endpoint_policy" {
     {
       name                = "ddi-sep-dev"
       resource_group_name = "rg-ddi-dev"
-      location            = "eastus"
+      location            = "westus"
 
       definition = [
         {
