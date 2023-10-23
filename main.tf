@@ -102,8 +102,7 @@ module "subnet" {
           name = "delegation"
           service_delegation = [
             {
-              name = null
-               actions = []
+             
             }
           ]
 
