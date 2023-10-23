@@ -311,7 +311,7 @@ module "network_interface_card" {
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
 
-  network_interface_list = [
+  network_interface_card_list = [
     {
       name                = "nic1"
       location            = "eastus"
