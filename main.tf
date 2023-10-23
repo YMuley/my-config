@@ -28,28 +28,28 @@ module "vnet" {
   source                = "app.terraform.io/Motifworks/vnet/azurerm"
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
-  virtual_network_list = [
-    {
-      name                = "vnet-ddi-poc"
-      location            = "eastus"
-      resource_group_name = "rg-ddi-poc"
-      address_space       = ["10.100.0.0/16"] //["172.21.0.0/16"]
-      dns_server          = []                //["172.21.1.40", "172.21.1.41"]
-      tags = {
-        environment = "poc"
-      }
-    },
-    {
-      name                = "vnet-ddi-dev"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev"
-      address_space       = ["10.100.50.0/24"] //["172.21.0.0/16"]
-      dns_server          = []                 //["172.21.1.40", "172.21.1.41"]
-      tags = {
-        environment = "poc"
-      }
-    }
-  ]
+  # virtual_network_list = [
+  #   {
+  #     name                = "vnet-ddi-poc"
+  #     location            = "eastus"
+  #     resource_group_name = "rg-ddi-poc"
+  #     address_space       = ["10.100.0.0/16"] //["172.21.0.0/16"]
+  #     dns_server          = []                //["172.21.1.40", "172.21.1.41"]
+  #     tags = {
+  #       environment = "poc"
+  #     }
+  #   },
+  #   {
+  #     name                = "vnet-ddi-dev"
+  #     location            = "westus"
+  #     resource_group_name = "rg-ddi-dev"
+  #     address_space       = ["10.100.50.0/24"] //["172.21.0.0/16"]
+  #     dns_server          = []                 //["172.21.1.40", "172.21.1.41"]
+  #     tags = {
+  #       environment = "poc"
+  #     }
+  #   }
+  # ]
 
 }
 
@@ -219,36 +219,67 @@ module "vnet_dns" {
 }
 
 
- module "public-ip" {
-   source                = "app.terraform.io/Motifworks/public-ip/azurerm"
-   version               = "1.0.0"
-#   resource_group_output = module.resource_Group.resource_group_output
+module "public-ip" {
+  source  = "app.terraform.io/Motifworks/public-ip/azurerm"
+  version = "1.0.0"
+  #   resource_group_output = module.resource_Group.resource_group_output
 
-#   public_ip_list = [
-#     {
-#       name                = "publicip-ddi-poc"
-#       location            = "eastus"
-#       resource_group_name = "rg-ddi-poc"
-#       allocation_method   = "Static"
-#       sku                 = "Basic"
-#       domain_name_label   = "unique-testing-label"  
-#       tags = {
-#         environment = "poc"
-#       }
-#       sku_tier = "Regional"
-#     },
-#     {
-#       name                = "publicip-ddi-dev"
-#       location            = "westus"
-#       resource_group_name = "rg-ddi-dev"
-#       allocation_method   = "Static" 
-#       sku                 = "Basic"
-#       domain_name_label   = "another-unique-label" 
-#       tags = {
-#         environment = "dev"
-#       }
-#       sku_tier = "Global"
-#     }
-#   ]
- }
+  #   public_ip_list = [
+  #     {
+  #       name                = "publicip-ddi-poc"
+  #       location            = "eastus"
+  #       resource_group_name = "rg-ddi-poc"
+  #       allocation_method   = "Static"
+  #       sku                 = "Basic"
+  #       domain_name_label   = "unique-testing-label"  
+  #       tags = {
+  #         environment = "poc"
+  #       }
+  #       sku_tier = "Regional"
+  #     },
+  #     {
+  #       name                = "publicip-ddi-dev"
+  #       location            = "westus"
+  #       resource_group_name = "rg-ddi-dev"
+  #       allocation_method   = "Static" 
+  #       sku                 = "Basic"
+  #       domain_name_label   = "another-unique-label" 
+  #       tags = {
+  #         environment = "dev"
+  #       }
+  #       sku_tier = "Global"
+  #     }
+  #   ]
+}
 
+
+module "route_table" {
+  source                = "app.terraform.io/Motifworks/route_table/azurerm"
+  version               = "1.0.1"
+  resource_group_output = module.resource_Group.resource_group_output
+  route_table_list = [
+    {
+      name                = "rt-table1"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-dev"
+      tags = {
+        environment = "poc"
+        application = "example"
+      }
+      route_list = [
+        {
+          name                   = "route1"
+          address_prefix         = "10.0.0.0/16"
+          next_hop_type          = "VirtualAppliance"
+          next_hop_in_ip_address = "10.0.0.1"
+        },
+        {
+          name                   = "route2"
+          address_prefix         = "10.1.0.0/16"
+          next_hop_type          = "VirtualAppliance"
+          next_hop_in_ip_address = "10.0.0.2"
+        }
+      ]
+    }
+  ]
+}
