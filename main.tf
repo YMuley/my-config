@@ -96,13 +96,13 @@ module "subnet" {
       service_endpoint_policy_ids                   = []
       private_endpoint_network_polices_enabled      = "false"
       private_link_service_network_policies_enabled = "false"
-      
+
       delegation = [
         {
           name = "delegation"
           service_delegation = [
             {
-              name    = null
+              name    = ""
               actions = []
 
             }
