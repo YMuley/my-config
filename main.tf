@@ -306,50 +306,7 @@ module "route-table" {
   ]
 }
 
-module "network_interface_card" {
-  source                = "app.terraform.io/Motifworks/network_interface_card/azurerm"
-  version               = "1.0.0"
-  resource_group_output = module.resource_Group.resource_group_output
 
-  network_interface_card_list = [
-    {
-      name                = "nic1"
-      location            = "eastus"
-      resource_group_name = "rg-ddi-poc"
-      tags = {
-        environment = "poc"
-      }
-      ip_configuration = [
-        {
-          name                          = "config1"
-          virtual_network_name          = "vnet-ddi-poc"
-          subnet_name                   = "sub-ddi-poc-web"
-          private_ip_address_allocation = "dynamic"
-          public_ip_name                = "public-ip1"
-          private_ip_address            = null
-        }
-      ]
-    },
-    {
-      name                = "nic2"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev"
-      tags = {
-        environment = "dev"
-      }
-      ip_configuration = [
-        {
-          name                          = "config2"
-          virtual_network_name          = "vnet-ddi-dev"
-          subnet_name                   = "sub-ddi-dev-web"
-          private_ip_address_allocation = "dynamic"
-          public_ip_name                = null
-          private_ip_address            = null
-        }
-      ]
-    }
-  ]
-}
 
 
 
