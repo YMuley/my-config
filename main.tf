@@ -93,7 +93,7 @@ module "subnet" {
         virtual_network_name    =   "vnet-ddi-dev"
         address_prefixes        =   ["10.100.50.0/24"]
         service_endpoints       =   ["Microsoft.Storage"]
-        service_endpoint_policy_ids     = ["ddi-sep-dev"]  # compulsury input value needed otherwise module will throw error
+        service_endpoint_policy_ids     = []  # compulsury input value needed otherwise module will throw error
         private_endpoint_network_polices_enabled       =   "false"
         private_link_service_network_policies_enabled   =   "false"
 
@@ -225,12 +225,16 @@ module "network_security_group" {
 module "vnet_dns" {
   source  = "app.terraform.io/Motifworks/vnet-dns/azurerm"
   version = "1.0.2"
-
+  virtual_network_output = module.vnet.virtual_network_output
   azure_vnet_dns = [
-    # {
-    #   id          = "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/RG-KushalPatil/providers/Microsoft.Network/virtualNetworks/kush-vnet"
-    #   dns_servers = ["10.168.10.1"]
-    # }
+    {
+      virtual_network_name        = "vnet-ddi-poc"
+      dns_servers = ["10.168.10.1"]
+    },
+    {
+      virtual_network_name        = "vnet-ddi-dev"
+      dns_servers = ["10.168.10.1"]
+    }
   ]
 }
 
