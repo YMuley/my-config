@@ -75,13 +75,11 @@ module "subnet" {
       delegation = [
         {
           name = "delegation"
-          service_delegation = [
-            {
+          service_delegation = {
               name    = "Microsoft.ContainerInstance/containerGroups"
               actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
 
             }
-          ]
           
 
         }
@@ -101,12 +99,11 @@ module "subnet" {
       delegation = [
         {
           name = "delegation"
-          service_delegation = [ 
-            {
+          service_delegation = {
              name = ""
              actions = []
             }
-          ]
+          
           
         }
       ]
