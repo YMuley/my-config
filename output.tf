@@ -14,7 +14,7 @@ output "vnet_subnet_output" {
   value = module.subnet.vnet_subnet_output
 }
 
-output "snet_network_security_group_assoication_output" {
-  value = module.subnet_network_security_group_association
+output "snet_network_security_group_output" {
+  value = module.network_security_group.network_security_group_output
 
 }
