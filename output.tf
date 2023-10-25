@@ -11,9 +11,5 @@ output "service_endpoint_policy_output" {
 }
 
 output "vnet_subnet_output" {
-  value = { module.subnet.vnet_subnet_output = {
-      source                         = "app.terraform.io/Motifworks/subnet/azurerm"
-      version                        = "1.0.0"
+  value = module.subnet.vnet_subnet_output 
   }
-  }
-}
