@@ -383,8 +383,8 @@ module "network_interface_card" {
     }
   ]
 
-  subnet_output     = {} 
-  public_ip_output  = {}  
+  subnet_output     =null 
+  public_ip_output  = null 
 }
 
 
