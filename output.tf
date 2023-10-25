@@ -16,5 +16,8 @@ output "vnet_subnet_output" {
 
 output "snet_network_security_group_output" {
   value = module.network_security_group.network_security_group_output
+}
 
+output "route_table_output" {
+  value = module.route_table.route_table_output
 }

@@ -349,3 +349,9 @@ module "subnet_nsg_association" {
   # subnet_list                   = local.subnet_list
 }
 
+module "subnet_route-table_association" {
+  source             = "app.terraform.io/Motifworks/subnet_route-table_association/azurerm"
+  version            = "1.0.0"
+  subnet_output      = module.subnet.vnet_subnet_output
+  route_table_output = module.route_table.route_table_output
+}
