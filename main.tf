@@ -339,7 +339,6 @@ module "route-table" {
 #   ]
 # }
 
-
 module "network_interface_card" {
   source                = "app.terraform.io/Motifworks/network_interface_card/azurerm"
   version               = "1.0.0"
@@ -384,4 +383,5 @@ module "network_interface_card" {
     }
   ]
 }
+
 
