@@ -76,11 +76,11 @@ module "subnet" {
         {
           name = "delegation"
           service_delegation = [{
-              name    = "Microsoft.ContainerInstance/containerGroups"
-              actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+            name    = "Microsoft.ContainerInstance/containerGroups"
+            actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
 
-            }]
-          
+          }]
+
 
         }
       ]
@@ -298,7 +298,7 @@ module "network_interface_card" {
   source                = "app.terraform.io/Motifworks/network_interface_card/azurerm"
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
- 
+
   network_interface_card_list = [
     {
       name                = "nic1"
@@ -311,9 +311,9 @@ module "network_interface_card" {
         {
           name                          = "config1"
           virtual_network_name          = "vnet-ddi-poc"
-          subnet_name                   = "sub-ddi-poc-web"
+          subnet_name                   = ["sub-ddi-poc-web"]
           private_ip_address_allocation = "dynamic"
-          public_ip_name                = "public-ip1"
+          public_ip_name                = ["public-ip1"]
           private_ip_address            = null
         }
       ]
@@ -329,9 +329,9 @@ module "network_interface_card" {
         {
           name                          = "config2"
           virtual_network_name          = "vnet-ddi-dev"
-          subnet_name                   = "sub-ddi-dev-web"
+          subnet_name                   = ["sub-ddi-dev-web"]
           private_ip_address_allocation = "dynamic"
-          public_ip_name                = null
+          public_ip_name                = ["public-ip2"]
           private_ip_address            = null
         }
       ]
