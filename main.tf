@@ -96,17 +96,7 @@ module "subnet" {
       private_endpoint_network_polices_enabled      = "false"
       private_link_service_network_policies_enabled = "false"
 
-      delegation = [
-        # {
-        #   name = ""
-        #   service_delegation = [ {
-        #      name = ""
-        #      actions = []
-        #     }]
-          
-          
-        # }
-      ]
+      delegation = []
     }
 
   ]
