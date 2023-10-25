@@ -97,15 +97,15 @@ module "subnet" {
       private_link_service_network_policies_enabled = "false"
 
       delegation = [
-        {
-          name = "delegation"
-          service_delegation = [ {
-             name = ""
-             actions = []
-            }]
+        # {
+        #   name = ""
+        #   service_delegation = [ {
+        #      name = ""
+        #      actions = []
+        #     }]
           
           
-        }
+        # }
       ]
     }
 
