@@ -382,6 +382,9 @@ module "network_interface_card" {
       ]
     }
   ]
+
+  subnet_output     = {} 
+  public_ip_output  = {}  
 }
 
 
