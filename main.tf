@@ -33,8 +33,7 @@ module "vnet" {
       name                = "vnet-ddi-poc"
       location            = "eastus"
       resource_group_name = "rg-ddi-poc"
-      address_space       = ["10.100.0.0/16"] //["172.21.0.0/16"]
-      dns_server          = []                //["172.21.1.40", "172.21.1.41"]
+      address_space       = ["10.100.0.0/16"] //["172.21.0.0/16"]  
       tags = {
         environment = "poc"
       }
@@ -44,7 +43,6 @@ module "vnet" {
       location            = "westus"
       resource_group_name = "rg-ddi-dev"
       address_space       = ["10.100.50.0/24"] //["172.21.0.0/16"]
-      dns_server          = []                 //["172.21.1.40", "172.21.1.41"]
       tags = {
         environment = "poc"
       }
@@ -223,6 +221,7 @@ module "virtual_network_dns" {
       dns_servers = []
     }
   ]
+  depends_on = [ module.vnet ]
 }
 
 
