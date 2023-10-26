@@ -315,7 +315,7 @@ module "network_interface_card" {
           subnet_name                   = "sub-ddi-poc-web"
           private_ip_address_allocation = "Dynamic"
           public_ip_name                = null
-          public_ip_name                = "pip2-fw-hub-wus"
+          public_ip_name                = "ddi2-fw-hub-wus"
           private_ip_address            = null
         }
       ]
@@ -335,7 +335,7 @@ module "network_interface_card" {
     #       subnet_name                   = "sub-ddi-dev-web"
     #       private_ip_address_allocation = "Dynamic"
     #       public_ip_name                = "public-ip2"
-    #public_ip_name                = "pip2-fw-hub-wus"
+    #public_ip_name                = "ddi-fw-hub-wus"
     #   private_ip_address            = null
     #     }
     #   ]
