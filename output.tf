@@ -27,5 +27,5 @@ output "virtual_network_dns_output" {
 }
 
 output "public_ip_output" {
-  value = module.public-ip.public_ip_output
+  value = module.public_ip.public_ip_output
 }

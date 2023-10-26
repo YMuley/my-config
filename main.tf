@@ -226,9 +226,9 @@ module "virtual_network_dns" {
 }
 
 
-module "public-ip" {
-  source                = "app.terraform.io/Motifworks/public-ip/azurerm"
-  version               = "1.0.0"
+module "public_ip" {
+  source  = "app.terraform.io/Motifworks/public_ip/azurerm"
+  version = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
 
   public_ip_list = [
@@ -298,7 +298,7 @@ module "network_interface_card" {
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
   subnet_output         = module.subnet.vnet_subnet_output
-  public_ip_output      = module.public-ip.public_ip_output
+  public_ip_output      = module.public_ip.public_ip_output
 
   network_interface_card_list = [
     {
