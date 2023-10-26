@@ -25,8 +25,8 @@ module "resource_Group" {
 
 
 module "virtual_network" {
-  source  = "app.terraform.io/Motifworks/virtual_network/azurerm"
-  version = "1.0.0"
+  source                = "app.terraform.io/Motifworks/virtual_network/azurerm"
+  version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
   virtual_network_list = [
     {
@@ -98,7 +98,7 @@ module "subnet" {
     }
 
   ]
-  depends_on =[ module.virtual_network , module.service_endpoint_policy]
+  depends_on = [module.virtual_network, module.service_endpoint_policy]
 }
 
 module "service_endpoint_policy" {
@@ -209,20 +209,20 @@ module "network_security_group" {
 
 
 module "virtual_network_dns" {
-  source  = "app.terraform.io/Motifworks/virtual_network_dns/azurerm"
-  version = "1.0.0"
+  source                 = "app.terraform.io/Motifworks/virtual_network_dns/azurerm"
+  version                = "1.0.0"
   virtual_network_output = module.virtual_network.virtual_network_output
   virtual_network_dns_list = [
     {
-      virtual_network_name        = "vnet-ddi-poc"
-      dns_servers = ["10.168.10.1"]
+      virtual_network_name = "vnet-ddi-poc"
+      dns_servers          = ["10.168.10.1"]
     },
     {
-      virtual_network_name        = "vnet-ddi-dev"
-      dns_servers = []
+      virtual_network_name = "vnet-ddi-dev"
+      dns_servers          = []
     }
   ]
-  depends_on = [ module.virtual_network]
+  depends_on = [module.virtual_network]
 }
 
 
@@ -260,8 +260,8 @@ module "public-ip" {
 }
 
 module "route_table" {
-  source  = "app.terraform.io/Motifworks/route_table/azurerm"
-  version = "1.0.0"
+  source                = "app.terraform.io/Motifworks/route_table/azurerm"
+  version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
 
   route_table_list = [
@@ -293,52 +293,51 @@ module "route_table" {
   ]
 }
 
-# module "network_interface_card" {
-#   source                = "app.terraform.io/Motifworks/network_interface_card/azurerm"
-#   version               = "1.0.0"
-#   resource_group_output = module.resource_Group.resource_group_output
-# subnet_output=module.subnet.vnet_subnet_output
-#   network_interface_card_list = [
-#     {
-#       name                = "nic1"
-#       location            = "eastus"
-#       resource_group_name = "rg-ddi-poc"
-#       tags = {
-#         environment = "poc"
-#       }
-#       ip_configuration = [
-#         {
-#           name                          = "config1"
-#           virtual_network_name          = "vnet-ddi-poc"
-#           subnet_name                   = "sub-ddi-poc-web"
-#           private_ip_address_allocation = "Dynamic"
-#           public_ip_name                = "public-ip1"
-#           private_ip_address            = null
-#         }
-#       ]
-#     },
-#     {
-#       name                = "nic2"
-#       location            = "westus"
-#       resource_group_name = "rg-ddi-dev"
-#       tags = {
-#         environment = "dev"
-#       }
-#       ip_configuration = [
-#         {
-#           name                          = "config2"
-#           virtual_network_name          = "vnet-ddi-dev"
-#           subnet_name                   = "sub-ddi-dev-web"
-#           private_ip_address_allocation = "Dynamic"
-#           public_ip_name                = "public-ip2"
-#           private_ip_address            = null
-#         }
-#       ]
-#     }
-#   ]
+module "network_interface_card" {
+  source                = "app.terraform.io/Motifworks/network_interface_card/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+  subnet_output         = module.subnet.vnet_subnet_output
 
- 
-# }
+  network_interface_card_list = [
+    {
+      name                = "nic1"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-poc"
+      tags = {
+        environment = "poc"
+      }
+      ip_configuration = [
+        {
+          name                          = "config1"
+          virtual_network_name          = "vnet-ddi-poc"
+          subnet_name                   = "sub-ddi-poc-web"
+          private_ip_address_allocation = "Dynamic"
+          public_ip_name                = "public-ip1"
+        }
+      ]
+    },
+    {
+      name                = "nic2"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev"
+      tags = {
+        environment = "dev"
+      }
+      ip_configuration = [
+        {
+          name                          = "config2"
+          virtual_network_name          = "vnet-ddi-dev"
+          subnet_name                   = "sub-ddi-dev-web"
+          private_ip_address_allocation = "Dynamic"
+          public_ip_name                = "public-ip2"
+        }
+      ]
+    }
+  ]
+
+
+}
 
 module "subnet_nsg_association" {
   source                        = "app.terraform.io/Motifworks/subnet_nsg_association/azurerm"
@@ -349,8 +348,8 @@ module "subnet_nsg_association" {
 }
 
 module "subnet_route_table_association" {
-  source  = "app.terraform.io/Motifworks/subnet_route_table_association/azurerm"
-  version = "1.0.0"
+  source             = "app.terraform.io/Motifworks/subnet_route_table_association/azurerm"
+  version            = "1.0.0"
   subnet_output      = module.subnet.vnet_subnet_output
   route_table_output = module.route_table.route_table_output
 }
