@@ -303,16 +303,16 @@ module "network_interface_card" {
   network_interface_card_list = [
     {
       name                = "nic1"
-      location            = "eastus"
-      resource_group_name = "rg-ddi-poc"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev"
       tags = {
         environment = "poc"
       }
       ip_configuration = [
         {
           name                          = "config1"
-          virtual_network_name          = "vnet-ddi-poc"
-          subnet_name                   = "sub-ddi-poc-web"
+          virtual_network_name          = "vnet-ddi-dev"
+          subnet_name                   = "sub-ddi-dev-web"
           private_ip_address_allocation = "Dynamic"
           public_ip_name                = null
           private_ip_address            = null
