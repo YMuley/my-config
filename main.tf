@@ -24,9 +24,9 @@ module "resource_Group" {
 }
 
 
-module "vnet" {
-  source                = "app.terraform.io/Motifworks/vnet/azurerm"
-  version               = "1.0.0"
+module "virtual_network" {
+  source  = "app.terraform.io/Motifworks/virtual_network/azurerm"
+  version = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
   virtual_network_list = [
     {
@@ -56,7 +56,7 @@ module "subnet" {
   source                         = "app.terraform.io/Motifworks/subnet/azurerm"
   version                        = "1.0.0"
   resource_group_output          = module.resource_Group.resource_group_output
-  virtual_network_output         = module.vnet.virtual_network_output
+  virtual_network_output         = module.virtual_network.virtual_network_output
   service_endpoint_policy_output = module.service_endpoint_policy.service_endpoint_policy_output
 
   vnet_subnet_list = [
@@ -210,7 +210,7 @@ module "network_security_group" {
 module "virtual_network_dns" {
   source  = "app.terraform.io/Motifworks/virtual_network_dns/azurerm"
   version = "1.0.0"
-  virtual_network_output = module.vnet.virtual_network_output
+  virtual_network_output = module.virtual_network.virtual_network_output
   virtual_network_dns_list = [
     {
       virtual_network_name        = "vnet-ddi-poc"

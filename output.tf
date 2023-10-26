@@ -3,7 +3,7 @@ output "resource_group_output" {
 }
 
 output "virtual_network_output" {
-  value = module.vnet.virtual_network_output
+  value = module.virtual_network.virtual_network_output
 }
 
 output "service_endpoint_policy_output" {
