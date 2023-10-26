@@ -221,7 +221,7 @@ module "virtual_network_dns" {
       dns_servers = []
     }
   ]
-  depends_on = [ module.vnet ]
+  depends_on = [ module.virtual_network]
 }
 
 
