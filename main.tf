@@ -233,7 +233,7 @@ module "public_ip" {
 
   public_ip_list = [
     {
-      name                = "publicip-ddi-poc"
+      name                = "public-ip-ddi-poc"
       location            = "eastus"
       resource_group_name = "rg-ddi-poc"
       allocation_method   = "Static"
@@ -245,7 +245,7 @@ module "public_ip" {
       sku_tier = "Regional"
     },
     {
-      name                = "publicip-ddi-dev"
+      name                = "public-ip-ddi-dev"
       location            = "westus"
       resource_group_name = "rg-ddi-dev"
       allocation_method   = "Static"
@@ -315,6 +315,8 @@ module "network_interface_card" {
           subnet_name                   = "sub-ddi-poc-web"
           private_ip_address_allocation = "Dynamic"
           public_ip_name                = null
+          public_ip_name                = "pip2-fw-hub-wus"
+          private_ip_address            = null
         }
       ]
     }
@@ -333,6 +335,8 @@ module "network_interface_card" {
     #       subnet_name                   = "sub-ddi-dev-web"
     #       private_ip_address_allocation = "Dynamic"
     #       public_ip_name                = "public-ip2"
+    #public_ip_name                = "pip2-fw-hub-wus"
+    #   private_ip_address            = null
     #     }
     #   ]
     # }
