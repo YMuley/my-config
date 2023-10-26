@@ -227,8 +227,8 @@ module "virtual_network_dns" {
 
 
 module "public_ip" {
-  source  = "app.terraform.io/Motifworks/public_ip/azurerm"
-  version = "1.0.0"
+  source                = "app.terraform.io/Motifworks/public_ip/azurerm"
+  version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
 
   public_ip_list = [
@@ -317,24 +317,25 @@ module "network_interface_card" {
           public_ip_name                = "public-ip1"
         }
       ]
-    },
-    {
-      name                = "nic2"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev"
-      tags = {
-        environment = "dev"
-      }
-      ip_configuration = [
-        {
-          name                          = "config2"
-          virtual_network_name          = "vnet-ddi-dev"
-          subnet_name                   = "sub-ddi-dev-web"
-          private_ip_address_allocation = "Dynamic"
-          public_ip_name                = "public-ip2"
-        }
-      ]
     }
+
+    # {
+    #   name                = "nic2"
+    #   location            = "westus"
+    #   resource_group_name = "rg-ddi-dev"
+    #   tags = {
+    #     environment = "dev"
+    #   }
+    #   ip_configuration = [
+    #     {
+    #       name                          = "config2"
+    #       virtual_network_name          = "vnet-ddi-dev"
+    #       subnet_name                   = "sub-ddi-dev-web"
+    #       private_ip_address_allocation = "Dynamic"
+    #       public_ip_name                = "public-ip2"
+    #     }
+    #   ]
+    # }
   ]
 
 
