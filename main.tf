@@ -106,38 +106,38 @@ module "service_endpoint_policy" {
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
   service_endpoint_policy_list = [
-    # {
-    #   name                = "ddi-sep-poc"
-    #   resource_group_name = "rg-ddi-poc"
-    #   location            = "eastus"
+    {
+      name                = "ddi-sep-poc"
+      resource_group_name = "rg-ddi-poc"
+      location            = "eastus"
 
-    #   definition = [
-    #     {
-    #       name              = "spe-stg-ddi-poc"
-    #       description       = "poc policy"
-    #       service           = "Microsoft.Storage"
-    #       service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc"].id]
+      definition = [
+        {
+          name              = "spe-stg-ddi-poc"
+          description       = "poc policy"
+          service           = "Microsoft.Storage"
+          service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc"].id]
 
-    #     }
+        }
 
-    #   ]
-    # },
-    # {
-    #   name                = "ddi-sep-dev"
-    #   resource_group_name = "rg-ddi-dev"
-    #   location            = "westus"
+      ]
+    },
+    {
+      name                = "ddi-sep-dev"
+      resource_group_name = "rg-ddi-dev"
+      location            = "westus"
 
-    #   definition = [
-    #     {
-    #       name              = "spe-stg-ddi-dev"
-    #       description       = "poc policy"
-    #       service           = "Microsoft.Storage"
-    #       service_resources = [module.resource_Group.resource_group_output["rg-ddi-dev"].id]
+      definition = [
+        {
+          name              = "spe-stg-ddi-dev"
+          description       = "poc policy"
+          service           = "Microsoft.Storage"
+          service_resources = [module.resource_Group.resource_group_output["rg-ddi-dev"].id]
 
-    #     }
+        }
 
-    #   ]
-    # }
+      ]
+    }
   ]
 
 
