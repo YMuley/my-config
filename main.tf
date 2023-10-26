@@ -207,22 +207,22 @@ module "network_security_group" {
 }
 
 
-module "virtual_network_dns" {
-  source  = "app.terraform.io/Motifworks/virtual_network_dns/azurerm"
-  version = "1.0.0"
-  virtual_network_output = module.virtual_network.virtual_network_output
-  virtual_network_dns_list = [
-    {
-      virtual_network_name        = "vnet-ddi-poc"
-      dns_servers = ["10.168.10.1"]
-    },
-    {
-      virtual_network_name        = "vnet-ddi-dev"
-      dns_servers = []
-    }
-  ]
-  depends_on = [ module.virtual_network]
-}
+# module "virtual_network_dns" {
+#   source  = "app.terraform.io/Motifworks/virtual_network_dns/azurerm"
+#   version = "1.0.0"
+#   virtual_network_output = module.virtual_network.virtual_network_output
+#   virtual_network_dns_list = [
+#     {
+#       virtual_network_name        = "vnet-ddi-poc"
+#       dns_servers = ["10.168.10.1"]
+#     },
+#     {
+#       virtual_network_name        = "vnet-ddi-dev"
+#       dns_servers = []
+#     }
+#   ]
+#   depends_on = [ module.virtual_network]
+# }
 
 
 module "public-ip" {
