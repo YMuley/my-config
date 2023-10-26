@@ -214,14 +214,14 @@ module "virtual_network_dns" {
   version = "1.0.0"
   virtual_network_output = module.vnet.virtual_network_output
   virtual_network_dns_list = [
-    # {
-    #   virtual_network_name        = "vnet-ddi-poc"
-    #   dns_servers = ["10.168.10.1"]
-    # },
-    # {
-    #   virtual_network_name        = "vnet-ddi-dev"
-    #   dns_servers = []
-    # }
+    {
+      virtual_network_name        = "vnet-ddi-poc"
+      dns_servers = ["10.168.10.1"]
+    },
+    {
+      virtual_network_name        = "vnet-ddi-dev"
+      dns_servers = []
+    }
   ]
 }
 
