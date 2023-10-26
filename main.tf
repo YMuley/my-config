@@ -314,8 +314,7 @@ module "network_interface_card" {
           virtual_network_name          = "vnet-ddi-poc"
           subnet_name                   = "sub-ddi-poc-web"
           private_ip_address_allocation = "Dynamic"
-          public_ip_name                = null
-          public_ip_name                = "ddi2-fw-hub-wus"
+          public_ip_name                = "public-ip-ddi-poc"
           private_ip_address            = null
         }
       ]
