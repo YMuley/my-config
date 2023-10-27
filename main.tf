@@ -361,19 +361,19 @@ module "subnet_route_table_association" {
 
 
 module "storage_account" {
-  source  = "app.terraform.io/Motifworks/storage_account/azurerm"
-  version = "1.0.0"
+  source                = "app.terraform.io/Motifworks/storage_account/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
 
-  resource_group_name ="rg-ddi-dev"
-  location            = "westus"
-
-  storage_accounts = [
+  storage_account_list = [
     {
       name                      = "stgacc1"
+      resource_group_name       = "rg-ddi-dev"
+      location                  = "westus"
       account_tier              = "Standard"
       account_replication_type  = "LRS"
       enable_https_traffic_only = true
-      tags                      = {
+      tags = {
         environment = "dev"
       }
     },
