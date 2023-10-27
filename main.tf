@@ -364,10 +364,12 @@ module "storage_account" {
   source                = "app.terraform.io/Motifworks/storage_account/azurerm"
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
+  subnet_output         = module.subnet.vnet_subnet_output
 
-  storage_account_list = [
+
+  storage_accounts = [
     {
-      name                      = "stgacc1"
+      name                      = "strgacc1"
       resource_group_name       = "rg-ddi-dev"
       location                  = "westus"
       account_tier              = "Standard"
@@ -376,7 +378,20 @@ module "storage_account" {
       tags = {
         environment = "dev"
       }
-    },
+      allow_https_only              = true
+      minimum_tls_version           = "TLS1_2"
+      shared_access_key_enabled     = false
+      public_network_access_enabled = true
+      network_rules = [
+        {
+          default_action       = "Allow"
+          bypass               = "AzureServices"
+          ip_rules             = ["123.123.123.123/32"]
+          virtual_network_name = "vnet-ddi-dev"
+          subnet_name          = "sub-ddi-dev-web"
+        }
+      ]
+    }
     # {
     #   name                      = "storageaccount2"
     #   account_tier              = "Standard"
@@ -385,6 +400,20 @@ module "storage_account" {
     #   tags                      = {
     #     environment = "prod"
     #   }
+    #   allow_https_only          = true
+    #   minimum_tls_version       = "TLS1_2"
+    #   shared_access_key_enabled = false
+    #   public_network_access_enabled = true
+    #   network_rules = [
+    #     {
+    #       default_action        = "Deny"
+    #       bypass                = "Logging,Metrics"
+    #       ip_rules              = ["321.321.321.321/32"]
+    #       virtual_network_name  = "example-vnet"
+    #       subnet_name           = "example-subnet"
+    #     }
+    #   ]
     # }
   ]
 }
+
