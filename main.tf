@@ -367,7 +367,7 @@ module "storage_account" {
   subnet_output         = module.subnet.vnet_subnet_output
 
 
-  storage_accounts = [
+  storage_account_list = [
     {
       name                      = "strgacc1"
       resource_group_name       = "rg-ddi-dev"
