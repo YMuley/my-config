@@ -242,7 +242,7 @@ module "public_ip" {
       tags = {
         environment = "poc"
       }
-      sku_tier = "Global"
+      sku_tier = "Regional"
     },
     {
       name                = "public-ip-ddi-dev"
