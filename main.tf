@@ -386,7 +386,7 @@ module "storage_account" {
         {
           default_action       = "Allow"
           bypass               = ["AzureServices"]
-          ip_rules             = ["123.123.123.123/32"]
+          ip_rules             = ["23.45.1.0/30"]
           virtual_network_name = "vnet-ddi-dev"
           subnet_name          = "sub-ddi-dev-web"
         }
