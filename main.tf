@@ -380,7 +380,7 @@ module "storage_account" {
       }
       allow_https_only              = true
       minimum_tls_version           = "TLS1_2"
-      shared_access_key_enabled     = false
+      shared_access_key_enabled     = true
       public_network_access_enabled = true
       network_rules = [
         {
