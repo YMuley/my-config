@@ -358,3 +358,33 @@ module "subnet_route_table_association" {
   subnet_output      = module.subnet.vnet_subnet_output
   route_table_output = module.route_table.route_table_output
 }
+
+
+module "storage_account" {
+  source  = "app.terraform.io/Motifworks/storage_account/azurerm"
+  version = "1.0.0"
+
+  resource_group_name ="rg-ddi-dev"
+  location            = "westus"
+
+  storage_accounts = [
+    {
+      name                      = "stgacc1"
+      account_tier              = "Standard"
+      account_replication_type  = "LRS"
+      enable_https_traffic_only = true
+      tags                      = {
+        environment = "dev"
+      }
+    },
+    # {
+    #   name                      = "storageaccount2"
+    #   account_tier              = "Standard"
+    #   account_replication_type  = "GRS"
+    #   enable_https_traffic_only = true
+    #   tags                      = {
+    #     environment = "prod"
+    #   }
+    # }
+  ]
+}
