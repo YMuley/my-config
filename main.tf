@@ -233,7 +233,7 @@ module "public_ip" {
 
   public_ip_list = [
     {
-      name                = "publicip-ddi-poc"
+      name                = "public-ip-ddi-poc"
       location            = "eastus"
       resource_group_name = "rg-ddi-poc"
       allocation_method   = "Static"
@@ -245,7 +245,7 @@ module "public_ip" {
       sku_tier = "Regional"
     },
     {
-      name                = "publicip-ddi-dev"
+      name                = "public-ip-ddi-dev"
       location            = "westus"
       resource_group_name = "rg-ddi-dev"
       allocation_method   = "Static"
