@@ -392,28 +392,6 @@ module "storage_account" {
         }
       ]
     }
-    # {
-    #   name                      = "storageaccount2"
-    #   account_tier              = "Standard"
-    #   account_replication_type  = "GRS"
-    #   enable_https_traffic_only = true
-    #   tags                      = {
-    #     environment = "prod"
-    #   }
-    #   allow_https_only          = true
-    #   minimum_tls_version       = "TLS1_2"
-    #   shared_access_key_enabled = false
-    #   public_network_access_enabled = true
-    #   network_rules = [
-    #     {
-    #       default_action        = "Deny"
-    #       bypass                = "Logging,Metrics"
-    #       ip_rules              = ["321.321.321.321/32"]
-    #       virtual_network_name  = "example-vnet"
-    #       subnet_name           = "example-subnet"
-    #     }
-    #   ]
-    # }
   ]
 }
 
