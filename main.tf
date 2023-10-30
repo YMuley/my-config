@@ -360,38 +360,62 @@ module "subnet_route_table_association" {
 }
 
 
-# module "storage_account" {
-#   source                = "app.terraform.io/Motifworks/storage_account/azurerm"
-#   version               = "1.0.0"
-#   resource_group_output = module.resource_Group.resource_group_output
-#   subnet_output         = module.subnet.vnet_subnet_output
+module "storage_account" {
+  source                = "app.terraform.io/Motifworks/storage_account/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+  subnet_output         = module.subnet.vnet_subnet_output
 
 
-#   storage_account_list = [
-#     {
-#       name                      = "ddistorageacc1"
-#       resource_group_name       = "rg-ddi-dev"
-#       location                  = "westus"
-#       account_tier              = "Standard"
-#       account_replication_type  = "LRS"
-#       enable_https_traffic_only = true
-#       tags = {
-#         environment = "dev"
-#       }
-#       allow_https_only              = true
-#       minimum_tls_version           = "TLS1_2"
-#       shared_access_key_enabled     = true
-#       public_network_access_enabled = true
-#       network_rules = [
-#         {
-#           default_action       = "Allow"
-#           bypass               = ["AzureServices"]
-#           ip_rules             = ["23.45.1.0/30"]
-#           virtual_network_name = "vnet-ddi-dev"
-#           subnet_name          = "sub-ddi-dev-web"
-#         }
-#       ]
-#     }
-#   ]
-# }
+  storage_account_list = [
+    {
+      name                      = "ddistorageacc1"
+      resource_group_name       = "rg-ddi-dev"
+      location                  = "westus"
+      account_tier              = "Standard"
+      account_replication_type  = "LRS"
+      enable_https_traffic_only = true
+      tags = {
+        environment = "dev"
+      }
+      allow_https_only              = true
+      minimum_tls_version           = "TLS1_2"
+      shared_access_key_enabled     = true
+      public_network_access_enabled = true
+      network_rules = [
+        {
+          default_action       = "Allow"
+          bypass               = ["AzureServices"]
+          ip_rules             = ["23.45.1.0/30"]
+          virtual_network_name = "vnet-ddi-dev"
+          subnet_name          = "sub-ddi-dev-web"
+        }
+      ]
+    },
+    {
+      name                      = "ddistorageacc2"
+      resource_group_name       = "rg-ddi-dev"
+      location                  = "westus"
+      account_tier              = "Standard"
+      account_replication_type  = "LRS"
+      enable_https_traffic_only = true
+      tags = {
+        environment = "dev"
+      }
+      allow_https_only              = true
+      minimum_tls_version           = "TLS1_2"
+      shared_access_key_enabled     = false
+      public_network_access_enabled = true
+      network_rules = [
+        {
+          default_action       = "Allow"
+          bypass               = ["AzureServices"]
+          ip_rules             = ["23.45.1.0/30"]
+          virtual_network_name = "vnet-ddi-dev"
+          subnet_name          = "sub-ddi-dev-web"
+        }
+      ]
+    }
+  ]
+}
 
