@@ -393,7 +393,7 @@ module "storage_account" {
       ]
     },
     {
-      name                      = "ddistorageacc2"
+      name                      = "ddistorageacc"
       resource_group_name       = "rg-ddi-dev"
       location                  = "westus"
       account_tier              = "Standard"
