@@ -391,30 +391,6 @@ module "storage_account" {
           subnet_name          = "sub-ddi-dev-web"
         }
       ]
-    },
-    {
-      name                      = "ddistorageacc"
-      resource_group_name       = "rg-ddi-dev"
-      location                  = "westus"
-      account_tier              = "Standard"
-      account_replication_type  = "LRS"
-      enable_https_traffic_only = true
-      tags = {
-        environment = "dev"
-      }
-      allow_https_only              = true
-      minimum_tls_version           = "TLS1_2"
-      shared_access_key_enabled     = true
-      public_network_access_enabled = true
-      network_rules = [
-        {
-          default_action       = "Allow"
-          bypass               = ["AzureServices"]
-          ip_rules             = ["23.45.1.0/30"]
-          virtual_network_name = "vnet-ddi-dev"
-          subnet_name          = "sub-ddi-dev-web"
-        }
-      ]
     }
   ]
 }
