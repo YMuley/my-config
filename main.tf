@@ -419,3 +419,10 @@ module "storage_account" {
   ]
 }
 
+
+module "public_ip_nic_association" {
+  source                        = "app.terraform.io/Motifworks/public_ip_nic_association/azurerm"
+  version                       = "1.0.0"
+  public_ip_output              = module.public_ip.public_ip_output
+  network_interface_card_output = module.network_interface_card.network_interface_card_output
+}
