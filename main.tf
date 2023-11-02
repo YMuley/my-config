@@ -33,7 +33,7 @@ module "virtual_network" {
       name                = "vnet-ddi-poc"
       location            = "eastus"
       resource_group_name = "rg-ddi-poc"
-      address_space       = ["10.100.0.0/16"] //["172.21.0.0/16"]  
+      address_space       = ["10.100.0.0/20"] //["172.21.0.0/16"]  
       tags = {
         environment = "poc"
       }
@@ -42,7 +42,7 @@ module "virtual_network" {
       name                = "vnet-ddi-dev"
       location            = "westus"
       resource_group_name = "rg-ddi-dev"
-      address_space       = ["10.100.50.0/24"] //["172.21.0.0/16"]
+      address_space       = ["10.100.16.0/20"] //["172.21.0.0/16"]
       tags = {
         environment = "poc"
       }
@@ -88,9 +88,34 @@ module "subnet" {
       name                                          = "sub-ddi-dev-web"
       resource_group_name                           = "rg-ddi-dev"
       virtual_network_name                          = "vnet-ddi-dev"
-      address_prefixes                              = ["10.100.50.0/24"]
+      address_prefixes                              = ["10.100.16.0/24"]
       service_endpoints                             = ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web"]
       service_endpoint_policy_ids                   = ["ddi-sep-dev"]
+      private_endpoint_network_polices_enabled      = "false"
+      private_link_service_network_policies_enabled = "false"
+
+      delegation = []
+    },
+    {
+      name                                          = "GatewaySubnet"
+      resource_group_name                           = "rg-ddi-poc"
+      virtual_network_name                          = "vnet-ddi-poc"
+      address_prefixes                              = ["10.100.1.0/24"]
+      service_endpoints                             = []
+      service_endpoint_policy_ids                   = []
+      private_endpoint_network_polices_enabled      = "false"
+      private_link_service_network_policies_enabled = "false"
+
+      delegation = []
+    },
+
+    {
+      name                                          = "GatewaySubnet"
+      resource_group_name                           = "rg-ddi-dev"
+      virtual_network_name                          = "vnet-ddi-dev"
+      address_prefixes                              = ["10.100.17.0/24"]
+      service_endpoints                             = []
+      service_endpoint_policy_ids                   = []
       private_endpoint_network_polices_enabled      = "false"
       private_link_service_network_policies_enabled = "false"
 
