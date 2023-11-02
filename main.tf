@@ -357,6 +357,16 @@ module "subnet_route_table_association" {
   version            = "1.0.0"
   subnet_output      = module.subnet.vnet_subnet_output
   route_table_output = module.route_table.route_table_output
+  
+  association_list =[
+    {
+      route_table_name = "rt-table1"
+      subnet_id = format("%s/%s", "vnet-ddi-poc", "Sub-ddi-poc-web")
+    },
+
+
+  ]
+
 }
 
 
