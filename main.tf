@@ -361,7 +361,7 @@ module "subnet_route_table_association" {
   association_list =[
     {
       route_table_name = "rt-table1"
-      subnet_id = format("%s/%s", "vnet-ddi-poc", "Sub-ddi-poc-web")
+      subnet_id = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web")
     },
 
 
