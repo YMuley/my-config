@@ -60,109 +60,109 @@ module "subnet" {
   service_endpoint_policy_output = module.service_endpoint_policy.service_endpoint_policy_output
 
   vnet_subnet_list = [
-    {
-      name                                          = "sub-ddi-poc-web"
-      resource_group_name                           = "rg-ddi-poc"
-      virtual_network_name                          = "vnet-ddi-poc"
-      address_prefixes                              = ["10.100.0.0/24"]
-      service_endpoints                             = ["Microsoft.Storage"]
-      service_endpoint_policy_ids                   = [] # compulsury input value needed otherwise module will throw error #["/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-poc/providers/Microsoft.Network/serviceEndpointPolicies/ddi-test-poc/"]
-      private_endpoint_network_polices_enabled      = "true"
-      private_link_service_network_policies_enabled = "false"
+#     {
+#       name                                          = "sub-ddi-poc-web"
+#       resource_group_name                           = "rg-ddi-poc"
+#       virtual_network_name                          = "vnet-ddi-poc"
+#       address_prefixes                              = ["10.100.0.0/24"]
+#       service_endpoints                             = ["Microsoft.Storage"]
+#       service_endpoint_policy_ids                   = [] # compulsury input value needed otherwise module will throw error #["/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-poc/providers/Microsoft.Network/serviceEndpointPolicies/ddi-test-poc/"]
+#       private_endpoint_network_polices_enabled      = "true"
+#       private_link_service_network_policies_enabled = "false"
 
-      delegation = [
-        {
-          name = "delegation"
-          service_delegation = [{
-            name    = "Microsoft.ContainerInstance/containerGroups"
-            actions = ["Microsoft.Network/virtualNetworks/subnets/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+#       delegation = [
+#         {
+#           name = "delegation"
+#           service_delegation = [{
+#             name    = "Microsoft.ContainerInstance/containerGroups"
+#             actions = ["Microsoft.Network/virtualNetworks/subnets/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
 
-          }]
+#           }]
 
 
-        }
-      ]
-    },
+#         }
+#       ]
+#     },
 
-    {
-      name                                          = "sub-ddi-dev-web"
-      resource_group_name                           = "rg-ddi-dev"
-      virtual_network_name                          = "vnet-ddi-dev"
-      address_prefixes                              = ["10.100.16.0/24"]
-      service_endpoints                             = ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web"]
-      service_endpoint_policy_ids                   = ["ddi-sep-dev"]
-      private_endpoint_network_polices_enabled      = "false"
-      private_link_service_network_policies_enabled = "false"
+#     {
+#       name                                          = "sub-ddi-dev-web"
+#       resource_group_name                           = "rg-ddi-dev"
+#       virtual_network_name                          = "vnet-ddi-dev"
+#       address_prefixes                              = ["10.100.16.0/24"]
+#       service_endpoints                             = ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web"]
+#       service_endpoint_policy_ids                   = ["ddi-sep-dev"]
+#       private_endpoint_network_polices_enabled      = "false"
+#       private_link_service_network_policies_enabled = "false"
 
-      delegation = []
-    },
-    {
-      name                                          = "GatewaySubnet"
-      resource_group_name                           = "rg-ddi-poc"
-      virtual_network_name                          = "vnet-ddi-poc"
-      address_prefixes                              = ["10.100.1.0/24"]
-      service_endpoints                             = []
-      service_endpoint_policy_ids                   = []
-      private_endpoint_network_polices_enabled      = "false"
-      private_link_service_network_policies_enabled = "false"
+#       delegation = []
+#     },
+#     {
+#       name                                          = "GatewaySubnet"
+#       resource_group_name                           = "rg-ddi-poc"
+#       virtual_network_name                          = "vnet-ddi-poc"
+#       address_prefixes                              = ["10.100.1.0/24"]
+#       service_endpoints                             = []
+#       service_endpoint_policy_ids                   = []
+#       private_endpoint_network_polices_enabled      = "false"
+#       private_link_service_network_policies_enabled = "false"
 
-      delegation = []
-    },
+#       delegation = []
+#     },
 
-    {
-      name                                          = "GatewaySubnet"
-      resource_group_name                           = "rg-ddi-dev"
-      virtual_network_name                          = "vnet-ddi-dev"
-      address_prefixes                              = ["10.100.17.0/24"]
-      service_endpoints                             = []
-      service_endpoint_policy_ids                   = []
-      private_endpoint_network_polices_enabled      = "false"
-      private_link_service_network_policies_enabled = "false"
+#     {
+#       name                                          = "GatewaySubnet"
+#       resource_group_name                           = "rg-ddi-dev"
+#       virtual_network_name                          = "vnet-ddi-dev"
+#       address_prefixes                              = ["10.100.17.0/24"]
+#       service_endpoints                             = []
+#       service_endpoint_policy_ids                   = []
+#       private_endpoint_network_polices_enabled      = "false"
+#       private_link_service_network_policies_enabled = "false"
 
-      delegation = []
-    }
+#       delegation = []
+#     }
 
-  ]
-  depends_on = [module.virtual_network, module.service_endpoint_policy]
-}
+#   ]
+#   depends_on = [module.virtual_network, module.service_endpoint_policy]
+# }
 
-module "service_endpoint_policy" {
-  source                = "app.terraform.io/Motifworks/service_endpoint_policy/azurerm"
-  version               = "1.0.0"
-  resource_group_output = module.resource_Group.resource_group_output
-  service_endpoint_policy_list = [
-    {
-      name                = "ddi-sep-poc"
-      resource_group_name = "rg-ddi-poc"
-      location            = "eastus"
+# module "service_endpoint_policy" {
+#   source                = "app.terraform.io/Motifworks/service_endpoint_policy/azurerm"
+#   version               = "1.0.0"
+#   resource_group_output = module.resource_Group.resource_group_output
+#   service_endpoint_policy_list = [
+#     {
+#       name                = "ddi-sep-poc"
+#       resource_group_name = "rg-ddi-poc"
+#       location            = "eastus"
 
-      definition = [
-        {
-          name              = "spe-stg-ddi-poc"
-          description       = "poc policy"
-          service           = "Microsoft.Storage"
-          service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc"].id]
+#       definition = [
+#         {
+#           name              = "spe-stg-ddi-poc"
+#           description       = "poc policy"
+#           service           = "Microsoft.Storage"
+#           service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc"].id]
 
-        }
+#         }
 
-      ]
-    },
-    {
-      name                = "ddi-sep-dev"
-      resource_group_name = "rg-ddi-dev"
-      location            = "westus"
+#       ]
+#     },
+#     {
+#       name                = "ddi-sep-dev"
+#       resource_group_name = "rg-ddi-dev"
+#       location            = "westus"
 
-      definition = [
-        {
-          name              = "spe-stg-ddi-dev"
-          description       = "poc policy"
-          service           = "Microsoft.Storage"
-          service_resources = [module.resource_Group.resource_group_output["rg-ddi-dev"].id]
+#       definition = [
+#         {
+#           name              = "spe-stg-ddi-dev"
+#           description       = "poc policy"
+#           service           = "Microsoft.Storage"
+#           service_resources = [module.resource_Group.resource_group_output["rg-ddi-dev"].id]
 
-        }
+#         }
 
-      ]
-    }
+#       ]
+#     }
   ]
 
 
