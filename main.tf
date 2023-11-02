@@ -353,7 +353,7 @@ module "subnet_nsg_association" {
   association_list = [
     {
       nsg_name  = "nsg-ddi-poc"
-      subnet_id = format("%s/%s", "vnet-ddi-poc", "Sub-ddi-poc-web")
+      subnet_id = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web")
     }
   ]
 }
@@ -367,7 +367,7 @@ module "subnet_route_table_association" {
   association_list = [
     {
       route_table_name = "rt-table1"
-      subnet_id        = format("%s/%s", "vnet-ddi-poc", "Sub-ddi-poc-web")
+      subnet_id        = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web")
     }
   ]
 }
