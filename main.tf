@@ -349,6 +349,7 @@ module "subnet_nsg_association" {
   version                       = "1.0.0"
   subnet_output                 = module.subnet.vnet_subnet_output
   network_security_group_output = module.network_security_group.network_security_group_output
+  
   association_list = [
     {
       nsg_name  = "nsg-ddi-poc"
