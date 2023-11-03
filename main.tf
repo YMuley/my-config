@@ -42,7 +42,7 @@ module "virtual_network" {
       name                = "vnet-ddi-dev"
       location            = "westus"
       resource_group_name = "rg-ddi-dev"
-      address_space       = ["10.100.50.0/24"] //["172.21.0.0/16"]
+      address_space       = ["10.100.16.0/20"] //["172.21.0.0/16"]
       tags = {
         environment = "poc"
       }
@@ -60,67 +60,67 @@ module "subnet" {
   service_endpoint_policy_output = module.service_endpoint_policy.service_endpoint_policy_output
 
   vnet_subnet_list = [
-    # {
-    #   name                                          = "sub-ddi-poc-web"
-    #   resource_group_name                           = "rg-ddi-poc"
-    #   virtual_network_name                          = "vnet-ddi-poc"
-    #   address_prefixes                              = ["10.100.0.0/24"]
-    #   service_endpoints                             = ["Microsoft.Storage"]
-    #   service_endpoint_policy_ids                   = [] # compulsury input value needed otherwise module will throw error #["/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-poc/providers/Microsoft.Network/serviceEndpointPolicies/ddi-test-poc/"]
-    #   private_endpoint_network_polices_enabled      = "true"
-    #   private_link_service_network_policies_enabled = "false"
+    {
+      name                                          = "sub-ddi-poc-web"
+      resource_group_name                           = "rg-ddi-poc"
+      virtual_network_name                          = "vnet-ddi-poc"
+      address_prefixes                              = ["10.100.0.0/24"]
+      service_endpoints                             = ["Microsoft.Storage"]
+      service_endpoint_policy_ids                   = [] # compulsury input value needed otherwise module will throw error #["/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-poc/providers/Microsoft.Network/serviceEndpointPolicies/ddi-test-poc/"]
+      private_endpoint_network_polices_enabled      = "true"
+      private_link_service_network_policies_enabled = "false"
 
-    #   delegation = [
-    #     {
-    #       name = "delegation"
-    #       service_delegation = [{
-    #         name    = "Microsoft.ContainerInstance/containerGroups"
-    #         actions = ["Microsoft.Network/virtualNetworks/subnets/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+      delegation = [
+        {
+          name = "delegation"
+          service_delegation = [{
+            name    = "Microsoft.ContainerInstance/containerGroups"
+            actions = ["Microsoft.Network/virtualNetworks/subnets/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
 
-    #       }]
+          }]
 
 
-    #     }
-    #   ]
-    # },
+        }
+      ]
+    },
 
-    # {
-    #   name                                          = "sub-ddi-dev-web"
-    #   resource_group_name                           = "rg-ddi-dev"
-    #   virtual_network_name                          = "vnet-ddi-dev"
-    #   address_prefixes                              = ["10.100.50.0/24"]
-    #   service_endpoints                             = ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web"]
-    #   service_endpoint_policy_ids                   = ["ddi-sep-dev"]
-    #   private_endpoint_network_polices_enabled      = "false"
-    #   private_link_service_network_policies_enabled = "false"
+    {
+      name                                          = "sub-ddi-dev-web"
+      resource_group_name                           = "rg-ddi-dev"
+      virtual_network_name                          = "vnet-ddi-dev"
+      address_prefixes                              = ["10.100.16.0/24"]
+      service_endpoints                             = ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web"]
+      service_endpoint_policy_ids                   = ["ddi-sep-dev"]
+      private_endpoint_network_polices_enabled      = "false"
+      private_link_service_network_policies_enabled = "false"
 
-    #   delegation = []
-    # },
-    # {
-    #   name                                          = "GatewaySubnet"
-    #   resource_group_name                           = "rg-ddi-poc"
-    #   virtual_network_name                          = "vnet-ddi-poc"
-    #   address_prefixes                              = ["10.100.1.0/24"]
-    #   service_endpoints                             = []
-    #   service_endpoint_policy_ids                   = []
-    #   private_endpoint_network_polices_enabled      = "false"
-    #   private_link_service_network_policies_enabled = "false"
+      delegation = []
+    },
+    {
+      name                                          = "GatewaySubnet"
+      resource_group_name                           = "rg-ddi-poc"
+      virtual_network_name                          = "vnet-ddi-poc"
+      address_prefixes                              = ["10.100.1.0/24"]
+      service_endpoints                             = []
+      service_endpoint_policy_ids                   = []
+      private_endpoint_network_polices_enabled      = "false"
+      private_link_service_network_policies_enabled = "false"
 
-    #   delegation = []
-    # },
+      delegation = []
+    },
 
-    # {
-    #   name                                          = "GatewaySubnet"
-    #   resource_group_name                           = "rg-ddi-dev"
-    #   virtual_network_name                          = "vnet-ddi-dev"
-    #   address_prefixes                              = ["10.100.17.0/24"]
-    #   service_endpoints                             = []
-    #   service_endpoint_policy_ids                   = []
-    #   private_endpoint_network_polices_enabled      = "false"
-    #   private_link_service_network_policies_enabled = "false"
+    {
+      name                                          = "GatewaySubnet"
+      resource_group_name                           = "rg-ddi-dev"
+      virtual_network_name                          = "vnet-ddi-dev"
+      address_prefixes                              = ["10.100.17.0/24"]
+      service_endpoints                             = []
+      service_endpoint_policy_ids                   = []
+      private_endpoint_network_polices_enabled      = "false"
+      private_link_service_network_policies_enabled = "false"
 
-    #   delegation = []
-    # }
+      delegation = []
+    }
 
   ]
   depends_on = [module.virtual_network, module.service_endpoint_policy]
@@ -238,14 +238,14 @@ module "virtual_network_dns" {
   version                = "1.0.0"
   virtual_network_output = module.virtual_network.virtual_network_output
   virtual_network_dns_list = [
-    # {
-    #   virtual_network_name = "vnet-ddi-poc"
-    #   dns_servers          = ["10.168.10.1"]
-    # },
-    # {
-    #   virtual_network_name = "vnet-ddi-dev"
-    #   dns_servers          = []
-    # }
+    {
+      virtual_network_name = "vnet-ddi-poc"
+      dns_servers          = ["10.168.10.1"]
+    },
+    {
+      virtual_network_name = "vnet-ddi-dev"
+      dns_servers          = []
+    }
   ]
   depends_on = [module.virtual_network]
 }
@@ -326,24 +326,24 @@ module "network_interface_card" {
   public_ip_output      = module.public_ip.public_ip_output
 
   network_interface_card_list = [
-    # {
-    #   name                = "nic1"
-    #   location            = "westus"
-    #   resource_group_name = "rg-ddi-dev"
-    #   tags = {
-    #     environment = "dev"
-    #   }
-    #   ip_configuration = [
-    #     {
-    #       name                          = "config1"
-    #       virtual_network_name          = "vnet-ddi-dev"
-    #       subnet_name                   = "sub-ddi-dev-web"
-    #       private_ip_address_allocation = "Dynamic"
-    #       public_ip_name                = "public-ip-ddi-dev"
-    #       private_ip_address            = null
-    #     }
-    #   ]
-    # },
+    {
+      name                = "nic1"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev"
+      tags = {
+        environment = "dev"
+      }
+      ip_configuration = [
+        {
+          name                          = "config1"
+          virtual_network_name          = "vnet-ddi-dev"
+          subnet_name                   = "sub-ddi-dev-web"
+          private_ip_address_allocation = "Dynamic"
+          public_ip_name                = "public-ip-ddi-dev"
+          private_ip_address            = null
+        }
+      ]
+    },
 
     # {
     #   name                = "nic2"
@@ -376,10 +376,10 @@ module "subnet_nsg_association" {
   network_security_group_output = module.network_security_group.network_security_group_output
 
   association_list = [
-    # {
-    #   # nsg_name  = "nsg-ddi-poc"
-    #   # subnet_id = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web") #
-    # }
+    {
+      nsg_name  = "nsg-ddi-poc"
+      subnet_id = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web") #
+    }
   ]
 }
 
@@ -390,10 +390,10 @@ module "subnet_route_table_association" {
   route_table_output = module.route_table.route_table_output
 
   association_list = [
-    # {
-    #   # route_table_name = "rt-table1"
-    #   # subnet_id        = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web")
-    # }
+    {
+      route_table_name = "rt-table1"
+      subnet_id        = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web")
+    }
   ]
 }
 
@@ -406,54 +406,56 @@ module "storage_account" {
 
 
   storage_account_list = [
-    # {
-    #   name                      = "ddistorageacc1"
-    #   resource_group_name       = "rg-ddi-dev"
-    #   location                  = "westus"
-    #   account_tier              = "Standard"
-    #   account_replication_type  = "LRS"
-    #   enable_https_traffic_only = true
-    #   tags = {
-    #     environment = "dev"
-    #   }
-    #   allow_https_only              = true
-    #   minimum_tls_version           = "TLS1_2"
-    #   shared_access_key_enabled     = true
-    #   public_network_access_enabled = true
-    #   network_rules = [
-    #     {
-    #       default_action       = "Allow"
-    #       bypass               = ["AzureServices"]
-    #       ip_rules             = ["23.45.1.0/30"]
-    #       virtual_network_name = "vnet-ddi-dev"
-    #       subnet_name          = "sub-ddi-dev-web"
-    #     }
-    #   ]
-    # },
-    # {
-    #   name                      = "ddistorageacc"
-    #   resource_group_name       = "rg-ddi-dev"
-    #   location                  = "westus"
-    #   account_tier              = "Standard"
-    #   account_replication_type  = "LRS"
-    #   enable_https_traffic_only = true
-    #   tags = {
-    #     environment = "dev"
-    #   }
-    #   allow_https_only              = true
-    #   minimum_tls_version           = "TLS1_2"
-    #   shared_access_key_enabled     = false
-    #   public_network_access_enabled = true
-    #   network_rules = [
-    #     {
-    #       default_action       = "Allow"
-    #       bypass               = ["AzureServices"]
-    #       ip_rules             = ["23.45.1.0/30"]
-    #       virtual_network_name = "vnet-ddi-dev"
-    #       subnet_name          = "sub-ddi-dev-web"
-    #     }
-    #   ]
-    # }
+    {
+      name                      = "ddistorageacc1"
+      resource_group_name       = "rg-ddi-dev"
+      location                  = "westus"
+      account_tier              = "Standard"
+      account_replication_type  = "LRS"
+      enable_https_traffic_only = true
+      tags = {
+        environment = "dev"
+      }
+      allow_https_only              = true
+      minimum_tls_version           = "TLS1_2"
+      shared_access_key_enabled     = true
+      public_network_access_enabled = true
+      network_rules = [
+        {
+          default_action       = "Allow"
+          bypass               = ["AzureServices"]
+          ip_rules             = ["23.45.1.0/30"]
+          virtual_network_name = "vnet-ddi-dev"
+          subnet_name          = "sub-ddi-dev-web"
+        }
+      ]
+    },
+
+    
+    {
+      name                      = "ddistorageacc"
+      resource_group_name       = "rg-ddi-dev"
+      location                  = "westus"
+      account_tier              = "Standard"
+      account_replication_type  = "LRS"
+      enable_https_traffic_only = true
+      tags = {
+        environment = "dev"
+      }
+      allow_https_only              = true
+      minimum_tls_version           = "TLS1_2"
+      shared_access_key_enabled     = false
+      public_network_access_enabled = true
+      network_rules = [
+        {
+          default_action       = "Allow"
+          bypass               = ["AzureServices"]
+          ip_rules             = ["23.45.1.0/30"]
+          virtual_network_name = "vnet-ddi-dev"
+          subnet_name          = "sub-ddi-dev-web"
+        }
+      ]
+    }
   ]
 }
 
