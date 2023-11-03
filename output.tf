@@ -29,3 +29,7 @@ output "virtual_network_dns_output" {
 output "public_ip_output" {
   value = module.public_ip.public_ip_output
 }
+
+output "network_interface_card_output" {
+  value = module.network_interface_card.network_interface_card_output
+}
