@@ -213,20 +213,20 @@ module "network_security_group" {
     #   tags = {
     #     env = "poc"
     #   }
-    #   security_rule = [
-    #     {
-    #       name                       = "HTTP"
-    #       priority                   = 1001
-    #       direction                  = "Inbound"
-    #       access                     = "Allow"
-    #       protocol                   = "Tcp"
-    #       source_port_range          = "*"
-    #       destination_port_range     = "80"
-    #       source_address_prefix      = "*"
-    #       destination_address_prefix = "*"
-    #     }
+    # security_rule = [
+    #   {
+    #     name                       = "HTTP"
+    #     priority                   = 1001
+    #     direction                  = "Inbound"
+    #     access                     = "Allow"
+    #     protocol                   = "Tcp"
+    #     source_port_range          = "*"
+    #     destination_port_range     = "80"
+    #     source_address_prefix      = "*"
+    #     destination_address_prefix = "*"
+    #   }
 
-    #   ]
+    # ]
     # },
     {
       name                = "nsg-ddi-dev-one"
@@ -236,6 +236,20 @@ module "network_security_group" {
       tags = {
         env = "dev"
       }
+      security_rule = [
+        {
+          name                       = "HTTP"
+          priority                   = 1001
+          direction                  = "Inbound"
+          access                     = "Allow"
+          protocol                   = "Tcp"
+          source_port_range          = "*"
+          destination_port_range     = "80"
+          source_address_prefix      = "*"
+          destination_address_prefix = "*"
+        }
+
+      ]
     }
   ]
 }
