@@ -33,7 +33,7 @@ module "virtual_network" {
       name                = "vnet-ddi-poc"
       location            = "eastus"
       resource_group_name = "rg-ddi-poc"
-      address_space       = ["10.100.0.0/16"] //["172.21.0.0/16"]  
+      address_space       = ["10.100.0.0/20"] //["172.21.0.0/16"]  
       tags = {
         environment = "poc"
       }
@@ -42,7 +42,7 @@ module "virtual_network" {
       name                = "vnet-ddi-dev"
       location            = "westus"
       resource_group_name = "rg-ddi-dev"
-      address_space       = ["10.100.50.0/24"] //["172.21.0.0/16"]
+      address_space       = ["10.100.16.0/20"] //["172.21.0.0/16"]
       tags = {
         environment = "poc"
       }
@@ -88,9 +88,34 @@ module "subnet" {
       name                                          = "sub-ddi-dev-web"
       resource_group_name                           = "rg-ddi-dev"
       virtual_network_name                          = "vnet-ddi-dev"
-      address_prefixes                              = ["10.100.50.0/24"]
+      address_prefixes                              = ["10.100.16.0/24"]
       service_endpoints                             = ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web"]
       service_endpoint_policy_ids                   = ["ddi-sep-dev"]
+      private_endpoint_network_polices_enabled      = "false"
+      private_link_service_network_policies_enabled = "false"
+
+      delegation = []
+    },
+    {
+      name                                          = "GatewaySubnet"
+      resource_group_name                           = "rg-ddi-poc"
+      virtual_network_name                          = "vnet-ddi-poc"
+      address_prefixes                              = ["10.100.1.0/24"]
+      service_endpoints                             = []
+      service_endpoint_policy_ids                   = []
+      private_endpoint_network_polices_enabled      = "false"
+      private_link_service_network_policies_enabled = "false"
+
+      delegation = []
+    },
+
+    {
+      name                                          = "GatewaySubnet"
+      resource_group_name                           = "rg-ddi-dev"
+      virtual_network_name                          = "vnet-ddi-dev"
+      address_prefixes                              = ["10.100.17.0/24"]
+      service_endpoints                             = []
+      service_endpoint_policy_ids                   = []
       private_endpoint_network_polices_enabled      = "false"
       private_link_service_network_policies_enabled = "false"
 
@@ -106,22 +131,22 @@ module "service_endpoint_policy" {
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
   service_endpoint_policy_list = [
-    {
-      name                = "ddi-sep-poc"
-      resource_group_name = "rg-ddi-poc"
-      location            = "eastus"
+    # {
+    #   name                = "ddi-sep-poc"
+    #   resource_group_name = "rg-ddi-poc"
+    #   location            = "eastus"
 
-      definition = [
-        {
-          name              = "spe-stg-ddi-poc"
-          description       = "poc policy"
-          service           = "Microsoft.Storage"
-          service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc"].id]
+    #   definition = [
+    #     {
+    #       name              = "spe-stg-ddi-poc"
+    #       description       = "poc policy"
+    #       service           = "Microsoft.Storage"
+    #       service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc"].id]
 
-        }
+    #     }
 
-      ]
-    },
+    #   ]
+    # },
     {
       name                = "ddi-sep-dev"
       resource_group_name = "rg-ddi-dev"
@@ -142,7 +167,7 @@ module "service_endpoint_policy" {
 
 
 }
-#
+
 module "network_security_group" {
   source                = "app.terraform.io/Motifworks/network_security_group/azurerm"
   version               = "1.0.0"
@@ -318,7 +343,7 @@ module "network_interface_card" {
           private_ip_address            = null
         }
       ]
-    }
+    },
 
     # {
     #   name                = "nic2"
@@ -334,7 +359,7 @@ module "network_interface_card" {
     #       subnet_name                   = "sub-ddi-dev-web"
     #       private_ip_address_allocation = "Dynamic"
     #       public_ip_name                = "public-ip2"
-    #public_ip_name                = "ddi-fw-hub-wus"
+    # public_ip_name                = "ddi-fw-hub-wus"
     #   private_ip_address            = null
     #     }
     #   ]
@@ -353,7 +378,7 @@ module "subnet_nsg_association" {
   association_list = [
     {
       nsg_name  = "nsg-ddi-poc"
-      subnet_id = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web")
+      subnet_id = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web") #
     }
   ]
 }
@@ -419,6 +444,8 @@ module "storage_account" {
         }
       ]
     },
+
+    
     {
       name                      = "ddistorageacc"
       resource_group_name       = "rg-ddi-dev"
