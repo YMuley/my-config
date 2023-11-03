@@ -400,13 +400,13 @@ module "subnet_route_table_association" {
 module "nsg_nic_association" {
   source  = "app.terraform.io/Motifworks/nsg_nic_association/azurerm"
   version = "1.0.0"
-  network_interface_card_output = module.network_interface_card.network_interface_card_output
+  network_interface_card_output = module.network_interface.network_interface_output
   network_security_group_output = module.network_security_group.network_security_group_output
 
   association_list = [
     {
       nsg_name                  = "nsg-ddi-poc"
-      network_interface_card_id = format("%s", "config1")
+      network_interface_id = format("%s", "config1")
     }
   ]
 }
