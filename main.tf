@@ -42,7 +42,7 @@ module "virtual_network" {
       name                = "vnet-ddi-dev"
       location            = "westus"
       resource_group_name = "rg-ddi-dev"
-      address_space       = ["10.100.16.0/20"] //["172.21.0.0/16"]
+      address_space       = ["10.100.50.0/24"] //["172.21.0.0/16"]
       tags = {
         environment = "poc"
       }
@@ -60,35 +60,35 @@ module "subnet" {
   service_endpoint_policy_output = module.service_endpoint_policy.service_endpoint_policy_output
 
   vnet_subnet_list = [
-    # {
-    #   name                                          = "sub-ddi-poc-web"
-    #   resource_group_name                           = "rg-ddi-poc"
-    #   virtual_network_name                          = "vnet-ddi-poc"
-    #   address_prefixes                              = ["10.100.0.0/24"]
-    #   service_endpoints                             = ["Microsoft.Storage"]
-    #   service_endpoint_policy_ids                   = [] # compulsury input value needed otherwise module will throw error #["/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-poc/providers/Microsoft.Network/serviceEndpointPolicies/ddi-test-poc/"]
-    #   private_endpoint_network_polices_enabled      = "true"
-    #   private_link_service_network_policies_enabled = "false"
+    {
+      name                                          = "sub-ddi-poc-web"
+      resource_group_name                           = "rg-ddi-poc"
+      virtual_network_name                          = "vnet-ddi-poc"
+      address_prefixes                              = ["10.100.0.0/24"]
+      service_endpoints                             = ["Microsoft.Storage"]
+      service_endpoint_policy_ids                   = [] # compulsury input value needed otherwise module will throw error #["/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-poc/providers/Microsoft.Network/serviceEndpointPolicies/ddi-test-poc/"]
+      private_endpoint_network_polices_enabled      = "true"
+      private_link_service_network_policies_enabled = "false"
 
-    #   delegation = [
-    #     {
-    #       name = "delegation"
-    #       service_delegation = [{
-    #         name    = "Microsoft.ContainerInstance/containerGroups"
-    #         actions = ["Microsoft.Network/virtualNetworks/subnets/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+      delegation = [
+        {
+          name = "delegation"
+          service_delegation = [{
+            name    = "Microsoft.ContainerInstance/containerGroups"
+            actions = ["Microsoft.Network/virtualNetworks/subnets/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
 
-    #       }]
+          }]
 
 
-    #     }
-    #   ]
-    # },
+        }
+      ]
+    },
 
     # {
     #   name                                          = "sub-ddi-dev-web"
     #   resource_group_name                           = "rg-ddi-dev"
     #   virtual_network_name                          = "vnet-ddi-dev"
-    #   address_prefixes                              = ["10.100.16.0/24"]
+    #   address_prefixes                              = ["10.100.50.0/24"]
     #   service_endpoints                             = ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web"]
     #   service_endpoint_policy_ids                   = ["ddi-sep-dev"]
     #   private_endpoint_network_polices_enabled      = "false"
@@ -326,44 +326,44 @@ module "network_interface_card" {
   public_ip_output      = module.public_ip.public_ip_output
 
   network_interface_card_list = [
-    # {
-    #   name                = "nic1"
-    #   location            = "westus"
-    #   resource_group_name = "rg-ddi-dev"
-    #   tags = {
-    #     environment = "dev"
-    #   }
-    #   ip_configuration = [
-    #     {
-    #       name                          = "config1"
-    #       virtual_network_name          = "vnet-ddi-dev"
-    #       subnet_name                   = "sub-ddi-dev-web"
-    #       private_ip_address_allocation = "Dynamic"
-    #       public_ip_name                = "public-ip-ddi-dev"
-    #       private_ip_address            = null
-    #     }
-    #   ]
-    # }
-
-    # {
-    #   name                = "nic2"
-    #   location            = "westus"
-    #   resource_group_name = "rg-ddi-dev"
-    #   tags = {
-    #     environment = "dev"
-    #   }
-    #   ip_configuration = [
-    #     {
-    #       name                          = "config2"
-    #       virtual_network_name          = "vnet-ddi-dev"
-    #       subnet_name                   = "sub-ddi-dev-web"
-    #       private_ip_address_allocation = "Dynamic"
-    #       public_ip_name                = "public-ip2"
-    #public_ip_name                = "ddi-fw-hub-wus"
-    #   private_ip_address            = null
-    #     }
-    #   ]
-    # }
+    {
+      name                = "nic1"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev"
+      tags = {
+        environment = "dev"
+      }
+      ip_configuration = [
+        {
+          name                          = "config1"
+          virtual_network_name          = "vnet-ddi-dev"
+          subnet_name                   = "sub-ddi-dev-web"
+          private_ip_address_allocation = "Dynamic"
+          public_ip_name                = "public-ip-ddi-dev"
+          private_ip_address            = null
+        }
+      ]
+    },
+    
+    {
+      name                = "nic2"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev"
+      tags = {
+        environment = "dev"
+      }
+      ip_configuration = [
+        {
+          name                          = "config2"
+          virtual_network_name          = "vnet-ddi-dev"
+          subnet_name                   = "sub-ddi-dev-web"
+          private_ip_address_allocation = "Dynamic"
+          public_ip_name                = "public-ip2"
+    public_ip_name                = "ddi-fw-hub-wus"
+      private_ip_address            = null
+        }
+      ]
+    }
   ]
 
 
