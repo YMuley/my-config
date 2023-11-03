@@ -405,7 +405,7 @@ module "nsg_nic_association" {
 
   association_list = [
     {
-      nsg_ame = "nsg-ddi-poc"
+      nsg_name = "nsg-ddi-poc"
       nic_name = "nic1"
     }
   ]
