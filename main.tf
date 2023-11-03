@@ -147,22 +147,22 @@ module "service_endpoint_policy" {
 
     #   ]
     # },
-    # {
-    #   name                = "ddi-sep-dev"
-    #   resource_group_name = "rg-ddi-dev"
-    #   location            = "westus"
+    {
+      name                = "ddi-sep-dev"
+      resource_group_name = "rg-ddi-dev"
+      location            = "westus"
 
-    #   definition = [
-    #     {
-    #       name              = "spe-stg-ddi-dev"
-    #       description       = "poc policy"
-    #       service           = "Microsoft.Storage"
-    #       service_resources = [module.resource_Group.resource_group_output["rg-ddi-dev"].id]
+      definition = [
+        {
+          name              = "spe-stg-ddi-dev"
+          description       = "poc policy"
+          service           = "Microsoft.Storage"
+          service_resources = [module.resource_Group.resource_group_output["rg-ddi-dev"].id]
 
-    #     }
+        }
 
-    #   ]
-    # }
+      ]
+    }
   ]
 
 
