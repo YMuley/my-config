@@ -131,38 +131,38 @@ module "service_endpoint_policy" {
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
   service_endpoint_policy_list = [
-    {
-      name                = "ddi-sep-poc"
-      resource_group_name = "rg-ddi-poc"
-      location            = "eastus"
+    # {
+    #   name                = "ddi-sep-poc"
+    #   resource_group_name = "rg-ddi-poc"
+    #   location            = "eastus"
 
-      definition = [
-        {
-          name              = "spe-stg-ddi-poc"
-          description       = "poc policy"
-          service           = "Microsoft.Storage"
-          service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc"].id]
+    #   definition = [
+    #     {
+    #       name              = "spe-stg-ddi-poc"
+    #       description       = "poc policy"
+    #       service           = "Microsoft.Storage"
+    #       service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc"].id]
 
-        }
+    #     }
 
-      ]
-    },
-    {
-      name                = "ddi-sep-dev"
-      resource_group_name = "rg-ddi-dev"
-      location            = "westus"
+    #   ]
+    # },
+    # {
+    #   name                = "ddi-sep-dev"
+    #   resource_group_name = "rg-ddi-dev"
+    #   location            = "westus"
 
-      definition = [
-        {
-          name              = "spe-stg-ddi-dev"
-          description       = "poc policy"
-          service           = "Microsoft.Storage"
-          service_resources = [module.resource_Group.resource_group_output["rg-ddi-dev"].id]
+    #   definition = [
+    #     {
+    #       name              = "spe-stg-ddi-dev"
+    #       description       = "poc policy"
+    #       service           = "Microsoft.Storage"
+    #       service_resources = [module.resource_Group.resource_group_output["rg-ddi-dev"].id]
 
-        }
+    #     }
 
-      ]
-    }
+    #   ]
+    # }
   ]
 
 
@@ -238,14 +238,14 @@ module "virtual_network_dns" {
   version                = "1.0.0"
   virtual_network_output = module.virtual_network.virtual_network_output
   virtual_network_dns_list = [
-    {
-      virtual_network_name = "vnet-ddi-poc"
-      dns_servers          = ["10.168.10.1"]
-    },
-    {
-      virtual_network_name = "vnet-ddi-dev"
-      dns_servers          = []
-    }
+    # {
+    #   virtual_network_name = "vnet-ddi-poc"
+    #   dns_servers          = ["10.168.10.1"]
+    # },
+    # {
+    #   virtual_network_name = "vnet-ddi-dev"
+    #   dns_servers          = []
+    # }
   ]
   depends_on = [module.virtual_network]
 }
@@ -326,24 +326,24 @@ module "network_interface_card" {
   public_ip_output      = module.public_ip.public_ip_output
 
   network_interface_card_list = [
-    {
-      name                = "nic1"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev"
-      tags = {
-        environment = "dev"
-      }
-      ip_configuration = [
-        {
-          name                          = "config1"
-          virtual_network_name          = "vnet-ddi-dev"
-          subnet_name                   = "sub-ddi-dev-web"
-          private_ip_address_allocation = "Dynamic"
-          public_ip_name                = "public-ip-ddi-dev"
-          private_ip_address            = null
-        }
-      ]
-    }
+    # {
+    #   name                = "nic1"
+    #   location            = "westus"
+    #   resource_group_name = "rg-ddi-dev"
+    #   tags = {
+    #     environment = "dev"
+    #   }
+    #   ip_configuration = [
+    #     {
+    #       name                          = "config1"
+    #       virtual_network_name          = "vnet-ddi-dev"
+    #       subnet_name                   = "sub-ddi-dev-web"
+    #       private_ip_address_allocation = "Dynamic"
+    #       public_ip_name                = "public-ip-ddi-dev"
+    #       private_ip_address            = null
+    #     }
+    #   ]
+    # }
 
     # {
     #   name                = "nic2"
@@ -377,8 +377,8 @@ module "subnet_nsg_association" {
 
   association_list = [
     {
-      nsg_name  = "nsg-ddi-poc"
-      subnet_id = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web")
+      # nsg_name  = "nsg-ddi-poc"
+      # subnet_id = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web") #
     }
   ]
 }
@@ -391,8 +391,8 @@ module "subnet_route_table_association" {
 
   association_list = [
     {
-      route_table_name = "rt-table1"
-      subnet_id        = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web")
+      # route_table_name = "rt-table1"
+      # subnet_id        = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web")
     }
   ]
 }
