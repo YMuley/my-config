@@ -405,8 +405,8 @@ module "nsg_nic_association" {
 
   association_list = [
     {
-      nsg_name             = "nsg-ddi-poc"
-      network_interface_id = format("%s", "config1")
+      nsg_name     = "nsg-ddi-poc"
+      network_name = "config1"
     }
   ]
 }
