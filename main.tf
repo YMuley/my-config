@@ -405,8 +405,8 @@ module "nsg_nic_association" {
 
   association_list = [
     {
-      nsg_name = "nsg-ddi-poc"
-      nic_name = "nic1"
+      network_security_group_name = "nsg-ddi-poc"
+      network_interface_card_name = "nic1"
     }
   ]
 }
