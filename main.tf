@@ -376,10 +376,10 @@ module "subnet_nsg_association" {
   network_security_group_output = module.network_security_group.network_security_group_output
 
   association_list = [
-    {
-      # nsg_name  = "nsg-ddi-poc"
-      # subnet_id = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web") #
-    }
+    # {
+    #   # nsg_name  = "nsg-ddi-poc"
+    #   # subnet_id = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web") #
+    # }
   ]
 }
 
@@ -390,10 +390,10 @@ module "subnet_route_table_association" {
   route_table_output = module.route_table.route_table_output
 
   association_list = [
-    {
-      # route_table_name = "rt-table1"
-      # subnet_id        = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web")
-    }
+    # {
+    #   # route_table_name = "rt-table1"
+    #   # subnet_id        = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web")
+    # }
   ]
 }
 
