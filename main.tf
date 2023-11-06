@@ -496,7 +496,7 @@ module "storage_account" {
 }
  module "useridentity" {
    source  = "app.terraform.io/Motifworks/useridentity/azurerm"
-   version = "1.0.1"
+   version = "1.0.2"
 
    user_assigned_identity_list = [
  {
