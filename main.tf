@@ -428,7 +428,7 @@ module "nsg_nic_association" {
   association_list = [
     {
       network_security_group_name = "nsg-ddi-dev-one"
-      network_interface_card_name = format("%s/%s", "rg-ddi-dev","nic1" )
+      network_interface_card_name = format("%s/%s", "rg-ddi-dev", "nic1")
     }
   ]
 }
@@ -466,7 +466,6 @@ module "storage_account" {
         }
       ]
     },
-
 
     {
       name                      = "ddistorageacc"
@@ -510,3 +509,22 @@ module "storage_account" {
 #   ]
 # }
 
+module "managed_disk" {
+  source                = "app.terraform.io/Motifworks/managed_disk/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+
+  managed_disk_list = {
+    disk1 = {
+      name                 = "ddidisk1"
+      resource_group_name  = "rg-ddi-dev"
+      location             = "westus"
+      storage_account_type = "Standard_LRS"
+      create_option        = "Empty"
+      disk_size_gb         = 10
+      tags = {
+        environment = "dev"
+      }
+    }
+  }
+}
