@@ -493,21 +493,21 @@ module "storage_account" {
     }
   ]
 }
-# module "useridentity" {
-#   source  = "app.terraform.io/Motifworks/useridentity/azurerm"
-#   version = "1.0.1"
+ module "useridentity" {
+   source  = "app.terraform.io/Motifworks/useridentity/azurerm"
+   version = "1.0.2"
 
-#   user_assigned_identity_list = [
-# {
-#     name: "user-managed"
-#     resource_group_name       = "rg-ddi-dev"
-#     location                  = "eastus"
-#      tags = {
-#         environment = "nertwork-team"
-#       }
-# }
-#   ]
-# }
+   user_assigned_identity_list = [
+ {
+     name: "user-managed"
+     resource_group_name       = "rg-ddi-dev"
+     location                  = "eastus"
+      tags = {
+         environment = "nertwork-team"
+       }
+ }
+   ]
+ }
 
 module "managed_disk" {
   source                = "app.terraform.io/Motifworks/managed_disk/azurerm"
