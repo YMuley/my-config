@@ -534,7 +534,7 @@ module "load_balancer" {
   version = "1.0.0"
 
   resource_group_output = module.resource_Group.resource_group_output
-  ppublic_ip_output = module.public_ip.public_ip_output
+  public_ip_output = module.public_ip.public_ip_output
   subnet_output = module.subnet.vnet_subnet_output
 
   loadbalancer_list = [
