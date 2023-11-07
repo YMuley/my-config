@@ -445,7 +445,28 @@ module "nsg_nic_association" {
   ]
 }
 
+module "keyvault" {
+  source  = "app.terraform.io/Motifworks/keyvault/azurerm"
+  version = "1.0.2"
 
+  key_vault_list =[ 
+  {
+    name                     = "testingkyb1"
+    resource_group_name      = "rg-ddi-dev"  
+    location                 = "eastus"
+
+    sku_name                 = "standard"
+    tenant_id                = "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+    enabled_for_deployment   = false
+    enabled_for_disk_encryption = true
+    enabled_for_template_deployment = false
+    enable_rbac_authorization  = false
+    soft_delete_retention_days  = 7
+    purge_protection_enabled    = false
+    public_network_access_enabled = false
+  }
+]
+}
 module "storage_account" {
   source                = "app.terraform.io/Motifworks/storage_account/azurerm"
   version               = "1.0.0"
