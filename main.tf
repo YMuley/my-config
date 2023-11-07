@@ -302,6 +302,18 @@ module "public_ip" {
         environment = "dev"
       }
       sku_tier = "Regional"
+    },
+    {
+      name                = "public-ip-ddi-lb"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev"
+      allocation_method   = "Static"
+      sku                 = "Standard"
+      domain_name_label   = "another-unique-label"
+      tags = {
+        environment = "dev"
+      }
+      sku_tier = "Regional"
     }
   ]
 }
@@ -551,7 +563,7 @@ module "load_balancer" {
         {
           name            = "lb-pip-ddi-dev"
           zones           = []
-          public_ip_name  = "public-ip-ddi-dev"
+          public_ip_name  = "public-ip-ddi-lb"
           subnet_name     = null
           private_ip_address_allocation = null
         }
