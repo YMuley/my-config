@@ -309,7 +309,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-dev"
       allocation_method   = "Static"
       sku                 = "Standard"
-      domain_name_label   = "another-unique-label"
+      domain_name_label   = "lb-unique-label"
       tags = {
         environment = "dev"
       }
