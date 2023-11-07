@@ -584,7 +584,7 @@ module "load_balancer" {
           name            = "lb-pip-ddi-devone"
           zones           = []
           public_ip_name  = null
-          subnet_name     = "sub-ddi-dev-web"
+          subnet_name     = format("%s/%s", "vnet-ddi-dev" , "sub-ddi-dev-web")
           private_ip_address_allocation = "Dynamic"
         }
       ]
