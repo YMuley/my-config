@@ -568,6 +568,26 @@ module "load_balancer" {
           private_ip_address_allocation = null
         }
       ]
+    },
+
+    {
+      name                  = "lb-ddi-devone"
+      resource_group_name   = "rg-ddi-dev" 
+      location              = "westus"
+      sku                   = "Standard" #[possible values : Standard,Gateway,Basic]
+      sku_tier              = "Regional" #[possible values : Regional,Global]
+      tags                  = {env = "dev"
+                               org = "ddi"
+                              }
+      frontend_ip_configuration = [
+        {
+          name            = "lb-pip-ddi-devone"
+          zones           = []
+          public_ip_name  = null
+          subnet_name     = "sub-ddi-dev-web"
+          private_ip_address_allocation = "Dynamic"
+        }
+      ]
     }
 
   ]
