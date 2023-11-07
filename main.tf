@@ -528,3 +528,35 @@ module "managed_disk" {
     }
   ]
 }
+
+module "load_balancer" {
+  source  = "app.terraform.io/Motifworks/load_balancer/azurerm"
+  version = "1.0.0"
+
+  resource_group_output = module.resource_Group.resource_group_output
+  ppublic_ip_output = module.public_ip.public_ip_output
+  subnet_output = module.subnet.vnet_subnet_output
+
+  loadbalancer_list = [
+    {
+      name                  = "lb-ddi-dev"
+      resource_group_list   = "rg-ddi-dev" 
+      location              = "westus"
+      sku                   = "Standard" #[possible values : Standard,Gateway,Basic]
+      sku_tier              = "Regional" #[possible values : Regional,Global]
+      tags                  = {env = dev
+                                org = ddi
+                              }
+      frontend_ip_configuration = [
+        {
+          name            = "lb-pip-ddi-dev"
+          zones           = []
+          public_ip_name  = "public-ip-ddi-dev"
+          subnet_name     = null
+          private_ip_address_allocation = null
+        }
+      ]
+    }
+
+  ]
+}
