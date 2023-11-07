@@ -540,7 +540,7 @@ module "load_balancer" {
   loadbalancer_list = [
     {
       name                  = "lb-ddi-dev"
-      rresource_group_name  = "rg-ddi-dev" 
+      resource_group_name   = "rg-ddi-dev" 
       location              = "westus"
       sku                   = "Standard" #[possible values : Standard,Gateway,Basic]
       sku_tier              = "Regional" #[possible values : Regional,Global]
