@@ -571,4 +571,5 @@ module "load_balancer" {
     }
 
   ]
+  depends_on = [module.public_ip]
 }
