@@ -544,8 +544,8 @@ module "load_balancer" {
       location              = "westus"
       sku                   = "Standard" #[possible values : Standard,Gateway,Basic]
       sku_tier              = "Regional" #[possible values : Regional,Global]
-      tags                  = {env = dev
-                                org = ddi
+      tags                  = {env = "dev"
+                               org = "ddi"
                               }
       frontend_ip_configuration = [
         {
