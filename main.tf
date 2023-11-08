@@ -447,7 +447,7 @@ module "nsg_nic_association" {
 
 module "keyvault" {
   source  = "app.terraform.io/Motifworks/keyvault/azurerm"
-  version = "1.0.2"
+  version = "1.0.3"
 
   key_vault_list =[ 
   {
@@ -477,7 +477,7 @@ module "keyvault" {
             phone = "93042322"
         }
     ]
-    access_policy =[{}]
+   
     tags = {
         env = "poc"
       }
