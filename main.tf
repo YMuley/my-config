@@ -472,8 +472,8 @@ module "keyvault" {
     ]
     access_policy = [
       {
-           tenantId: "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-           objectId: "0ac91507-a04a-4fac-bfca-a143cea93b33"
+           tenant_id: "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+           object_id: "0ac91507-a04a-4fac-bfca-a143cea93b33"
            resource_type = "user" 
            application_id = null //object ID of an Application in Azure Active Directory.
            certificate_permissions = ["Get","Create","Delete","Update"]
