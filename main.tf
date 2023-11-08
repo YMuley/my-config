@@ -653,10 +653,10 @@ module "load_balancer" {
       frontend_ip_configuration = [
         {
           name                          = "lb-pip-ddi-poc"
-          zones                         = ["1"]
+          zones                         = [] #availability zone supported only with Standard SKU
           public_ip_name                = null
           subnet_name                   = format("%s/%s", "vnet-ddi-poc", "GatewaySubnet")
-          private_ip_address_allocation = "Dynamic"
+          private_ip_address_allocation = null
         }
       ]
     }
