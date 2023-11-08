@@ -447,7 +447,7 @@ module "nsg_nic_association" {
 
 module "keyvault" {
   source  = "app.terraform.io/Motifworks/keyvault/azurerm"
-  version = "1.0.4"
+  version = "1.0.5"
 
   key_vault_list =[ 
   {
