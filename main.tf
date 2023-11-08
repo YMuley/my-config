@@ -602,45 +602,64 @@ module "load_balancer" {
   subnet_output         = module.subnet.vnet_subnet_output
 
   loadbalancer_list = [
-    # {
-    #   name                = "lb-ddi-dev"
-    #   resource_group_name = "rg-ddi-dev"
-    #   location            = "westus"
-    #   sku                 = "Standard" #[possible values : Standard,Gateway,Basic]
-    #   sku_tier            = "Regional" #[possible values : Regional,Global]
-    #   tags = { env = "dev"
-    #     org = "ddi"
-    #   }
-    #   frontend_ip_configuration = [
-    #     {
-    #       name                          = "lb-pip-ddi-dev"
-    #       zones                         = []
-    #       public_ip_name                = "public-ip-ddi-lb"
-    #       subnet_name                   = null
-    #       private_ip_address_allocation = null
-    #     }
-    #   ]
-    # },
+    {
+      name                = "lb-ddi-dev"
+      resource_group_name = "rg-ddi-dev"
+      location            = "westus"
+      sku                 = "Standard" #[possible values : Standard,Gateway,Basic]
+      sku_tier            = "Regional" #[possible values : Regional,Global]
+      tags = { env = "dev"
+        org = "ddi"
+      }
+      frontend_ip_configuration = [
+        {
+          name                          = "lb-pip-ddi-dev"
+          zones                         = []
+          public_ip_name                = "public-ip-ddi-lb"
+          subnet_name                   = null
+          private_ip_address_allocation = null
+        }
+      ]
+    },
 
-    # {
-    #   name                = "lb-ddi-devone"
-    #   resource_group_name = "rg-ddi-dev"
-    #   location            = "westus"
-    #   sku                 = "Standard" #[possible values : Standard,Gateway,Basic]
-    #   sku_tier            = "Regional" #[possible values : Regional,Global]
-    #   tags = { env = "dev"
-    #     org = "ddi"
-    #   }
-    #   frontend_ip_configuration = [
-    #     {
-    #       name                          = "lb-pip-ddi-devone"
-    #       zones                         = []
-    #       public_ip_name                = null
-    #       subnet_name                   = format("%s/%s", "vnet-ddi-dev", "sub-ddi-dev-web")
-    #       private_ip_address_allocation = "Dynamic"
-    #     }
-    #   ]
-    # }
+    {
+      name                = "lb-ddi-devone"
+      resource_group_name = "rg-ddi-dev"
+      location            = "westus"
+      sku                 = "Standard" #[possible values : Standard,Gateway,Basic]
+      sku_tier            = "Regional" #[possible values : Regional,Global]
+      tags = { env = "dev"
+        org = "ddi"
+      }
+      frontend_ip_configuration = [
+        {
+          name                          = "lb-pip-ddi-devone"
+          zones                         = []
+          public_ip_name                = null
+          subnet_name                   = format("%s/%s", "vnet-ddi-dev", "sub-ddi-dev-web")
+          private_ip_address_allocation = "Dynamic"
+        }
+      ]
+    },
+    {
+      name                = "lb-ddi-poc"
+      resource_group_name = "rg-ddi-poc"
+      location            = "eastus"
+      sku                 = "Gateway" #[possible values : Standard,Gateway,Basic]
+      sku_tier            = "Regional" #[possible values : Regional,Global]
+      tags = { env = "dev"
+        org = "ddi"
+      }
+      frontend_ip_configuration = [
+        {
+          name                          = "lb-pip-ddi-poc"
+          zones                         = ["1"]
+          public_ip_name                = null
+          subnet_name                   = format("%s/%s", "vnet-ddi-poc", "GatewaySubnet")
+          private_ip_address_allocation = "Dynamic"
+        }
+      ]
+    }
 
   ]
   
