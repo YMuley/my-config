@@ -466,7 +466,7 @@ module "keyvault" {
     public_network_access_enabled = true
     network_acls = [
       {
-         bypass = "None"
+         bypass = "AzureServices"
          default_action = "Allow"
       }
     ]
