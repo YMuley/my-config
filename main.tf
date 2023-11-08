@@ -447,7 +447,7 @@ module "nsg_nic_association" {
 
 module "keyvault" {
   source  = "app.terraform.io/Motifworks/keyvault/azurerm"
-  version = "1.0.3"
+  version = "1.0.4"
 
   key_vault_list =[ 
   {
@@ -470,6 +470,19 @@ module "keyvault" {
          default_action = "Allow"
       }
     ]
+    access_policy = [
+      {
+           tenantId: "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+           objectId: "0ac91507-a04a-4fac-bfca-a143cea93b33"
+           resource_type = "user" 
+           application_id = null //object ID of an Application in Azure Active Directory.
+           certificate_permissions = ["Get","Create","Delete","Update"]
+           key_permissions = [ "Get","Create","Delete","Update" ] 
+           secret_permissions = [ "Get","Set","Delete","Restore","Purge" ] 
+           storage_permissions = [ "Get","Set","Delete","Update" ] 
+             }
+    ]
+    
     contact = [
         {
             email = "xyz@gmail.com"
