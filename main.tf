@@ -658,7 +658,6 @@ module "availability_set" {
       platform_fault_domain_count  = 3
       platform_update_domain_count = 5
       managed                      = true
-      proximity_placement_group_id = "proximity_placement_group_id"
       tags = {
         environment = "dev"
       }
