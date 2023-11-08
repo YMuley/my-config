@@ -449,53 +449,53 @@ module "keyvault" {
   source  = "app.terraform.io/Motifworks/keyvault/azurerm"
   version = "1.0.5"
 
-  key_vault_list =[ 
-  {
-    name                     = "testingkybdf1"
-    resource_group_name      = "rg-ddi-dev"  
-    location                 = "eastus"
+  key_vault_list = [
+    {
+      name                = "testingkybdf1"
+      resource_group_name = "rg-ddi-dev"
+      location            = "eastus"
 
-    sku_name                 = "standard"
-    tenant_id                = "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-    enabled_for_deployment   = true
-    enabled_for_disk_encryption = false
-    enabled_for_template_deployment = false
-    enable_rbac_authorization  = false
-    soft_delete_retention_days  = 7
-    purge_protection_enabled    = false
-    public_network_access_enabled = true
-    network_acls = [
-      {
-         bypass = "AzureServices"
-         default_action = "Allow"
-      }
-    ]
-    access_policy = [
-      {
-           tenant_id: "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-           object_id: "0ac91507-a04a-4fac-bfca-a143cea93b33"
-           resource_type = "user" 
-           application_id = null 
-           certificate_permissions = ["Get","Create","Delete","Update"]
-           key_permissions = [ "Get","Create","Delete","Update" ] 
-           secret_permissions = [ "Get","Set","Delete","Restore","Purge" ] 
-           storage_permissions = [ "Get","Set","Delete","Update" ] 
-             }
-    ]
-    
-    contact = [
+      sku_name                        = "standard"
+      tenant_id                       = "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+      enabled_for_deployment          = true
+      enabled_for_disk_encryption     = false
+      enabled_for_template_deployment = false
+      enable_rbac_authorization       = false
+      soft_delete_retention_days      = 7
+      purge_protection_enabled        = false
+      public_network_access_enabled   = true
+      network_acls = [
         {
-            email = "Vijay.Yadav@motifworks.com"
-            name = "Vijay Yadav"
-            phone = "93042322"
+          bypass         = "AzureServices"
+          default_action = "Allow"
         }
-    ]
-   
-    tags = {
+      ]
+      access_policy = [
+        {
+          tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+          object_id : "0ac91507-a04a-4fac-bfca-a143cea93b33"
+          resource_type           = "user"
+          application_id          = null
+          certificate_permissions = ["Get", "Create", "Delete", "Update"]
+          key_permissions         = ["Get", "Create", "Delete", "Update"]
+          secret_permissions      = ["Get", "Set", "Delete", "Restore", "Purge"]
+          storage_permissions     = ["Get", "Set", "Delete", "Update"]
+        }
+      ]
+
+      contact = [
+        {
+          email = "Vijay.Yadav@motifworks.com"
+          name  = "Vijay Yadav"
+          phone = "93042322"
+        }
+      ]
+
+      tags = {
         env = "poc"
       }
-  }
-]
+    }
+  ]
 }
 module "storage_account" {
   source                = "app.terraform.io/Motifworks/storage_account/azurerm"
@@ -597,45 +597,45 @@ module "load_balancer" {
   version = "1.0.0"
 
   resource_group_output = module.resource_Group.resource_group_output
-  public_ip_output = module.public_ip.public_ip_output
-  subnet_output = module.subnet.vnet_subnet_output
+  public_ip_output      = module.public_ip.public_ip_output
+  subnet_output         = module.subnet.vnet_subnet_output
 
   loadbalancer_list = [
     {
-      name                  = "lb-ddi-dev"
-      resource_group_name   = "rg-ddi-dev" 
-      location              = "westus"
-      sku                   = "Standard" #[possible values : Standard,Gateway,Basic]
-      sku_tier              = "Regional" #[possible values : Regional,Global]
-      tags                  = {env = "dev"
-                               org = "ddi"
-                              }
+      name                = "lb-ddi-dev"
+      resource_group_name = "rg-ddi-dev"
+      location            = "westus"
+      sku                 = "Standard" #[possible values : Standard,Gateway,Basic]
+      sku_tier            = "Regional" #[possible values : Regional,Global]
+      tags = { env = "dev"
+        org = "ddi"
+      }
       frontend_ip_configuration = [
         {
-          name            = "lb-pip-ddi-dev"
-          zones           = []
-          public_ip_name  = "public-ip-ddi-lb"
-          subnet_name     = null
+          name                          = "lb-pip-ddi-dev"
+          zones                         = []
+          public_ip_name                = "public-ip-ddi-lb"
+          subnet_name                   = null
           private_ip_address_allocation = null
         }
       ]
     },
 
     {
-      name                  = "lb-ddi-devone"
-      resource_group_name   = "rg-ddi-dev" 
-      location              = "westus"
-      sku                   = "Standard" #[possible values : Standard,Gateway,Basic]
-      sku_tier              = "Regional" #[possible values : Regional,Global]
-      tags                  = {env = "dev"
-                               org = "ddi"
-                              }
+      name                = "lb-ddi-devone"
+      resource_group_name = "rg-ddi-dev"
+      location            = "westus"
+      sku                 = "Standard" #[possible values : Standard,Gateway,Basic]
+      sku_tier            = "Regional" #[possible values : Regional,Global]
+      tags = { env = "dev"
+        org = "ddi"
+      }
       frontend_ip_configuration = [
         {
-          name            = "lb-pip-ddi-devone"
-          zones           = []
-          public_ip_name  = null
-          subnet_name     = format("%s/%s", "vnet-ddi-dev" , "sub-ddi-dev-web")
+          name                          = "lb-pip-ddi-devone"
+          zones                         = []
+          public_ip_name                = null
+          subnet_name                   = format("%s/%s", "vnet-ddi-dev", "sub-ddi-dev-web")
           private_ip_address_allocation = "Dynamic"
         }
       ]
@@ -643,4 +643,25 @@ module "load_balancer" {
 
   ]
   depends_on = [module.public_ip]
+}
+
+module "availability_set" {
+  source                = "app.terraform.io/Motifworks/availability_set/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+
+  availability_set_list = [
+    {
+      name                         = "ddiavailabilityset"
+      resource_group_name          = "rg-ddi-dev"
+      location                     = "westus"
+      platform_fault_domain_count  = 3
+      platform_update_domain_count = 5
+      managed                      = true
+      proximity_placement_group_id = "proximity_placement_group_id"
+      tags = {
+        environment = "dev"
+      }
+    }
+  ]
 }
