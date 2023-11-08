@@ -96,6 +96,18 @@ module "subnet" {
 
       delegation = []
     },
+     {
+      name                                          = "sub-ddi-poc-lb"
+      resource_group_name                           = "rg-ddi-poc"
+      virtual_network_name                          = "vnet-ddi-poc"
+      address_prefixes                              = ["10.100.2.0/24"]
+      service_endpoints                             = []
+      service_endpoint_policy_ids                   = []
+      private_endpoint_network_polices_enabled      = "false"
+      private_link_service_network_policies_enabled = "false"
+
+      delegation = []
+    },
     {
       name                                          = "GatewaySubnet"
       resource_group_name                           = "rg-ddi-poc"
@@ -655,8 +667,8 @@ module "load_balancer" {
           name                          = "lb-pip-ddi-poc"
           zones                         = [] #availability zone supported only with Standard SKU
           public_ip_name                = null
-          subnet_name                   = format("%s/%s", "vnet-ddi-poc", "GatewaySubnet")
-          private_ip_address_allocation = null
+          subnet_name                   = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-lb")
+          private_ip_address_allocation = "Dynamic"
         }
       ]
     }
