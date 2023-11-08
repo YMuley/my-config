@@ -485,8 +485,8 @@ module "keyvault" {
     
     contact = [
         {
-            email = "xyz@gmail.com"
-            name = "cmd"
+            email = "Vijay.Yadav@motifworks.com"
+            name = "Vijay Yadav"
             phone = "93042322"
         }
     ]
