@@ -463,7 +463,7 @@ module "keyvault" {
     enable_rbac_authorization  = false
     soft_delete_retention_days  = 7
     purge_protection_enabled    = false
-    public_network_access_enabled = false
+    public_network_access_enabled = "Disabled"
     network_acls = [
       {
          bypass = "None"
