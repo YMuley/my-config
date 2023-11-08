@@ -445,43 +445,43 @@ module "nsg_nic_association" {
   ]
 }
 
-# module "keyvault" {
-#   source  = "app.terraform.io/Motifworks/keyvault/azurerm"
-#   version = "1.0.5"
+ module "keyvault" {
+   source  = "app.terraform.io/Motifworks/keyvault/azurerm"
+   version = "1.0.6"
 
-#   key_vault_list = [
-#     {
-#       name                = "testingkybdf1"
-#       resource_group_name = "rg-ddi-dev"
-#       location            = "eastus"
+   key_vault_list = [
+     {
+       name                = "testingkvref1"
+       resource_group_name = "rg-ddi-dev"
+       location            = "eastus"
 
-#       sku_name                        = "standard"
-#       tenant_id                       = "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-#       enabled_for_deployment          = true
-#       enabled_for_disk_encryption     = false
-#       enabled_for_template_deployment = false
-#       enable_rbac_authorization       = false
-#       soft_delete_retention_days      = 7
-#       purge_protection_enabled        = false
-#       public_network_access_enabled   = true
-#       network_acls = [
-#         {
-#           bypass         = "AzureServices"
-#           default_action = "Allow"
-#         }
-#       ]
-#       access_policy = [
-#         {
-#           tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-#           object_id : "0ac91507-a04a-4fac-bfca-a143cea93b33"
-#           resource_type           = "user"
-#           application_id          = null
-#           certificate_permissions = ["Get", "Create", "Delete", "Update"]
-#           key_permissions         = ["Get", "Create", "Delete", "Update"]
-#           secret_permissions      = ["Get", "Set", "Delete", "Restore", "Purge"]
-#           storage_permissions     = ["Get", "Set", "Delete", "Update"]
-#         }
-#       ]
+       sku_name                        = "standard"
+       tenant_id                       = "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+       enabled_for_deployment          = true
+       enabled_for_disk_encryption     = false
+       enabled_for_template_deployment = false
+       enable_rbac_authorization       = false
+       soft_delete_retention_days      = 7
+       purge_protection_enabled        = false
+       public_network_access_enabled   = true
+       network_acls = [
+         {
+           bypass         = "AzureServices"
+           default_action = "Allow"
+         }
+       ]
+       access_policy = [
+         {
+           tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+           object_id : "0ac91507-a04a-4fac-bfca-a143cea93b33"
+           resource_type           = "user"
+           application_id          = null
+           certificate_permissions = ["Get", "Create", "Delete", "Update"]
+           key_permissions         = ["Get", "Create", "Delete", "Update"]
+           secret_permissions      = ["Get", "Set", "Delete", "Restore", "Purge"]
+           storage_permissions     = ["Get", "Set", "Delete", "Update"]
+         }
+       ]
 
 #       contact = [
 #         {
@@ -491,12 +491,12 @@ module "nsg_nic_association" {
 #         }
 #       ]
 
-#       tags = {
-#         env = "poc"
-#       }
-#     }
-#   ]
-# }
+       tags = {
+         env = "poc"
+       }
+     }
+   ]
+ }
 
 module "storage_account" {
   source                = "app.terraform.io/Motifworks/storage_account/azurerm"
