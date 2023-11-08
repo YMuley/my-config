@@ -477,6 +477,7 @@ module "keyvault" {
             phone = "93042322"
         }
     ]
+    access_policy =[{}]
     tags = {
         env = "poc"
       }
