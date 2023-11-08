@@ -464,6 +464,22 @@ module "keyvault" {
     soft_delete_retention_days  = 7
     purge_protection_enabled    = false
     public_network_access_enabled = false
+    network_acls = [
+      {
+         bypass = "None"
+         default_action = "Allow"
+      }
+    ]
+    contact = [
+        {
+            email = "xyz@gmail.com"
+            name = "cmd"
+            phone = "93042322"
+        }
+    ]
+    tags = {
+        env = "poc"
+      }
   }
 ]
 }
