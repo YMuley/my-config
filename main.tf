@@ -451,7 +451,7 @@ module "keyvault" {
 
   key_vault_list =[ 
   {
-    name                     = "testingkyb1"
+    name                     = "testingkybdf1"
     resource_group_name      = "rg-ddi-dev"  
     location                 = "eastus"
 
@@ -475,7 +475,7 @@ module "keyvault" {
            tenant_id: "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
            object_id: "0ac91507-a04a-4fac-bfca-a143cea93b33"
            resource_type = "user" 
-           application_id = null //object ID of an Application in Azure Active Directory.
+           application_id = null 
            certificate_permissions = ["Get","Create","Delete","Update"]
            key_permissions = [ "Get","Create","Delete","Update" ] 
            secret_permissions = [ "Get","Set","Delete","Restore","Purge" ] 
