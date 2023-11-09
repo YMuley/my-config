@@ -289,7 +289,7 @@ module "vault_secret" {
   key_vault_output = module.keyvault.key_vault_output
   key_vault_secret_list = [
  { 
-   name         = "secret-sauce"
+   name         = "secrauce"
    value        = "szechuan"
    key_vault_name = "testingkvref1"
  
