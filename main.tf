@@ -283,7 +283,20 @@ module "virtual_network_dns" {
   ]
   depends_on = [module.virtual_network]
 }
-
+module "vault_secret" {
+  source  = "app.terraform.io/Motifworks/vault_secret/key"
+  version = "1.0.0"
+  key_vault_output = module.keyvault.key_vault_output
+  key_vault_secret_list = [
+ { 
+   name         = "secret-sauce"
+   value        = "szechuan"
+   key_vault_name = "testingkvref1"
+ 
+ }
+  ]
+depends_on = [module.keyvault]
+}
 
 module "public_ip" {
   source                = "app.terraform.io/Motifworks/public_ip/azurerm"
