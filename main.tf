@@ -505,6 +505,16 @@ module "nsg_nic_association" {
            key_permissions         = ["Get", "Create", "Delete", "Update"]
            secret_permissions      = ["Get","List","Set","Delete","Recover","Backup","Restore","Purge"]
            storage_permissions     = ["Get", "Set", "Delete", "Update"]
+         },
+         {
+           tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+           object_id : "c5a7e9ba-7140-4953-b220-f84706a36eea"
+           resource_type           = "user"
+           application_id          = null
+           certificate_permissions = ["Get", "Create", "Delete", "Update"]
+           key_permissions         = ["Get", "Create", "Delete", "Update"]
+           secret_permissions      = ["Get","List","Set","Delete","Recover","Backup","Restore","Purge"]
+           storage_permissions     = ["Get", "Set", "Delete", "Update"]
          }
        ]
 
