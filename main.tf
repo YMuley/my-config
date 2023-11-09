@@ -503,7 +503,7 @@ module "nsg_nic_association" {
            application_id          = null
            certificate_permissions = ["Get", "Create", "Delete", "Update"]
            key_permissions         = ["Get", "Create", "Delete", "Update"]
-           secret_permissions      = ["Get", "Set", "Delete", "Restore", "Purge"]
+           secret_permissions      = ["Get", "Set", "Delete", "Restore", "Purge","Create"]
            storage_permissions     = ["Get", "Set", "Delete", "Update"]
          }
        ]
