@@ -176,6 +176,7 @@ module "service_endpoint_policy" {
       ]
     }
   ]
+    depends_on = [module.resource_Group ]
 
 }
 
