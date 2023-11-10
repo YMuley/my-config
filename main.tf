@@ -710,12 +710,12 @@ module "loadbalancer_backend_pool" {
   virtual_network_output  = module.virtual_network.virtual_network_output
 
   backend_pool_list = [
-    # {
-    #   name                  = "bkp-lb-ddi-dev"
-    #   loadbalancer_name     = "lb-ddi-devone"
-    #   virtual_network_name  = "vnet-ddi-dev"
-    #   tunnel_interface      = []
-    # }
+    {
+      name                  = "bkp-lb-ddi-dev"
+      loadbalancer_name     = "lb-ddi-devone"
+      virtual_network_name  = "vnet-ddi-dev"
+      tunnel_interface      = []
+    }
   ]
 }
 
