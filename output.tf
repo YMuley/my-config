@@ -33,3 +33,8 @@ output "public_ip_output" {
 output "network_interface_card_output" {
   value = module.network_interface_card.network_interface_card_output
 }
+
+output "storage_account_output" {
+  value = module.storage_account.storage_account_output
+    
+  }
