@@ -176,7 +176,6 @@ module "service_endpoint_policy" {
       ]
     }
   ]
-    depends_on = [ module.storage_account, module.resource_Group ]
 
 }
 
