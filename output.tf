@@ -36,5 +36,5 @@ output "network_interface_card_output" {
 
 output "storage_account_output" {
   value = module.storage_account.storage_account_output
-    sensitive = true
+    sensitive = false
   }

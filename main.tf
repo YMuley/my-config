@@ -142,7 +142,7 @@ module "service_endpoint_policy" {
   source                = "app.terraform.io/Motifworks/service_endpoint_policy/azurerm"
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
-  #storage_account_output  = module.storage_account.storage_account_output
+  storage_account_output  = module.storage_account.storage_account_output
   service_endpoint_policy_list = [
     # {
     #   name                = "ddi-sep-poc"
