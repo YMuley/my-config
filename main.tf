@@ -135,14 +135,14 @@ module "subnet" {
     }
 
   ]
-  depends_on = [module.virtual_network, module.service_endpoint_policy]
+  depends_on = [module.virtual_network]
 }
 
 module "service_endpoint_policy" {
   source                = "app.terraform.io/Motifworks/service_endpoint_policy/azurerm"
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
-  #storage_account_output  = module.storage_account.storage_account_output
+  storage_account_output  = module.storage_account.storage_account_output
   service_endpoint_policy_list = [
     # {
     #   name                = "ddi-sep-poc"
@@ -177,7 +177,7 @@ module "service_endpoint_policy" {
       ]
     }
   ]
-    depends_on = [module.resource_Group]
+  
 
 }
 
@@ -701,6 +701,21 @@ module "load_balancer" {
 
   ]
   
+}
+
+module "loadbalancer_backend_pool" {
+  source  = "app.terraform.io/Motifworks/loadbalancer_backend_pool/azurerm"
+  version = "1.0.0"
+  load_balancer_output = module.load_balancer.load_balancer_output
+  virtual_network_output  = module.virtual_network.virtual_network_output
+
+  backend_pool_list = [
+    {
+      name                  = "bkp-lb-ddi-dev"
+      loadbalancer_name     = "lb-ddi-devone"
+      virtual_network_name  = "vnet-ddi-dev"
+    }
+  ]
 }
 
 module "availability_set" {
