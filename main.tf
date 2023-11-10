@@ -169,7 +169,7 @@ module "service_endpoint_policy" {
           name              = "spe-stg-ddi-dev"
           description       = "poc policy"
           service           = "Microsoft.Storage"
-          service_resources = [module.resource_Group.resource_group_output["rg-ddi-dev"].id, module.storage_account.storage_account_output["ddistorageacc1"].id] #
+          service_resources = [module.resource_Group.resource_group_output["rg-ddi-dev"].id, module.storage_account.storage_account_output["ddistorageacc"].id] #
 
         }
 
@@ -583,13 +583,13 @@ module "storage_account" {
       shared_access_key_enabled     = false
       public_network_access_enabled = true
       network_rules = [
-        {
-          default_action       = "Allow"
-          bypass               = ["AzureServices"]
-          ip_rules             = ["23.45.1.0/30"]
-          virtual_network_name = "vnet-ddi-dev"
-          subnet_name          = "sub-ddi-dev-web"
-        }
+        # {
+        #   default_action       = "Allow"
+        #   bypass               = ["AzureServices"]
+        #   ip_rules             = ["23.45.1.0/30"]
+        #   virtual_network_name = "vnet-ddi-dev"
+        #   subnet_name          = "sub-ddi-dev-web"
+        # }
       ]
     }
   ]
