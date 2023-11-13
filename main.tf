@@ -723,7 +723,7 @@ module "loadbalancer_backend_pool" {
       tunnel_interface      = [
         {
           identifier = "800"
-          type       = "None"
+          type       = "Internal and External"
           protocol   = "VXLAN"
           port       = "443"
         }
