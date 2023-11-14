@@ -25,7 +25,7 @@ module "resource_Group" {
 
 module "window_vm" {
   source  = "app.terraform.io/Motifworks/window-vm/azurerm"
-  version = "1.0.1"
+  version = "1.0.2"
   windows_vm_list = [
   {
     name: "vm1-windows"
