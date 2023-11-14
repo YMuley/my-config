@@ -751,7 +751,7 @@ module "loadbalancer_backend_pool" {
       name                  = "bkp-lb-ddi-dev"
       loadbalancer_name     = "lb-ddi-devone"
       virtual_network_name  = "vnet-ddi-dev"
-      # tunnel_interface      = []
+       tunnel_interface      = []
     },
     {
       name                  = "bkp-lb-ddi-poc"
