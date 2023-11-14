@@ -23,6 +23,43 @@ module "resource_Group" {
   ]
 }
 
+module "window_vm" {
+  source  = "app.terraform.io/Motifworks/window-vm/azurerm"
+  version = "1.0.2"
+  windows_vm_list = [
+  {
+    name: "vm1-windows"
+    resource_group_name = "rg-ddi-dev"
+    location            = "eastus"
+    size                = "Standard_F2"
+    disable_password_authentication = true
+    allow_extension_operations = true
+    availability_set_name  = null
+    
+  #  admin_username      = "adminuser"
+   # admin_password      = "P@$$w0rd1234!"
+    network_interface_ids = [
+    "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev/providers/Microsoft.Network/networkInterfaces/nic1"
+  ]
+    os_disk = [
+      {
+       name                 = "testing"
+       caching              = "ReadWrite"
+       storage_account_type = "Standard_LRS"
+      }
+    ]
+
+    source_image_reference = [
+      {
+        publisher = "MicrosoftWindowsServer"
+        offer     = "WindowsServer"
+        sku       = "2016-Datacenter"
+        version   = "latest"
+      }
+    ]
+}
+]
+}
 
 module "virtual_network" {
   source                = "app.terraform.io/Motifworks/virtual_network/azurerm"
