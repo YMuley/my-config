@@ -757,14 +757,14 @@ module "loadbalancer_backend_pool" {
       name                  = "bkp-lb-ddi-poc"
       loadbalancer_name     = "lb-ddi-poc"
       virtual_network_name  = "vnet-ddi-poc"
-      # tunnel_interface      = [
-      #   {
-      #     identifier = "800"
-      #     type       = "Internal"
-      #     protocol   = "VXLAN"
-      #     port       = "443"
-      #   }
-      # ]
+      tunnel_interface      = [
+        # {
+        #   identifier = "800"
+        #   type       = "Internal"
+        #   protocol   = "VXLAN"
+        #   port       = "443"
+        # }
+      ]
     }
 
   ]
