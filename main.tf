@@ -26,6 +26,7 @@ module "resource_Group" {
 module "window_vm" {
   source  = "app.terraform.io/Motifworks/window-vm/azurerm"
   version = "1.0.2"
+  network_interface_card_output = module.network_interface_card.network_interface_card_output
   windows_vm_list = [
   {
     name: "vm1-windows"
@@ -35,12 +36,12 @@ module "window_vm" {
     disable_password_authentication = true
     allow_extension_operations = true
     availability_set_name  = null
-    
+    network_interface_card_name = "nic1"
   #  admin_username      = "adminuser"
    # admin_password      = "P@$$w0rd1234!"
-    network_interface_ids = [
-    "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev/providers/Microsoft.Network/networkInterfaces/nic1"
-  ]
+  #  network_interface_ids = [
+ #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev/providers/Microsoft.Network/networkInterfaces/nic1"
+#  ]
     os_disk = [
       {
        name                 = "testing"
