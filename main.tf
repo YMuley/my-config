@@ -31,7 +31,7 @@ module "window_vm" {
   {
     name: "vm1-windows"
     resource_group_name = "rg-ddi-dev"
-    location            = "eastus"
+    location            = "westus"
     size                = "Standard_F2"
     disable_password_authentication = false
     allow_extension_operations = true
