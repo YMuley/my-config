@@ -33,7 +33,7 @@ module "window_vm" {
     resource_group_name = "rg-ddi-dev"
     location            = "eastus"
     size                = "Standard_F2"
-    disable_password_authentication = flase
+    disable_password_authentication = false
     allow_extension_operations = true
     availability_set_name  = null
     network_interface_card_name = ["nic1"]
