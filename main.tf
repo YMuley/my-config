@@ -501,9 +501,9 @@ module "nsg_nic_association" {
 
    key_vault_list = [
      {
-       name                = "testingkvref1"
+       name                = "testiefngkvref1"
        resource_group_name = "rg-ddi-dev"
-       location            = "eastus"
+       location            = "westus"
 
        sku_name                        = "standard"
        tenant_id                       = "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
@@ -566,7 +566,7 @@ module "vault_secret" {
   { 
     name         = "secrauce"
     value        = "szechuan"
-    key_vault_name = "testingkvref1"
+    key_vault_name = "testiefngkvref1"
  
  }
   ]
