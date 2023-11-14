@@ -25,7 +25,7 @@ module "resource_Group" {
 
 module "window_vm" {
   source  = "app.terraform.io/Motifworks/window-vm/azurerm"
-  version = "1.0.2"
+  version = "1.0.3"
   network_interface_card_output = module.network_interface_card.network_interface_card_output
   windows_vm_list = [
   {
