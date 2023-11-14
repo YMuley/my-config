@@ -33,7 +33,7 @@ module "window_vm" {
     location            = "eastus"
     size                = "Standard_F2"
     disable_password_authentication = true
-    availability_set_name  = "null"
+    availability_set_name  = null
     
   #  admin_username      = "adminuser"
    # admin_password      = "P@$$w0rd1234!"
