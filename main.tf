@@ -32,8 +32,11 @@ module "window_vm" {
     resource_group_name = "rg-ddi-dev"
     location            = "eastus"
     size                = "Standard_F2"
-    admin_username      = "adminuser"
-    admin_password      = "P@$$w0rd1234!"
+    disable_password_authentication = true
+    availability_set_name  = null
+    
+  #  admin_username      = "adminuser"
+   # admin_password      = "P@$$w0rd1234!"
     network_interface_ids = [
     "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev/providers/Microsoft.Network/networkInterfaces/nic1"
   ]
