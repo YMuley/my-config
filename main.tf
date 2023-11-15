@@ -819,4 +819,37 @@ module "management_lock" {
   ]
 }
 
+# module "traffic_manager_profile" {
+#   source  = "app.terraform.io/Motifworks/traffic_manager_profile/azurerm"
+#   version = "1.0.0"
+
+#   profile_configurations = [
+#     {
+#       name                   = "example-profile"
+#       traffic_routing_method = "Weighted"
+
+#       dns_config = [
+#         {
+#           relative_name = "example"
+#           ttl           = 100
+#         }
+#       ]
+
+#       monitor_config = [
+#         {
+#           protocol                     = "HTTP"
+#           port                         = 80
+#           path                         = "/"
+#           interval_in_seconds          = 30
+#           timeout_in_seconds           = 9
+#           tolerated_number_of_failures = 3
+#         }
+#       ]
+
+#       tags = {
+#         environment = "Production"
+#       }
+#     }
+#   ]
+# }
 
