@@ -801,23 +801,23 @@ module "availability_set" {
   ]
 }
 
-# module "management_lock" {
-#   source                 = "app.terraform.io/Motifworks/management_lock/azurerm"
-#   version                = "1.0.0"
-#   virtual_network_output = module.virtual_network.virtual_network_output
-#   subnet_output          = module.subnet.vnet_subnet_output
+module "management_lock" {
+  source                 = "app.terraform.io/Motifworks/management_lock/azurerm"
+  version                = "1.0.0"
+  virtual_network_output = module.virtual_network.virtual_network_output
+  subnet_output          = module.subnet.vnet_subnet_output
 
-#   management_lock_list = [
-#     {
+  management_lock_list = [
+    {
 
-#       name                 = "ddiresourceip"
-#       resource_type        = "virtual_network"
-#       virtual_network_name = "vnet-ddi-dev"
-#       lock_level           = "CanNotDelete"
-#       notes                = "Locked because it's needed by a third-party"
-#     }
-#   ]
-# }
+      name                 = "ddiresourceip"
+      resource_type        = "virtual_network"
+      virtual_network_name = "vnet-ddi-dev"
+      lock_level           = "CanNotDelete"
+      notes                = "Locked because it's needed by a third-party"
+    }
+  ]
+}
 
 module "traffic_manager_profile" {
   source                = "app.terraform.io/Motifworks/traffic_manager_profile/azurerm"
