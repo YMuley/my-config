@@ -801,55 +801,57 @@ module "availability_set" {
   ]
 }
 
-module "management_lock" {
-  source                 = "app.terraform.io/Motifworks/management_lock/azurerm"
-  version                = "1.0.0"
-  virtual_network_output = module.virtual_network.virtual_network_output
-  subnet_output          = module.subnet.vnet_subnet_output
+# module "management_lock" {
+#   source                 = "app.terraform.io/Motifworks/management_lock/azurerm"
+#   version                = "1.0.0"
+#   virtual_network_output = module.virtual_network.virtual_network_output
+#   subnet_output          = module.subnet.vnet_subnet_output
 
-  management_lock_list = [
-    {
-
-      name                 = "ddiresourceip"
-      resource_type        = "virtual_network"
-      virtual_network_name = "vnet-ddi-dev"
-      lock_level           = "CanNotDelete"
-      notes                = "Locked because it's needed by a third-party"
-    }
-  ]
-}
-
-# module "traffic_manager_profile" {
-#   source  = "app.terraform.io/Motifworks/traffic_manager_profile/azurerm"
-#   version = "1.0.0"
-
-#   profile_configurations = [
+#   management_lock_list = [
 #     {
-#       name                   = "example-profile"
-#       traffic_routing_method = "Weighted"
 
-#       dns_config = [
-#         {
-#           relative_name = "example"
-#           ttl           = 100
-#         }
-#       ]
-
-#       monitor_config = [
-#         {
-#           protocol                     = "HTTP"
-#           port                         = 80
-#           path                         = "/"
-#           interval_in_seconds          = 30
-#           timeout_in_seconds           = 9
-#           tolerated_number_of_failures = 3
-#         }
-#       ]
-
-#       tags = {
-#         environment = "Production"
-#       }
+#       name                 = "ddiresourceip"
+#       resource_type        = "virtual_network"
+#       virtual_network_name = "vnet-ddi-dev"
+#       lock_level           = "CanNotDelete"
+#       notes                = "Locked because it's needed by a third-party"
 #     }
 #   ]
 # }
+
+module "traffic_manager_profile" {
+  source                = "app.terraform.io/Motifworks/traffic_manager_profile/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+
+  traffic_manager_profile_list = [
+    {
+      name                   = "dditestprofile"
+      resource_group_name    = "rg-ddi-dev"
+      traffic_routing_method = "Weighted"
+
+      dns_config = [
+        {
+          relative_name = "example"
+          ttl           = 100
+        }
+      ]
+
+      monitor_config = [
+        {
+          protocol                     = "HTTP"
+          port                         = 80
+          path                         = "/"
+          interval_in_seconds          = 30
+          timeout_in_seconds           = 9
+          tolerated_number_of_failures = 3
+        }
+      ]
+
+      tags = {
+        environment = "Production"
+      }
+    }
+  ]
+}
 
