@@ -24,42 +24,42 @@ module "resource_Group" {
 }
 
 module "window_vm" {
-  source  = "app.terraform.io/Motifworks/window-vm/azurerm"
-  version = "1.0.3"
+  source                        = "app.terraform.io/Motifworks/window-vm/azurerm"
+  version                       = "1.0.3"
   network_interface_card_output = module.network_interface_card.network_interface_card_output
   windows_vm_list = [
-  {
-    name: "vm1-windows"
-    resource_group_name = "rg-ddi-dev"
-    location            = "westus"
-    size                = "Standard_F2"
-    disable_password_authentication = false
-    allow_extension_operations = true
-    availability_set_name  = null
-    network_interface_card_name = ["nic1"]
-   admin_username      = "adminuser"
-    admin_password      = "P@$$w0rd1234!"
-  #  network_interface_ids = [
- #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev/providers/Microsoft.Network/networkInterfaces/nic1"
-#  ]
-    os_disk = [
-      {
-       name                 = "testing"
-       caching              = "ReadWrite"
-       storage_account_type = "Standard_LRS"
-      }
-    ]
+    {
+      name : "vm1-windows"
+      resource_group_name             = "rg-ddi-dev"
+      location                        = "westus"
+      size                            = "Standard_F2"
+      disable_password_authentication = false
+      allow_extension_operations      = true
+      availability_set_name           = null
+      network_interface_card_name     = ["nic1"]
+      admin_username                  = "adminuser"
+      admin_password                  = "P@$$w0rd1234!"
+      #  network_interface_ids = [
+      #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev/providers/Microsoft.Network/networkInterfaces/nic1"
+      #  ]
+      os_disk = [
+        {
+          name                 = "testing"
+          caching              = "ReadWrite"
+          storage_account_type = "Standard_LRS"
+        }
+      ]
 
-    source_image_reference = [
-      {
-        publisher = "MicrosoftWindowsServer"
-        offer     = "WindowsServer"
-        sku       = "2016-Datacenter"
-        version   = "latest"
-      }
-    ]
-}
-]
+      source_image_reference = [
+        {
+          publisher = "MicrosoftWindowsServer"
+          offer     = "WindowsServer"
+          sku       = "2016-Datacenter"
+          version   = "latest"
+        }
+      ]
+    }
+  ]
 }
 
 module "virtual_network" {
@@ -134,7 +134,7 @@ module "subnet" {
 
       delegation = []
     },
-     {
+    {
       name                                          = "sub-ddi-poc-lb"
       resource_group_name                           = "rg-ddi-poc"
       virtual_network_name                          = "vnet-ddi-poc"
@@ -177,10 +177,10 @@ module "subnet" {
 }
 
 module "service_endpoint_policy" {
-  source                = "app.terraform.io/Motifworks/service_endpoint_policy/azurerm"
-  version               = "1.0.0"
-  resource_group_output = module.resource_Group.resource_group_output
-  storage_account_output  = module.storage_account.storage_account_output
+  source                 = "app.terraform.io/Motifworks/service_endpoint_policy/azurerm"
+  version                = "1.0.0"
+  resource_group_output  = module.resource_Group.resource_group_output
+  storage_account_output = module.storage_account.storage_account_output
   service_endpoint_policy_list = [
     # {
     #   name                = "ddi-sep-poc"
@@ -215,7 +215,7 @@ module "service_endpoint_policy" {
       ]
     }
   ]
-  
+
 
 }
 
@@ -495,92 +495,92 @@ module "nsg_nic_association" {
   ]
 }
 
- module "keyvault" {
-   source  = "app.terraform.io/Motifworks/keyvault/azurerm"
-   version = "1.0.6"
+module "keyvault" {
+  source  = "app.terraform.io/Motifworks/keyvault/azurerm"
+  version = "1.0.6"
 
-   key_vault_list = [
-     {
-       name                = "testiefngkvref1"
-       resource_group_name = "rg-ddi-dev"
-       location            = "westus"
+  key_vault_list = [
+    {
+      name                = "testiefngkvref1"
+      resource_group_name = "rg-ddi-dev"
+      location            = "westus"
 
-       sku_name                        = "standard"
-       tenant_id                       = "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-       enabled_for_deployment          = true
-       enabled_for_disk_encryption     = false
-       enabled_for_template_deployment = false
-       enable_rbac_authorization       = false
-       soft_delete_retention_days      = 7
-       purge_protection_enabled        = false
-       public_network_access_enabled   = true
-       network_acls = [
-         {
-           bypass         = "AzureServices"
-           default_action = "Allow"
-         }
-       ]
-       access_policy = [
-         {
-           tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-           object_id : "0ac91507-a04a-4fac-bfca-a143cea93b33"
-           resource_type           = "user"
-           application_id          = null
-           certificate_permissions = ["Get", "Create", "Delete", "Update"]
-           key_permissions         = ["Get", "Create", "Delete", "Update"]
-           secret_permissions      = ["Get","List","Set","Delete","Recover","Backup","Restore","Purge"]
-           storage_permissions     = ["Get", "Set", "Delete", "Update"]
-         },
-          {
-           tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-           object_id : "ea7d721a-3358-433d-b26f-1d79421f920d"
-           resource_type           = "user"
-           application_id          = null
-           certificate_permissions = ["Get", "Create", "Delete", "Update"]
-           key_permissions         = ["Get", "Create", "Delete", "Update"]
-           secret_permissions      = ["Get","List","Set","Delete","Recover","Backup","Restore","Purge"]
-           storage_permissions     = ["Get", "Set", "Delete", "Update"]
-         },
-         {
-           tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-           object_id : "c5a7e9ba-7140-4953-b220-f84706a36eea"
-           resource_type           = "user"
-           application_id          = null
-           certificate_permissions = ["Get", "Create", "Delete", "Update"]
-           key_permissions         = ["Get", "Create", "Delete", "Update"]
-           secret_permissions      = ["Get","List","Set","Delete","Recover","Backup","Restore","Purge"]
-           storage_permissions     = ["Get", "Set", "Delete", "Update"]
-         }
-       ]
+      sku_name                        = "standard"
+      tenant_id                       = "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+      enabled_for_deployment          = true
+      enabled_for_disk_encryption     = false
+      enabled_for_template_deployment = false
+      enable_rbac_authorization       = false
+      soft_delete_retention_days      = 7
+      purge_protection_enabled        = false
+      public_network_access_enabled   = true
+      network_acls = [
+        {
+          bypass         = "AzureServices"
+          default_action = "Allow"
+        }
+      ]
+      access_policy = [
+        {
+          tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+          object_id : "0ac91507-a04a-4fac-bfca-a143cea93b33"
+          resource_type           = "user"
+          application_id          = null
+          certificate_permissions = ["Get", "Create", "Delete", "Update"]
+          key_permissions         = ["Get", "Create", "Delete", "Update"]
+          secret_permissions      = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
+          storage_permissions     = ["Get", "Set", "Delete", "Update"]
+        },
+        {
+          tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+          object_id : "ea7d721a-3358-433d-b26f-1d79421f920d"
+          resource_type           = "user"
+          application_id          = null
+          certificate_permissions = ["Get", "Create", "Delete", "Update"]
+          key_permissions         = ["Get", "Create", "Delete", "Update"]
+          secret_permissions      = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
+          storage_permissions     = ["Get", "Set", "Delete", "Update"]
+        },
+        {
+          tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+          object_id : "c5a7e9ba-7140-4953-b220-f84706a36eea"
+          resource_type           = "user"
+          application_id          = null
+          certificate_permissions = ["Get", "Create", "Delete", "Update"]
+          key_permissions         = ["Get", "Create", "Delete", "Update"]
+          secret_permissions      = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
+          storage_permissions     = ["Get", "Set", "Delete", "Update"]
+        }
+      ]
 
-#       contact = [
-#         {
-#           email = "Vijay.Yadav@motifworks.com"
-#           name  = "Vijay Yadav"
-#           phone = "93042322"
-#         }
-#       ]
+      #       contact = [
+      #         {
+      #           email = "Vijay.Yadav@motifworks.com"
+      #           name  = "Vijay Yadav"
+      #           phone = "93042322"
+      #         }
+      #       ]
 
-       tags = {
-         env = "poc"
-       }
-     }
-   ]
- }
+      tags = {
+        env = "poc"
+      }
+    }
+  ]
+}
 
 module "vault_secret" {
-  source  = "app.terraform.io/Motifworks/vault_secret/key"
-  version = "1.0.0"
+  source           = "app.terraform.io/Motifworks/vault_secret/key"
+  version          = "1.0.0"
   key_vault_output = module.keyvault.key_vault_output
   key_vault_secret_list = [
-  { 
-    name         = "secrauce"
-    value        = "szechuan"
-    key_vault_name = "testiefngkvref1"
- 
- }
+    {
+      name           = "secrauce"
+      value          = "szechuan"
+      key_vault_name = "testiefngkvref1"
+
+    }
   ]
-depends_on = [module.keyvault]
+  depends_on = [module.keyvault]
 }
 
 
@@ -731,7 +731,7 @@ module "load_balancer" {
       name                = "lb-ddi-poc"
       resource_group_name = "rg-ddi-poc"
       location            = "eastus"
-      sku                 = "Gateway" #[possible values : Standard,Gateway,Basic]
+      sku                 = "Gateway"  #[possible values : Standard,Gateway,Basic]
       sku_tier            = "Regional" #[possible values : Regional,Global]
       tags = { env = "dev"
         org = "ddi"
@@ -748,21 +748,21 @@ module "load_balancer" {
     }
 
   ]
-  
+
 }
 
 module "loadbalancer_backend_pool" {
-  source  = "app.terraform.io/Motifworks/loadbalancer_backend_pool/azurerm"
-  version = "1.0.0"
-  load_balancer_output = module.load_balancer.load_balancer_output
-  virtual_network_output  = module.virtual_network.virtual_network_output
+  source                 = "app.terraform.io/Motifworks/loadbalancer_backend_pool/azurerm"
+  version                = "1.0.0"
+  load_balancer_output   = module.load_balancer.load_balancer_output
+  virtual_network_output = module.virtual_network.virtual_network_output
 
   backend_pool_list = [
     {
-      name                  = "bkp-lb-ddi-dev"
-      loadbalancer_name     = "lb-ddi-devone"
-      virtual_network_name  = "vnet-ddi-dev"
-      tunnel_interface      = []
+      name                 = "bkp-lb-ddi-dev"
+      loadbalancer_name    = "lb-ddi-devone"
+      virtual_network_name = "vnet-ddi-dev"
+      tunnel_interface     = []
     },
     # {
     #   name                  = "bkp-lb-ddi-poc"
@@ -800,3 +800,22 @@ module "availability_set" {
     }
   ]
 }
+
+module "management_lock" {
+  source                = "app.terraform.io/Motifworks/management_lock/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+
+  management_lock_list = [
+    {
+
+      name                = "ddi-resource-ip"
+      resource_type       = "resource_group"
+      resource_group_name = "rg-ddi-dev"
+      lock_level          = "CanNotDelete"
+      notes               = "Locked because it's needed by a third-party"
+    }
+  ]
+}
+
+
