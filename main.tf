@@ -810,7 +810,7 @@ module "management_lock" {
   management_lock_list = [
     {
 
-      name                 = "ddi-resource-ip"
+      name                 = "ddiresourceip"
       resource_type        = "virtual_network"
       virtual_network_name = "vnet-ddi-dev"
       lock_level           = "CanNotDelete"
