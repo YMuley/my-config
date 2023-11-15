@@ -832,7 +832,7 @@ module "traffic_manager_profile" {
 
       dns_config = [
         {
-          relative_name = "example"
+          relative_name = "dev-app"
           ttl           = 100
         }
       ]
