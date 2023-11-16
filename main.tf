@@ -182,7 +182,7 @@ module "subnet" {
       name                                          = "sub-ddi-dev2-web"
       resource_group_name                           = "rg-ddi-dev"
       virtual_network_name                          = "vnet-ddi-dev"
-      address_prefixes                              = ["10.100.16.0/24"]
+      address_prefixes                              = ["10.100.14.0/32"]
       service_endpoints                             = ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web"]
       service_endpoint_policy_ids                   = ["ddi-sep-dev"]
       private_endpoint_network_polices_enabled      = "false"
