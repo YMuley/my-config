@@ -182,7 +182,7 @@ module "subnet" {
       name                                          = "sub-ddi-dev2-web"
       resource_group_name                           = "rg-ddi-dev"
       virtual_network_name                          = "vnet-ddi-dev"
-      address_prefixes                              = ["10.100.14.0/32"]
+      address_prefixes                              = ["10.100.17.0/24"]
       service_endpoints                             = ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web"]
       service_endpoint_policy_ids                   = ["ddi-sep-dev"]
       private_endpoint_network_polices_enabled      = "false"
@@ -415,7 +415,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-dev"
       allocation_method   = "Static"
       sku                 = "Basic"
-      domain_name_label   = "another-unique-label"
+      domain_name_label   = "one-unique-label"
       tags = {
         environment = "dev"
       }
