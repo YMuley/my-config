@@ -68,7 +68,7 @@ module "linux_vm" {
 
   linux_vm_list =  [
     {
-      name : "vm1-windows"
+      name : "vm1-linucs"
       resource_group_name             = "rg-ddi-dev"
       location                        = "westus"
       size                            = "Standard_F2"
