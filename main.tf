@@ -64,6 +64,7 @@ module "window_vm" {
 module "linux_vm" {
   source  = "app.terraform.io/Motifworks/linux-vm/azurerm"
   version = "1.0.0"
+  network_interface_card_output = module.network_interface_card.network_interface_card_output
 
   linux_vm_list =  [
     {
@@ -74,7 +75,7 @@ module "linux_vm" {
       disable_password_authentication = true
       allow_extension_operations      = true
       availability_set_name           = null
-      network_interface_card_name     = ["nic1"]
+      network_interface_card_name     = ["nic2"]
     #  admin_username                  = "adminuser"
      # admin_password                  = "P@$$w0rd1234!"
       #  network_interface_ids = [
