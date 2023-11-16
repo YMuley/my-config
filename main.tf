@@ -75,7 +75,7 @@ module "linux_vm" {
       disable_password_authentication = false
       allow_extension_operations      = true
       availability_set_name           = null
-      network_interface_card_name     = ["nic1"]
+      network_interface_card_name     = ["nic2"]
       admin_username                  = "adminuser"
       admin_password                  = "P@$$w0rd1234!"
       tags = {
@@ -473,25 +473,25 @@ module "network_interface_card" {
       ]
     },
 
-    # {
-    #   name                = "nic2"
-    #   location            = "westus"
-    #   resource_group_name = "rg-ddi-dev"
-    #   tags = {
-    #     environment = "dev"
-    #   }
-    #   ip_configuration = [
-    #     {
-    #       name                          = "config2"
-    #       virtual_network_name          = "vnet-ddi-dev"
-    #       subnet_name                   = "sub-ddi-dev-web"
-    #       private_ip_address_allocation = "Dynamic"
-    #       public_ip_name                = "public-ip2"
-    # public_ip_name                = "ddi-fw-hub-wus"
-    #   private_ip_address            = null
-    #     }
-    #   ]
-    # }
+     {
+       name                = "nic2"
+       location            = "westus"
+       resource_group_name = "rg-ddi-dev"
+       tags = {
+         environment = "dev"
+       }
+       ip_configuration = [
+         {
+           name                          = "config2"
+           virtual_network_name          = "vnet-ddi-poc"
+           subnet_name                   = "sub-ddi-poc-web"
+           private_ip_address_allocation = "Dynamic"
+           public_ip_name                = "public-ip2"
+           public_ip_name                = "public-ip-ddi-lb"
+           private_ip_address            = null
+         }
+       ]
+     }
   ]
 
 
