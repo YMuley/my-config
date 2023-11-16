@@ -88,7 +88,7 @@ module "linux_vm" {
       #  ]
       os_disk = [
         {
-          name                 = "testing"
+          name                 = "testing2"
           caching              = "ReadWrite"
           storage_account_type = "Standard_LRS"
         }
