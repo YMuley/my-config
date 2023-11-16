@@ -178,6 +178,18 @@ module "subnet" {
 
       delegation = []
     },
+     {
+      name                                          = "sub-ddi-dev2-web"
+      resource_group_name                           = "rg-ddi-dev"
+      virtual_network_name                          = "vnet-ddi-dev"
+      address_prefixes                              = ["10.100.16.0/24"]
+      service_endpoints                             = ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web"]
+      service_endpoint_policy_ids                   = ["ddi-sep-dev"]
+      private_endpoint_network_polices_enabled      = "false"
+      private_link_service_network_policies_enabled = "false"
+
+      delegation = []
+    },
     {
       name                                          = "sub-ddi-poc-lb"
       resource_group_name                           = "rg-ddi-poc"
@@ -397,6 +409,18 @@ module "public_ip" {
       }
       sku_tier = "Regional"
     },
+{
+      name                = "public-ip-ddi-dev2"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev"
+      allocation_method   = "Static"
+      sku                 = "Basic"
+      domain_name_label   = "another-unique-label"
+      tags = {
+        environment = "dev"
+      }
+      sku_tier = "Regional"
+    },
     {
       name                = "public-ip-ddi-lb"
       location            = "westus"
@@ -483,11 +507,10 @@ module "network_interface_card" {
        ip_configuration = [
          {
            name                          = "config2"
-           virtual_network_name          = "vnet-ddi-poc"
-           subnet_name                   = "sub-ddi-poc-web"
+           virtual_network_name          = "vnet-ddi-dev"
+           subnet_name                   = "sub-ddi-dev2-web"
            private_ip_address_allocation = "Dynamic"
-           public_ip_name                = "public-ip2"
-           public_ip_name                = "public-ip-ddi-lb"
+           public_ip_name                = "public-ip-ddi-dev2"
            private_ip_address            = null
          }
        ]
