@@ -96,9 +96,9 @@ module "linux_vm" {
 
       source_image_reference = [
        {
-          publisher = "Canoal"
-          offer     = "UbuntuServer"
-          sku       = "16.04-LTS"
+          publisher = "Canonical"
+          offer     = "0001-com-ubuntu-server-jammy"
+          sku       = "22_04-lts"
           version   = "latest"
         }
       ]
