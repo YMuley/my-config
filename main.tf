@@ -75,7 +75,7 @@ module "linux_vm" {
       disable_password_authentication = false
       allow_extension_operations      = true
       availability_set_name           = null
-      network_interface_card_name     = ["nic2"]
+      network_interface_card_name     = ["nic1"]
       admin_username                  = "adminuser"
       admin_password                  = "P@$$w0rd1234!"
       tags = {
@@ -84,7 +84,7 @@ module "linux_vm" {
         environment  = "poc"
       }
       #  network_interface_ids = [
-      #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev/providers/Microsoft.Network/networkInterfaces/nic1"
+      #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev/providers/Microsoft.Network/networkInterfaces/1"
       #  ]
       os_disk = [
         {
@@ -96,7 +96,7 @@ module "linux_vm" {
 
       source_image_reference = [
        {
-          publisher = "Canonical"
+          publisher = "Canoal"
           offer     = "UbuntuServer"
           sku       = "16.04-LTS"
           version   = "latest"
