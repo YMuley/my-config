@@ -851,9 +851,9 @@ module "loadbalancer_backend_pool" {
 module "loadbalancer_backend_address_pool_addresses" {
   source  = "app.terraform.io/Motifworks/loadbalancer_backend_address_pool_addresses/azurerm"
   version = "1.0.0"
-  lb_backend_pool_output = module.loadbalancer_backend_pool.lb_backend_pool_output
+  lb_backend_address_pool_output = module.loadbalancer_backend_pool.lb_backend_address_pool_output
 
-  lb_backend_pool_address_list = [
+  lb_backend_address_pool_addresses_list = [
     {
       name = "lb-bkp-pool-ddi-dev-ip-name"
       backend_address_pool_name = format("%s/%s", "lb-ddi-devone", "bkp-lb-ddi-dev")
