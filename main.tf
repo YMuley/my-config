@@ -825,25 +825,25 @@ module "loadbalancer_backend_pool" {
   virtual_network_output = module.virtual_network.virtual_network_output
 
   backend_pool_list = [
-    # {
-    #   name                 = "bkp-lb-ddi-dev"
-    #   loadbalancer_name    = "lb-ddi-devone"
-    #   virtual_network_name = "vnet-ddi-dev"
-    #   tunnel_interface     = []
-    # },
-    # {
-    #   name                  = "bkp-lb-ddi-poc"
-    #   loadbalancer_name     = "lb-ddi-poc"
-    #   virtual_network_name  = "vnet-ddi-poc"
-    #   tunnel_interface      = [
-    #     {
-    #       identifier = "800"
-    #       type       = "Internal"
-    #       protocol   = "VXLAN"
-    #       port       = "443"
-    #     }
-    #   ]
-    # }
+    {
+      name                 = "bkp-lb-ddi-dev"
+      loadbalancer_name    = "lb-ddi-devone"
+      virtual_network_name = "vnet-ddi-dev"
+      tunnel_interface     = []
+    },
+    {
+      name                  = "bkp-lb-ddi-poc"
+      loadbalancer_name     = "lb-ddi-poc"
+      virtual_network_name  = "vnet-ddi-poc"
+      tunnel_interface      = [
+        {
+          identifier = "800"
+          type       = "Internal"
+          protocol   = "VXLAN"
+          port       = "443"
+        }
+      ]
+    }
 
   ]
 }
