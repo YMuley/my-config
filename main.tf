@@ -822,7 +822,7 @@ module "loadbalancer_backend_pool" {
   source                 = "app.terraform.io/Motifworks/loadbalancer_backend_pool/azurerm"
   version                = "1.0.0"
   load_balancer_output   = module.load_balancer.load_balancer_output
-  virtual_network_output = module.virtual_network.virtual_network_output
+  #virtual_network_output = module.virtual_network.virtual_network_output
 
   backend_pool_list = [
     {
