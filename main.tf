@@ -514,7 +514,25 @@ module "network_interface_card" {
            private_ip_address            = null
          }
        ]
-     }
+     },
+     {
+      name                = "lb-ddi-dev-nic"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev"
+      tags = {
+        environment = "dev"
+      }
+      ip_configuration = [
+        {
+          name                          = "lb-ddi-dev-ip"
+          virtual_network_name          = "vnet-ddi-dev"
+          subnet_name                   = "sub-ddi-dev-web"
+          private_ip_address_allocation = "Dynamic"
+          public_ip_name                = null
+          private_ip_address            = null
+        }
+      ]
+    }
   ]
 
 
@@ -832,6 +850,12 @@ module "loadbalancer_backend_pool" {
       tunnel_interface     = []
     },
     {
+      name                 = "bkp-lb-ddi-dev"
+      loadbalancer_name    = "lb-ddi-dev"
+      #virtual_network_name = "vnet-ddi-dev"
+      tunnel_interface     = []
+    },
+    {
       name                  = "bkp-lb-ddi-poc"
       loadbalancer_name     = "lb-ddi-poc"
       #virtual_network_name  = "vnet-ddi-poc"
@@ -869,6 +893,22 @@ module "loadbalancer_backend_address_pool_addresses" {
     }
 
   ]
+}
+
+module "loadbancer_backend_nic_association" {
+  source  = "app.terraform.io/Motifworks/loadbancer_backend_nic_association/azurerm"
+  version = "1.0.0"
+  lb_backend_address_pool_output = module.loadbalancer_backend_pool.lb_backend_address_pool_output
+  network_interface_card_output = module.network_interface_card.network_interface_card_output
+
+  lb_bckpool_nic_association_list = [
+    {
+      network_interface_card_name = format("%s/%s", "rg-ddi-dev", "lb-ddi-dev-nic")
+      ip_configuration_name = "lb-ddi-dev-ip"
+      lb_backend_address_pool_name = format("%s/%s", "lb-ddi-dev", "bkp-lb-ddi-dev")
+    }
+  ]
+
 }
 
 
