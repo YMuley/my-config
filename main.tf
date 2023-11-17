@@ -825,51 +825,51 @@ module "loadbalancer_backend_pool" {
   virtual_network_output = module.virtual_network.virtual_network_output
 
   backend_pool_list = [
-    {
-      name                 = "bkp-lb-ddi-dev"
-      loadbalancer_name    = "lb-ddi-devone"
-      virtual_network_name = "vnet-ddi-dev"
-      tunnel_interface     = []
-    },
-    {
-      name                  = "bkp-lb-ddi-poc"
-      loadbalancer_name     = "lb-ddi-poc"
-      virtual_network_name  = "vnet-ddi-poc"
-      tunnel_interface      = [
-        {
-          identifier = "800"
-          type       = "Internal"
-          protocol   = "VXLAN"
-          port       = "443"
-        }
-      ]
-    }
+    # {
+    #   name                 = "bkp-lb-ddi-dev"
+    #   loadbalancer_name    = "lb-ddi-devone"
+    #   virtual_network_name = "vnet-ddi-dev"
+    #   tunnel_interface     = []
+    # },
+    # {
+    #   name                  = "bkp-lb-ddi-poc"
+    #   loadbalancer_name     = "lb-ddi-poc"
+    #   virtual_network_name  = "vnet-ddi-poc"
+    #   tunnel_interface      = [
+    #     {
+    #       identifier = "800"
+    #       type       = "Internal"
+    #       protocol   = "VXLAN"
+    #       port       = "443"
+    #     }
+    #   ]
+    # }
 
   ]
 }
 
-module "loadbalancer_backend_address_pool_addresses" {
-  source  = "app.terraform.io/Motifworks/loadbalancer_backend_address_pool_addresses/azurerm"
-  version = "1.0.0"
-  lb_backend_address_pool_output = module.loadbalancer_backend_pool.lb_backend_address_pool_output
-  virtual_network_output = module.virtual_network.virtual_network_output
+# module "loadbalancer_backend_address_pool_addresses" {
+#   source  = "app.terraform.io/Motifworks/loadbalancer_backend_address_pool_addresses/azurerm"
+#   version = "1.0.0"
+#   lb_backend_address_pool_output = module.loadbalancer_backend_pool.lb_backend_address_pool_output
+#   virtual_network_output = module.virtual_network.virtual_network_output
 
-  lb_backend_address_pool_addresses_list = [
-    {
-      name = "lb-bkp-pool-ddi-dev-ip-name"
-      backend_address_pool_name = format("%s/%s", "lb-ddi-devone", "bkp-lb-ddi-dev")
-      #virtual_network_name  = "vnet-ddi-dev"
-      ip_address = "10.100.16.10"
-    },
-    {
-      name = "lb-bkp-pool-ddi-poc-ip-name"
-      backend_address_pool_name = format("%s/%s", "lb-ddi-poc", "bkp-lb-ddi-poc")
-      #virtual_network_name  = "vnet-ddi-poc"
-      ip_address = "10.100.2.10"
-    }
+#   lb_backend_address_pool_addresses_list = [
+#     {
+#       name = "lb-bkp-pool-ddi-dev-ip-name"
+#       backend_address_pool_name = format("%s/%s", "lb-ddi-devone", "bkp-lb-ddi-dev")
+#       virtual_network_name  = "vnet-ddi-dev"
+#       ip_address = "10.100.16.10"
+#     },
+#     {
+#       name = "lb-bkp-pool-ddi-poc-ip-name"
+#       backend_address_pool_name = format("%s/%s", "lb-ddi-poc", "bkp-lb-ddi-poc")
+#       virtual_network_name  = "vnet-ddi-poc"
+#       ip_address = "10.100.2.10"
+#     }
 
-  ]
-}
+#   ]
+# }
 
 
 
