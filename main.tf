@@ -909,7 +909,7 @@ module "loadbancer_backend_nic_association" {
       lb_backend_address_pool_name = format("%s/%s", "lb-ddi-dev", "bkp-lb-ddi-dev")
     }
   ]
-
+  depends_on = [ module.resource_Group, module.loadbalancer_backend_pool ]
 }
 
 
