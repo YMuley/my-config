@@ -836,41 +836,41 @@ module "load_balancer" {
 
 }
 
-module "loadbalancer_backend_pool" {
-  source                 = "app.terraform.io/Motifworks/loadbalancer_backend_pool/azurerm"
-  version                = "1.0.0"
-  load_balancer_output   = module.load_balancer.load_balancer_output
-  #virtual_network_output = module.virtual_network.virtual_network_output
+# module "loadbalancer_backend_pool" {
+#   source                 = "app.terraform.io/Motifworks/loadbalancer_backend_pool/azurerm"
+#   version                = "1.0.0"
+#   load_balancer_output   = module.load_balancer.load_balancer_output
+#   #virtual_network_output = module.virtual_network.virtual_network_output
 
-  backend_pool_list = [
-    {
-      name                 = "bkp-lb-ddi-dev"
-      loadbalancer_name    = "lb-ddi-devone"
-      #virtual_network_name = "vnet-ddi-dev"
-      tunnel_interface     = []
-    },
-    {
-      name                 = "bkp-lb-ddi-dev"
-      loadbalancer_name    = "lb-ddi-dev"
-      #virtual_network_name = "vnet-ddi-dev"
-      tunnel_interface     = []
-    },
-    {
-      name                  = "bkp-lb-ddi-poc"
-      loadbalancer_name     = "lb-ddi-poc"
-      #virtual_network_name  = "vnet-ddi-poc"
-      tunnel_interface      = [
-        {
-          identifier = "800"
-          type       = "Internal"
-          protocol   = "VXLAN"
-          port       = "443"
-        }
-      ]
-    }
+#   backend_pool_list = [
+#     {
+#       name                 = "bkp-lb-ddi-dev"
+#       loadbalancer_name    = "lb-ddi-devone"
+#       #virtual_network_name = "vnet-ddi-dev"
+#       tunnel_interface     = []
+#     },
+#     {
+#       name                 = "bkp-lb-ddi-dev"
+#       loadbalancer_name    = "lb-ddi-dev"
+#       #virtual_network_name = "vnet-ddi-dev"
+#       tunnel_interface     = []
+#     },
+#     {
+#       name                  = "bkp-lb-ddi-poc"
+#       loadbalancer_name     = "lb-ddi-poc"
+#       #virtual_network_name  = "vnet-ddi-poc"
+#       tunnel_interface      = [
+#         {
+#           identifier = "800"
+#           type       = "Internal"
+#           protocol   = "VXLAN"
+#           port       = "443"
+#         }
+#       ]
+#     }
 
-  ]
-}
+#   ]
+# }
 
 # module "loadbalancer_backend_address_pool_addresses" {
 #   source  = "app.terraform.io/Motifworks/loadbalancer_backend_address_pool_addresses/azurerm"
