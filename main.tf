@@ -896,21 +896,21 @@ module "loadbalancer_backend_pool" {
 #   ]
 # }
 
-module "loadbancer_backend_nic_association" {
-  source  = "app.terraform.io/Motifworks/loadbancer_backend_nic_association/azurerm"
-  version = "1.0.0"
-  lb_backend_address_pool_output = module.loadbalancer_backend_pool.lb_backend_address_pool_output
-  network_interface_card_output = module.network_interface_card.network_interface_card_output
+# module "loadbancer_backend_nic_association" {
+#   source  = "app.terraform.io/Motifworks/loadbancer_backend_nic_association/azurerm"
+#   version = "1.0.0"
+#   lb_backend_address_pool_output = module.loadbalancer_backend_pool.lb_backend_address_pool_output
+#   network_interface_card_output = module.network_interface_card.network_interface_card_output
 
-  lb_bckpool_nic_association_list = [
-    {
-      network_interface_card_name = format("%s/%s", "rg-ddi-dev", "lb-ddi-dev-nic")
-      ip_configuration_name = "lb-ddi-dev-ip"
-      lb_backend_address_pool_name = format("%s/%s", "lb-ddi-dev", "bkp-lb-ddi-dev")
-    }
-  ]
-  depends_on = [ module.resource_Group, module.loadbalancer_backend_pool ]
-}
+#   lb_bckpool_nic_association_list = [
+#     {
+#       network_interface_card_name = format("%s/%s", "rg-ddi-dev", "lb-ddi-dev-nic")
+#       ip_configuration_name = "lb-ddi-dev-ip"
+#       lb_backend_address_pool_name = format("%s/%s", "lb-ddi-dev", "bkp-lb-ddi-dev")
+#     }
+#   ]
+#   depends_on = [ module.resource_Group, module.loadbalancer_backend_pool ]
+# }
 
 
 
