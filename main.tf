@@ -894,7 +894,7 @@ module "loadbalancer_backend_address_pool_addresses" {
     }
 
   ]
-    depends_on = [ module.module.resource_Group ]
+    depends_on = [ module.resource_Group ]
 }
 
 module "loadbancer_backend_nic_association" {
