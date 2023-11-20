@@ -880,18 +880,18 @@ module "loadbalancer_backend_address_pool_addresses" {
   virtual_network_output = module.virtual_network.virtual_network_output
 
   lb_backend_address_pool_addresses_list = [
-    # {
-    #   name = "lb-bkp-pool-ddi-dev-ip-name"
-    #   backend_address_pool_name = format("%s/%s", "lb-ddi-devone", "bkp-lb-ddi-dev")
-    #   virtual_network_name  = "vnet-ddi-dev"
-    #   ip_address = "10.100.16.10"
-    # },
-    # {
-    #   name = "lb-bkp-pool-ddi-poc-ip-name"
-    #   backend_address_pool_name = format("%s/%s", "lb-ddi-poc", "bkp-lb-ddi-poc")
-    #   virtual_network_name  = "vnet-ddi-poc"
-    #   ip_address = "10.100.2.10"
-    # }
+    {
+      name = "lb-bkp-pool-ddi-dev-ip-name"
+      backend_address_pool_name = format("%s/%s", "lb-ddi-devone", "bkp-lb-ddi-dev")
+      virtual_network_name  = "vnet-ddi-dev"
+      ip_address = "10.100.16.10"
+    },
+    {
+      name = "lb-bkp-pool-ddi-poc-ip-name"
+      backend_address_pool_name = format("%s/%s", "lb-ddi-poc", "bkp-lb-ddi-poc")
+      virtual_network_name  = "vnet-ddi-poc"
+      ip_address = "10.100.2.10"
+    }
 
   ]
     depends_on = [module.load_balancer, module.loadbalancer_backend_pool, module.resource_Group ]
