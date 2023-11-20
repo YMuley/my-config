@@ -836,81 +836,82 @@ module "load_balancer" {
 
 }
 
-# module "loadbalancer_backend_pool" {
-#   source                 = "app.terraform.io/Motifworks/loadbalancer_backend_pool/azurerm"
-#   version                = "1.0.0"
-#   load_balancer_output   = module.load_balancer.load_balancer_output
-#   #virtual_network_output = module.virtual_network.virtual_network_output
+module "loadbalancer_backend_pool" {
+  source                 = "app.terraform.io/Motifworks/loadbalancer_backend_pool/azurerm"
+  version                = "1.0.0"
+  load_balancer_output   = module.load_balancer.load_balancer_output
+  #virtual_network_output = module.virtual_network.virtual_network_output
 
-#   backend_pool_list = [
-#     {
-#       name                 = "bkp-lb-ddi-dev"
-#       loadbalancer_name    = "lb-ddi-devone"
-#       #virtual_network_name = "vnet-ddi-dev"
-#       tunnel_interface     = []
-#     },
-#     {
-#       name                 = "bkp-lb-ddi-dev"
-#       loadbalancer_name    = "lb-ddi-dev"
-#       #virtual_network_name = "vnet-ddi-dev"
-#       tunnel_interface     = []
-#     },
-#     {
-#       name                  = "bkp-lb-ddi-poc"
-#       loadbalancer_name     = "lb-ddi-poc"
-#       #virtual_network_name  = "vnet-ddi-poc"
-#       tunnel_interface      = [
-#         {
-#           identifier = "800"
-#           type       = "Internal"
-#           protocol   = "VXLAN"
-#           port       = "443"
-#         }
-#       ]
-#     }
+  backend_pool_list = [
+    {
+      name                 = "bkp-lb-ddi-dev"
+      loadbalancer_name    = "lb-ddi-devone"
+      #virtual_network_name = "vnet-ddi-dev"
+      tunnel_interface     = []
+    },
+    {
+      name                 = "bkp-lb-ddi-dev"
+      loadbalancer_name    = "lb-ddi-dev"
+      #virtual_network_name = "vnet-ddi-dev"
+      tunnel_interface     = []
+    },
+    {
+      name                  = "bkp-lb-ddi-poc"
+      loadbalancer_name     = "lb-ddi-poc"
+      #virtual_network_name  = "vnet-ddi-poc"
+      tunnel_interface      = [
+        {
+          identifier = "800"
+          type       = "Internal"
+          protocol   = "VXLAN"
+          port       = "443"
+        }
+      ]
+    }
 
-#   ]
-# }
+  ]
+}
 
-# module "loadbalancer_backend_address_pool_addresses" {
-#   source  = "app.terraform.io/Motifworks/loadbalancer_backend_address_pool_addresses/azurerm"
-#   version = "1.0.0"
+module "loadbalancer_backend_address_pool_addresses" {
+  source  = "app.terraform.io/Motifworks/loadbalancer_backend_address_pool_addresses/azurerm"
+  version = "1.0.0"
   
-#   lb_backend_address_pool_output = module.loadbalancer_backend_pool.lb_backend_address_pool_output
-#   virtual_network_output = module.virtual_network.virtual_network_output
+  lb_backend_address_pool_output = module.loadbalancer_backend_pool.lb_backend_address_pool_output
+  virtual_network_output = module.virtual_network.virtual_network_output
 
-#   lb_backend_address_pool_addresses_list = [
-#     {
-#       name = "lb-bkp-pool-ddi-dev-ip-name"
-#       backend_address_pool_name = format("%s/%s", "lb-ddi-devone", "bkp-lb-ddi-dev")
-#       virtual_network_name  = "vnet-ddi-dev"
-#       ip_address = "10.100.16.10"
-#     },
-#     {
-#       name = "lb-bkp-pool-ddi-poc-ip-name"
-#       backend_address_pool_name = format("%s/%s", "lb-ddi-poc", "bkp-lb-ddi-poc")
-#       virtual_network_name  = "vnet-ddi-poc"
-#       ip_address = "10.100.2.10"
-#     }
+  lb_backend_address_pool_addresses_list = [
+    {
+      name = "lb-bkp-pool-ddi-dev-ip-name"
+      backend_address_pool_name = format("%s/%s", "lb-ddi-devone", "bkp-lb-ddi-dev")
+      virtual_network_name  = "vnet-ddi-dev"
+      ip_address = "10.100.16.10"
+    },
+    {
+      name = "lb-bkp-pool-ddi-poc-ip-name"
+      backend_address_pool_name = format("%s/%s", "lb-ddi-poc", "bkp-lb-ddi-poc")
+      virtual_network_name  = "vnet-ddi-poc"
+      ip_address = "10.100.2.10"
+    }
 
-#   ]
-# }
+  ]
+    depends_on = [ module.module.resource_Group ]
+}
 
-# module "loadbancer_backend_nic_association" {
-#   source  = "app.terraform.io/Motifworks/loadbancer_backend_nic_association/azurerm"
-#   version = "1.0.0"
-#   lb_backend_address_pool_output = module.loadbalancer_backend_pool.lb_backend_address_pool_output
-#   network_interface_card_output = module.network_interface_card.network_interface_card_output
+module "loadbancer_backend_nic_association" {
+  source  = "app.terraform.io/Motifworks/loadbancer_backend_nic_association/azurerm"
+  version = "1.0.0"
+  lb_backend_address_pool_output = module.loadbalancer_backend_pool.lb_backend_address_pool_output
+  network_interface_card_output = module.network_interface_card.network_interface_card_output
 
-#   lb_bckpool_nic_association_list = [
-#     {
-#       network_interface_card_name = format("%s/%s", "rg-ddi-dev", "lb-ddi-dev-nic")
-#       ip_configuration_name = "lb-ddi-dev-ip"
-#       lb_backend_address_pool_name = format("%s/%s", "lb-ddi-dev", "bkp-lb-ddi-dev")
-#     }
-#   ]
-#   depends_on = [ module.resource_Group, module.loadbalancer_backend_pool ]
-# }
+  lb_bckpool_nic_association_list = [
+    {
+      network_interface_card_name = format("%s/%s", "rg-ddi-dev", "lb-ddi-dev-nic")
+      ip_configuration_name = "lb-ddi-dev-ip"
+      lb_backend_address_pool_name = format("%s/%s", "lb-ddi-dev", "bkp-lb-ddi-dev")
+    }
+  ]
+  depends_on = [ module.resource_Group, module.loadbalancer_backend_pool ]
+}
 
 
 
