@@ -22,7 +22,24 @@ module "resource_Group" {
     }
   ]
 }
+module "azurerm_cdn_frontdoor_profile" {
+  source  = "app.terraform.io/Motifworks/azurerm_cdn_frontdoor_profile/azurerm"
+  version = "1.0.1"
 
+  cdn_frontdoor_profile_list =[ 
+   {
+      name                = "test-frontdoor"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev"
+      sku                 = "Standard_AzureFrontDoor"
+      tags                = {
+        location     = "eastus"
+        subscription = "iac-dev"
+        environment  = "poc"
+      }
+   }  
+]
+}
 module "window_vm" {
   source                        = "app.terraform.io/Motifworks/window-vm/azurerm"
   version                       = "1.0.3"
@@ -586,7 +603,7 @@ module "nsg_nic_association" {
 
    key_vault_list = [
      {
-       name                = "testiefngkvref1"
+       name                = "testiefngkvrss1"
        resource_group_name = "rg-ddi-dev1"
        location            = "westus"
 
@@ -734,7 +751,7 @@ module "useridentity" {
 
   user_assigned_identity_list = [
     {
-      name : "user-managed"
+      name : "user-managed23"
       resource_group_name = "rg-ddi-dev1"
       location            = "eastus"
       tags = {
