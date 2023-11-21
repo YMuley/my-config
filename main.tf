@@ -1,6 +1,6 @@
 module "resource_Group" {
   source  = "app.terraform.io/Motifworks/resource_Group/azurerm"
-  version = "1.0.2"
+  version = "1.0.5"
   resource_group_list = [
     {
       name     = "rg-ddi-poc1"
