@@ -586,7 +586,7 @@ module "nsg_nic_association" {
 
    key_vault_list = [
      {
-       name                = "testiefngkvref1"
+       name                = "testiefngkvf5tgf"
        resource_group_name = "rg-ddi-dev"
        location            = "westus"
 
@@ -734,7 +734,7 @@ module "useridentity" {
 
   user_assigned_identity_list = [
     {
-      name : "user-managed"
+      name : "user-managed32"
       resource_group_name = "rg-ddi-dev"
       location            = "eastus"
       tags = {
