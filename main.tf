@@ -408,7 +408,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-poc1"
       allocation_method   = "Dynamic"
       sku                 = "Basic"
-      domain_name_label   = "unique-testing-label"
+      domain_name_label   = "unique-testing-label-one"
       tags = {
         environment = "poc"
       }
@@ -420,7 +420,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-dev1"
       allocation_method   = "Static"
       sku                 = "Basic"
-      domain_name_label   = "another-unique-label"
+      domain_name_label   = "another-unique-label-one"
       tags = {
         environment = "dev"
       }
@@ -432,7 +432,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-dev1"
       allocation_method   = "Static"
       sku                 = "Basic"
-      domain_name_label   = "one-unique-label"
+      domain_name_label   = "officers-choice-label"
       tags = {
         environment = "dev"
       }
@@ -444,7 +444,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-dev1"
       allocation_method   = "Static"
       sku                 = "Standard"
-      domain_name_label   = "lb-unique-label"
+      domain_name_label   = "one-lb-unique-label"
       tags = {
         environment = "dev"
       }
@@ -603,7 +603,7 @@ module "nsg_nic_association" {
 
    key_vault_list = [
      {
-       name                = "testiefngkvrss1"
+       name                = "testiefngkvrss2"
        resource_group_name = "rg-ddi-dev1"
        location            = "westus"
 
@@ -751,8 +751,8 @@ module "useridentity" {
 
   user_assigned_identity_list = [
     {
-      name : "user-managed23"
-      resource_group_name = "rg-ddi-dev"
+      name : "user-managed24"
+      resource_group_name = "rg-ddi-dev1"
       location            = "eastus"
       tags = {
         environment = "nertwork-team"
@@ -983,7 +983,7 @@ module "traffic_manager_profile" {
 
       dns_config = [
         {
-          relative_name = "dev-app"
+          relative_name = "dev-app-one-one"
           ttl           = 100
         }
       ]
