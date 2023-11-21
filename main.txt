@@ -3,7 +3,7 @@ module "resource_Group" {
   version = "1.0.2"
   resource_group_list = [
     {
-      name     = "rg-ddi-poc1"
+      name     = "rg-ddi-poc"
       location = "eastus"
       tags = {
         location     = "eastus"
@@ -12,7 +12,7 @@ module "resource_Group" {
       }
     },
     {
-      name     = "rg-ddi-dev1"
+      name     = "rg-ddi-dev"
       location = "westus"
       tags = {
         location     = "westus"
@@ -22,32 +22,15 @@ module "resource_Group" {
     }
   ]
 }
-module "azurerm_cdn_frontdoor_profile" {
-  source  = "app.terraform.io/Motifworks/azurerm_cdn_frontdoor_profile/azurerm"
-  version = "1.0.2"
 
-  cdn_frontdoor_profile_list =[ 
-   {
-      name                = "test-frontdoor"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
-      sku_name            = "Standard_AzureFrontDoor"
-      tags                = {
-        location     = "eastus"
-        subscription = "iac-dev"
-        environment  = "poc"
-      }
-   }  
-]
-}
 module "window_vm" {
   source                        = "app.terraform.io/Motifworks/window-vm/azurerm"
   version                       = "1.0.3"
   network_interface_card_output = module.network_interface_card.network_interface_card_output
   windows_vm_list = [
     {
-      name : "vm-windows"
-      resource_group_name             = "rg-ddi-dev1"
+      name : "vm1-windows"
+      resource_group_name             = "rg-ddi-dev"
       location                        = "westus"
       size                            = "Standard_F2"
       disable_password_authentication = false
@@ -57,7 +40,7 @@ module "window_vm" {
       admin_username                  = "adminuser"
       admin_password                  = "P@$$w0rd1234!"
       #  network_interface_ids = [
-      #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev1/providers/Microsoft.Network/networkInterfaces/nic1"
+      #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev/providers/Microsoft.Network/networkInterfaces/nic1"
       #  ]
       os_disk = [
         {
@@ -85,14 +68,14 @@ module "linux_vm" {
 
   linux_vm_list =  [
     {
-      name : "vm1-linux"
-      resource_group_name             = "rg-ddi-dev1"
+      name : "vm1-linucs"
+      resource_group_name             = "rg-ddi-dev"
       location                        = "westus"
       size                            = "Standard_F2"
       disable_password_authentication = false
       allow_extension_operations      = true
       availability_set_name           = null
-      network_interface_card_name     = ["vm1-linux-nic"]
+      network_interface_card_name     = ["nic2"]
       admin_username                  = "adminuser"
       admin_password                  = "P@$$w0rd1234!"
       tags = {
@@ -101,7 +84,7 @@ module "linux_vm" {
         environment  = "poc"
       }
       #  network_interface_ids = [
-      #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev1/providers/Microsoft.Network/networkInterfaces/1"
+      #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev/providers/Microsoft.Network/networkInterfaces/1"
       #  ]
       os_disk = [
         {
@@ -129,18 +112,18 @@ module "virtual_network" {
   resource_group_output = module.resource_Group.resource_group_output
   virtual_network_list = [
     {
-      name                = "vnet-ddi-poc1"
+      name                = "vnet-ddi-poc"
       location            = "eastus"
-      resource_group_name = "rg-ddi-poc1"
+      resource_group_name = "rg-ddi-poc"
       address_space       = ["10.100.0.0/20"] //["172.21.0.0/16"]  
       tags = {
         environment = "poc"
       }
     },
     {
-      name                = "vnet-ddi-dev1"
+      name                = "vnet-ddi-dev"
       location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
+      resource_group_name = "rg-ddi-dev"
       address_space       = ["10.100.16.0/20"] //["172.21.0.0/16"]
       tags = {
         environment = "poc"
@@ -161,11 +144,11 @@ module "subnet" {
   vnet_subnet_list = [
     {
       name                                          = "sub-ddi-poc-web"
-      resource_group_name                           = "rg-ddi-poc1"
-      virtual_network_name                          = "vnet-ddi-poc1"
+      resource_group_name                           = "rg-ddi-poc"
+      virtual_network_name                          = "vnet-ddi-poc"
       address_prefixes                              = ["10.100.0.0/24"]
       service_endpoints                             = ["Microsoft.Storage"]
-      service_endpoint_policy_ids                   = [] # compulsury input value needed otherwise module will throw error #["/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-poc1/providers/Microsoft.Network/serviceEndpointPolicies/ddi-test-poc/"]
+      service_endpoint_policy_ids                   = [] # compulsury input value needed otherwise module will throw error #["/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-poc/providers/Microsoft.Network/serviceEndpointPolicies/ddi-test-poc/"]
       private_endpoint_network_polices_enabled      = "true"
       private_link_service_network_policies_enabled = "false"
 
@@ -185,8 +168,8 @@ module "subnet" {
 
     {
       name                                          = "sub-ddi-dev-web"
-      resource_group_name                           = "rg-ddi-dev1"
-      virtual_network_name                          = "vnet-ddi-dev1"
+      resource_group_name                           = "rg-ddi-dev"
+      virtual_network_name                          = "vnet-ddi-dev"
       address_prefixes                              = ["10.100.16.0/24"]
       service_endpoints                             = ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web"]
       service_endpoint_policy_ids                   = ["ddi-sep-dev"]
@@ -197,8 +180,8 @@ module "subnet" {
     },
      {
       name                                          = "sub-ddi-dev2-web"
-      resource_group_name                           = "rg-ddi-dev1"
-      virtual_network_name                          = "vnet-ddi-dev1"
+      resource_group_name                           = "rg-ddi-dev"
+      virtual_network_name                          = "vnet-ddi-dev"
       address_prefixes                              = ["10.100.18.0/24"]
       service_endpoints                             = ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web"]
       service_endpoint_policy_ids                   = []
@@ -209,8 +192,8 @@ module "subnet" {
     },
     {
       name                                          = "sub-ddi-poc-lb"
-      resource_group_name                           = "rg-ddi-poc1"
-      virtual_network_name                          = "vnet-ddi-poc1"
+      resource_group_name                           = "rg-ddi-poc"
+      virtual_network_name                          = "vnet-ddi-poc"
       address_prefixes                              = ["10.100.2.0/24"]
       service_endpoints                             = []
       service_endpoint_policy_ids                   = []
@@ -221,8 +204,8 @@ module "subnet" {
     },
     {
       name                                          = "GatewaySubnet"
-      resource_group_name                           = "rg-ddi-poc1"
-      virtual_network_name                          = "vnet-ddi-poc1"
+      resource_group_name                           = "rg-ddi-poc"
+      virtual_network_name                          = "vnet-ddi-poc"
       address_prefixes                              = ["10.100.1.0/24"]
       service_endpoints                             = []
       service_endpoint_policy_ids                   = []
@@ -234,8 +217,8 @@ module "subnet" {
 
     {
       name                                          = "GatewaySubnet"
-      resource_group_name                           = "rg-ddi-dev1"
-      virtual_network_name                          = "vnet-ddi-dev1"
+      resource_group_name                           = "rg-ddi-dev"
+      virtual_network_name                          = "vnet-ddi-dev"
       address_prefixes                              = ["10.100.17.0/24"]
       service_endpoints                             = []
       service_endpoint_policy_ids                   = []
@@ -257,7 +240,7 @@ module "service_endpoint_policy" {
   service_endpoint_policy_list = [
     # {
     #   name                = "ddi-sep-poc"
-    #   resource_group_name = "rg-ddi-poc1"
+    #   resource_group_name = "rg-ddi-poc"
     #   location            = "eastus"
 
     #   definition = [
@@ -265,7 +248,7 @@ module "service_endpoint_policy" {
     #       name              = "spe-stg-ddi-poc"
     #       description       = "poc policy"
     #       service           = "Microsoft.Storage"
-    #       service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc1"].id]
+    #       service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc"].id]
 
     #     }
 
@@ -273,7 +256,7 @@ module "service_endpoint_policy" {
     # },
     {
       name                = "ddi-sep-dev"
-      resource_group_name = "rg-ddi-dev1"
+      resource_group_name = "rg-ddi-dev"
       location            = "westus"
 
       definition = [
@@ -281,7 +264,7 @@ module "service_endpoint_policy" {
           name              = "spe-stg-ddi-dev"
           description       = "poc policy"
           service           = "Microsoft.Storage"
-          service_resources = [module.resource_Group.resource_group_output["rg-ddi-dev1"].id] #module.storage_account.storage_account_output["ddistorageacc"].id
+          service_resources = [module.resource_Group.resource_group_output["rg-ddi-dev"].id] #module.storage_account.storage_account_output["ddistorageacc"].id
 
         }
 
@@ -300,7 +283,7 @@ module "network_security_group" {
     {
       name                = "nsg-ddi-poc"
       location            = "eastus"
-      resource_group_name = "rg-ddi-poc1"
+      resource_group_name = "rg-ddi-poc"
       tags = {
         env = "poc"
       }
@@ -333,7 +316,7 @@ module "network_security_group" {
     # {
     #   name                = "nsg-ddi-poc-one"
     #   location            = "eastus"
-    #   resource_group_name = "rg-ddi-poc1"
+    #   resource_group_name = "rg-ddi-poc"
     #   tags = {
     #     env = "poc"
     #   }
@@ -355,7 +338,7 @@ module "network_security_group" {
     {
       name                = "nsg-ddi-dev-one"
       location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
+      resource_group_name = "rg-ddi-dev"
 
       tags = {
         env = "dev"
@@ -385,11 +368,11 @@ module "virtual_network_dns" {
   virtual_network_output = module.virtual_network.virtual_network_output
   virtual_network_dns_list = [
     {
-      virtual_network_name = "vnet-ddi-poc1"
+      virtual_network_name = "vnet-ddi-poc"
       dns_servers          = ["10.168.10.1"]
     },
     {
-      virtual_network_name = "vnet-ddi-dev1"
+      virtual_network_name = "vnet-ddi-dev"
       dns_servers          = []
     }
   ]
@@ -405,7 +388,7 @@ module "public_ip" {
     {
       name                = "publicip-ddi-poc"
       location            = "eastus"
-      resource_group_name = "rg-ddi-poc1"
+      resource_group_name = "rg-ddi-poc"
       allocation_method   = "Dynamic"
       sku                 = "Basic"
       domain_name_label   = "unique-testing-label"
@@ -417,7 +400,7 @@ module "public_ip" {
     {
       name                = "public-ip-ddi-dev"
       location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
+      resource_group_name = "rg-ddi-dev"
       allocation_method   = "Static"
       sku                 = "Basic"
       domain_name_label   = "another-unique-label"
@@ -429,7 +412,7 @@ module "public_ip" {
 {
       name                = "public-ip-ddi-dev2"
       location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
+      resource_group_name = "rg-ddi-dev"
       allocation_method   = "Static"
       sku                 = "Basic"
       domain_name_label   = "one-unique-label"
@@ -441,7 +424,7 @@ module "public_ip" {
     {
       name                = "public-ip-ddi-lb"
       location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
+      resource_group_name = "rg-ddi-dev"
       allocation_method   = "Static"
       sku                 = "Standard"
       domain_name_label   = "lb-unique-label"
@@ -462,7 +445,7 @@ module "route_table" {
     {
       name                = "rt-table1"
       location            = "eastus"
-      resource_group_name = "rg-ddi-dev1"
+      resource_group_name = "rg-ddi-dev"
       tags = {
         environment = "poc"
         application = "example"
@@ -498,14 +481,14 @@ module "network_interface_card" {
     {
       name                = "nic1"
       location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
+      resource_group_name = "rg-ddi-dev"
       tags = {
         environment = "dev"
       }
       ip_configuration = [
         {
           name                          = "config1"
-          virtual_network_name          = "vnet-ddi-dev1"
+          virtual_network_name          = "vnet-ddi-dev"
           subnet_name                   = "sub-ddi-dev-web"
           private_ip_address_allocation = "Dynamic"
           public_ip_name                = "public-ip-ddi-dev"
@@ -515,16 +498,16 @@ module "network_interface_card" {
     },
 
      {
-       name                = "vm1-linux-nic"
+       name                = "nic2"
        location            = "westus"
-       resource_group_name = "rg-ddi-dev1"
+       resource_group_name = "rg-ddi-dev"
        tags = {
          environment = "dev"
        }
        ip_configuration = [
          {
            name                          = "config2"
-           virtual_network_name          = "vnet-ddi-dev1"
+           virtual_network_name          = "vnet-ddi-dev"
            subnet_name                   = "sub-ddi-dev2-web"
            private_ip_address_allocation = "Dynamic"
            public_ip_name                = "public-ip-ddi-dev2"
@@ -535,14 +518,14 @@ module "network_interface_card" {
      {
       name                = "lb-ddi-dev-nic"
       location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
+      resource_group_name = "rg-ddi-dev"
       tags = {
         environment = "dev"
       }
       ip_configuration = [
         {
           name                          = "lb-ddi-dev-ip"
-          virtual_network_name          = "vnet-ddi-dev1"
+          virtual_network_name          = "vnet-ddi-dev"
           subnet_name                   = "sub-ddi-dev-web"
           private_ip_address_allocation = "Dynamic"
           public_ip_name                = null
@@ -564,7 +547,7 @@ module "subnet_nsg_association" {
   association_list = [
     {
       nsg_name  = "nsg-ddi-poc"
-      subnet_id = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-web") #
+      subnet_id = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web") #
     }
   ]
 }
@@ -578,7 +561,7 @@ module "subnet_route_table_association" {
   association_list = [
     {
       route_table_name = "rt-table1"
-      subnet_id        = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-web")
+      subnet_id        = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-web")
     }
   ]
 }
@@ -592,7 +575,7 @@ module "nsg_nic_association" {
   association_list = [
     {
       network_security_group_name = "nsg-ddi-dev-one"
-      network_interface_card_name = format("%s/%s", "rg-ddi-dev1", "nic1")
+      network_interface_card_name = format("%s/%s", "rg-ddi-dev", "nic1")
     }
   ]
 }
@@ -603,8 +586,8 @@ module "nsg_nic_association" {
 
    key_vault_list = [
      {
-       name                = "testiefngkvrss1"
-       resource_group_name = "rg-ddi-dev1"
+       name                = "testiefngkvf5tgf"
+       resource_group_name = "rg-ddi-dev"
        location            = "westus"
 
        sku_name                        = "standard"
@@ -678,7 +661,7 @@ module "nsg_nic_association" {
      {
        name           = "secrauce"
        value          = "szechuan"
-       key_vault_name = "testiefngkvrss1"
+       key_vault_name = "testiefngkvref1"
 
      }
    ]
@@ -696,7 +679,7 @@ module "storage_account" {
   storage_account_list = [
     {
       name                      = "ddistorageacc1"
-      resource_group_name       = "rg-ddi-dev1"
+      resource_group_name       = "rg-ddi-dev"
       location                  = "westus"
       account_tier              = "Standard"
       account_replication_type  = "LRS"
@@ -713,7 +696,7 @@ module "storage_account" {
           default_action       = "Allow"
           bypass               = ["AzureServices"]
           ip_rules             = ["23.45.1.0/30"]
-          virtual_network_name = "vnet-ddi-dev1"
+          virtual_network_name = "vnet-ddi-dev"
           subnet_name          = "sub-ddi-dev-web"
         }
       ]
@@ -721,7 +704,7 @@ module "storage_account" {
 
     {
       name                      = "ddistorageacc"
-      resource_group_name       = "rg-ddi-dev1"
+      resource_group_name       = "rg-ddi-dev"
       location                  = "westus"
       account_tier              = "Standard"
       account_replication_type  = "LRS"
@@ -738,7 +721,7 @@ module "storage_account" {
         #   default_action       = "Allow"
         #   bypass               = ["AzureServices"]
         #   ip_rules             = ["23.45.1.0/30"]
-        #   virtual_network_name = "vnet-ddi-dev1"
+        #   virtual_network_name = "vnet-ddi-dev"
         #   subnet_name          = "sub-ddi-dev-web"
         # }
       ]
@@ -751,7 +734,7 @@ module "useridentity" {
 
   user_assigned_identity_list = [
     {
-      name : "user-managed23"
+      name : "user-managed32"
       resource_group_name = "rg-ddi-dev"
       location            = "eastus"
       tags = {
@@ -769,7 +752,7 @@ module "managed_disk" {
   managed_disk_list = [
     {
       name                 = "ddidisk1"
-      resource_group_name  = "rg-ddi-dev1"
+      resource_group_name  = "rg-ddi-dev"
       location             = "westus"
       storage_account_type = "Standard_LRS"
       create_option        = "Empty"
@@ -792,7 +775,7 @@ module "load_balancer" {
   loadbalancer_list = [
     {
       name                = "lb-ddi-dev"
-      resource_group_name = "rg-ddi-dev1"
+      resource_group_name = "rg-ddi-dev"
       location            = "westus"
       sku                 = "Standard" #[possible values : Standard,Gateway,Basic]
       sku_tier            = "Regional" #[possible values : Regional,Global]
@@ -812,7 +795,7 @@ module "load_balancer" {
 
     {
       name                = "lb-ddi-devone"
-      resource_group_name = "rg-ddi-dev1"
+      resource_group_name = "rg-ddi-dev"
       location            = "westus"
       sku                 = "Standard" #[possible values : Standard,Gateway,Basic]
       sku_tier            = "Regional" #[possible values : Regional,Global]
@@ -824,14 +807,14 @@ module "load_balancer" {
           name                          = "lb-pip-ddi-devone"
           zones                         = []
           public_ip_name                = null
-          subnet_name                   = format("%s/%s", "vnet-ddi-dev1", "sub-ddi-dev-web")
+          subnet_name                   = format("%s/%s", "vnet-ddi-dev", "sub-ddi-dev-web")
           private_ip_address_allocation = "Dynamic"
         }
       ]
     },
     {
       name                = "lb-ddi-poc"
-      resource_group_name = "rg-ddi-poc1"
+      resource_group_name = "rg-ddi-poc"
       location            = "eastus"
       sku                 = "Gateway"  #[possible values : Standard,Gateway,Basic]
       sku_tier            = "Regional" #[possible values : Regional,Global]
@@ -843,7 +826,7 @@ module "load_balancer" {
           name                          = "lb-pip-ddi-poc"
           zones                         = [] #availability zone supported only with Standard SKU
           public_ip_name                = null
-          subnet_name                   = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-lb")
+          subnet_name                   = format("%s/%s", "vnet-ddi-poc", "sub-ddi-poc-lb")
           private_ip_address_allocation = "Dynamic"
         }
       ]
@@ -863,19 +846,19 @@ module "loadbalancer_backend_pool" {
     {
       name                 = "bkp-lb-ddi-dev"
       loadbalancer_name    = "lb-ddi-devone"
-      #virtual_network_name = "vnet-ddi-dev1"
+      #virtual_network_name = "vnet-ddi-dev"
       tunnel_interface     = []
     },
     {
       name                 = "bkp-lb-ddi-dev"
       loadbalancer_name    = "lb-ddi-dev"
-      #virtual_network_name = "vnet-ddi-dev1"
+      #virtual_network_name = "vnet-ddi-dev"
       tunnel_interface     = []
     },
     {
       name                  = "bkp-lb-ddi-poc"
       loadbalancer_name     = "lb-ddi-poc"
-      #virtual_network_name  = "vnet-ddi-poc1"
+      #virtual_network_name  = "vnet-ddi-poc"
       tunnel_interface      = [
         {
           identifier = "800"
@@ -900,13 +883,13 @@ module "loadbalancer_backend_address_pool_addresses" {
     {
       name = "lb-bkp-pool-ddi-dev-ip-name"
       backend_address_pool_name = format("%s/%s", "lb-ddi-devone", "bkp-lb-ddi-dev")
-      virtual_network_name  = "vnet-ddi-dev1"
+      virtual_network_name  = "vnet-ddi-dev"
       ip_address = "10.100.16.10"
     },
     {
       name = "lb-bkp-pool-ddi-poc-ip-name"
       backend_address_pool_name = format("%s/%s", "lb-ddi-poc", "bkp-lb-ddi-poc")
-      virtual_network_name  = "vnet-ddi-poc1"
+      virtual_network_name  = "vnet-ddi-poc"
       ip_address = "10.100.2.10"
     }
 
@@ -922,7 +905,7 @@ module "loadbancer_backend_nic_association" {
 
   lb_bckpool_nic_association_list = [
     {
-      network_interface_card_name = format("%s/%s", "rg-ddi-dev1", "lb-ddi-dev-nic")
+      network_interface_card_name = format("%s/%s", "rg-ddi-dev", "lb-ddi-dev-nic")
       ip_configuration_name = "lb-ddi-dev-ip"
       lb_backend_address_pool_name = format("%s/%s", "lb-ddi-dev", "bkp-lb-ddi-dev")
     }
@@ -940,7 +923,7 @@ module "availability_set" {
   availability_set_list = [
     {
       name                         = "ddiavailabilityset"
-      resource_group_name          = "rg-ddi-dev1"
+      resource_group_name          = "rg-ddi-dev"
       location                     = "westus"
       platform_fault_domain_count  = 3
       platform_update_domain_count = 5
@@ -963,7 +946,7 @@ module "management_lock" {
 
       name                 = "ddiresourceip"
       resource_type        = "virtual_network"
-      virtual_network_name = "vnet-ddi-dev1"
+      virtual_network_name = "vnet-ddi-dev"
       lock_level           = "CanNotDelete"
       notes                = "Locked because it's needed by a third-party"
     }
@@ -978,7 +961,7 @@ module "traffic_manager_profile" {
   traffic_manager_profile_list = [
     {
       name                   = "dditestprofile"
-      resource_group_name    = "rg-ddi-dev1"
+      resource_group_name    = "rg-ddi-dev"
       traffic_routing_method = "Weighted"
 
       dns_config = [
