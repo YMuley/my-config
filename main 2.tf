@@ -752,7 +752,7 @@ module "useridentity" {
   user_assigned_identity_list = [
     {
       name : "user-managed23"
-      resource_group_name = "rg-ddi-dev1"
+      resource_group_name = "rg-ddi-dev"
       location            = "eastus"
       tags = {
         environment = "nertwork-team"
