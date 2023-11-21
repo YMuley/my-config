@@ -39,6 +39,7 @@ module "azurerm_cdn_frontdoor_profile" {
       }
    }  
 ]
+  depends_on = [ module.resource_Group ]
 }
 module "window_vm" {
   source                        = "app.terraform.io/Motifworks/window-vm/azurerm"
@@ -669,6 +670,8 @@ module "nsg_nic_association" {
        }
      }
    ]
+    depends_on = [ module.resource_Group ]
+
  }
 
  module "vault_secret" {
@@ -760,6 +763,7 @@ module "useridentity" {
       }
     }
   ]
+  depends_on = [ module.resource_Group ]
 }
 
 module "managed_disk" {
