@@ -695,7 +695,7 @@ module "storage_account" {
 
   storage_account_list = [
     {
-      name                      = "ddistorageacc1"
+      name                      = "ddistorageacc2"
       resource_group_name       = "rg-ddi-dev1"
       location                  = "westus"
       account_tier              = "Standard"
@@ -720,7 +720,7 @@ module "storage_account" {
     },
 
     {
-      name                      = "ddistorageacc"
+      name                      = "ddistorageaccone"
       resource_group_name       = "rg-ddi-dev1"
       location                  = "westus"
       account_tier              = "Standard"
