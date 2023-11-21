@@ -678,7 +678,7 @@ module "nsg_nic_association" {
      {
        name           = "secrauce"
        value          = "szechuan"
-       key_vault_name = "testiefngkvrss1"
+       key_vault_name = "testiefngkvrss2"
 
      }
    ]
