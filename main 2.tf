@@ -24,14 +24,14 @@ module "resource_Group" {
 }
 module "azurerm_cdn_frontdoor_profile" {
   source  = "app.terraform.io/Motifworks/azurerm_cdn_frontdoor_profile/azurerm"
-  version = "1.0.1"
+  version = "1.0.2"
 
   cdn_frontdoor_profile_list =[ 
    {
       name                = "test-frontdoor"
       location            = "westus"
       resource_group_name = "rg-ddi-dev"
-      sku                 = "Standard_AzureFrontDoor"
+      sku_name            = "Standard_AzureFrontDoor"
       tags                = {
         location     = "eastus"
         subscription = "iac-dev"
@@ -678,7 +678,7 @@ module "nsg_nic_association" {
      {
        name           = "secrauce"
        value          = "szechuan"
-       key_vault_name = "testiefngkvref1"
+       key_vault_name = "testiefngkvrss1"
 
      }
    ]
