@@ -918,6 +918,12 @@ module "loadbalancer_backend_pool" {
       tunnel_interface     = []
     },
     {
+      name                 = "bkp-lb-ddi-dev1"
+      loadbalancer_name    = "lb-ddi-dev"
+      #virtual_network_name = "vnet-ddi-dev1"
+      tunnel_interface     = []
+    },
+    {
       name                  = "bkp-lb-ddi-poc"
       loadbalancer_name     = "lb-ddi-poc"
       #virtual_network_name  = "vnet-ddi-poc1"
@@ -1052,10 +1058,56 @@ module "loadbalancer_outbound_rule" {
       }
     ]
 
+    },
+    {
+    name = "lb-ddi-devone-outbound-rule"
+    loadbalancer_name = "lb-ddi-devone" 
+    protocol = "Tcp"  # [All, Tcp , Udp]
+    backend_address_pool_name = format("%s/%s", "lb-ddi-devone", "bkp-lb-ddi-dev")
+    enable_tcp_reset = true
+    allocated_outbound_ports = "9" # Default numbers allowed 1024
+    idle_timeout_in_minutes = "5" # Default is 4
+    frontend_ip_configuration = [
+      {
+        name  = "lb-pip-ddi-devone"
+      }
+    ]
+
     }
   ]
       depends_on = [ module.load_balancer, module.loadbalancer_backend_pool ]
   }
+
+
+  module "loadbalancer_rule" {
+  source  = "app.terraform.io/Motifworks/loadbalancer_rule/azurerm"
+  version = "1.0.0"
+  load_balancer_output    = module.load_balancer.load_balancer_output
+  lb_backend_address_pool_output  = module.loadbalancer_backend_pool.lb_backend_address_pool_output
+  lb_health_probe_output = module.loadbalancer_health_probe.lb_health_probe_output
+
+  lb_rule_list = [
+    {
+  name  = "lb-ddi-dev-rule"
+  loadbalancer_name = "lb-ddi-dev"
+  protocol = "All"  #[All , Tcp , Udp]
+  frontend_port = 80
+  backend_port = 80
+  frontend_ip_configuration_name = "lb-pip-ddi-dev"
+  health_probe_name = "lb-hp-ddi-dev"
+  enable_floating_ip = false  #Required to configure a SQL AlwaysOn Availability Group: true
+  idle_timeout_in_minutes = 4 #between 4 to 30
+  load_distribution = "Default"  # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
+  disable_outbound_snat = false
+  enable_tcp_reset = false
+  backend_address_pool_ids = [format("%s/%s", "lb-ddi-devone", "bkp-lb-ddi-dev"), format("%s/%s", "lb-ddi-devone", "bkp-lb-ddi-dev1")]
+    }
+  ]
+   depends_on = [ module.load_balancer, module.loadbalancer_backend_pool, module.loadbalancer_health_probe ]
+}
+
+
+
 
 module "availability_set" {
   source                = "app.terraform.io/Motifworks/availability_set/azurerm"
