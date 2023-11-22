@@ -1100,7 +1100,7 @@ module "loadbalancer_outbound_rule" {
   load_distribution = "Default"  # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
   disable_outbound_snat = false
   enable_tcp_reset = false
-  backend_address_pool_ids = ["lb-ddi-dev/bkp-lb-ddi-dev", "lb-ddi-devone/bkp-lb-ddi-dev1"]
+  backend_address_pool_ids = ["lb-ddi-dev/bkp-lb-ddi-dev"]
     }
   ]
    depends_on = [ module.load_balancer, module.loadbalancer_backend_pool, module.loadbalancer_health_probe ]
