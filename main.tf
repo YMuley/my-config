@@ -62,7 +62,7 @@ module "cdn_frontdoor_origin_group" {
    {
      name = "origin-added"
      cdn_frontdoor_profile_name = "test-frontdoor"
-     session_affinity_enabled = "Disabled"
+     session_affinity_enabled = false
      health_probe = [
       {
         interval_in_seconds = 50
