@@ -1044,7 +1044,7 @@ module "loadbalancer_outbound_rule" {
     protocol = "All"  # [All, Tcp , Udp]
     backend_address_pool_name = format("%s/%s", "lb-ddi-dev", "bkp-lb-ddi-dev")
     enable_tcp_reset = false
-    allocated_outbound_ports = "3" # Default numbers allowed 1024
+    allocated_outbound_ports = "8" # Default numbers allowed 1024
     idle_timeout_in_minutes = "4" # Default is 4
     frontend_ip_configuration = [
       {
