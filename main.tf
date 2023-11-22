@@ -944,7 +944,7 @@ module "loadbalancer_health_probe" {
     {
      name       = "lb-hp-ddi-dev"
      load_balancer_name = "lb-ddi-dev"
-     protocol           = "http"
+     protocol           = "Http"
      port               =  "80"
      probe_threshold    = "5"
      request_path       =  "/"
