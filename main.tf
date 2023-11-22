@@ -1031,8 +1031,8 @@ module "loadbalancer_nat_pool" {
 }
 
 
-module "loadbalancer_nat_pool" {
-  source  = "app.terraform.io/Motifworks/loadbalancer_nat_pool/azurerm"
+module "loadbalancer_outbound_rule" {
+  source  = "app.terraform.io/Motifworks/loadbalancer_outbound_rule/azurerm"
   version = "1.0.0"
   load_balancer_output    = module.load_balancer.load_balancer_output
   lb_backend_pool_output  = module.loadbalancer_backend_pool.load_balancer_output
