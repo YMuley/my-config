@@ -41,6 +41,18 @@ module "azurerm_cdn_frontdoor_profile" {
 ]
   depends_on = [ module.resource_Group ]
 }
+module "cdn_frontdoor_rule_set" {
+  source  = "app.terraform.io/Motifworks/cdn_frontdoor_rule_set/azurerm"
+  version = "1.0.1"
+  cdn_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
+  cdn_frontdoor_rule_set_list =[
+ {
+   name = "ruleset"
+   cdn_profile_name = ["test-frontdoor"]
+ }
+  ] 
+  depends_on = [ module.azurerm_cdn_frontdoor_profile ]
+}
 module "window_vm" {
   source                        = "app.terraform.io/Motifworks/window-vm/azurerm"
   version                       = "1.0.3"
