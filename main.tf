@@ -935,6 +935,26 @@ module "loadbancer_backend_nic_association" {
   depends_on = [ module.resource_Group, module.loadbalancer_backend_pool ]
 }
 
+module "loadbalancer_health_probe" {
+  source  = "app.terraform.io/Motifworks/loadbalancer_health_probe/azurerm"
+  version = "1.0.0"
+  load_balancer_output   = module.load_balancer.load_balancer_output
+
+  lb_health_probe_list =[
+    {
+     name       = "lb-hp-ddi-dev"
+     load_balancer_name = "lb-ddi-dev"
+     protocol           = "http"
+     port               =  "80"
+     probe_threshold    = "5"
+     request_path       =  "/"
+     interval_in_seconds  = "4"
+     number_of_probes     = "3"
+  }
+  ]
+}
+
+
 
 
 module "availability_set" {
