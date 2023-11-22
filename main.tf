@@ -1035,7 +1035,8 @@ module "loadbalancer_outbound_rule" {
   source  = "app.terraform.io/Motifworks/loadbalancer_outbound_rule/azurerm"
   version = "1.0.0"
   load_balancer_output    = module.load_balancer.load_balancer_output
-  lb_backend_pool_output  = module.loadbalancer_backend_pool.load_balancer_output
+  lb_backend_pool_output  = module.loadbalancer_backend_pool.lb_backend_address_pool_output
+  
   lb_outbound_rule_list = [
     {
     name = "lb-ddi-dev-outbound-rule"
