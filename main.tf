@@ -1003,7 +1003,30 @@ module "loadbalancer_nat_pool" {
 }
 
 
+module "loadbalancer_nat_pool" {
+  source  = "app.terraform.io/Motifworks/loadbalancer_nat_pool/azurerm"
+  version = "1.0.0"
+  load_balancer_output    = module.load_balancer.load_balancer_output
+  lb_backend_pool_output  = module.loadbalancer_backend_pool.load_balancer_output
+  lb_outbound_rule_list = [
+    {
+    name = "lb-ddi-dev-outbound-rule"
+    loadbalancer_name = "lb-ddi-dev" 
+    protocol = "ALL"  # [All, Tcp , Udp]
+    backend_address_pool_name = "bkp-lb-ddi-dev"
+    enable_tcp_reset = false
+    allocated_outbound_ports = "3" # Default numbers allowed 1024
+    idle_timeout_in_minutes = "4" # Default is 4
+    frontend_ip_configuration = [
+      {
+        name  = "lb-pip-ddi-dev"
+      }
+    ]
 
+    }
+  ]
+      depends_on = [ module.load_balancer, module.loadbalancer_backend_pool ]
+  }
 
 module "availability_set" {
   source                = "app.terraform.io/Motifworks/availability_set/azurerm"
