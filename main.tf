@@ -48,7 +48,7 @@ module "cdn_frontdoor_rule_set" {
   cdn_frontdoor_rule_set_list =[
  {
    name = "ruleset"
-   cdn_profile_name = ["test-frontdoor"]
+   cdn_profile_name = "test-frontdoor"
  }
   ] 
   depends_on = [ module.azurerm_cdn_frontdoor_profile ]
