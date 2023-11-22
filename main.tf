@@ -1035,14 +1035,14 @@ module "loadbalancer_outbound_rule" {
   source  = "app.terraform.io/Motifworks/loadbalancer_outbound_rule/azurerm"
   version = "1.0.0"
   load_balancer_output    = module.load_balancer.load_balancer_output
-  lb_backend_pool_output  = module.loadbalancer_backend_pool.lb_backend_address_pool_output
-  
+  lb_backend_address_pool_output  = module.loadbalancer_backend_pool.lb_backend_address_pool_output
+
   lb_outbound_rule_list = [
     {
     name = "lb-ddi-dev-outbound-rule"
     loadbalancer_name = "lb-ddi-dev" 
     protocol = "ALL"  # [All, Tcp , Udp]
-    backend_address_pool_name = "bkp-lb-ddi-dev"
+    backend_address_pool_name = format("%s/%s", "lb-ddi-dev", "bkp-lb-ddi-dev")
     enable_tcp_reset = false
     allocated_outbound_ports = "3" # Default numbers allowed 1024
     idle_timeout_in_minutes = "4" # Default is 4
