@@ -1041,7 +1041,7 @@ module "loadbalancer_outbound_rule" {
     {
     name = "lb-ddi-dev-outbound-rule"
     loadbalancer_name = "lb-ddi-dev" 
-    protocol = "ALL"  # [All, Tcp , Udp]
+    protocol = "All"  # [All, Tcp , Udp]
     backend_address_pool_name = format("%s/%s", "lb-ddi-dev", "bkp-lb-ddi-dev")
     enable_tcp_reset = false
     allocated_outbound_ports = "3" # Default numbers allowed 1024
