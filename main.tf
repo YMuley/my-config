@@ -962,8 +962,44 @@ module "loadbalancer_health_probe" {
      request_path       =  "/"
      interval_in_seconds  = "5"
      number_of_probes     = "3"
+  },
+  {
+     name       = "lb-hp-ddi-devone"
+     load_balancer_name = "lb-ddi-devone"
+     protocol           = "Https"
+     port               =  "443"
+     probe_threshold    = "5"
+     request_path       =  "/app"
+     interval_in_seconds  = "5"
+     number_of_probes     = "3"
   }
   ]
+
+  depends_on = [ module.load_balancer ]
+}
+
+module "loadbalancer_nat_pool" {
+  source  = "app.terraform.io/Motifworks/loadbalancer_nat_pool/azurerm"
+  version = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+  load_balancer_output   = module.load_balancer.load_balancer_output
+
+  lb_nat_pool_list =[
+    {
+    name = "lb-nat-ddi-dev"
+    resource_group_name = "rg-ddi-dev1"
+    loadbalancer_name = "lb-ddi-dev"
+    protocol = "Tcp"  # [All, Tcp, Udp]
+    frontend_port_start = "80"
+    frontend_port_end = "81"
+    backend_port = "8080"
+    frontend_ip_configuration_name = "lb-pip-ddi-dev"
+    idle_timeout_in_minutes = "4" #[ 4 to 30] idle is 4
+    floating_ip_enabled = "false"  #Required to configure a SQL AlwaysOn Availability Group
+    tcp_reset_enabled = "false"
+    }
+    ]
+    depends_on = [ module.load_balancer, module.resource_Group ]
 }
 
 
