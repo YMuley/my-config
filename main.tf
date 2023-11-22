@@ -53,6 +53,34 @@ module "cdn_frontdoor_rule_set" {
   ] 
   depends_on = [ module.azurerm_cdn_frontdoor_profile ]
 }
+
+module "cdn_frontdoor_origin_group" {
+  source  = "app.terraform.io/Motifworks/cdn-frontdoor_origin_group/azurerm"
+  version = "1.0.1"
+  cdn_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
+  cdn_frontdoor_origin_group_list = [
+   {
+     name = "origin-added"
+     cdn_frontdoor_profile_name = "test-frontdoor"
+     session_affinity_enabled = false
+     health_probe = [
+      {
+        interval_in_seconds = 50
+        path                = "/"
+        protocol            =  "Http"
+        request_type        = "HEAD"
+      }
+     ]
+     load_balancing = [
+        {  
+        additional_latency_in_milliseconds = 50
+        sample_size                = 4
+        successful_samples_required   = 3
+        }
+     ]
+   }
+  ]
+}
 module "window_vm" {
   source                        = "app.terraform.io/Motifworks/window-vm/azurerm"
   version                       = "1.0.3"
