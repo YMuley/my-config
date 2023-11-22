@@ -948,7 +948,7 @@ module "loadbalancer_health_probe" {
      port               =  "80"
      probe_threshold    = "5"
      request_path       =  "/"
-     interval_in_seconds  = "4"
+     interval_in_seconds  = "5"
      number_of_probes     = "3"
   }
   ]
