@@ -1059,21 +1059,21 @@ module "loadbalancer_outbound_rule" {
     ]
 
     },
-    {
-    name = "lb-ddi-devone-outbound-rule"
-    loadbalancer_name = "lb-ddi-devone" 
-    protocol = "Tcp"  # [All, Tcp , Udp]
-    backend_address_pool_name = format("%s/%s", "lb-ddi-devone", "bkp-lb-ddi-dev")
-    enable_tcp_reset = true
-    allocated_outbound_ports = "9" # Default numbers allowed 1024
-    idle_timeout_in_minutes = "5" # Default is 4
-    frontend_ip_configuration = [
-      {
-        name  = "lb-pip-ddi-devone"
-      }
-    ]
+    # {
+    # name = "lb-ddi-devone-outbound-rule"
+    # loadbalancer_name = "lb-ddi-devone" 
+    # protocol = "Tcp"  # [All, Tcp , Udp]
+    # backend_address_pool_name = format("%s/%s", "lb-ddi-devone", "bkp-lb-ddi-dev")
+    # enable_tcp_reset = true
+    # allocated_outbound_ports = "9" # Default numbers allowed 1024
+    # idle_timeout_in_minutes = "5" # Default is 4
+    # frontend_ip_configuration = [
+    #   {
+    #     name  = "lb-pip-ddi-devone"
+    #   }
+    # ]
 
-    }
+    # }
   ]
       depends_on = [ module.load_balancer, module.loadbalancer_backend_pool ]
   }
