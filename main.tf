@@ -1189,8 +1189,7 @@ module "private_endpoint" {
   resource_group_output = module.resource_Group.resource_group_output
   # virtual_network_output = module.virtual_network.virtual_network_output
   subnet_output          = module.subnet.vnet_subnet_output
-  storage_account_output = module.storage_account.storage_account_output
-
+  
   private_endpoint_list = [
     {
       name                 = "privateendpoint1"
