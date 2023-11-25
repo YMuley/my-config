@@ -1191,7 +1191,7 @@ module "private_endpoint" {
   subnet_output          = module.subnet.vnet_subnet_output
   storage_account_output = module.storage_account.storage_account_output
 
-  private_endpoints_list = [
+  private_endpoint_list = [
     {
       name                 = "privateendpoint1"
       resource_group_name  = "rg-ddi-dev1"
