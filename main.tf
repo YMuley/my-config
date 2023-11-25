@@ -1209,6 +1209,13 @@ module "private_endpoint" {
           subresource_names = ["blob", "table"]
         }
       ]
+      key_vaults = [
+        {
+          name               = "testiefngkvrss2"
+          subresource_names  = ["secrets"]
+        }
+      ]
+
       tags = {
         environment = "dev"
       }
