@@ -1207,14 +1207,6 @@ module "private_endpoint" {
       storage_account = [
         {
           name              = "ddistorageacc2"
-          subresource_names = ["blob"]
-        }
-      ]
-
-      key_vault = [
-        {
-          name              = "testiefngkvrss2"
-          subresource_names = ["secrets"]
         }
       ]
       tags = {
