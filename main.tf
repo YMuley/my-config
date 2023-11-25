@@ -1188,7 +1188,8 @@ module "private_endpoint" {
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
   # virtual_network_output = module.virtual_network.virtual_network_output
-  subnet_output = module.subnet.vnet_subnet_output
+  subnet_output          = module.subnet.vnet_subnet_output
+  storage_account_output = module.storage_account.storage_account_output
 
   private_endpoint_list = [
     {
@@ -1196,12 +1197,19 @@ module "private_endpoint" {
       resource_group_name  = "rg-ddi-dev1"
       virtual_network_name = "vnet-ddi-dev1"
       subnet_name          = "sub-ddi-dev-web"
-      private_dns_zone_group = [
+      # private_dns_zone_group = [
+      #   {
+      #     private_dns_zone_group_name          = "ddi-dns-group1"
+      #     private_dns_zone_resource_group_name = "rg-ddi-dev1"
+      #   }
+      # ]
+      storage_account = [
         {
-          private_dns_zone_group_name          = "ddi-dns-group1"
-          private_dns_zone_resource_group_name = "rg-ddi-dev1"
+          name              = "ddistorageacc2"
+          subresource_names = ["blob"]
         }
       ]
+
       key_vault = [
         {
           name              = "testiefngkvrss2"
