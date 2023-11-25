@@ -1187,7 +1187,7 @@ module "private_endpoint" {
   source                 = "app.terraform.io/Motifworks/private_endpoint/azurerm"
   version                = "1.0.0"
   resource_group_output  = module.resource_Group.resource_group_output
-  virtual_network_output = module.virtual_network.virtual_network_output
+  # virtual_network_output = module.virtual_network.virtual_network_output
   subnet_output          = module.subnet.vnet_subnet_output
   storage_account_output = module.storage_account.storage_account_output
 
