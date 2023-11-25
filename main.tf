@@ -1195,6 +1195,7 @@ module "private_endpoint" {
     {
       name                 = "privateendpoint1"
       resource_group_name  = "rg-ddi-dev1"
+      location             = "westus"
       virtual_network_name = "vnet-ddi-dev1"
       subnet_name          = "sub-ddi-dev-web"
       # private_dns_zone_group = [
