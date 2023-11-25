@@ -1188,8 +1188,8 @@ module "private_endpoint" {
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
   # virtual_network_output = module.virtual_network.virtual_network_output
-  subnet_output          = module.subnet.vnet_subnet_output
-  
+  subnet_output = module.subnet.vnet_subnet_output
+
   private_endpoint_list = [
     {
       name                 = "privateendpoint1"
@@ -1200,6 +1200,12 @@ module "private_endpoint" {
         {
           private_dns_zone_group_name          = "ddi-dns-group1"
           private_dns_zone_resource_group_name = "rg-ddi-dev1"
+        }
+      ]
+      key_vault = [
+        {
+          name              = "testiefngkvrss2"
+          subresource_names = ["secrets"]
         }
       ]
       tags = {
