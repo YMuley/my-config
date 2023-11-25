@@ -1184,9 +1184,9 @@ module "traffic_manager_profile" {
 }
 
 module "private_endpoint" {
-  source                 = "app.terraform.io/Motifworks/private_endpoint/azurerm"
-  version                = "1.0.0"
-  resource_group_output  = module.resource_Group.resource_group_output
+  source                = "app.terraform.io/Motifworks/private_endpoint/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
   # virtual_network_output = module.virtual_network.virtual_network_output
   subnet_output          = module.subnet.vnet_subnet_output
   storage_account_output = module.storage_account.storage_account_output
@@ -1203,19 +1203,6 @@ module "private_endpoint" {
           private_dns_zone_resource_group_name = "rg-ddi-dev1"
         }
       ]
-      storage_accounts = [
-        {
-          name              = "ddistorageacc2"
-          subresource_names = ["blob", "table"]
-        }
-      ]
-      key_vaults = [
-        {
-          name               = "testiefngkvrss2"
-          subresource_names  = ["secrets"]
-        }
-      ]
-
       tags = {
         environment = "dev"
       }
