@@ -26,59 +26,59 @@ module "azurerm_cdn_frontdoor_profile" {
   source  = "app.terraform.io/Motifworks/azurerm_cdn_frontdoor_profile/azurerm"
   version = "1.0.2"
 
-  cdn_frontdoor_profile_list =[ 
-   {
+  cdn_frontdoor_profile_list = [
+    {
       name                = "test-frontdoor"
       location            = "westus"
       resource_group_name = "rg-ddi-dev1"
       sku_name            = "Standard_AzureFrontDoor"
-      tags                = {
+      tags = {
         location     = "eastus"
         subscription = "iac-dev"
         environment  = "poc"
       }
-   }  
-]
-  depends_on = [ module.resource_Group ]
+    }
+  ]
+  depends_on = [module.resource_Group]
 }
 module "cdn_frontdoor_rule_set" {
-  source  = "app.terraform.io/Motifworks/cdn_frontdoor_rule_set/azurerm"
-  version = "1.0.1"
+  source                       = "app.terraform.io/Motifworks/cdn_frontdoor_rule_set/azurerm"
+  version                      = "1.0.1"
   cdn_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
-  cdn_frontdoor_rule_set_list =[
- {
-   name = "ruleset"
-   cdn_profile_name = "test-frontdoor"
- }
-  ] 
-  depends_on = [ module.azurerm_cdn_frontdoor_profile ]
+  cdn_frontdoor_rule_set_list = [
+    {
+      name             = "ruleset"
+      cdn_profile_name = "test-frontdoor"
+    }
+  ]
+  depends_on = [module.azurerm_cdn_frontdoor_profile]
 }
 
 module "cdn_frontdoor_origin_group" {
-  source  = "app.terraform.io/Motifworks/cdn-frontdoor_origin_group/azurerm"
-  version = "1.0.1"
+  source                       = "app.terraform.io/Motifworks/cdn-frontdoor_origin_group/azurerm"
+  version                      = "1.0.1"
   cdn_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
   cdn_frontdoor_origin_group_list = [
-   {
-     name = "origin-added"
-     cdn_frontdoor_profile_name = "test-frontdoor"
-     session_affinity_enabled = false
-     health_probe = [
-      {
-        interval_in_seconds = 50
-        path                = "/"
-        protocol            =  "Http"
-        request_type        = "HEAD"
-      }
-     ]
-     load_balancing = [
-        {  
-        additional_latency_in_milliseconds = 50
-        sample_size                = 4
-        successful_samples_required   = 3
+    {
+      name                       = "origin-added"
+      cdn_frontdoor_profile_name = "test-frontdoor"
+      session_affinity_enabled   = false
+      health_probe = [
+        {
+          interval_in_seconds = 50
+          path                = "/"
+          protocol            = "Http"
+          request_type        = "HEAD"
         }
-     ]
-   }
+      ]
+      load_balancing = [
+        {
+          additional_latency_in_milliseconds = 50
+          sample_size                        = 4
+          successful_samples_required        = 3
+        }
+      ]
+    }
   ]
 }
 module "window_vm" {
@@ -120,11 +120,11 @@ module "window_vm" {
   ]
 }
 module "linux_vm" {
-  source  = "app.terraform.io/Motifworks/linux-vm/azurerm"
-  version = "1.0.0"
+  source                        = "app.terraform.io/Motifworks/linux-vm/azurerm"
+  version                       = "1.0.0"
   network_interface_card_output = module.network_interface_card.network_interface_card_output
 
-  linux_vm_list =  [
+  linux_vm_list = [
     {
       name : "vm1-linux"
       resource_group_name             = "rg-ddi-dev1"
@@ -153,15 +153,15 @@ module "linux_vm" {
       ]
 
       source_image_reference = [
-       {
+        {
           publisher = "Canonical"
           offer     = "0001-com-ubuntu-server-jammy"
           sku       = "22_04-lts"
           version   = "latest"
         }
       ]
-}
-] 
+    }
+  ]
 }
 
 module "virtual_network" {
@@ -236,7 +236,7 @@ module "subnet" {
 
       delegation = []
     },
-     {
+    {
       name                                          = "sub-ddi-dev2-web"
       resource_group_name                           = "rg-ddi-dev1"
       virtual_network_name                          = "vnet-ddi-dev1"
@@ -467,7 +467,7 @@ module "public_ip" {
       }
       sku_tier = "Regional"
     },
-{
+    {
       name                = "public-ip-ddi-dev2"
       location            = "westus"
       resource_group_name = "rg-ddi-dev1"
@@ -555,25 +555,25 @@ module "network_interface_card" {
       ]
     },
 
-     {
-       name                = "vm1-linux-nic"
-       location            = "westus"
-       resource_group_name = "rg-ddi-dev1"
-       tags = {
-         environment = "dev"
-       }
-       ip_configuration = [
-         {
-           name                          = "config2"
-           virtual_network_name          = "vnet-ddi-dev1"
-           subnet_name                   = "sub-ddi-dev2-web"
-           private_ip_address_allocation = "Dynamic"
-           public_ip_name                = "public-ip-ddi-dev2"
-           private_ip_address            = null
-         }
-       ]
-     },
-     {
+    {
+      name                = "vm1-linux-nic"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev1"
+      tags = {
+        environment = "dev"
+      }
+      ip_configuration = [
+        {
+          name                          = "config2"
+          virtual_network_name          = "vnet-ddi-dev1"
+          subnet_name                   = "sub-ddi-dev2-web"
+          private_ip_address_allocation = "Dynamic"
+          public_ip_name                = "public-ip-ddi-dev2"
+          private_ip_address            = null
+        }
+      ]
+    },
+    {
       name                = "lb-ddi-dev-nic"
       location            = "westus"
       resource_group_name = "rg-ddi-dev1"
@@ -638,96 +638,96 @@ module "nsg_nic_association" {
   ]
 }
 
- module "keyvault" {
-   source  = "app.terraform.io/Motifworks/keyvault/azurerm"
-   version = "1.0.6"
+module "keyvault" {
+  source  = "app.terraform.io/Motifworks/keyvault/azurerm"
+  version = "1.0.6"
 
-   key_vault_list = [
-     {
-       name                = "testiefngkvrss2"
-       resource_group_name = "rg-ddi-dev1"
-       location            = "westus"
+  key_vault_list = [
+    {
+      name                = "testiefngkvrss2"
+      resource_group_name = "rg-ddi-dev1"
+      location            = "westus"
 
-       sku_name                        = "standard"
-       tenant_id                       = "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+      sku_name                        = "standard"
+      tenant_id                       = "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
       enabled_for_deployment          = true
-       enabled_for_disk_encryption     = false
-       enabled_for_template_deployment = false
-       enable_rbac_authorization       = false
-       soft_delete_retention_days      = 7
-       purge_protection_enabled        = false
-       public_network_access_enabled   = true
-       enable_rbac_authorization       = true
-       network_acls = [
-         {
-           bypass         = "AzureServices"
-           default_action = "Allow"
-         }
-       ]
-       access_policy = [
-         {
-           tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-           object_id : "0ac91507-a04a-4fac-bfca-a143cea93b33"
-           resource_type           = "user"
-           application_id          = null
-           certificate_permissions = ["Get", "Create", "Delete", "Update"]
-           key_permissions         = ["Get", "Create", "Delete", "Update"]
-           secret_permissions      = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
-           storage_permissions     = ["Get", "Set", "Delete", "Update"]
-         },
-         {
-           tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-           object_id : "ea7d721a-3358-433d-b26f-1d79421f920d"
-           resource_type           = "user"
-           application_id          = null
-           certificate_permissions = ["Get", "Create", "Delete", "Update"]
-           key_permissions         = ["Get", "Create", "Delete", "Update"]
-           secret_permissions      = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
-           storage_permissions     = ["Get", "Set", "Delete", "Update"]
-         },
-         {
-           tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-           object_id : "c5a7e9ba-7140-4953-b220-f84706a36eea"
-           resource_type           = "user"
-           application_id          = null
-           certificate_permissions = ["Get", "Create", "Delete", "Update"]
-           key_permissions         = ["Get", "Create", "Delete", "Update"]
-           secret_permissions      = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
-           storage_permissions     = ["Get", "Set", "Delete", "Update"]
-         }
-       ]
+      enabled_for_disk_encryption     = false
+      enabled_for_template_deployment = false
+      enable_rbac_authorization       = false
+      soft_delete_retention_days      = 7
+      purge_protection_enabled        = false
+      public_network_access_enabled   = true
+      enable_rbac_authorization       = true
+      network_acls = [
+        {
+          bypass         = "AzureServices"
+          default_action = "Allow"
+        }
+      ]
+      access_policy = [
+        {
+          tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+          object_id : "0ac91507-a04a-4fac-bfca-a143cea93b33"
+          resource_type           = "user"
+          application_id          = null
+          certificate_permissions = ["Get", "Create", "Delete", "Update"]
+          key_permissions         = ["Get", "Create", "Delete", "Update"]
+          secret_permissions      = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
+          storage_permissions     = ["Get", "Set", "Delete", "Update"]
+        },
+        {
+          tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+          object_id : "ea7d721a-3358-433d-b26f-1d79421f920d"
+          resource_type           = "user"
+          application_id          = null
+          certificate_permissions = ["Get", "Create", "Delete", "Update"]
+          key_permissions         = ["Get", "Create", "Delete", "Update"]
+          secret_permissions      = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
+          storage_permissions     = ["Get", "Set", "Delete", "Update"]
+        },
+        {
+          tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+          object_id : "c5a7e9ba-7140-4953-b220-f84706a36eea"
+          resource_type           = "user"
+          application_id          = null
+          certificate_permissions = ["Get", "Create", "Delete", "Update"]
+          key_permissions         = ["Get", "Create", "Delete", "Update"]
+          secret_permissions      = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
+          storage_permissions     = ["Get", "Set", "Delete", "Update"]
+        }
+      ]
 
-#       #       contact = [
-#       #         {
-#       #           email = "Vijay.Yadav@motifworks.com"
-#       #           name  = "Vijay Yadav"
-#       #           phone = "93042322"
-#       #         }
-#       #       ]
+      #       #       contact = [
+      #       #         {
+      #       #           email = "Vijay.Yadav@motifworks.com"
+      #       #           name  = "Vijay Yadav"
+      #       #           phone = "93042322"
+      #       #         }
+      #       #       ]
 
-    tags = {
-         env = "poc"
-       }
-     }
-   ]
-    depends_on = [ module.resource_Group ]
+      tags = {
+        env = "poc"
+      }
+    }
+  ]
+  depends_on = [module.resource_Group]
 
- }
+}
 
- module "vault_secret" {
-   source           = "app.terraform.io/Motifworks/vault_secret/key"
-   version          = "1.0.0"
-   key_vault_output = module.keyvault.key_vault_output
-   key_vault_secret_list = [
-     {
-       name           = "secrauce"
-       value          = "szechuan"
-       key_vault_name = "testiefngkvrss2"
+module "vault_secret" {
+  source           = "app.terraform.io/Motifworks/vault_secret/key"
+  version          = "1.0.0"
+  key_vault_output = module.keyvault.key_vault_output
+  key_vault_secret_list = [
+    {
+      name           = "secrauce"
+      value          = "szechuan"
+      key_vault_name = "testiefngkvrss2"
 
-     }
-   ]
-   depends_on = [module.keyvault]
- }
+    }
+  ]
+  depends_on = [module.keyvault]
+}
 
 
 module "storage_account" {
@@ -803,7 +803,7 @@ module "useridentity" {
       }
     }
   ]
-  depends_on = [ module.resource_Group ]
+  depends_on = [module.resource_Group]
 }
 
 module "managed_disk" {
@@ -899,35 +899,35 @@ module "load_balancer" {
 }
 
 module "loadbalancer_backend_pool" {
-  source                 = "app.terraform.io/Motifworks/loadbalancer_backend_pool/azurerm"
-  version                = "1.0.0"
-  load_balancer_output   = module.load_balancer.load_balancer_output
+  source               = "app.terraform.io/Motifworks/loadbalancer_backend_pool/azurerm"
+  version              = "1.0.0"
+  load_balancer_output = module.load_balancer.load_balancer_output
   #virtual_network_output = module.virtual_network.virtual_network_output
 
   backend_pool_list = [
     {
-      name                 = "bkp-lb-ddi-dev"
-      loadbalancer_name    = "lb-ddi-devone"
+      name              = "bkp-lb-ddi-dev"
+      loadbalancer_name = "lb-ddi-devone"
       #virtual_network_name = "vnet-ddi-dev1"
-      tunnel_interface     = []
+      tunnel_interface = []
     },
     {
-      name                 = "bkp-lb-ddi-dev"
-      loadbalancer_name    = "lb-ddi-dev"
+      name              = "bkp-lb-ddi-dev"
+      loadbalancer_name = "lb-ddi-dev"
       #virtual_network_name = "vnet-ddi-dev1"
-      tunnel_interface     = []
+      tunnel_interface = []
     },
     {
-      name                 = "bkp-lb-ddi-dev1"
-      loadbalancer_name    = "lb-ddi-dev"
+      name              = "bkp-lb-ddi-dev1"
+      loadbalancer_name = "lb-ddi-dev"
       #virtual_network_name = "vnet-ddi-dev1"
-      tunnel_interface     = []
+      tunnel_interface = []
     },
     {
-      name                  = "bkp-lb-ddi-poc"
-      loadbalancer_name     = "lb-ddi-poc"
+      name              = "bkp-lb-ddi-poc"
+      loadbalancer_name = "lb-ddi-poc"
       #virtual_network_name  = "vnet-ddi-poc1"
-      tunnel_interface      = [
+      tunnel_interface = [
         {
           identifier = "800"
           type       = "Internal"
@@ -943,120 +943,120 @@ module "loadbalancer_backend_pool" {
 module "loadbalancer_backend_address_pool_addresses" {
   source  = "app.terraform.io/Motifworks/loadbalancer_backend_address_pool_addresses/azurerm"
   version = "1.0.0"
-  
+
   lb_backend_address_pool_output = module.loadbalancer_backend_pool.lb_backend_address_pool_output
-  virtual_network_output = module.virtual_network.virtual_network_output
+  virtual_network_output         = module.virtual_network.virtual_network_output
 
   lb_backend_address_pool_addresses_list = [
     {
-      name = "lb-bkp-pool-ddi-dev-ip-name"
+      name                      = "lb-bkp-pool-ddi-dev-ip-name"
       backend_address_pool_name = format("%s/%s", "lb-ddi-devone", "bkp-lb-ddi-dev")
-      virtual_network_name  = "vnet-ddi-dev1"
-      ip_address = "10.100.16.10"
+      virtual_network_name      = "vnet-ddi-dev1"
+      ip_address                = "10.100.16.10"
     },
     {
-      name = "lb-bkp-pool-ddi-poc-ip-name"
+      name                      = "lb-bkp-pool-ddi-poc-ip-name"
       backend_address_pool_name = format("%s/%s", "lb-ddi-poc", "bkp-lb-ddi-poc")
-      virtual_network_name  = "vnet-ddi-poc1"
-      ip_address = "10.100.2.10"
+      virtual_network_name      = "vnet-ddi-poc1"
+      ip_address                = "10.100.2.10"
     }
 
   ]
-    depends_on = [module.load_balancer, module.loadbalancer_backend_pool, module.resource_Group ]
+  depends_on = [module.load_balancer, module.loadbalancer_backend_pool, module.resource_Group]
 }
 
 module "loadbancer_backend_nic_association" {
-  source  = "app.terraform.io/Motifworks/loadbancer_backend_nic_association/azurerm"
-  version = "1.0.0"
+  source                         = "app.terraform.io/Motifworks/loadbancer_backend_nic_association/azurerm"
+  version                        = "1.0.0"
   lb_backend_address_pool_output = module.loadbalancer_backend_pool.lb_backend_address_pool_output
-  network_interface_card_output = module.network_interface_card.network_interface_card_output
+  network_interface_card_output  = module.network_interface_card.network_interface_card_output
 
   lb_bckpool_nic_association_list = [
     {
-      network_interface_card_name = format("%s/%s", "rg-ddi-dev1", "lb-ddi-dev-nic")
-      ip_configuration_name = "lb-ddi-dev-ip"
+      network_interface_card_name  = format("%s/%s", "rg-ddi-dev1", "lb-ddi-dev-nic")
+      ip_configuration_name        = "lb-ddi-dev-ip"
       lb_backend_address_pool_name = format("%s/%s", "lb-ddi-dev", "bkp-lb-ddi-dev")
     }
   ]
-  depends_on = [ module.resource_Group, module.loadbalancer_backend_pool ]
+  depends_on = [module.resource_Group, module.loadbalancer_backend_pool]
 }
 
 module "loadbalancer_health_probe" {
-  source  = "app.terraform.io/Motifworks/loadbalancer_health_probe/azurerm"
-  version = "1.0.0"
-  load_balancer_output   = module.load_balancer.load_balancer_output
+  source               = "app.terraform.io/Motifworks/loadbalancer_health_probe/azurerm"
+  version              = "1.0.0"
+  load_balancer_output = module.load_balancer.load_balancer_output
 
-  lb_health_probe_list =[
+  lb_health_probe_list = [
     {
-     name       = "lb-hp-ddi-dev"
-     load_balancer_name = "lb-ddi-dev"
-     protocol           = "Http"
-     port               =  "80"
-     probe_threshold    = "5"
-     request_path       =  "/"
-     interval_in_seconds  = "5"
-     number_of_probes     = "3"
-  },
-  {
-     name       = "lb-hp-ddi-devone"
-     load_balancer_name = "lb-ddi-devone"
-     protocol           = "Https"
-     port               =  "443"
-     probe_threshold    = "5"
-     request_path       =  "/app"
-     interval_in_seconds  = "5"
-     number_of_probes     = "3"
-  }
+      name                = "lb-hp-ddi-dev"
+      load_balancer_name  = "lb-ddi-dev"
+      protocol            = "Http"
+      port                = "80"
+      probe_threshold     = "5"
+      request_path        = "/"
+      interval_in_seconds = "5"
+      number_of_probes    = "3"
+    },
+    {
+      name                = "lb-hp-ddi-devone"
+      load_balancer_name  = "lb-ddi-devone"
+      protocol            = "Https"
+      port                = "443"
+      probe_threshold     = "5"
+      request_path        = "/app"
+      interval_in_seconds = "5"
+      number_of_probes    = "3"
+    }
   ]
 
-  depends_on = [ module.load_balancer ]
+  depends_on = [module.load_balancer]
 }
 
 module "loadbalancer_nat_pool" {
-  source  = "app.terraform.io/Motifworks/loadbalancer_nat_pool/azurerm"
-  version = "1.0.0"
+  source                = "app.terraform.io/Motifworks/loadbalancer_nat_pool/azurerm"
+  version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
-  load_balancer_output   = module.load_balancer.load_balancer_output
+  load_balancer_output  = module.load_balancer.load_balancer_output
 
-  lb_nat_pool_list =[
+  lb_nat_pool_list = [
     {
-    name = "lb-nat-ddi-dev"
-    resource_group_name = "rg-ddi-dev1"
-    loadbalancer_name = "lb-ddi-dev"
-    protocol = "Tcp"  # [All, Tcp, Udp]
-    frontend_port_start = "80"
-    frontend_port_end = "81"
-    backend_port = "8080"
-    frontend_ip_configuration_name = "lb-pip-ddi-dev"
-    idle_timeout_in_minutes = "4" #[ 4 to 30] idle is 4
-    floating_ip_enabled = "false"  #Required to configure a SQL AlwaysOn Availability Group
-    tcp_reset_enabled = "false"
+      name                           = "lb-nat-ddi-dev"
+      resource_group_name            = "rg-ddi-dev1"
+      loadbalancer_name              = "lb-ddi-dev"
+      protocol                       = "Tcp" # [All, Tcp, Udp]
+      frontend_port_start            = "80"
+      frontend_port_end              = "81"
+      backend_port                   = "8080"
+      frontend_ip_configuration_name = "lb-pip-ddi-dev"
+      idle_timeout_in_minutes        = "4"     #[ 4 to 30] idle is 4
+      floating_ip_enabled            = "false" #Required to configure a SQL AlwaysOn Availability Group
+      tcp_reset_enabled              = "false"
     }
-    ]
-    depends_on = [ module.load_balancer, module.resource_Group ]
+  ]
+  depends_on = [module.load_balancer, module.resource_Group]
 }
 
 
 module "loadbalancer_outbound_rule" {
-  source  = "app.terraform.io/Motifworks/loadbalancer_outbound_rule/azurerm"
-  version = "1.0.0"
-  load_balancer_output    = module.load_balancer.load_balancer_output
-  lb_backend_address_pool_output  = module.loadbalancer_backend_pool.lb_backend_address_pool_output
+  source                         = "app.terraform.io/Motifworks/loadbalancer_outbound_rule/azurerm"
+  version                        = "1.0.0"
+  load_balancer_output           = module.load_balancer.load_balancer_output
+  lb_backend_address_pool_output = module.loadbalancer_backend_pool.lb_backend_address_pool_output
 
   lb_outbound_rule_list = [
     {
-    name = "lb-ddi-dev-outbound-rule"
-    loadbalancer_name = "lb-ddi-dev" 
-    protocol = "All"  # [All, Tcp , Udp]
-    backend_address_pool_name = format("%s/%s", "lb-ddi-dev", "bkp-lb-ddi-dev")
-    enable_tcp_reset = false
-    allocated_outbound_ports = "8" # Default numbers allowed 1024
-    idle_timeout_in_minutes = "4" # Default is 4
-    frontend_ip_configuration = [
-      {
-        name  = "lb-pip-ddi-dev"
-      }
-    ]
+      name                      = "lb-ddi-dev-outbound-rule"
+      loadbalancer_name         = "lb-ddi-dev"
+      protocol                  = "All" # [All, Tcp , Udp]
+      backend_address_pool_name = format("%s/%s", "lb-ddi-dev", "bkp-lb-ddi-dev")
+      enable_tcp_reset          = false
+      allocated_outbound_ports  = "8" # Default numbers allowed 1024
+      idle_timeout_in_minutes   = "4" # Default is 4
+      frontend_ip_configuration = [
+        {
+          name = "lb-pip-ddi-dev"
+        }
+      ]
 
     },
     # {
@@ -1075,8 +1075,8 @@ module "loadbalancer_outbound_rule" {
 
     # }
   ]
-      depends_on = [ module.load_balancer, module.loadbalancer_backend_pool ]
-  }
+  depends_on = [module.load_balancer, module.loadbalancer_backend_pool]
+}
 
 
 #   module "loadbalancer_rule" {
@@ -1178,6 +1178,39 @@ module "traffic_manager_profile" {
 
       tags = {
         environment = "Production"
+      }
+    }
+  ]
+}
+
+module "private_endpoint" {
+  source                 = "app.terraform.io/Motifworks/private_endpoint/azurerm"
+  version                = "1.0.0"
+  resource_group_output  = module.resource_Group.resource_group_output
+  virtual_network_output = module.virtual_network.virtual_network_output
+  subnet_output          = module.subnet.vnet_subnet_output
+  storage_account_output = module.storage_account.storage_account_output
+
+  private_endpoints_list = [
+    {
+      name                 = "privateendpoint1"
+      resource_group_name  = "rg-ddi-dev1"
+      virtual_network_name = "vnet-ddi-dev1"
+      subnet_name          = "sub-ddi-dev-web"
+      private_dns_zone_group = [
+        {
+          private_dns_zone_group_name          = "ddi-dns-group1"
+          private_dns_zone_resource_group_name = "rg-ddi-dev1"
+        }
+      ]
+      storage_accounts = [
+        {
+          name              = "ddistorageacc2"
+          subresource_names = ["blob", "table"]
+        }
+      ]
+      tags = {
+        environment = "dev"
       }
     }
   ]
