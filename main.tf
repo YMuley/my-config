@@ -1079,32 +1079,32 @@ module "loadbalancer_outbound_rule" {
   }
 
 
-#   module "loadbalancer_rule" {
-#   source  = "app.terraform.io/Motifworks/loadbalancer_rule/azurerm"
-#   version = "1.0.0"
-#   load_balancer_output    = module.load_balancer.load_balancer_output
-#   lb_backend_address_pool_output  = module.loadbalancer_backend_pool.lb_backend_address_pool_output
-#   lb_health_probe_output = module.loadbalancer_health_probe.lb_health_probe_output
+  module "loadbalancer_rule" {
+  source  = "app.terraform.io/Motifworks/loadbalancer_rule/azurerm"
+  version = "1.0.0"
+  load_balancer_output    = module.load_balancer.load_balancer_output
+  lb_backend_address_pool_output  = module.loadbalancer_backend_pool.lb_backend_address_pool_output
+  lb_health_probe_output = module.loadbalancer_health_probe.lb_health_probe_output
 
-#   lb_rule_list = [
-#     {
-#   name  = "lb-ddi-dev-rule"
-#   loadbalancer_name = "lb-ddi-dev"
-#   protocol = "All"  #[All , Tcp , Udp]
-#   frontend_port = 80
-#   backend_port = 80
-#   frontend_ip_configuration_name = "lb-pip-ddi-dev"
-#   health_probe_name = "lb-hp-ddi-dev"
-#   enable_floating_ip = false  #Required to configure a SQL AlwaysOn Availability Group: true
-#   idle_timeout_in_minutes = 4 #between 4 to 30
-#   load_distribution = "Default"  # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
-#   disable_outbound_snat = false
-#   enable_tcp_reset = false
-#   backend_address_pool_names = ["lb-ddi-dev/bkp-lb-ddi-dev" , "lb-ddi-dev/bkp-lb-ddi-dev1"]
-#     }
-#   ]
-#    depends_on = [ module.load_balancer, module.loadbalancer_backend_pool, module.loadbalancer_health_probe ]
-# }
+  lb_rule_list = [
+    {
+  name  = "lb-ddi-dev-rule"
+  loadbalancer_name = "lb-ddi-dev"
+  protocol = "All"  #[All , Tcp , Udp]
+  frontend_port = 80
+  backend_port = 80
+  frontend_ip_configuration_name = "lb-pip-ddi-dev"
+  health_probe_name = "lb-hp-ddi-dev"
+  enable_floating_ip = false  #Required to configure a SQL AlwaysOn Availability Group: true
+  idle_timeout_in_minutes = 4 #between 4 to 30
+  load_distribution = "Default"  # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
+  disable_outbound_snat = false
+  enable_tcp_reset = false
+  backend_address_pool_names = ["bkp-lb-ddi-dev" , "bkp-lb-ddi-dev1"]
+    }
+  ]
+   depends_on = [ module.load_balancer, module.loadbalancer_backend_pool, module.loadbalancer_health_probe ]
+}
 
 
 
