@@ -81,6 +81,26 @@ module "cdn_frontdoor_origin_group" {
     }
   ]
 }
+module "cdn_frontdoor_origin" {
+  source  = "app.terraform.io/Motifworks/cdn_frontdoor_origin/azurerm"
+  version = "1.0.1"
+  cdn_frontdoor_profile_output = module.cdn_frontdoor_origin_group.cdn_frontdoor_origin_group_output
+  cdn_frontdoor_origin_list = [
+   {
+  name                             = "origingrip"                          
+  cdn_frontdoor_origin_group_name = "origin-added"
+  enabled                          = "Disabled"  							
+  certificate_name_check_enabled   = false					
+  host_name                        = "fdplatform.ddiworld.com"                    
+  http_port                        = 80                 
+  https_port                       = 443                    
+  origin_host_header               = "fdplatform.ddiworld.com"        
+  priority                         = 1                      
+  weight                           = 1000
+     
+   }
+  ]
+}
 module "window_vm" {
   source                        = "app.terraform.io/Motifworks/window-vm/azurerm"
   version                       = "1.0.3"
