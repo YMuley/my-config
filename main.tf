@@ -1199,6 +1199,7 @@ module "private_endpoint" {
       virtual_network_name = "vnet-ddi-dev1"
       subnet_name          = "sub-ddi-dev-web"
       storage_account_name = "ddistorageacc2"
+      subresource_name     = "blob"
       tags = {
         environment = "dev"
       }
