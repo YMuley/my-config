@@ -1199,12 +1199,6 @@ module "private_endpoint" {
       virtual_network_name = "vnet-ddi-dev1"
       subnet_name          = "sub-ddi-dev-web"
       storage_account_name = "ddistorageacc2"
-      # private_dns_zone_group = [
-      #   {
-      #     private_dns_zone_group_name          = "ddi-dns-group1"
-      #     private_dns_zone_resource_group_name = "rg-ddi-dev1"
-      #   }
-      # ]
       tags = {
         environment = "dev"
       }
