@@ -89,7 +89,7 @@ module "cdn_frontdoor_origin" {
    {
   name                             = "origingrip"                          
   cdn_frontdoor_origin_group_name = "origin-added"
-  enabled                          = "Disabled"  							
+  enabled                          = true  							
   certificate_name_check_enabled   = false					
   host_name                        = "fdplatform.ddiworld.com"                    
   http_port                        = 80                 
@@ -97,6 +97,7 @@ module "cdn_frontdoor_origin" {
   origin_host_header               = "fdplatform.ddiworld.com"        
   priority                         = 1                      
   weight                           = 1000
+  private_link                     = []
      
    }
   ]
