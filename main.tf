@@ -84,7 +84,7 @@ module "cdn_frontdoor_origin_group" {
 module "cdn_frontdoor_origin" {
   source  = "app.terraform.io/Motifworks/cdn_frontdoor_origin/azurerm"
   version = "1.0.1"
-  cdn_frontdoor_profile_output = module.cdn_frontdoor_origin_group.cdn_frontdoor_origin_group_output
+  cdn_frontdoor_origin_group_output = module.cdn_frontdoor_origin_group.cdn_frontdoor_origin_group_output
   cdn_frontdoor_origin_list = [
    {
   name                             = "origingrip"                          
