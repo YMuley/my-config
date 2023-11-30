@@ -56,7 +56,7 @@ module "cdn_frontdoor_rule_set" {
 module "cdn_frontdoor_endpoint" {
   source  = "app.terraform.io/Motifworks/cdn_frontdoor_endpoint/azurerm"
   version = "1.0.1"
-
+  cdn_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
   cdn_frontdoor_endpoint_list = [{  
     name                     = "/fd-ddi-demo-endpoint-eastus-001"
     cdn_frontdoor_profile_name = "test-frontdoor"
