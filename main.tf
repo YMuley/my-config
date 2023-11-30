@@ -53,7 +53,19 @@ module "cdn_frontdoor_rule_set" {
   ]
   depends_on = [module.azurerm_cdn_frontdoor_profile]
 }
+module "cdn_frontdoor_endpoint" {
+  source  = "app.terraform.io/Motifworks/cdn_frontdoor_endpoint/azurerm"
+  version = "1.0.1"
 
+  cdn_frontdoor_endpoint_list = [{  
+    name                     = "/fd-ddi-demo-endpoint-eastus-001"
+    cdn_frontdoor_profile_name = "test-frontdoor"
+    enabled               = true
+    tags                = {
+     env = "dev"
+    }
+  }]
+}
 module "cdn_frontdoor_origin_group" {
   source                       = "app.terraform.io/Motifworks/cdn-frontdoor_origin_group/azurerm"
   version                      = "1.0.1"
