@@ -58,7 +58,7 @@ module "cdn_frontdoor_endpoint" {
   version = "1.0.1"
   cdn_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
   cdn_frontdoor_endpoint_list = [{  
-    name                     = "/fd-ddi-demo-endpoint-eastus-001"
+    name                     = "fd-ddi-demo-endpoint-eastus-001"
     cdn_frontdoor_profile_name = "test-frontdoor"
     enabled               = true
     tags                = {
