@@ -59,9 +59,9 @@ module "cdn_frontdoor_rule_set" {
    cdn_endpoint_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
    cdn_endpoint_custom_domain_list = [
   {
-     name                     = "admin2"
+     name                     = "admin2re"
      cdn_frontdoor_profile_name = "test-frontdoor"
-     host_name                = "admin2.talentportal.ddiworld.com"
+     host_name                = "adminw2.talentportal.ddiworld.com"
      tls                      = [
       {
         certificate_type = "ManagedCertificate"
