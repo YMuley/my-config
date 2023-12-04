@@ -53,19 +53,24 @@ module "cdn_frontdoor_rule_set" {
   ]
   depends_on = [module.azurerm_cdn_frontdoor_profile]
 }
-# module "cdn_frontdoor_custom_domain" {
-#   source  = "app.terraform.io/Motifworks/cdn_frontdoor_custom_domain/azurerm"
-#   version = "1.0.1"
-#   cdn_endpoint_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
-#   cdn_endpoint_custom_domain_list = [
-#  {
-#     name                     = "admin2"
-#     cdn_frontdoor_profile_name = "test-frontdoor"
-#     host_name                = "admin2.talentportal.ddiworld.com"
-#     tls                      = []
-#  }
-#   ]
-# }
+ module "cdn_frontdoor_custom_domain" {
+   source  = "app.terraform.io/Motifworks/cdn_frontdoor_custom_domain/azurerm"
+   version = "1.0.1"
+   cdn_endpoint_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
+   cdn_endpoint_custom_domain_list = [
+  {
+     name                     = "admin2re"
+     cdn_frontdoor_profile_name = "test-frontdoor"
+     host_name                = "adminw2.talentportal.ddiworld.com"
+     tls                      = [
+      {
+        certificate_type = "ManagedCertificate"
+        minimum_tls_version = "TLS12"
+      }
+     ]
+  }
+   ]
+ }
 module "cdn_frontdoor_endpoint" {
   source  = "app.terraform.io/Motifworks/cdn_frontdoor_endpoint/azurerm"
   version = "1.0.1"
