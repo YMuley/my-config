@@ -1014,10 +1014,10 @@ module "loadbalancer_backend_pool" {
       #virtual_network_name  = "vnet-ddi-poc1"
       tunnel_interface = [
         {
-          identifier = "800"
+          identifier = "801"
           type       = "External"
           protocol   = "VXLAN"
-          port       = "8080"
+          port       = "443"
         }
       ]
     }
