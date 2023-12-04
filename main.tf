@@ -62,7 +62,12 @@ module "cdn_frontdoor_rule_set" {
      name                     = "admin2"
      cdn_frontdoor_profile_name = "test-frontdoor"
      host_name                = "admin2.talentportal.ddiworld.com"
-     tls                      = []
+     tls                      = [
+      {
+        certificate_type = "ManagedCertificate"
+        minimum_tls_version = "TLS12"
+      }
+     ]
   }
    ]
  }
