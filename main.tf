@@ -1015,7 +1015,7 @@ module "loadbalancer_backend_pool" {
       tunnel_interface = [
         {
           identifier = "800"
-          type       = "Internal"
+          type       = "External"
           protocol   = "VXLAN"
           port       = "443"
         }
@@ -1193,7 +1193,7 @@ module "loadbalancer_outbound_rule" {
   enable_floating_ip = false  #Required to configure a SQL AlwaysOn Availability Group: true
   idle_timeout_in_minutes = 4 #between 4 to 30
   load_distribution = "Default"  # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
-  disable_outbound_snat = false
+  disable_outbound_snat = true
   enable_tcp_reset = false
   backend_address_pool_ids = [module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-dev/bkp-lb-ddi-dev"].id ] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
     },
