@@ -1002,6 +1002,19 @@ module "loadbalancer_backend_pool" {
           port       = "443"
         }
       ]
+    },
+    {
+      name              = "bkp-lb-ddi-poc1"
+      loadbalancer_name = "lb-ddi-poc"
+      #virtual_network_name  = "vnet-ddi-poc1"
+      tunnel_interface = [
+        {
+          identifier = "800"
+          type       = "Internal"
+          protocol   = "VXLAN"
+          port       = "443"
+        }
+      ]
     }
 
   ]
@@ -1067,6 +1080,16 @@ module "loadbalancer_health_probe" {
     {
       name                = "lb-hp-ddi-devone"
       load_balancer_name  = "lb-ddi-devone"
+      protocol            = "Https"
+      port                = "443"
+      probe_threshold     = "5"
+      request_path        = "/app"
+      interval_in_seconds = "5"
+      number_of_probes    = "3"
+    },
+    {
+      name                = "lb-hp-ddi-poc"
+      load_balancer_name  = "lb-ddi-poc"
       protocol            = "Https"
       port                = "443"
       probe_threshold     = "5"
@@ -1167,7 +1190,22 @@ module "loadbalancer_outbound_rule" {
   load_distribution = "Default"  # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
   disable_outbound_snat = false
   enable_tcp_reset = false
-  backend_address_pool_ids = [module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-dev/bkp-lb-ddi-dev"].id , module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-dev/bkp-lb-ddi-dev1"].id]
+  backend_address_pool_ids = [module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-dev/bkp-lb-ddi-dev"].id ] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
+    },
+   {
+  name  = "lb-ddi-poc-rule"
+  loadbalancer_name = "lb-ddi-poc"
+  protocol = "All"  #[All , Tcp , Udp]
+  frontend_port = 80
+  backend_port = 80
+  frontend_ip_configuration_name = "lb-pip-ddi-poc"
+  health_probe_name = "lb-hp-ddi-poc"
+  enable_floating_ip = false  #Required to configure a SQL AlwaysOn Availability Group: true
+  idle_timeout_in_minutes = 4 #between 4 to 30
+  load_distribution = "Default"  # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
+  disable_outbound_snat = false
+  enable_tcp_reset = false
+  backend_address_pool_ids = [module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id, module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc1"].id ] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
     }
   ]
    depends_on = [ module.load_balancer, module.loadbalancer_backend_pool, module.loadbalancer_health_probe ]
