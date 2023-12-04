@@ -1185,7 +1185,7 @@ module "loadbalancer_outbound_rule" {
     {
   name  = "lb-ddi-dev-rule"
   loadbalancer_name = "lb-ddi-dev"
-  protocol = "All"  #[All , Tcp , Udp]
+  protocol = "Tcp"  #[All , Tcp , Udp]
   frontend_port = 80
   backend_port = 80
   frontend_ip_configuration_name = "lb-pip-ddi-dev"
@@ -1201,8 +1201,8 @@ module "loadbalancer_outbound_rule" {
   name  = "lb-ddi-poc-rule"
   loadbalancer_name = "lb-ddi-poc"
   protocol = "All"  #[All , Tcp , Udp]
-  frontend_port = 80
-  backend_port = 80
+  frontend_port = 0
+  backend_port = 0
   frontend_ip_configuration_name = "lb-pip-ddi-poc"
   health_probe_name = "lb-hp-ddi-poc"
   enable_floating_ip = false  #Required to configure a SQL AlwaysOn Availability Group: true
