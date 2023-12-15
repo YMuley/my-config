@@ -28,7 +28,7 @@ module "private_dns_zone" {
   resource_group_output = module.resource_Group.resource_group_output
   private_dns_zone_list = [
 {
-    name = "private-dns"
+    name = ["private-dns"]
    resource_group_name = "rg-ddi-poc1" 
    tags = {
         location     = "westus"
