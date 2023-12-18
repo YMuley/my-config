@@ -1370,7 +1370,7 @@ module "private_link_service" {
           name                       = "nat-config-1"
           private_ip_address         = "10.0.1.5"
           private_ip_address_version = "IPv4"
-          subnet_name                = "sub-ddi-dev-web"
+          subnet_id                = "sub-ddi-dev-web"
       }]
     }
   ]
