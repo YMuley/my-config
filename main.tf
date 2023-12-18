@@ -22,38 +22,38 @@ module "resource_Group" {
     }
   ]
 }
-module "private_dns_zone" {
-  source                = "app.terraform.io/Motifworks/private_dns_zone/azurerm"
-  version               = "1.0.1"
-  resource_group_output = module.resource_Group.resource_group_output
-  private_dns_zone_list = [
-    {
-      name                = "private.com"
-      resource_group_name = "rg-ddi-poc1"
-      tags = {
-        location     = "westus"
-        subscription = "iac-dev"
-        environment  = "dev"
-      }
-    }
-  ]
-}
-module "dns_zone" {
-  source                = "app.terraform.io/Motifworks/dns-zone/azurerm"
-  version               = "1.0.1"
-  resource_group_output = module.resource_Group.resource_group_output
-  dns_zone_list = [
-    {
-      name                = "private.com"
-      resource_group_name = "rg-ddi-poc1"
-      tags = {
-        location     = "westus"
-        subscription = "iac-dev"
-        environment  = "dev"
-      }
-    }
-  ]
-}
+# module "private_dns_zone" {
+#   source                = "app.terraform.io/Motifworks/private_dns_zone/azurerm"
+#   version               = "1.0.1"
+#   resource_group_output = module.resource_Group.resource_group_output
+#   private_dns_zone_list = [
+#     {
+#       name                = "private.com"
+#       resource_group_name = "rg-ddi-poc1"
+#       tags = {
+#         location     = "westus"
+#         subscription = "iac-dev"
+#         environment  = "dev"
+#       }
+#     }
+#   ]
+# }
+# module "dns_zone" {
+#   source                = "app.terraform.io/Motifworks/dns-zone/azurerm"
+#   version               = "1.0.1"
+#   resource_group_output = module.resource_Group.resource_group_output
+#   dns_zone_list = [
+#     {
+#       name                = "private.com"
+#       resource_group_name = "rg-ddi-poc1"
+#       tags = {
+#         location     = "westus"
+#         subscription = "iac-dev"
+#         environment  = "dev"
+#       }
+#     }
+#   ]
+# }
 module "azurerm_cdn_frontdoor_profile" {
   source  = "app.terraform.io/Motifworks/azurerm_cdn_frontdoor_profile/azurerm"
   version = "1.0.2"
