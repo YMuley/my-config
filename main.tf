@@ -1354,6 +1354,7 @@ module "private_link_service" {
   source                = "app.terraform.io/Motifworks/private_link_service/azurerm"
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
+  subnet_output          = module.subnet.vnet_subnet_output
 
   private_link_service_list = [
     {
