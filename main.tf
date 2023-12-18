@@ -1351,8 +1351,8 @@ module "private_endpoint" {
 
 
 module "private_link_service" {
-  source  = "app.terraform.io/Motifworks/private_link_service/azurerm"
-  version = "1.0.0"
+  source                = "app.terraform.io/Motifworks/private_link_service/azurerm"
+  version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
 
   private_link_service_list = [
@@ -1369,11 +1369,9 @@ module "private_link_service" {
           name                       = "nat-config-1"
           private_ip_address         = "10.0.1.5"
           private_ip_address_version = "IPv4"
-          subnet_name                = "sub-ddi-dev-web"
-          primary                    = true
+          subnet_id                  = "sub-ddi-dev-web"
       }]
     }
   ]
-
 }
 
