@@ -1351,15 +1351,15 @@ module "private_endpoint" {
 
 
 module "private_link_service" {
-  source              = "app.terraform.io/Motifworks/private_link_service/azurerm"
-  version             = "1.0.0"
-  resource_group_name = "rg-ddi-dev1"
-  location            = "westus"
+  source  = "app.terraform.io/Motifworks/private_link_service/azurerm"
+  version = "1.0.0"
 
   private_link_service_list = [
     {
-      name               = "privatelinkservice1"
-      load_balancer_name = "lb-ddi-dev"
+      name                = "privatelinkservice1"
+      resource_group_name = "rg-ddi-dev1"
+      location            = "westus"
+      load_balancer_name  = "lb-ddi-dev"
       tags = {
         environment = "dev"
       }
