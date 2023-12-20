@@ -332,6 +332,18 @@ module "subnet" {
 
       delegation = []
     },
+        {
+      name                                          = "sub-ddi-poc-appgw"
+      resource_group_name                           = "rg-ddi-poc1"
+      virtual_network_name                          = "vnet-ddi-poc1"
+      address_prefixes                              = ["10.100.3.0/24"]
+      service_endpoints                             = []
+      service_endpoint_policy_ids                   = []
+      private_endpoint_network_polices_enabled      = "false"
+      private_link_service_network_policies_enabled = "false"
+
+      delegation = []
+    },
     {
       name                                          = "GatewaySubnet"
       resource_group_name                           = "rg-ddi-poc1"
@@ -522,6 +534,18 @@ module "public_ip" {
       allocation_method   = "Dynamic"
       sku                 = "Basic"
       domain_name_label   = "unique-testing-label-one"
+      tags = {
+        environment = "poc"
+      }
+      sku_tier = "Regional"
+    },
+        {
+      name                = "publicip-ddi-appgw"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-poc1"
+      allocation_method   = "Dynamic"
+      sku                 = "Standard"
+      domain_name_label   = null
       tags = {
         environment = "poc"
       }
@@ -1317,3 +1341,358 @@ module "private_endpoint" {
   ]
 }
 
+module "application_gateway" {
+  source  = "app.terraform.io/Motifworks/application_gateway/azurerm"
+  version = "1.0.0"
+ 
+  resource_group_output = module.resource_Group.resource_group_output
+  subnet_output         = module.subnet.vnet_subnet_output
+  public_ip_output      = module.public_ip.public_ip_output
+  user_assigned_identity_output = module.useridentity.user_assigned_identity_output
+
+
+  application_gateway_list = [
+    {
+      name                      = "appgw-ddi-poc"
+      resource_group_name       = "rg-ddi-poc1"
+      location                  = "eastus"
+      tags                      = {
+                                    env = "poc"
+                                    location = "eastus" },
+      web_application_firewall_name = null // name is required when WAf is enabled.
+      
+      sku = {
+        name = "Standard_v2"  // possible values : Standard_Small, Standard_Medium, Standard_Large, Standard_v2, WAF_Medium, WAF_Large, and WAF_v2 //
+        tier  = "Standard_v2" // possible values : Standard, Standard_v2, WAF and WAF_v2 //
+        capacity = 2
+      }
+
+      enable_http2 = "false"
+      zones   = [1,2]
+
+      gateway_ip_configuration = {
+        name      = "gateway-ip-config"
+        subnet_name = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-appgw")
+      }
+
+      frontend_ip_configuration = [
+        {
+          name    = "frnt-public-ip-ddi"
+          subnet_id = null
+          private_ip_address = null
+          public_ip_address_id = var.public_ip_output["publicip-ddi-appgw"].id
+          private_ip_address_allocation = null
+          private_link_configuration_name = null
+        },
+        {
+          name    = "frnt-private-ip-ddi"
+          subnet_id = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-appgw")
+          private_ip_address = null
+          public_ip_address_id = var.public_ip_output["publicip-ddi-appgw"].id
+          private_ip_address_allocation = "Dynamic"
+          private_link_configuration_name = "pvt-link-appgw"
+        }
+      ]
+
+      backend_address_pool = [
+        {
+        name = "bkp-ddi-app-fqdn"
+        fqdn = ["app-ddi-dev.cloudservice.microsoft.net", "app-ddi-dev2.cloudservice.microsoft.net"]
+        ip_addresses = null
+        },
+        {
+        name = "bkp-ddi-app-vm"
+        fqdn = null
+        ip_addresses = ["10.100.0.5" , "10.100.0.6"]
+        }
+      ]
+
+    backend_http_settings = [
+      {
+        name  = "bkp-http-ddi-app-fqdn-settings"
+        cookie_based_affinity = enabled
+        affinity_cookie_name  = "affinity cookie"
+        path  = "/"
+        port  = "80"
+        probe_name  = "probe-app-fqdn-http"
+        protocol  = "Http"    //Http or Https
+        request_timeout  = "30"
+        host_name = "app-ddi-dev.com"
+        pick_host_name_from_backend_address = false   // true or false
+        trusted_root_certificate_names    = null
+        connection_draining = {
+          enabled   = false     // true or false
+          drain_timeout_sec = "0"
+        }
+      },
+      {
+        name  = "bkp-http-ddi-app-vm-settings"
+        cookie_based_affinity = enabled
+        affinity_cookie_name  = "affinity cookie"
+        path  = "/"
+        port  = "80"
+        probe_name  = "probe-app-vm-http"
+        protocol  = "Http"   //Http or Https
+        request_timeout  = "30"
+        host_name = ".*.ddi-qa.com"
+        pick_host_name_from_backend_address = false  // true or false
+        trusted_root_certificate_names    = null
+        connection_draining = {
+          enabled   = true
+          drain_timeout_sec = "5"
+        }
+      }      
+    ]
+
+    http_listener = [
+       {
+        name    = "listener-http-fqdns"
+        frontend_ip_configuration_name = "frnt-public-ip-ddi"
+        host_name   = ["app-ddi-dev.com"]
+        host_names  = null
+        protocol =  "Http"
+        ssl_certificate_name  = null
+        web_application_firewall_name  = null
+        custom_error_configuration ={
+           status_code = "404"
+           custom_error_page_url  =  "https://ddiworld.com"
+          }  
+        },
+               {
+        name    = "listener-http-vm"
+        frontend_ip_configuration_name = "frnt-private-ip-ddi"
+        host_name   = null
+        host_names  = [".*.ddi-qa.com"]
+        protocol =  "Http"
+        ssl_certificate_name  = null
+        web_application_firewall_name  = null
+        custom_error_configuration ={
+           status_code = "404"
+           custom_error_page_url  =  "https://ddiworld.com"
+          }  
+        }
+
+    ]
+
+    identity = [
+      {
+        type  = "UserAssigned"
+        identity_ids  = ["user-managed24"]
+      }
+    ]
+
+    private_link_configuration = [
+      {
+      name  = "pvt-link-appgw"
+      ip_configuration = {
+      name = "pvt-link-appgw-ip"
+      subnet_id = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-appgw")
+      private_ip_address_allocation = "Dynamic"
+      primary = true
+      private_ip_address  = null
+      }
+      }
+    ]
+
+    probe = [
+      {
+        name  = "probe-app-fqdn-http"
+        host  = "app-ddi-dev.com"
+        pick_host_name_from_backend_http_settings = false
+        interval  = "20"
+        protocol  = "Http"
+        path      = "/"
+        timeout   = "5"
+        unhealthy_threshold = "5"
+        port      = "80"
+        match= {
+          body      = null
+          status_code = [200 - 399]
+        }
+      },
+        {
+        name  = "probe-app-vm-http"
+        host  = ".*.ddi-qa.com"
+        pick_host_name_from_backend_http_settings = false
+        interval  = "20"
+        protocol  = "Http"
+        path      = "/"
+        timeout   = "5"
+        unhealthy_threshold = "5"
+        port      = "80"
+        match= {
+          body      = null
+          status_code = [200 - 399]
+        }
+      }
+    ]
+
+    request_routing_rule  = [
+      {
+        name  = "http-fqdns-request"
+        rule_type = "Basic"   // Basic or PathBasedRouting
+        http_listener_name  = "listener-http-fqdns"
+        backend_address_pool_name = "bkp-ddi-app-fqdn"
+        backend_http_settings_name  = "bkp-http-ddi-app-fqdn-settings"
+        redirect_configuration_name = null
+        rewrite_rule_set_name = null
+        url_path_map_name = [] // empty block when rule_type is basic
+        priority  = 101
+      },
+            {
+        name  = "http-vm-request"
+        rule_type = "Basic"   // Basic or PathBasedRouting
+        http_listener_name  = "listener-http-vm"
+        backend_address_pool_name = "bkp-ddi-app-vm"
+        backend_http_settings_name  = "bkp-http-ddi-app-vm-settings"
+        redirect_configuration_name = null
+        rewrite_rule_set_name = null
+        url_path_map_name = [] // empty block when rule_type is basic
+        priority  = 101
+      }
+    ]
+
+    global  = {
+      request_buffering_enabled = true
+      response_buffering_enabled  = true
+    }
+
+    ssl_certificate = [
+    #   {
+    #     name =
+    #     Key_vault_name =
+    #     secret_name =
+    # }
+    ]
+
+    url_path_map = [
+      {
+        name =
+        default_backend_address_pool_name
+        default_backend_http_settings_name
+        default_redirect_configuration_name
+        default_rewrite_rule_set_name
+        path = {
+          name =
+          paths =
+          backend_address_pool_name
+          backend_http_settings_name
+          redirect_configuration_name
+          rewrite_rule_set_name
+          firewall_policy_id
+        }
+      },
+      {
+        name =
+        default_backend_address_pool_name
+        default_backend_http_settings_name
+        default_redirect_configuration_name
+        default_rewrite_rule_set_name
+        path = {
+          name =
+          paths =
+          backend_address_pool_name
+          backend_http_settings_name
+          redirect_configuration_name
+          rewrite_rule_set_name
+          firewall_policy_id
+        }
+      }
+    ]
+    trusted_root_certificate = [
+      # {
+      #   name =
+      #   key_vault_secret_id =
+      # }
+    ]
+     
+    waf_configuration = [
+      {
+        enabled = "enabled"
+        firewall_mode = "Prevention"     #Detection and Prevention
+        rule_set_type = "OWASP"          #OWASP and Microsoft_BotManagerRuleSet
+        rule_set_version = "3.2"         #0.1, 1.0, 2.2.9, 3.0, 3.1 and 3.
+        file_upload_limit_mb  = "60"     #1MB to 750MB for the WAF_v2 SKU, and 1MB to 500MB for all other SKUs. Defaults to 100MB
+        request_body_check    = true     #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_gateway#request_body_check
+        max_request_body_size_kb  = 128  #1KB to 128KB
+
+        disabled_rule_group = [
+         { rule_group_name = "REQUEST-944-APPLICATION-ATTACK-JAVA"    #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_gateway#rule_group_name
+          rules = []     # list name of rules to disbale. to disable all rules in a group paas empty list
+         }
+        ]
+
+        exclusion = [
+          {
+            match_variable = "RequestHeaderNames"   #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_gateway#match_variable
+            selector_match_operator = "Equals"      #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_gateway#selector_match_operator
+            selector  = "testhost" #null if you want to exclude for all match variable 
+          }
+        ]
+      }
+    ]
+
+    redirect_configuration = [
+      # {
+      #   name  = ""
+      #   redirect_type = ""
+      #   target_listener_name  = ""
+      #   target_url  = ""
+      #   include_path  = ""
+      #   include_query_string  ""
+      # }
+    ]
+
+    autoscale_configuration = {
+      min_capacity  = "5"
+      max_capacity  = "20"
+    }
+
+    rewrite_rule_set = [
+      {
+        name = "rewrite_rule_set_test_name"
+        rewrite_rule =[
+          {
+            name  = "client_port_80_rule"
+            rule_sequence = 1
+            condition =[
+              {
+                variable = "var_host" #https://learn.microsoft.com/en-us/azure/application-gateway/rewrite-http-headers-url#server-variables
+                pattern  =  "sampleddi.com"
+                ignore_case = true //true false
+                negate  = false //true false
+              }
+            ]
+
+            request_header_configuration = [
+              {
+                header_name = "X-isThroughProxy"
+                header_value = True
+              }
+            ]
+
+            response_header_configuration = [
+              {
+                header_name = "Strict-Transport-Security"
+                header_value = "max-age=31536000"               
+              }
+            ]
+
+            url = [
+              {
+                path =  "/artical.aspx"
+                query_string = "id={var_uri_path1}"  #One or both of path and query_string must be specified. If one of these is not specified, it means the value will be empty. If you only want to rewrite path or query_string, use components
+                components = null   #path_only and query_string_only
+                reroute = false     #Used to determine whether the URL path map is to be reevaluated or not. If not set, the original URL path will be used to match the path-pattern in the URL path map. If set, the URL path map will be reevaluated to check the match with the rewritten path.
+              }
+            ]
+
+          }
+        ]
+      }
+    ]
+
+    }
+  ]
+  
+}
