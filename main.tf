@@ -376,18 +376,6 @@ module "subnet" {
 
       delegation = []
     },
-        {
-      name                                          = "sub-ddi-poc-appgw"
-      resource_group_name                           = "rg-ddi-poc1"
-      virtual_network_name                          = "vnet-ddi-poc1"
-      address_prefixes                              = ["10.100.3.0/24"]
-      service_endpoints                             = []
-      service_endpoint_policy_ids                   = []
-      private_endpoint_network_polices_enabled      = "false"
-      private_link_service_network_policies_enabled = "false"
-
-      delegation = []
-    },
     {
       name                                          = "GatewaySubnet"
       resource_group_name                           = "rg-ddi-poc1"
