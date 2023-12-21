@@ -1481,7 +1481,7 @@ module "application_gateway" {
     backend_http_settings = [
       {
         name  = "bkp-http-ddi-app-fqdn-settings"
-        cookie_based_affinity = enabled
+        cookie_based_affinity = "enabled"
         affinity_cookie_name  = "affinity cookie"
         path  = "/"
         port  = "80"
@@ -1498,7 +1498,7 @@ module "application_gateway" {
       },
       {
         name  = "bkp-http-ddi-app-vm-settings"
-        cookie_based_affinity = enabled
+        cookie_based_affinity = "enabled"
         affinity_cookie_name  = "affinity cookie"
         path  = "/"
         port  = "80"
@@ -1723,7 +1723,7 @@ module "application_gateway" {
             request_header_configuration = [
               {
                 header_name = "X-isThroughProxy"
-                header_value = True
+                header_value = "True"
               }
             ]
 
