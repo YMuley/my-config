@@ -22,6 +22,38 @@ module "resource_Group" {
     }
   ]
 }
+# module "private_dns_zone" {
+#   source                = "app.terraform.io/Motifworks/private_dns_zone/azurerm"
+#   version               = "1.0.1"
+#   resource_group_output = module.resource_Group.resource_group_output
+#   private_dns_zone_list = [
+#     {
+#       name                = "private.com"
+#       resource_group_name = "rg-ddi-poc1"
+#       tags = {
+#         location     = "westus"
+#         subscription = "iac-dev"
+#         environment  = "dev"
+#       }
+#     }
+#   ]
+# }
+# module "dns_zone" {
+#   source                = "app.terraform.io/Motifworks/dns-zone/azurerm"
+#   version               = "1.0.1"
+#   resource_group_output = module.resource_Group.resource_group_output
+#   dns_zone_list = [
+#     {
+#       name                = "private.com"
+#       resource_group_name = "rg-ddi-poc1"
+#       tags = {
+#         location     = "westus"
+#         subscription = "iac-dev"
+#         environment  = "dev"
+#       }
+#     }
+#   ]
+# }
 module "azurerm_cdn_frontdoor_profile" {
   source  = "app.terraform.io/Motifworks/azurerm_cdn_frontdoor_profile/azurerm"
   version = "1.0.2"
@@ -53,34 +85,34 @@ module "cdn_frontdoor_rule_set" {
   ]
   depends_on = [module.azurerm_cdn_frontdoor_profile]
 }
- module "cdn_frontdoor_custom_domain" {
-   source  = "app.terraform.io/Motifworks/cdn_frontdoor_custom_domain/azurerm"
-   version = "1.0.1"
-   cdn_endpoint_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
-   cdn_endpoint_custom_domain_list = [
-  {
-     name                     = "admin2re"
-     cdn_frontdoor_profile_name = "test-frontdoor"
-     host_name                = "adminw2.talentportal.ddiworld.com"
-     tls                      = [
-      {
-        certificate_type = "ManagedCertificate"
-        minimum_tls_version = "TLS12"
-      }
-     ]
-  }
-   ]
- }
+module "cdn_frontdoor_custom_domain" {
+  source                                = "app.terraform.io/Motifworks/cdn_frontdoor_custom_domain/azurerm"
+  version                               = "1.0.1"
+  cdn_endpoint_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
+  cdn_endpoint_custom_domain_list = [
+    {
+      name                       = "admin2re"
+      cdn_frontdoor_profile_name = "test-frontdoor"
+      host_name                  = "adminw2.talentportal.ddiworld.com"
+      tls = [
+        {
+          certificate_type    = "ManagedCertificate"
+          minimum_tls_version = "TLS12"
+        }
+      ]
+    }
+  ]
+}
 module "cdn_frontdoor_endpoint" {
-  source  = "app.terraform.io/Motifworks/cdn_frontdoor_endpoint/azurerm"
-  version = "1.0.1"
+  source                       = "app.terraform.io/Motifworks/cdn_frontdoor_endpoint/azurerm"
+  version                      = "1.0.1"
   cdn_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
-  cdn_frontdoor_endpoint_list = [{  
-    name                     = "fd-ddi-demo-endpoint-eastus-001"
+  cdn_frontdoor_endpoint_list = [{
+    name                       = "fd-ddi-demo-endpoint-eastus-001"
     cdn_frontdoor_profile_name = "test-frontdoor"
-    enabled               = true
-    tags                = {
-     env = "dev"
+    enabled                    = true
+    tags = {
+      env = "dev"
     }
   }]
 }
@@ -112,24 +144,24 @@ module "cdn_frontdoor_origin_group" {
   ]
 }
 module "cdn_frontdoor_origin" {
-  source  = "app.terraform.io/Motifworks/cdn_frontdoor_origin/azurerm"
-  version = "1.0.1"
+  source                            = "app.terraform.io/Motifworks/cdn_frontdoor_origin/azurerm"
+  version                           = "1.0.1"
   cdn_frontdoor_origin_group_output = module.cdn_frontdoor_origin_group.cdn_frontdoor_origin_group_output
   cdn_frontdoor_origin_list = [
-   {
-  name                             = "origingrip"                          
-  cdn_frontdoor_origin_group_name = "origin-added"
-  enabled                          = true  							
-  certificate_name_check_enabled   = false					
-  host_name                        = "fdplatform.ddiworld.com"                    
-  http_port                        = 80                 
-  https_port                       = 443                    
-  origin_host_header               = "fdplatform.ddiworld.com"        
-  priority                         = 1                      
-  weight                           = 1000
-  private_link                     = []
-     
-   }
+    {
+      name                            = "origingrip"
+      cdn_frontdoor_origin_group_name = "origin-added"
+      enabled                         = true
+      certificate_name_check_enabled  = false
+      host_name                       = "fdplatform.ddiworld.com"
+      http_port                       = 80
+      https_port                      = 443
+      origin_host_header              = "fdplatform.ddiworld.com"
+      priority                        = 1
+      weight                          = 1000
+      private_link                    = []
+
+    }
   ]
 }
 # module "cdn_frontdoor_origin" {
@@ -148,7 +180,7 @@ module "cdn_frontdoor_origin" {
 #   origin_host_header               = "fdplatform.ddiworld.com"        
 #   priority                         = 1                      
 #   weight                           = 1000
-     
+
 #    }
 #   ]
 # }
@@ -325,6 +357,18 @@ module "subnet" {
       resource_group_name                           = "rg-ddi-poc1"
       virtual_network_name                          = "vnet-ddi-poc1"
       address_prefixes                              = ["10.100.2.0/24"]
+      service_endpoints                             = []
+      service_endpoint_policy_ids                   = []
+      private_endpoint_network_polices_enabled      = "false"
+      private_link_service_network_policies_enabled = "false"
+
+      delegation = []
+    },
+        {
+      name                                          = "sub-ddi-poc-appgw"
+      resource_group_name                           = "rg-ddi-poc1"
+      virtual_network_name                          = "vnet-ddi-poc1"
+      address_prefixes                              = ["10.100.3.0/24"]
       service_endpoints                             = []
       service_endpoint_policy_ids                   = []
       private_endpoint_network_polices_enabled      = "false"
@@ -1198,46 +1242,46 @@ module "loadbalancer_outbound_rule" {
 }
 
 
-  module "loadbalancer_rule" {
-  source  = "app.terraform.io/Motifworks/loadbalancer_rule/azurerm"
-  version = "1.0.0"
-  load_balancer_output    = module.load_balancer.load_balancer_output
-  lb_backend_address_pool_output  = module.loadbalancer_backend_pool.lb_backend_address_pool_output
-  lb_health_probe_output = module.loadbalancer_health_probe.lb_health_probe_output
+module "loadbalancer_rule" {
+  source                         = "app.terraform.io/Motifworks/loadbalancer_rule/azurerm"
+  version                        = "1.0.0"
+  load_balancer_output           = module.load_balancer.load_balancer_output
+  lb_backend_address_pool_output = module.loadbalancer_backend_pool.lb_backend_address_pool_output
+  lb_health_probe_output         = module.loadbalancer_health_probe.lb_health_probe_output
 
   lb_rule_list = [
     {
-  name  = "lb-ddi-dev-rule"
-  loadbalancer_name = "lb-ddi-dev"
-  protocol = "Tcp"  #[All , Tcp , Udp]
-  frontend_port = 80
-  backend_port = 80
-  frontend_ip_configuration_name = "lb-pip-ddi-dev"
-  health_probe_name = "lb-hp-ddi-dev"
-  enable_floating_ip = false  #Required to configure a SQL AlwaysOn Availability Group: true
-  idle_timeout_in_minutes = 4 #between 4 to 30
-  load_distribution = "Default"  # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
-  disable_outbound_snat = true
-  enable_tcp_reset = false
-  backend_address_pool_ids = [module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-dev/bkp-lb-ddi-dev"].id ] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
+      name                           = "lb-ddi-dev-rule"
+      loadbalancer_name              = "lb-ddi-dev"
+      protocol                       = "Tcp" #[All , Tcp , Udp]
+      frontend_port                  = 80
+      backend_port                   = 80
+      frontend_ip_configuration_name = "lb-pip-ddi-dev"
+      health_probe_name              = "lb-hp-ddi-dev"
+      enable_floating_ip             = false     #Required to configure a SQL AlwaysOn Availability Group: true
+      idle_timeout_in_minutes        = 4         #between 4 to 30
+      load_distribution              = "Default" # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
+      disable_outbound_snat          = true
+      enable_tcp_reset               = false
+      backend_address_pool_ids       = [module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-dev/bkp-lb-ddi-dev"].id] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
     },
-   {
-  name  = "lb-ddi-poc-rule"
-  loadbalancer_name = "lb-ddi-poc"
-  protocol = "All"  #[All , Tcp , Udp]
-  frontend_port = 0
-  backend_port = 0
-  frontend_ip_configuration_name = "lb-pip-ddi-poc"
-  health_probe_name = "lb-hp-ddi-poc"
-  enable_floating_ip = false  #Required to configure a SQL AlwaysOn Availability Group: true
-  idle_timeout_in_minutes = 4 #between 4 to 30
-  load_distribution = "Default"  # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
-  disable_outbound_snat = false
-  enable_tcp_reset = false
-  backend_address_pool_ids = [module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id, module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc1"].id ] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
+    {
+      name                           = "lb-ddi-poc-rule"
+      loadbalancer_name              = "lb-ddi-poc"
+      protocol                       = "All" #[All , Tcp , Udp]
+      frontend_port                  = 0
+      backend_port                   = 0
+      frontend_ip_configuration_name = "lb-pip-ddi-poc"
+      health_probe_name              = "lb-hp-ddi-poc"
+      enable_floating_ip             = false     #Required to configure a SQL AlwaysOn Availability Group: true
+      idle_timeout_in_minutes        = 4         #between 4 to 30
+      load_distribution              = "Default" # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
+      disable_outbound_snat          = false
+      enable_tcp_reset               = false
+      backend_address_pool_ids       = [module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id, module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc1"].id] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
     }
   ]
-   depends_on = [ module.load_balancer, module.loadbalancer_backend_pool, module.loadbalancer_health_probe ]
+  depends_on = [module.load_balancer, module.loadbalancer_backend_pool, module.loadbalancer_health_probe]
 }
 
 
@@ -1337,6 +1381,33 @@ module "private_endpoint" {
       tags = {
         environment = "dev"
       }
+    }
+  ]
+}
+
+module "private_link_service" {
+  source                = "app.terraform.io/Motifworks/private_link_service/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+  subnet_output         = module.subnet.vnet_subnet_output
+
+  private_link_service_list = [
+    {
+      name                = "privatelinkservice1"
+      resource_group_name = "rg-ddi-dev1"
+      location            = "westus"
+      load_balancer_name  = "lb-ddi-dev"
+      tags = {
+        environment = "dev"
+      }
+      nat_ip_configuration = [
+        {
+          name                       = "nat-config-1"
+          private_ip_address         = "10.0.1.5"
+          private_ip_address_version = "IPv4"
+          virtual_network_name          = "vnet-ddi-dev1"
+          subnet_name                = "sub-ddi-dev-web"
+      }]
     }
   ]
 }
@@ -1567,37 +1638,22 @@ module "application_gateway" {
 
     url_path_map = [
       {
-        name =
-        default_backend_address_pool_name
-        default_backend_http_settings_name
-        default_redirect_configuration_name
-        default_rewrite_rule_set_name
+        name = "path-based-url"
+        default_backend_address_pool_name = "bkp-ddi-app-vm"
+        default_backend_http_settings_name  = "bkp-http-ddi-app-vm-settings"
+        default_redirect_configuration_name = null
+        default_rewrite_rule_set_name = null
         path = {
-          name =
-          paths =
-          backend_address_pool_name
-          backend_http_settings_name
-          redirect_configuration_name
-          rewrite_rule_set_name
-          firewall_policy_id
-        }
-      },
-      {
-        name =
-        default_backend_address_pool_name
-        default_backend_http_settings_name
-        default_redirect_configuration_name
-        default_rewrite_rule_set_name
-        path = {
-          name =
-          paths =
-          backend_address_pool_name
-          backend_http_settings_name
-          redirect_configuration_name
-          rewrite_rule_set_name
-          firewall_policy_id
+          name = "path-based-url-test"
+          paths = ["/test"]
+          backend_address_pool_name = "bkp-ddi-app-vm"
+          backend_http_settings_name  = "bkp-http-ddi-app-vm-settings"
+          redirect_configuration_name = null
+          rewrite_rule_set_name = null
+          firewall_policy_id  = null
         }
       }
+      
     ]
     trusted_root_certificate = [
       # {
