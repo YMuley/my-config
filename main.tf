@@ -1514,10 +1514,12 @@ module "application_gateway" {
         listener_type = null
         ssl_certificate_name  = null
         web_application_firewall_name  = null
-        custom_error_configuration ={
+        custom_error_configuration = [
+          {
            status_code = "404"
            custom_error_page_url  =  "https://ddiworld.com"
-          }  
+          }
+          ]  
         },
                {
         name    = "listener-http-vm"
@@ -1529,10 +1531,12 @@ module "application_gateway" {
         listener_type = null
         ssl_certificate_name  = null
         web_application_firewall_name  = null
-        custom_error_configuration ={
+        custom_error_configuration =[
+          {
            status_code = "404"
            custom_error_page_url  =  "https://ddiworld.com"
-          }  
+          }
+        ]  
         }
 
     ]
