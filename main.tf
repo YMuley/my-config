@@ -1456,12 +1456,12 @@ module "application_gateway" {
       backend_address_pool = [
         {
         name = "bkp-ddi-app-fqdn"
-        fqdn = ["app-ddi-dev.cloudservice.microsoft.net", "app-ddi-dev2.cloudservice.microsoft.net"]
+        fqdns = ["app-ddi-dev.cloudservice.microsoft.net", "app-ddi-dev2.cloudservice.microsoft.net"]
         ip_addresses = null
         },
         {
         name = "bkp-ddi-app-vm"
-        fqdn = null
+        fqdns = null
         ip_addresses = ["10.100.0.5" , "10.100.0.6"]
         }
       ]
