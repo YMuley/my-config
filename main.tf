@@ -1437,17 +1437,17 @@ module "application_gateway" {
       frontend_ip_configuration = [
         {
           name    = "frnt-public-ip-ddi"
-          subnet_id = null
+          subnet_name = null
           private_ip_address = null
-          public_ip_address_id = "publicip-ddi-appgw"
+          public_ip_name= "publicip-ddi-appgw"
           private_ip_address_allocation = null
           private_link_configuration_name = null
         },
         {
           name    = "frnt-private-ip-ddi"
-          subnet_id = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-appgw")
+          subnet_name = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-appgw")
           private_ip_address = null
-          public_ip_address_id = null
+          public_ip_name = null
           private_ip_address_allocation = "Dynamic"
           private_link_configuration_name = "pvt-link-appgw"
         }
