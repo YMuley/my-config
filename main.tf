@@ -1541,10 +1541,12 @@ module "application_gateway" {
 
     ]
 
-    identity = {
+    identity = [
+      {
         type  = "UserAssigned"
         identity_ids  = ["user-managed24"]
       }
+    ]
     
 
     private_link_configuration = [
