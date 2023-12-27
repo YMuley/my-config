@@ -1642,7 +1642,8 @@ module "application_gateway" {
         default_backend_http_settings_name  = "bkp-http-ddi-app-vm-settings"
         default_redirect_configuration_name = null
         default_rewrite_rule_set_name = null
-        path_rule = {
+        path_rule = [
+          {
           name = "path-based-url-test"
           paths = ["/test"]
           backend_address_pool_name = "bkp-ddi-app-vm"
@@ -1651,6 +1652,7 @@ module "application_gateway" {
           rewrite_rule_set_name = null
           firewall_policy_id  = null
         }
+        ]
       }
       
     ]
