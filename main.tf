@@ -1544,7 +1544,7 @@ module "application_gateway" {
     identity = [
       {
         type  = "UserAssigned"
-        identity_ids  = "user-managed24"
+        identity_ids  = ["user-managed24"]
       }
     ]
     
@@ -1552,13 +1552,15 @@ module "application_gateway" {
     private_link_configuration = [
       {
       name  = "pvt-link-appgw"
-      ip_configuration = {
+      ip_configuration = [
+        {
       name = "pvt-link-appgw-ip"
       subnet_id = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-appgw")
       private_ip_address_allocation = "Dynamic"
       primary = true
       private_ip_address  = null
       }
+      ]
       }
     ]
 
