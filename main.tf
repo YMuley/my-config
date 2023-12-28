@@ -1555,7 +1555,7 @@ module "application_gateway" {
       ip_configuration = [
         {
       name = "pvt-link-appgw-ip"
-      subnet_id = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-appgw")
+      subnet_name = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-appgw")
       private_ip_address_allocation = "Dynamic"
       primary = true
       private_ip_address  = null
@@ -1606,7 +1606,7 @@ module "application_gateway" {
         backend_http_settings_name  = "bkp-http-ddi-app-fqdn-settings"
         redirect_configuration_name = null
         rewrite_rule_set_name = null
-        url_path_map_name = [] // empty block when rule_type is basic
+        url_path_map_name = null // empty block when rule_type is basic
         priority  = 101
       },
             {
@@ -1617,7 +1617,7 @@ module "application_gateway" {
         backend_http_settings_name  = "bkp-http-ddi-app-vm-settings"
         redirect_configuration_name = null
         rewrite_rule_set_name = null
-        url_path_map_name = [] // empty block when rule_type is basic
+        url_path_map_name = null // empty block when rule_type is basic
         priority  = 101
       }
     ]
