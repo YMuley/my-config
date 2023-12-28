@@ -1511,7 +1511,7 @@ module "application_gateway" {
         host_name   = ["app-ddi-dev.com"]
         host_names  = null
         protocol =  "Http"
-        listener_type = null
+        listener_type = " "
         ssl_certificate_name  = null
         web_application_firewall_name  = null
         custom_error_configuration = [
@@ -1521,14 +1521,14 @@ module "application_gateway" {
           }
           ]  
         },
-               {
+        {
         name    = "listener-http-vm"
         frontend_ip_configuration_name = "frnt-private-ip-ddi"
         port  =  80
         host_name   = null
         host_names  = [".*.ddi-qa.com"]
         protocol =  "Http"
-        listener_type = null
+        listener_type = " "
         ssl_certificate_name  = null
         web_application_firewall_name  = null
         custom_error_configuration =[
@@ -1650,7 +1650,7 @@ module "application_gateway" {
           backend_http_settings_name  = "bkp-http-ddi-app-vm-settings"
           redirect_configuration_name = null
           rewrite_rule_set_name = null
-          firewall_policy_id  = null
+          web_application_firewall_name  = null
         }
         ]
       }
