@@ -1504,23 +1504,23 @@ module "application_gateway" {
     ]
 
     http_listener = [
-       {
-        name    = "listener-http-fqdns"
-        frontend_ip_configuration_name = "frnt-public-ip-ddi"
-        port  = 80
-        host_name   = ["app-ddi-dev.com"]
-        host_names  = null
-        protocol =  "Http"
-        listener_type = " "
-        ssl_certificate_name  = null
-        web_application_firewall_name  = null
-        custom_error_configuration = [
-          {
-           status_code = "404"
-           custom_error_page_url  =  "https://ddiworld.com"
-          }
-          ]  
-        },
+      #  {
+      #   name    = "listener-http-fqdns"
+      #   frontend_ip_configuration_name = "frnt-public-ip-ddi"
+      #   port  = 80
+      #   host_name   = ["app-ddi-dev.com"]
+      #   host_names  = null
+      #   protocol =  "Http"
+      #   listener_type = " "
+      #   ssl_certificate_name  = null
+      #   web_application_firewall_name  = null
+      #   custom_error_configuration = [
+      #     {
+      #      status_code = "404"
+      #      custom_error_page_url  =  "https://ddiworld.com"
+      #     }
+      #     ]  
+      #   },
         {
         name    = "listener-http-vm"
         frontend_ip_configuration_name = "frnt-private-ip-ddi"
