@@ -1544,7 +1544,7 @@ module "application_gateway" {
     identity = [
       {
         type  = "UserAssigned"
-        identity_ids  = ["user-managed24"]
+        identity_ids  = flatten(["user-managed24"])
       }
     ]
     
