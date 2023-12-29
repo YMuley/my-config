@@ -923,7 +923,15 @@ module "useridentity" {
 
   user_assigned_identity_list = [
     {
-      name : "user-managed24"
+      name = "user-managed24"
+      resource_group_name = "rg-ddi-dev1"
+      location            = "eastus"
+      tags = {
+        environment = "nertwork-team"
+      }
+    },
+    {
+      name = "ddi-appgw-identity"
       resource_group_name = "rg-ddi-dev1"
       location            = "eastus"
       tags = {
@@ -1469,7 +1477,7 @@ module "application_gateway" {
     backend_http_settings = [
       {
         name  = "bkp-http-ddi-app-fqdn-settings"
-        cookie_based_affinity = "enabled"
+        cookie_based_affinity = "Enabled"   // possible ["Enabled" "Disabled"]
         affinity_cookie_name  = "affinity cookie"
         path  = "/"
         port  = "80"
@@ -1481,12 +1489,12 @@ module "application_gateway" {
         trusted_root_certificate_names    = null
         connection_draining = {
           enabled   = false     // true or false
-          drain_timeout_sec = "0"
+          drain_timeout_sec = "3" // possible range (1 - 3600)
         }
       },
       {
         name  = "bkp-http-ddi-app-vm-settings"
-        cookie_based_affinity = "enabled"
+        cookie_based_affinity = "Enabled"   //possible ["Enabled" "Disabled"]
         affinity_cookie_name  = "affinity cookie"
         path  = "/"
         port  = "80"
@@ -1498,7 +1506,7 @@ module "application_gateway" {
         trusted_root_certificate_names    = null
         connection_draining = {
           enabled   = true
-          drain_timeout_sec = "5"
+          drain_timeout_sec = "5"  // possible range (1 - 3600)
         }
       }      
     ]
@@ -1516,7 +1524,7 @@ module "application_gateway" {
         web_application_firewall_name  = null
         custom_error_configuration = [
           {
-           status_code = "404"
+           status_code = "HttpStatus403"   //possible ["HttpStatus403" "HttpStatus502"]
            custom_error_page_url  =  "https://ddiworld.com"
           }
           ]  
@@ -1533,7 +1541,7 @@ module "application_gateway" {
         web_application_firewall_name  = null
         custom_error_configuration =[
           {
-           status_code = "404"
+           status_code = "HttpStatus502"  //possible ["HttpStatus403" "HttpStatus502"]
            custom_error_page_url  =  "https://ddiworld.com"
           }
         ]  
@@ -1544,7 +1552,7 @@ module "application_gateway" {
     identity = [
       {
         type  = "UserAssigned"
-        identity_ids  = toset(flatten(["user-managed24"]))
+        identity_ids  = ["ddi-appgw-identity"]
       }
     ]
     
