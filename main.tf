@@ -1534,7 +1534,7 @@ module "application_gateway" {
         web_application_firewall_name  = null
         custom_error_configuration = [
           {
-           status_code = "HttpStatus403"   //possible ["HttpStatus403" "HttpStatus502"]
+           status_code = "HttpStatus502"   //possible ["HttpStatus403" "HttpStatus502"]
            custom_error_page_url  =  "https://ddiworld.com/error.html"
           }
           ]  
