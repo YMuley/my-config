@@ -1533,10 +1533,10 @@ module "application_gateway" {
         ssl_certificate_name  = null
         web_application_firewall_name  = null
         custom_error_configuration = [
-          {
-           status_code = "HttpStatus502"   //possible ["HttpStatus403" "HttpStatus502"]
-           custom_error_page_url  =  "https://ddiworld.com/error.html"
-          }
+          # {
+          #  status_code = "HttpStatus502"   //possible ["HttpStatus403" "HttpStatus502"]
+          #  custom_error_page_url  =  "https://ddiworld.com/error.html"
+          # }
           ]  
         },
         {
@@ -1550,10 +1550,10 @@ module "application_gateway" {
         ssl_certificate_name  = null
         web_application_firewall_name  = null
         custom_error_configuration =[
-          {
-           status_code = "HttpStatus502"  //possible ["HttpStatus403" "HttpStatus502"]
-           custom_error_page_url  =  "https://ddiworld.com/error.html"
-          }
+          # {
+          #  status_code = "HttpStatus502"  //possible ["HttpStatus403" "HttpStatus502"]
+          #  custom_error_page_url  =  "https://ddiworld.com/error.html"
+          # }
         ]  
         }
 
