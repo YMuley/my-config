@@ -1440,8 +1440,8 @@ module "application_gateway" {
       }
 
       autoscale_configuration = {
-      min_capacity  = "5"
-      max_capacity  = "20"
+      min_capacity  = "1"
+      max_capacity  = "3"
     }
 
       enable_http2 = "false"
