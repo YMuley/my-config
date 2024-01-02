@@ -1747,7 +1747,7 @@ module "application_gateway" {
             url = [
               {
                 path =  "/artical.aspx"
-                query_string = "id={var_uri_path1}"  #One or both of path and query_string must be specified. If one of these is not specified, it means the value will be empty. If you only want to rewrite path or query_string, use components
+                query_string = ".*article/(.*)/(.*)"  #One or both of path and query_string must be specified. If one of these is not specified, it means the value will be empty. If you only want to rewrite path or query_string, use components
                 components = null   #path_only and query_string_only
                 reroute = false     #Used to determine whether the URL path map is to be reevaluated or not. If not set, the original URL path will be used to match the path-pattern in the URL path map. If set, the URL path map will be reevaluated to check the match with the rewritten path.
               }
