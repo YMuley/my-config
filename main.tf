@@ -1485,7 +1485,7 @@ module "application_gateway" {
         protocol  = "Http"    //Http or Https
         request_timeout  = "30"
         host_name = "app-ddi-dev.com"
-        pick_host_name_from_backend_address = false   // true or false
+        pick_host_name_from_backend_address = null   // true or false
         trusted_root_certificate_names    = null
         connection_draining = {
           enabled   = false     // true or false
@@ -1502,7 +1502,7 @@ module "application_gateway" {
         protocol  = "Http"   //Http or Https
         request_timeout  = "30"
         host_name = ".*.ddi-qa.com"
-        pick_host_name_from_backend_address = false  // true or false
+        pick_host_name_from_backend_address = null  // true or false
         trusted_root_certificate_names    = null
         connection_draining = {
           enabled   = true
