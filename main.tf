@@ -1530,7 +1530,7 @@ module "application_gateway" {
         custom_error_configuration = [
           {
            status_code = "HttpStatus403"   //possible ["HttpStatus403" "HttpStatus502"]
-           custom_error_page_url  =  "https://ddiworld.com"
+           custom_error_page_url  =  "https://ddiworld.com/error.html"
           }
           ]  
         },
