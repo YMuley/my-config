@@ -565,6 +565,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-poc1"
       allocation_method   = "Dynamic"
       sku                 = "Basic"
+      zones               = null
       domain_name_label   = "unique-testing-label-one"
       tags = {
         environment = "poc"
@@ -577,6 +578,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-poc1"
       allocation_method   = "Static"
       sku                 = "Standard"
+      zones               = [1,2]
       domain_name_label   = null
       tags = {
         environment = "poc"
@@ -589,6 +591,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-dev1"
       allocation_method   = "Static"
       sku                 = "Basic"
+      zones               = null
       domain_name_label   = "another-unique-label-one"
       tags = {
         environment = "dev"
@@ -601,6 +604,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-dev1"
       allocation_method   = "Static"
       sku                 = "Basic"
+      zones               = null
       domain_name_label   = "officers-choice-label"
       tags = {
         environment = "dev"
@@ -613,6 +617,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-dev1"
       allocation_method   = "Static"
       sku                 = "Standard"
+      zones               = null
       domain_name_label   = "one-lb-unique-label"
       tags = {
         environment = "dev"
@@ -1461,7 +1466,7 @@ module "application_gateway" {
           subnet_name = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-appgw")
           private_ip_address = "10.100.3.5"
           public_ip_name = null
-          private_ip_address_allocation = "Static"
+          private_ip_address_allocation = "Static"  // always be static
           private_link_configuration_name = "pvt-link-appgw"
         }
       ]
