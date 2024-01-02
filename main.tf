@@ -932,7 +932,7 @@ module "useridentity" {
     },
     {
       name = "ddi-appgw-identity"
-      resource_group_name = "rg-ddi-dev1"
+      resource_group_name = "rg-ddi-poc1"
       location            = "eastus"
       tags = {
         environment = "nertwork-team"
@@ -1552,7 +1552,7 @@ module "application_gateway" {
     identity = [
       {
         type  = "UserAssigned"
-        identity_ids  = ["ddi-appgw-identity"]
+        identity_ids  = [module.useridentity.user_assigned_identity_output["ddi-appgw-identity"].id]
       }
     ]
     
