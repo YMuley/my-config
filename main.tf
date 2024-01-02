@@ -1537,7 +1537,7 @@ module "application_gateway" {
         {
         name    = "listener-http-vm"
         frontend_ip_configuration_name = "frnt-private-ip-ddi"
-        port  =  80
+        port  =  8080
         host_name   = null
         host_names  = [".*.ddi-qa.com"]
         protocol =  "Http"
