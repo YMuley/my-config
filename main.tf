@@ -1459,9 +1459,9 @@ module "application_gateway" {
         {
           name    = "frnt-private-ip-ddi"
           subnet_name = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-appgw")
-          private_ip_address = null
+          private_ip_address = "10.100.3.5"
           public_ip_name = null
-          private_ip_address_allocation = "Dynamic"
+          private_ip_address_allocation = "Static"
           private_link_configuration_name = "pvt-link-appgw"
         }
       ]
