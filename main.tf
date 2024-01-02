@@ -1431,8 +1431,13 @@ module "application_gateway" {
       sku = {
         name = "Standard_v2"  // possible values : Standard_Small, Standard_Medium, Standard_Large, Standard_v2, WAF_Medium, WAF_Large, and WAF_v2 //
         tier  = "Standard_v2" // possible values : Standard, Standard_v2, WAF and WAF_v2 //
-        capacity = 2
+        capacity = 0
       }
+
+      autoscale_configuration = {
+      min_capacity  = "5"
+      max_capacity  = "20"
+    }
 
       enable_http2 = "false"
       zones   = [1,2]
@@ -1708,10 +1713,6 @@ module "application_gateway" {
       # }
     ]
 
-    autoscale_configuration = {
-      min_capacity  = "5"
-      max_capacity  = "20"
-    }
 
     rewrite_rule_set = [
       {
