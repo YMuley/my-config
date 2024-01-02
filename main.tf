@@ -565,7 +565,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-poc1"
       allocation_method   = "Dynamic"
       sku                 = "Basic"
-      zones               = null
+      zones               = []
       domain_name_label   = "unique-testing-label-one"
       tags = {
         environment = "poc"
@@ -591,7 +591,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-dev1"
       allocation_method   = "Static"
       sku                 = "Basic"
-      zones               = null
+      zones               = []
       domain_name_label   = "another-unique-label-one"
       tags = {
         environment = "dev"
@@ -604,7 +604,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-dev1"
       allocation_method   = "Static"
       sku                 = "Basic"
-      zones               = null
+      zones               = []
       domain_name_label   = "officers-choice-label"
       tags = {
         environment = "dev"
@@ -617,7 +617,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-dev1"
       allocation_method   = "Static"
       sku                 = "Standard"
-      zones               = null
+      zones               = []
       domain_name_label   = "one-lb-unique-label"
       tags = {
         environment = "dev"
