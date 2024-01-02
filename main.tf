@@ -1576,7 +1576,7 @@ module "application_gateway" {
       {
         name  = "probe-app-fqdn-http"
         host  = "app-ddi-dev.com"
-        pick_host_name_from_backend_http_settings = false
+        pick_host_name_from_backend_http_settings = null
         interval  = "20"
         protocol  = "Http"
         path      = "/"
@@ -1591,7 +1591,7 @@ module "application_gateway" {
         {
         name  = "probe-app-vm-http"
         host  = ".*.ddi-qa.com"
-        pick_host_name_from_backend_http_settings = false
+        pick_host_name_from_backend_http_settings = null
         interval  = "20"
         protocol  = "Http"
         path      = "/"
