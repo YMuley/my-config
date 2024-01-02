@@ -1590,7 +1590,7 @@ module "application_gateway" {
         port      = "80"
         match= {
           body      = null
-          status_code = [200 - 399]
+          status_code = [200,399]
         }
       },
         {
@@ -1605,7 +1605,7 @@ module "application_gateway" {
         port      = "80"
         match= {
           body      = null
-          status_code = [200 - 399]
+          status_code = [200,399]
         }
       }
     ]
