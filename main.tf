@@ -1573,21 +1573,21 @@ module "application_gateway" {
     ]
 
     probe = [
-      # {
-      #   name  = "probe-app-fqdn-http"
-      #   host  = "app-ddi-dev.com"
-      #   pick_host_name_from_backend_http_settings = null
-      #   interval  = "20"
-      #   protocol  = "Http"
-      #   path      = "/"
-      #   timeout   = "5"
-      #   unhealthy_threshold = "5"
-      #   port      = "80"
-      #   match= {
-      #     body      = null
-      #     status_code = [200 - 399]
-      #   }
-      # },
+      {
+        name  = "probe-app-fqdn-http"
+        host  = "app-ddi-dev.com"
+        pick_host_name_from_backend_http_settings = null
+        interval  = "20"
+        protocol  = "Http"
+        path      = "/"
+        timeout   = "5"
+        unhealthy_threshold = "5"
+        port      = "80"
+        match= {
+          body      = null
+          status_code = [200 - 399]
+        }
+      },
       #   {
       #   name  = "probe-app-vm-http"
       #   host  = ".*.ddi-qa.com"
