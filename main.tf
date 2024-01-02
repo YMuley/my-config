@@ -1631,7 +1631,7 @@ module "application_gateway" {
         redirect_configuration_name = null
         rewrite_rule_set_name = null
         url_path_map_name = null // empty block when rule_type is basic
-        priority  = 101
+        priority  = 102
       }
     ]
 
