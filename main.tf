@@ -1683,7 +1683,7 @@ module "application_gateway" {
      
     waf_configuration = [
       {
-        enabled = "enabled"
+        enabled = true
         firewall_mode = "Detection"     #Detection and Prevention
         rule_set_type = "OWASP"          #OWASP and Microsoft_BotManagerRuleSet
         rule_set_version = "3.2"         #0.1, 1.0, 2.2.9, 3.0, 3.1 and 3.
