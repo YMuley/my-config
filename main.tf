@@ -1431,7 +1431,7 @@ module "application_gateway" {
       tags                      = {
                                     env = "poc"
                                     location = "eastus" },
-      web_application_firewall_name = null // name is required when WAf is enabled.
+      web_application_firewall_name = "" // name is required when WAf is enabled.
       
       sku = {
         name = "WAF_v2"  // possible values : Standard_Small, Standard_Medium, Standard_Large, Standard_v2, WAF_Medium, WAF_Large, and WAF_v2 //
