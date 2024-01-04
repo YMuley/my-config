@@ -1434,8 +1434,8 @@ module "application_gateway" {
       web_application_firewall_name = null // name is required when WAf is enabled.
       
       sku = {
-        name = "Standard_v2"  // possible values : Standard_Small, Standard_Medium, Standard_Large, Standard_v2, WAF_Medium, WAF_Large, and WAF_v2 //
-        tier  = "Standard_v2" // possible values : Standard, Standard_v2, WAF and WAF_v2 //
+        name = "WAF_v2"  // possible values : Standard_Small, Standard_Medium, Standard_Large, Standard_v2, WAF_Medium, WAF_Large, and WAF_v2 //
+        tier  = "WAF_v2" // possible values : Standard, Standard_v2, WAF and WAF_v2 //
         capacity = 0
       }
 
@@ -1684,7 +1684,7 @@ module "application_gateway" {
     waf_configuration = [
       {
         enabled = "enabled"
-        firewall_mode = "Prevention"     #Detection and Prevention
+        firewall_mode = "Detection"     #Detection and Prevention
         rule_set_type = "OWASP"          #OWASP and Microsoft_BotManagerRuleSet
         rule_set_version = "3.2"         #0.1, 1.0, 2.2.9, 3.0, 3.1 and 3.
         file_upload_limit_mb  = "60"     #1MB to 750MB for the WAF_v2 SKU, and 1MB to 500MB for all other SKUs. Defaults to 100MB
