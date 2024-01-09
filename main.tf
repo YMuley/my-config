@@ -1404,7 +1404,7 @@ module "private_link_service" {
       nat_ip_configuration = [{
         
           name                       = "nat-config-1"
-          private_ip_address         = "10.0.1.5"
+          private_ip_address         = "10.100.16.6"
           private_ip_address_version = "IPv4"
           virtual_network_name          = "vnet-ddi-dev1"
           subnet_name                = "sub-ddi-dev-web"
