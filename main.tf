@@ -1386,32 +1386,32 @@ module "private_endpoint" {
   ]
 }
 
-# module "private_link_service" {
-#   source                = "app.terraform.io/Motifworks/private_link_service/azurerm"
-#   version               = "1.0.0"
-#   resource_group_output = module.resource_Group.resource_group_output
-#   subnet_output         = module.subnet.vnet_subnet_output
+module "private_link_service" {
+  source                = "app.terraform.io/Motifworks/private_link_service/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+  subnet_output         = module.subnet.vnet_subnet_output
 
-#   private_link_service_list = [
-#     {
-#       name                = "privatelinkservice1"
-#       resource_group_name = "rg-ddi-dev1"
-#       location            = "westus"
-#       lb_frontend_ip_configuration_ids= [module.load_balancer.load_balancer_output.frontend_ip_configuration["lb-pip-ddi-dev"].id]
-#       tags = {
-#         environment = "dev"
-#       }
-#       nat_ip_configuration = [{
+  private_link_service_list = [
+    {
+      name                = "privatelinkservice1"
+      resource_group_name = "rg-ddi-dev1"
+      location            = "westus"
+      lb_frontend_ip_configuration_ids= [module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration["lb-pip-ddi-dev"].id]
+      tags = {
+        environment = "dev"
+      }
+      nat_ip_configuration = [{
         
-#           name                       = "nat-config-1"
-#           private_ip_address         = "10.0.1.5"
-#           private_ip_address_version = "IPv4"
-#           virtual_network_name          = "vnet-ddi-dev1"
-#           subnet_name                = "sub-ddi-dev-web"
-#       }]
-#     }
-#   ]
-# }
+          name                       = "nat-config-1"
+          private_ip_address         = "10.0.1.5"
+          private_ip_address_version = "IPv4"
+          virtual_network_name          = "vnet-ddi-dev1"
+          subnet_name                = "sub-ddi-dev-web"
+      }]
+    }
+  ]
+}
 
 # module "application_gateway" {
 #   source  = "app.terraform.io/Motifworks/application_gateway/azurerm"
