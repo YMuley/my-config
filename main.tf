@@ -573,7 +573,7 @@ module "public_ip" {
       sku_tier = "Regional"
     },
         {
-      name                = "publicip-ddi-appgw"
+      name                = "public-ip-ddi-appgw"
       location            = "eastus"
       resource_group_name = "rg-ddi-poc1"
       allocation_method   = "Static"
@@ -1397,7 +1397,7 @@ module "private_link_service" {
       name                = "privatelinkservice1"
       resource_group_name = "rg-ddi-dev1"
       location            = "westus"
-      lb_frontend_ip_configuration_ids= [module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration.id]
+      lb_frontend_ip_configuration_ids= [module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration]
       tags = {
         environment = "dev"
       }
