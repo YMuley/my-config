@@ -553,79 +553,79 @@ module "virtual_network_dns" {
   depends_on = [module.virtual_network]
 }
 
-module "public_ip" {
-  source                = "app.terraform.io/Motifworks/public_ip/azurerm"
-  version               = "1.0.0"
-  resource_group_output = module.resource_Group.resource_group_output
+# module "public_ip" {
+#   source                = "app.terraform.io/Motifworks/public_ip/azurerm"
+#   version               = "1.0.0"
+#   resource_group_output = module.resource_Group.resource_group_output
 
-  public_ip_list = [
-    {
-      name                = "publicip-ddi-poc"
-      location            = "eastus"
-      resource_group_name = "rg-ddi-poc1"
-      allocation_method   = "Dynamic"
-      sku                 = "Basic"
-      zones               = []
-      domain_name_label   = "unique-testing-label-one"
-      tags = {
-        environment = "poc"
-      }
-      sku_tier = "Regional"
-    },
-    {
-      name                = "publicip-ddi-appgw"
-      location            = "eastus"
-      resource_group_name = "rg-ddi-poc1"
-      allocation_method   = "Static"
-      sku                 = "Standard"
-      zones               = [1, 2]
-      domain_name_label   = null
-      tags = {
-        environment = "poc"
-      }
-      sku_tier = "Regional"
-    },
-    {
-      name                = "public-ip-ddi-dev"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
-      allocation_method   = "Static"
-      sku                 = "Basic"
-      zones               = []
-      domain_name_label   = "another-unique-label-one"
-      tags = {
-        environment = "dev"
-      }
-      sku_tier = "Regional"
-    },
-    {
-      name                = "public-ip-ddi-dev2"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
-      allocation_method   = "Static"
-      sku                 = "Basic"
-      zones               = []
-      domain_name_label   = "officers-choice-label"
-      tags = {
-        environment = "dev"
-      }
-      sku_tier = "Regional"
-    },
-    {
-      name                = "public-ip-ddi-lb"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
-      allocation_method   = "Static"
-      sku                 = "Standard"
-      zones               = []
-      domain_name_label   = "one-lb-unique-label"
-      tags = {
-        environment = "dev"
-      }
-      sku_tier = "Regional"
-    }
-  ]
-}
+#   public_ip_list = [
+#     {
+#       name                = "publicip-ddi-poc"
+#       location            = "eastus"
+#       resource_group_name = "rg-ddi-poc1"
+#       allocation_method   = "Dynamic"
+#       sku                 = "Basic"
+#       zones               = []
+#       domain_name_label   = "unique-testing-label-one"
+#       tags = {
+#         environment = "poc"
+#       }
+#       sku_tier = "Regional"
+#     },
+#     {
+#       name                = "publicip-ddi-appgw"
+#       location            = "eastus"
+#       resource_group_name = "rg-ddi-poc1"
+#       allocation_method   = "Static"
+#       sku                 = "Standard"
+#       zones               = [1, 2]
+#       domain_name_label   = null
+#       tags = {
+#         environment = "poc"
+#       }
+#       sku_tier = "Regional"
+#     },
+#     {
+#       name                = "public-ip-ddi-dev"
+#       location            = "westus"
+#       resource_group_name = "rg-ddi-dev1"
+#       allocation_method   = "Static"
+#       sku                 = "Basic"
+#       zones               = []
+#       domain_name_label   = "another-unique-label-one"
+#       tags = {
+#         environment = "dev"
+#       }
+#       sku_tier = "Regional"
+#     },
+#     {
+#       name                = "public-ip-ddi-dev2"
+#       location            = "westus"
+#       resource_group_name = "rg-ddi-dev1"
+#       allocation_method   = "Static"
+#       sku                 = "Basic"
+#       zones               = []
+#       domain_name_label   = "officers-choice-label"
+#       tags = {
+#         environment = "dev"
+#       }
+#       sku_tier = "Regional"
+#     },
+#     {
+#       name                = "public-ip-ddi-lb"
+#       location            = "westus"
+#       resource_group_name = "rg-ddi-dev1"
+#       allocation_method   = "Static"
+#       sku                 = "Standard"
+#       zones               = []
+#       domain_name_label   = "one-lb-unique-label"
+#       tags = {
+#         environment = "dev"
+#       }
+#       sku_tier = "Regional"
+#     }
+#   ]
+# }
 
 module "route_table" {
   source                = "app.terraform.io/Motifworks/route_table/azurerm"
