@@ -1402,6 +1402,7 @@ module "private_link_service" {
           name = "lb-pip-ddi-dev"
         }
       ]
+      load_balancer_frontend_ip_configuration_ids = "lb-pip-ddi-dev"
       tags = {
         environment = "dev"
       }
