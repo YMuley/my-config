@@ -1397,13 +1397,9 @@ module "private_link_service" {
       name                = "privatelinkservice1"
       resource_group_name = "rg-ddi-dev1"
       location            = "westus"
-      load_balancer_frontend_ip_configuration_ids = [
+      frontend_ip_configuration = [
         {
-          name                          = "lb-pip-ddi-dev"
-          zones                         = []
-          public_ip_name                = "public-ip-ddi-lb"
-          subnet_name                   = null
-          private_ip_address_allocation = null
+          name = "lb-pip-ddi-dev"
         }
       ]
       tags = {
