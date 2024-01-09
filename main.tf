@@ -1397,12 +1397,12 @@ module "private_link_service" {
       name                = "privatelinkservice1"
       resource_group_name = "rg-ddi-dev1"
       location            = "westus"
-      load_balancer_name  = "lb-ddi-dev"
+      lb_frontend_ip_configuration_ids= [module.load_balancer.load_balancer_output.frontend_ip_configuration["lb-pip-ddi-dev"].id]
       tags = {
         environment = "dev"
       }
-      nat_ip_configuration = [
-        {
+      nat_ip_configuration = [{
+        
           name                       = "nat-config-1"
           private_ip_address         = "10.0.1.5"
           private_ip_address_version = "IPv4"
