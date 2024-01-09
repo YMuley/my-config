@@ -578,7 +578,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-poc1"
       allocation_method   = "Static"
       sku                 = "Standard"
-      zones               = [1,2]
+      zones               = ["1","2"]
       domain_name_label   = null
       tags = {
         environment = "poc"
@@ -1397,7 +1397,7 @@ module "private_link_service" {
       name                = "privatelinkservice1"
       resource_group_name = "rg-ddi-dev1"
       location            = "westus"
-      lb_frontend_ip_configuration_ids= [module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration]
+      lb_frontend_ip_configuration_ids= [module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration[id]]
       tags = {
         environment = "dev"
       }
