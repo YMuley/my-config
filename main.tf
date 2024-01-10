@@ -364,7 +364,7 @@ module "subnet" {
 
       delegation = []
     },
-        {
+    {
       name                                          = "sub-ddi-poc-appgw"
       resource_group_name                           = "rg-ddi-poc1"
       virtual_network_name                          = "vnet-ddi-poc1"
@@ -572,13 +572,13 @@ module "public_ip" {
       }
       sku_tier = "Regional"
     },
-        {
+    {
       name                = "public-ip-ddi-appgw"
       location            = "eastus"
       resource_group_name = "rg-ddi-poc1"
       allocation_method   = "Static"
       sku                 = "Standard"
-      zones               = ["1","2"]
+      zones               = ["1", "2"]
       domain_name_label   = null
       tags = {
         environment = "poc"
@@ -928,7 +928,7 @@ module "useridentity" {
 
   user_assigned_identity_list = [
     {
-      name = "user-managed24"
+      name                = "user-managed24"
       resource_group_name = "rg-ddi-dev1"
       location            = "eastus"
       tags = {
@@ -936,7 +936,7 @@ module "useridentity" {
       }
     },
     {
-      name = "ddi-appgw-identity"
+      name                = "ddi-appgw-identity"
       resource_group_name = "rg-ddi-poc1"
       location            = "eastus"
       tags = {
@@ -1394,20 +1394,20 @@ module "private_link_service" {
 
   private_link_service_list = [
     {
-      name                = "privatelinkservice1"
-      resource_group_name = "rg-ddi-dev1"
-      location            = "westus"
-      lb_frontend_ip_configuration_ids= [module.load_balancer.load_balancer_output.lb-ddi-dev.frontend_ip_configuration[0].id]
+      name                             = "privatelinkservice1"
+      resource_group_name              = "rg-ddi-dev1"
+      location                         = "westus"
+      lb_frontend_ip_configuration_ids = [module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration[0].id]
       tags = {
         environment = "dev"
       }
       nat_ip_configuration = [{
-        
-          name                       = "nat-config-1"
-          private_ip_address         = "10.100.16.6"
-          private_ip_address_version = "IPv4"
-          virtual_network_name          = "vnet-ddi-dev1"
-          subnet_name                = "sub-ddi-dev-web"
+
+        name                       = "nat-config-1"
+        private_ip_address         = "10.100.16.7"
+        private_ip_address_version = "IPv4"
+        virtual_network_name       = "vnet-ddi-dev1"
+        subnet_name                = "sub-ddi-dev-web"
       }]
     }
   ]
@@ -1416,7 +1416,7 @@ module "private_link_service" {
 # module "application_gateway" {
 #   source  = "app.terraform.io/Motifworks/application_gateway/azurerm"
 #   version = "1.0.0"
- 
+
 #   resource_group_output = module.resource_Group.resource_group_output
 #   subnet_output         = module.subnet.vnet_subnet_output
 #   public_ip_output      = module.public_ip.public_ip_output
@@ -1432,7 +1432,7 @@ module "private_link_service" {
 #                                     env = "poc"
 #                                     location = "eastus" },
 #       web_application_firewall_name = null // name is required when WAf is enabled.
-      
+
 #       sku = {
 #         name = "WAF_v2"  // possible values : Standard_Small, Standard_Medium, Standard_Large, Standard_v2, WAF_Medium, WAF_Large, and WAF_v2 //
 #         tier  = "WAF_v2" // possible values : Standard, Standard_v2, WAF and WAF_v2 //
@@ -1565,7 +1565,7 @@ module "private_link_service" {
 #         identity_ids  = [module.useridentity.user_assigned_identity_output["ddi-appgw-identity"].id]
 #       }
 #     ]
-    
+
 
 #     private_link_configuration = [
 #       {
@@ -1672,7 +1672,7 @@ module "private_link_service" {
 #         }
 #         ]
 #       }
-      
+
 #     ]
 #     trusted_root_certificate = [
 #       # {
@@ -1680,7 +1680,7 @@ module "private_link_service" {
 #       #   key_vault_secret_id =
 #       # }
 #     ]
-     
+
 #     waf_configuration = [
 #       {
 #         enabled = true
@@ -1765,5 +1765,5 @@ module "private_link_service" {
 
 #     }
 #   ]
-  
+
 # }
