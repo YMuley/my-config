@@ -1372,13 +1372,13 @@ module "private_endpoint" {
 
   private_endpoint_list = [
     {
-      name                 = "privateendpoint1"
-      resource_group_name  = "rg-ddi-dev1"
-      location             = "westus"
-      virtual_network_name = "vnet-ddi-dev1"
-      subnet_name          = "sub-ddi-dev-web"
-      storage_account_name = "ddistorageacc2"
-      subresource_name     = ["blob"]
+      name                           = "privateendpoint1"
+      resource_group_name            = "rg-ddi-dev1"
+      location                       = "westus"
+      virtual_network_name           = "vnet-ddi-dev1"
+      subnet_name                    = "sub-ddi-dev-web"
+      private_connection_resource_id = module.storage_account.storage_account_output["ddistorageacc2"].id
+      subresource_name               = ["blob"]
       tags = {
         environment = "dev"
       }
