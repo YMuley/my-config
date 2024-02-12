@@ -638,7 +638,19 @@ module "public_ip" {
         environment = "dev"
       }
       sku_tier = "Regional"
-    }
+    },
+    {
+      name                = "public-ip-ddi-fw"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev1"
+      allocation_method   = "Static"
+      sku                 = "Standard"
+      zones               = []
+      domain_name_label   = null
+      tags = {
+        environment = "dev"
+      }
+    sku_tier = "Regional" }
   ]
 }
 
@@ -1433,6 +1445,7 @@ module "firewall" {
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
   subnet_output         = module.subnet.vnet_subnet_output
+  public_ip_output      = module.public_ip.public_ip_output
 
   azure_firewall_list = [
     {
@@ -1451,6 +1464,8 @@ module "firewall" {
           name                 = "ip-config-1"
           virtual_network_name = "vnet-ddi-dev1"
           subnet_name          = "AzureFirewallSubnet"
+          public_ip_name       = "public-ip-ddi-fw"
+
         }
       ]
 
