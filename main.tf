@@ -1450,7 +1450,7 @@ module "firewall" {
           name                 = "ip-config-1"
           virtual_network_name = "vnet-ddi-dev1"
           subnet_name          = "AzureFirewallSubnet"
-          public_ip_name       = "public-ip-ddi-dev"
+          private_ip_address   = "10.100.16.9"
         }
       ]
 
