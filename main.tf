@@ -1436,7 +1436,7 @@ module "firewall" {
   azure_firewall_list = [
     {
       name                = "firewall1"
-      resource_group_name = "rg-firewall-dev"
+      resource_group_name = "rg-ddi-dev1"
       location            = "westus"
       sku_name            = "AZFW_VNet"
       sku_tier            = "Standard"
@@ -1448,9 +1448,9 @@ module "firewall" {
       ip_configuration = [
         {
           name                 = "ip-config-1"
-          virtual_network_name = "vnet-firewall-dev"
+          virtual_network_name = "vnet-ddi-dev1"
           subnet_name          = "AzureFirewallSubnet"
-          public_ip_name       = "public-ip-firewall"
+          public_ip_name       = "public-ip-ddi-dev"
         }
       ]
 
