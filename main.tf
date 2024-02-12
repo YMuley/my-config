@@ -406,7 +406,7 @@ module "subnet" {
       name                                          = "AzureFirewallSubnet"
       resource_group_name                           = "rg-ddi-dev1"
       virtual_network_name                          = "vnet-ddi-dev1"
-      address_prefixes                              = ["10.100.17.0/20"]
+      address_prefixes                              = ["10.100.6.0/24"]
       service_endpoints                             = []
       service_endpoint_policy_ids                   = []
       private_endpoint_network_polices_enabled      = "false"
