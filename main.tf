@@ -1481,7 +1481,7 @@ module "firewall_application_rule_collection" {
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
 
-  azure_firewall_application_rule_collection_list = [
+  azure_firewall__application_rule_collection_list = [
     {
       name                = "firewall-rule-collection-1"
       resource_group_name = "rg-ddi-dev1"
