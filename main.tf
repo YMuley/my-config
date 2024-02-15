@@ -1106,7 +1106,7 @@ module "loadbalancer_backend_pool" {
           identifier = "800"
           type       = "External"
           protocol   = "VXLAN"
-          port       = "443"
+          port       = "8081"
         }
       ]
     }
