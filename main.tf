@@ -993,7 +993,7 @@ module "managed_disk" {
     }
   ]
 }
-/*
+
 module "load_balancer" {
   source  = "app.terraform.io/Motifworks/load_balancer/azurerm"
   version = "1.0.0"
@@ -1439,7 +1439,7 @@ module "private_link_service" {
     }
   ]
 }
-*/
+
 module "firewall" {
   source                = "app.terraform.io/Motifworks/firewall/azurerm"
   version               = "1.0.0"
