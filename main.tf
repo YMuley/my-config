@@ -1449,7 +1449,7 @@ module "firewall" {
 
   azure_firewall_list = [
     {
-      name                = "firewall1"
+      name                = "fw-ddi-westus"
       resource_group_name = "rg-ddi-dev1"
       location            = "westus"
       sku_name            = "AZFW_VNet"
@@ -1485,7 +1485,7 @@ module "firewall_application_rule_collection" {
     {
       name                = "firewall-rule-collection-1"
       resource_group_name = "rg-ddi-dev1"
-      azure_firewall_name = "firewall1"
+      azure_firewall_name = "fw-ddi-westus"
       priority            = 100
       action              = "Allow"
 
@@ -1509,6 +1509,7 @@ module "firewall_application_rule_collection" {
       ]
     }
   ]
+  depends_on = [ module.firewall ]
 }
 
 # module "application_gateway" {
