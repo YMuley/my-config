@@ -34,6 +34,6 @@ output "network_interface_card_output" {
   value = module.network_interface_card.network_interface_card_output
 }
 
-output "load_balancer_output" {
-  value = module.load_balancer.load_balancer_output
-}
+# output "load_balancer_output" {
+#   value = module.load_balancer.load_balancer_output
+# }

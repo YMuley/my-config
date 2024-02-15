@@ -400,7 +400,22 @@ module "subnet" {
       private_link_service_network_policies_enabled = "false"
 
       delegation = []
+    },
+
+    {
+      name                        = "AzureFirewallSubnet"
+      resource_group_name         = "rg-ddi-dev1"
+      virtual_network_name        = "vnet-ddi-dev1"
+      address_prefixes            = ["10.100.19.0/24"]
+      service_endpoints           = []
+      service_endpoint_policy_ids = []
+
+      private_endpoint_network_polices_enabled      = "false"
+      private_link_service_network_policies_enabled = "false"
+
+      delegation = []
     }
+
 
   ]
   depends_on = [module.virtual_network]
@@ -623,7 +638,19 @@ module "public_ip" {
         environment = "dev"
       }
       sku_tier = "Regional"
-    }
+    },
+    {
+      name                = "public-ip-ddi-fw"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev1"
+      allocation_method   = "Static"
+      sku                 = "Standard"
+      zones               = []
+      domain_name_label   = null
+      tags = {
+        environment = "dev"
+      }
+    sku_tier = "Regional" }
   ]
 }
 
@@ -966,7 +993,7 @@ module "managed_disk" {
     }
   ]
 }
-
+/*
 module "load_balancer" {
   source  = "app.terraform.io/Motifworks/load_balancer/azurerm"
   version = "1.0.0"
@@ -1077,19 +1104,19 @@ module "loadbalancer_backend_pool" {
         }
       ]
     },
-    {
-      name              = "bkp-lb-ddi-poc1"
-      loadbalancer_name = "lb-ddi-poc"
-      #virtual_network_name  = "vnet-ddi-poc1"
-      tunnel_interface = [
-        {
-          identifier = "801"
-          type       = "External"
-          protocol   = "VXLAN"
-          port       = "8080"
-        }
-      ]
-    }
+    # {
+    #   name              = "bkp-lb-ddi-poc1"
+    #   loadbalancer_name = "lb-ddi-poc"
+    #   #virtual_network_name  = "vnet-ddi-poc1"
+    #   tunnel_interface = [
+    #     {
+    #       identifier = "801"
+    #       type       = "External"
+    #       protocol   = "VXLAN"
+    #       port       = "8080"
+    #     }
+    #   ]
+    # }
 
   ]
 }
@@ -1279,7 +1306,7 @@ module "loadbalancer_rule" {
       load_distribution              = "Default" # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
       disable_outbound_snat          = false
       enable_tcp_reset               = false
-      backend_address_pool_ids       = [module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id, module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc1"].id] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
+      backend_address_pool_ids       = [module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id]//[module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id, module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc1"].id] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
     }
   ]
   depends_on = [module.load_balancer, module.loadbalancer_backend_pool, module.loadbalancer_health_probe]
@@ -1409,6 +1436,77 @@ module "private_link_service" {
         virtual_network_name       = "vnet-ddi-dev1"
         subnet_name                = "sub-ddi-dev-web"
       }]
+    }
+  ]
+}
+*/
+module "firewall" {
+  source                = "app.terraform.io/Motifworks/firewall/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+  subnet_output         = module.subnet.vnet_subnet_output
+  public_ip_output      = module.public_ip.public_ip_output
+
+  azure_firewall_list = [
+    {
+      name                = "firewall1"
+      resource_group_name = "rg-ddi-dev1"
+      location            = "westus"
+      sku_name            = "AZFW_VNet"
+      sku_tier            = "Standard"
+      dns_servers         = ["168.63.129.16"]
+      private_ip_ranges   = ["10.0.0.0/8"]
+      zones               = []
+      threat_intel_mode   = "Alert"
+
+      ip_configuration = [
+        {
+          name                 = "ip-config-1"
+          virtual_network_name = "vnet-ddi-dev1"
+          subnet_name          = "AzureFirewallSubnet"
+          public_ip_name       = "public-ip-ddi-fw"
+
+        }
+      ]
+
+      tags = {
+        environment = "dev"
+      }
+    }
+  ]
+}
+
+module "firewall_application_rule_collection" {
+  source                = "app.terraform.io/Motifworks/firewall_application_rule_collection/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+
+  azure_firewall_application_rule_collection_list = [
+    {
+      name                = "firewall-rule-collection-1"
+      resource_group_name = "rg-ddi-dev1"
+      azure_firewall_name = "firewall1"
+      priority            = 100
+      action              = "Allow"
+
+      rule_list = [
+        {
+          name             = "rule-1"
+          source_addresses = ["192.168.1.0/24"]
+          target_fqdns     = ["example.com", "contoso.com"]
+
+          protocol_list = [
+            {
+              port = 80
+              type = "Http"
+            },
+            {
+              port = 443
+              type = "Https"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
