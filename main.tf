@@ -1103,7 +1103,7 @@ module "loadbalancer_backend_pool" {
           port       = "443"
         }
       ]
-    },
+    }
     # {
     #   name              = "bkp-lb-ddi-poc1"
     #   loadbalancer_name = "lb-ddi-poc"
