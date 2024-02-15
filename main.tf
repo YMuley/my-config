@@ -1127,6 +1127,7 @@ module "loadbalancer_backend_pool" {
   ]
 }
 
+// Note- Backend Addresses can only be added to a Standard SKU Load Balancer. Cross region load balancer is for Load Balancer with Global SKU.\\
 module "loadbalancer_backend_address_pool_addresses" {
   source  = "app.terraform.io/Motifworks/loadbalancer_backend_address_pool_addresses/azurerm"
   version = "1.0.0"
@@ -1141,12 +1142,12 @@ module "loadbalancer_backend_address_pool_addresses" {
       virtual_network_name      = "vnet-ddi-dev1"
       ip_address                = "10.100.16.10"
     },
-    {
-      name                      = "lb-bkp-pool-ddi-poc-ip-name"
-      backend_address_pool_name = format("%s/%s", "lb-ddi-poc", "bkp-lb-ddi-poc")
-      virtual_network_name      = "vnet-ddi-poc1"
-      ip_address                = "10.100.2.10"
-    }
+    # {
+    #   name                      = "lb-bkp-pool-ddi-poc-ip-name"
+    #   backend_address_pool_name = format("%s/%s", "lb-ddi-poc", "bkp-lb-ddi-poc")
+    #   virtual_network_name      = "vnet-ddi-poc1"
+    #   ip_address                = "10.100.2.10"
+    # }
 
   ]
   depends_on = [module.load_balancer, module.loadbalancer_backend_pool, module.resource_Group]
