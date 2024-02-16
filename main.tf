@@ -1101,6 +1101,12 @@ module "loadbalancer_backend_pool" {
           type       = "Internal"
           protocol   = "VXLAN"
           port       = "8080"
+        },
+        {
+          identifier = "900"
+          type       = "External"
+          protocol   = "VXLAN"
+          port       = "8081"
         }
       ]
     },
@@ -1109,8 +1115,14 @@ module "loadbalancer_backend_pool" {
       loadbalancer_name = "lb-ddi-poc"
       #virtual_network_name  = "vnet-ddi-poc1"
       tunnel_interface = [
-       {
-          identifier = "900"
+        {
+          identifier = "805"
+          type       = "External"
+          protocol   = "VXLAN"
+          port       = "8080"
+        },
+                {
+          identifier = "905"
           type       = "Internal"
           protocol   = "VXLAN"
           port       = "8081"
@@ -1307,7 +1319,7 @@ module "loadbalancer_rule" {
       load_distribution              = "Default" # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
       disable_outbound_snat          = false
       enable_tcp_reset               = false
-      backend_address_pool_name     = [{name = "lb-ddi-poc/bkp-lb-ddi-poc"},{name ="lb-ddi-poc/bkp-lb-ddi-poc1"}]//[module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id]//[module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id, module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc1"].id] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
+      backend_address_pool_name     = [{name = "lb-ddi-poc/bkp-lb-ddi-poc"}]//[module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id]//[module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id, module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc1"].id] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
     }
   ]
   depends_on = [module.load_balancer, module.loadbalancer_backend_pool, module.loadbalancer_health_probe]
