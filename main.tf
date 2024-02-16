@@ -1101,7 +1101,14 @@ module "loadbalancer_backend_pool" {
           type       = "Internal"
           protocol   = "VXLAN"
           port       = "443"
-        }      ]
+        },
+        {
+          identifier = "900"
+          type       = "External"
+          protocol   = "VXLAN"
+          port       = "8081"
+        }
+      ]
     },
     {
       name              = "bkp-lb-ddi-poc1"
