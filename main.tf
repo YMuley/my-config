@@ -1120,6 +1120,12 @@ module "loadbalancer_backend_pool" {
           type       = "External"
           protocol   = "VXLAN"
           port       = "8080"
+        },
+                {
+          identifier = "905"
+          type       = "Internal"
+          protocol   = "VXLAN"
+          port       = "8081"
         }
       ]
     }
