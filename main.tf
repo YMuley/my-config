@@ -1100,13 +1100,7 @@ module "loadbalancer_backend_pool" {
           identifier = "800"
           type       = "Internal"
           protocol   = "VXLAN"
-          port       = "443"
-        },
-        {
-          identifier = "900"
-          type       = "External"
-          protocol   = "VXLAN"
-          port       = "8081"
+          port       = "8080"
         }
       ]
     },
@@ -1115,14 +1109,8 @@ module "loadbalancer_backend_pool" {
       loadbalancer_name = "lb-ddi-poc"
       #virtual_network_name  = "vnet-ddi-poc1"
       tunnel_interface = [
-        {
-          identifier = "805"
-          type       = "External"
-          protocol   = "VXLAN"
-          port       = "8080"
-        },
-                {
-          identifier = "905"
+       {
+          identifier = "900"
           type       = "Internal"
           protocol   = "VXLAN"
           port       = "8081"
