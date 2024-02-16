@@ -1116,13 +1116,13 @@ module "loadbalancer_backend_pool" {
       #virtual_network_name  = "vnet-ddi-poc1"
       tunnel_interface = [
         {
-          identifier = "400"
+          identifier = "805"
           type       = "External"
           protocol   = "VXLAN"
           port       = "8080"
         },
                 {
-          identifier = "600"
+          identifier = "905"
           type       = "Internal"
           protocol   = "VXLAN"
           port       = "8081"
