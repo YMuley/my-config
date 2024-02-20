@@ -1543,7 +1543,7 @@ module "firewall_nat_rule_collection" {
         {
           name                  = "rule-1"
           source_addresses      = ["10.0.0.0/24"]
-          destination_addresses = ["10.100.3.5"]
+          destination_addresses = ["10.0.0.0/8"]
           destination_ports     = ["80", "443"]
           translated_address    = "192.168.1.1"
           translated_port       = 8080
