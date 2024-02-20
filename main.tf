@@ -593,7 +593,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-poc1"
       allocation_method   = "Static"
       sku                 = "Standard"
-      zones               = ["1", "2"]
+      zones               = ["1" , "2" , "3"]
       domain_name_label   = null
       tags = {
         environment = "poc"
@@ -993,7 +993,7 @@ module "managed_disk" {
     }
   ]
 }
-/*
+
 module "load_balancer" {
   source  = "app.terraform.io/Motifworks/load_balancer/azurerm"
   version = "1.0.0"
@@ -1100,27 +1100,40 @@ module "loadbalancer_backend_pool" {
           identifier = "800"
           type       = "Internal"
           protocol   = "VXLAN"
-          port       = "443"
+          port       = "8080"
+        },
+        {
+          identifier = "900"
+          type       = "External"
+          protocol   = "VXLAN"
+          port       = "8081"
         }
       ]
     },
-    # {
-    #   name              = "bkp-lb-ddi-poc1"
-    #   loadbalancer_name = "lb-ddi-poc"
-    #   #virtual_network_name  = "vnet-ddi-poc1"
-    #   tunnel_interface = [
-    #     {
-    #       identifier = "801"
-    #       type       = "External"
-    #       protocol   = "VXLAN"
-    #       port       = "8080"
-    #     }
-    #   ]
-    # }
+    {
+      name              = "bkp-lb-ddi-poc1"
+      loadbalancer_name = "lb-ddi-poc"
+      #virtual_network_name  = "vnet-ddi-poc1"
+      tunnel_interface = [
+        {
+          identifier = "805"
+          type       = "External"
+          protocol   = "VXLAN"
+          port       = "8080"
+        },
+                {
+          identifier = "905"
+          type       = "Internal"
+          protocol   = "VXLAN"
+          port       = "8081"
+        }
+      ]
+    }
 
   ]
 }
 
+// Note- Backend Addresses can only be added to a Standard SKU Load Balancer. Cross region load balancer is for Load Balancer with Global SKU.\\
 module "loadbalancer_backend_address_pool_addresses" {
   source  = "app.terraform.io/Motifworks/loadbalancer_backend_address_pool_addresses/azurerm"
   version = "1.0.0"
@@ -1135,12 +1148,12 @@ module "loadbalancer_backend_address_pool_addresses" {
       virtual_network_name      = "vnet-ddi-dev1"
       ip_address                = "10.100.16.10"
     },
-    {
-      name                      = "lb-bkp-pool-ddi-poc-ip-name"
-      backend_address_pool_name = format("%s/%s", "lb-ddi-poc", "bkp-lb-ddi-poc")
-      virtual_network_name      = "vnet-ddi-poc1"
-      ip_address                = "10.100.2.10"
-    }
+    # {
+    #   name                      = "lb-bkp-pool-ddi-poc-ip-name"
+    #   backend_address_pool_name = format("%s/%s", "lb-ddi-poc", "bkp-lb-ddi-poc")
+    #   virtual_network_name      = "vnet-ddi-poc1"
+    #   ip_address                = "10.100.2.10"
+    # }
 
   ]
   depends_on = [module.load_balancer, module.loadbalancer_backend_pool, module.resource_Group]
@@ -1291,7 +1304,7 @@ module "loadbalancer_rule" {
       load_distribution              = "Default" # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
       disable_outbound_snat          = true
       enable_tcp_reset               = false
-      backend_address_pool_ids       = [module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-dev/bkp-lb-ddi-dev"].id] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
+      backend_address_pool_name      = [{name= "lb-ddi-dev/bkp-lb-ddi-dev" }] #[module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-dev/bkp-lb-ddi-dev"].id] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
     },
     {
       name                           = "lb-ddi-poc-rule"
@@ -1306,7 +1319,7 @@ module "loadbalancer_rule" {
       load_distribution              = "Default" # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
       disable_outbound_snat          = false
       enable_tcp_reset               = false
-      backend_address_pool_ids       = [module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id]//[module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id, module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc1"].id] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
+      backend_address_pool_name     = [{name = "lb-ddi-poc/bkp-lb-ddi-poc"}]//[module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id]//[module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id, module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc1"].id] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
     }
   ]
   depends_on = [module.load_balancer, module.loadbalancer_backend_pool, module.loadbalancer_health_probe]
@@ -1439,7 +1452,7 @@ module "private_link_service" {
     }
   ]
 }
-*/
+
 module "firewall" {
   source                = "app.terraform.io/Motifworks/firewall/azurerm"
   version               = "1.0.0"
@@ -1449,7 +1462,7 @@ module "firewall" {
 
   azure_firewall_list = [
     {
-      name                = "firewall1"
+      name                = "fw-ddi-westus"
       resource_group_name = "rg-ddi-dev1"
       location            = "westus"
       sku_name            = "AZFW_VNet"
@@ -1485,7 +1498,7 @@ module "firewall_application_rule_collection" {
     {
       name                = "firewall-rule-collection-1"
       resource_group_name = "rg-ddi-dev1"
-      azure_firewall_name = "firewall1"
+      azure_firewall_name = "fw-ddi-westus"
       priority            = 100
       action              = "Allow"
 
@@ -1509,6 +1522,7 @@ module "firewall_application_rule_collection" {
       ]
     }
   ]
+  depends_on = [ module.firewall ]
 }
 
 
@@ -1572,7 +1586,7 @@ module "firewall_nat_rule_collection" {
 #     }
 
 #       enable_http2 = "false"
-#       zones   = [1,2]
+#       zones   = [ "1" , "2" ]
 
 #       gateway_ip_configuration = {
 #         name      = "gateway-ip-config"
