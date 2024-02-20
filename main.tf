@@ -1537,7 +1537,7 @@ module "firewall_nat_rule_collection" {
       resource_group_name = "rg-ddi-dev1"
       azure_firewall_name = "firewall1"
       priority            = 100
-      action              = "Allow"
+      action              = "Dnat"
 
       rule_list = [
         {
