@@ -1019,13 +1019,6 @@ module "load_balancer" {
           public_ip_name                = "public-ip-ddi-lb"
           subnet_name                   = null
           private_ip_address_allocation = null
-        },
-        {
-          name                          = "lb-pvtip-ddi-dev"
-          zones                         = []
-          public_ip_name                = null
-          subnet_name                   = format("%s/%s", "vnet-ddi-dev1", "sub-ddi-dev-web")
-          private_ip_address_allocation = "Dynamic"
         }
       ]
     },
@@ -1447,8 +1440,8 @@ module "private_link_service" {
       location                         = "westus"
       lb_frontend_ip_configuration     = [{name = "lb-ddi-dev"
                                             index = "0"},
-                                            {name = "lb-ddi-dev"
-                                             index = "1"}] ##[module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration[0].id]
+                                            {name = "lb-ddi-devone"
+                                             index = "0"}] ##[module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration[0].id]
       tags = {
         environment = "dev"
       }
@@ -1458,7 +1451,7 @@ module "private_link_service" {
         private_ip_address         = "10.100.16.9"
         private_ip_address_version = "IPv4"
         virtual_network_name       = "vnet-ddi-dev1"
-        subnet_name                = "sub-ddi-dev-web"
+        subnet_name                = "sub-ddi-dev2-web"
       }]
     }
   ]
