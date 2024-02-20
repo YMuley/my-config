@@ -1546,7 +1546,7 @@ module "firewall_nat_rule_collection" {
           destination_addresses = ["13.64.185.193"]
           destination_ports     = ["80", "443"]
           translated_address    = "192.168.1.1"
-          translated_port       = 8080
+          translated_port       = 80
           protocols             = ["TCP"]
         }
       ]
