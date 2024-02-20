@@ -639,6 +639,19 @@ module "public_ip" {
       }
       sku_tier = "Regional"
     },
+        {
+      name                = "public-ip-ddi-lb-1"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev1"
+      allocation_method   = "Static"
+      sku                 = "Standard"
+      zones               = []
+      domain_name_label   = "two-lb-unique-label"
+      tags = {
+        environment = "dev"
+      }
+      sku_tier = "Regional"
+    },
     {
       name                = "public-ip-ddi-fw"
       location            = "westus"
@@ -1019,7 +1032,15 @@ module "load_balancer" {
           public_ip_name                = "public-ip-ddi-lb"
           subnet_name                   = null
           private_ip_address_allocation = null
+        },
+        {
+          name                          = "lb-pip-ddi-dev"
+          zones                         = []
+          public_ip_name                = "public-ip-ddi-lb-1"
+          subnet_name                   = null
+          private_ip_address_allocation = null
         }
+        
       ]
     },
 
@@ -1440,8 +1461,8 @@ module "private_link_service" {
       location                         = "westus"
       lb_frontend_ip_configuration     = [{name = "lb-ddi-dev"
                                             index = "0"},
-                                            {name = "lb-ddi-devone"
-                                             index = "0"}] ##[module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration[0].id]
+                                            {name = "lb-ddi-dev"
+                                             index = "1"}] ##[module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration[0].id]
       tags = {
         environment = "dev"
       }
