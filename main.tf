@@ -593,7 +593,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-poc1"
       allocation_method   = "Static"
       sku                 = "Standard"
-      zones               = ["1" , "2" , "3"]
+      zones               = ["1", "2", "3"]
       domain_name_label   = null
       tags = {
         environment = "poc"
@@ -1128,7 +1128,7 @@ module "loadbalancer_backend_pool" {
           protocol   = "VXLAN"
           port       = "8080"
         },
-                {
+        {
           identifier = "905"
           type       = "Internal"
           protocol   = "VXLAN"
@@ -1311,7 +1311,7 @@ module "loadbalancer_rule" {
       load_distribution              = "Default" # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
       disable_outbound_snat          = true
       enable_tcp_reset               = false
-      backend_address_pool_name      = [{name= "lb-ddi-dev/bkp-lb-ddi-dev" }] #[module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-dev/bkp-lb-ddi-dev"].id] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
+      backend_address_pool_name      = [{ name = "lb-ddi-dev/bkp-lb-ddi-dev" }] #[module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-dev/bkp-lb-ddi-dev"].id] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
     },
     {
       name                           = "lb-ddi-poc-rule"
@@ -1326,7 +1326,7 @@ module "loadbalancer_rule" {
       load_distribution              = "Default" # possible values [Default ,SourceIP, SourceIPProtocol, None ,Client IP, Client IP and Protocol]
       disable_outbound_snat          = false
       enable_tcp_reset               = false
-      backend_address_pool_name     = [{name = "lb-ddi-poc/bkp-lb-ddi-poc"}]//[module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id]//[module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id, module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc1"].id] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
+      backend_address_pool_name      = [{ name = "lb-ddi-poc/bkp-lb-ddi-poc" }] //[module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id]//[module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc"].id, module.loadbalancer_backend_pool.lb_backend_address_pool_output["lb-ddi-poc/bkp-lb-ddi-poc1"].id] #only Gateway SKU Load Balancer can have more than one "backend_address_pool_ids"
     }
   ]
   depends_on = [module.load_balancer, module.loadbalancer_backend_pool, module.loadbalancer_health_probe]
@@ -1533,7 +1533,37 @@ module "firewall_application_rule_collection" {
       ]
     }
   ]
-  depends_on = [ module.firewall ]
+  depends_on = [module.firewall]
+}
+
+
+module "firewall_nat_rule_collection" {
+  source                = "app.terraform.io/Motifworks/firewall_nat_rule_collection/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+
+  azure_firewall_nat_rule_collection_list = [
+    {
+      name                = "nat-rule-collection-1"
+      resource_group_name = "rg-ddi-dev1"
+      azure_firewall_name = "fw-ddi-westus"
+      priority            = 100
+      action              = "Dnat"
+
+      rule_list = [
+        {
+          name                  = "rule-1"
+          source_addresses      = ["10.0.0.0/24"]
+          destination_addresses = ["13.64.185.193"]
+          destination_ports     = ["80"]              //only single value is supported ,multiple value or ports will throw error
+          translated_address    = "192.168.1.1"
+          translated_port       = 443
+          protocols             = ["TCP"]
+        }
+      ]
+    }
+  ]
+  depends_on = [module.firewall]
 }
 
 # module "application_gateway" {
