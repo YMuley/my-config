@@ -1511,6 +1511,35 @@ module "firewall_application_rule_collection" {
   ]
 }
 
+
+module "firewall_nat_rule_collection" {
+  source                = "app.terraform.io/Motifworks/firewall_nat_rule_collection/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+
+  azure_firewall_nat_rule_collection_list = [
+    {
+      name                = "nat-rule-collection-1"
+      resource_group_name = "rg-ddi-dev1"
+      azure_firewall_name = "firewall1"
+      priority            = 100
+      action              = "Allow"
+
+      rule_list = [
+        {
+          name                  = "rule-1"
+          source_addresses      = ["10.0.0.0/24"]
+          destination_addresses = ["192.168.1.0/24"]
+          destination_ports     = ["80", "443"]
+          translated_address    = "192.168.1.1"
+          translated_port       = 8080
+          protocols             = ["TCP"]
+        }
+      ]
+    }
+  ]
+}
+
 # module "application_gateway" {
 #   source  = "app.terraform.io/Motifworks/application_gateway/azurerm"
 #   version = "1.0.0"
