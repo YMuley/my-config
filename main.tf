@@ -1536,14 +1536,14 @@ module "firewall_nat_rule_collection" {
       name                = "nat-rule-collection-1"
       resource_group_name = "rg-ddi-dev1"
       azure_firewall_name = "fw-ddi-westus"
-      priority            =  100
+      priority            = 100
       action              = "Dnat"
 
       rule_list = [
         {
           name                  = "rule-1"
           source_addresses      = ["10.0.0.0/24"]
-          destination_addresses = ["192.168.1.0/24"]
+          destination_addresses = ["AzureFirewallPrivateIP"]
           destination_ports     = ["80", "443"]
           translated_address    = "192.168.1.1"
           translated_port       = 8080
@@ -1552,7 +1552,7 @@ module "firewall_nat_rule_collection" {
       ]
     }
   ]
-   depends_on = [module.firewall]
+  depends_on = [module.firewall]
 }
 
 # module "application_gateway" {
