@@ -1019,6 +1019,13 @@ module "load_balancer" {
           public_ip_name                = "public-ip-ddi-lb"
           subnet_name                   = null
           private_ip_address_allocation = null
+        },
+        {
+          name                          = "lb-pvtip-ddi-dev"
+          zones                         = []
+          public_ip_name                = null
+          subnet_name                   = format("%s/%s", "vnet-ddi-dev1", "sub-ddi-dev-web")
+          private_ip_address_allocation = "Dynamic"
         }
       ]
     },
@@ -1430,6 +1437,7 @@ module "private_link_service" {
   source                = "app.terraform.io/Motifworks/private_link_service/azurerm"
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
+  load_balancer_output  = module.load_balancer.load_balancer_output
   subnet_output         = module.subnet.vnet_subnet_output
 
   private_link_service_list = [
@@ -1437,7 +1445,10 @@ module "private_link_service" {
       name                             = "privatelinkservice1"
       resource_group_name              = "rg-ddi-dev1"
       location                         = "westus"
-      lb_frontend_ip_configuration_ids = [module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration[0].id]
+      lb_frontend_ip_configuration     = [{name = "lb-ddi-dev"
+                                            index = "0"},
+                                            {name = "lb-ddi-dev"
+                                             index = "1"}] ##[module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration[0].id]
       tags = {
         environment = "dev"
       }
