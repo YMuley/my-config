@@ -1552,6 +1552,7 @@ module "firewall_nat_rule_collection" {
       ]
     }
   ]
+   depends_on = [module.firewall]
 }
 
 # module "application_gateway" {
