@@ -1462,7 +1462,7 @@ module "private_link_service" {
         private_ip_address         = "10.100.16.9"
         private_ip_address_version = "IPv4"
         virtual_network_name       = "vnet-ddi-dev1"
-        subnet_name                = "sub-ddi-dev2-web"
+        subnet_name                = "sub-ddi-dev-web"
       }]
     }
   ]
