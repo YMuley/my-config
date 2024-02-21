@@ -334,7 +334,7 @@ module "subnet" {
       virtual_network_name                          = "vnet-ddi-dev1"
       address_prefixes                              = ["10.100.16.0/24"]
       service_endpoints                             = ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web"]
-      service_endpoint_policy_ids                   = ["ddi-sep-dev"]
+      service_endpoint_policy_ids                   = ["ddi-sep-dev","ddi-sep-poc"]
       private_endpoint_network_polices_enabled      = "false"
       private_link_service_network_policies_enabled = "false"
 
@@ -427,22 +427,22 @@ module "service_endpoint_policy" {
   resource_group_output  = module.resource_Group.resource_group_output
   storage_account_output = module.storage_account.storage_account_output
   service_endpoint_policy_list = [
-    # {
-    #   name                = "ddi-sep-poc"
-    #   resource_group_name = "rg-ddi-poc1"
-    #   location            = "eastus"
+    {
+      name                = "ddi-sep-poc"
+      resource_group_name = "rg-ddi-dev1"
+      location            = "westus"
 
-    #   definition = [
-    #     {
-    #       name              = "spe-stg-ddi-poc"
-    #       description       = "poc policy"
-    #       service           = "Microsoft.Storage"
-    #       service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc1"].id]
+      definition = [
+        {
+          name              = "spe-stg-ddi-poc"
+          description       = "poc policy"
+          service           = "Microsoft.Storage"
+          service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc1"].id]
 
-    #     }
+        }
 
-    #   ]
-    # },
+      ]
+    },
     {
       name                = "ddi-sep-dev"
       resource_group_name = "rg-ddi-dev1"
@@ -1027,18 +1027,11 @@ module "load_balancer" {
       }
       frontend_ip_configuration = [
         {
-          name                          = "lb-pip-ddi-dev"
+          name                          = "lb-pip-ddi-dev"       // Note:- load balancer frontend ip can either a private(subnet) or publicip
           zones                         = []
           public_ip_name                = "public-ip-ddi-lb"
           subnet_name                   = null
           private_ip_address_allocation = null
-        },
-        {
-          name                          = "lb-pvt-ip-ddi-dev"
-          zones                         = []
-          public_ip_name                = null
-          subnet_name                   = format("%s/%s", "vnet-ddi-dev1", "sub-ddi-dev-web")
-          private_ip_address_allocation = "Dynamic"
         }
       ]
     },
@@ -1057,7 +1050,7 @@ module "load_balancer" {
           name                          = "lb-pip-ddi-devone"
           zones                         = []
           public_ip_name                = null
-          subnet_name                   = format("%s/%s", "vnet-ddi-dev1", "sub-ddi-dev-web")
+          subnet_name                   = format("%s/%s", "vnet-ddi-dev1", "sub-ddi-dev-web")   // Note:- load balancer frontend ip can either a private(subnet) or publicip
           private_ip_address_allocation = "Dynamic"
         }
       ]
@@ -1076,7 +1069,7 @@ module "load_balancer" {
           name                          = "lb-pip-ddi-poc"
           zones                         = [] #availability zone supported only with Standard SKU
           public_ip_name                = null
-          subnet_name                   = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-lb")
+          subnet_name                   = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-lb")   // Note:- load balancer frontend ip can either a private(subnet) or publicip
           private_ip_address_allocation = "Dynamic"
         }
       ]
@@ -1455,16 +1448,16 @@ module "private_link_service" {
 
   private_link_service_list = [
     {
-      name                             = "privatelinkservice1"
+      name                             = "privatelinkservice1"  
       resource_group_name              = "rg-ddi-dev1"
       location                         = "westus"
       lb_frontend_ip_configuration     = [{name = "lb-ddi-dev"
                                             index = "0"}] ##[module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration[0].id]
       tags = {
-        environment = "dev"
+        environment = "dev"                   // Note:- lb_frontend_ip_configuration or lb_frontend_ip_configuration_id is list of single value . Private link service will work when "lb_frontend_ip_configuration" input is public ip
       }
-      nat_ip_configuration = [{
-
+      nat_ip_configuration = [
+        {
         name                       = "nat-config-1"
         private_ip_address         = "10.100.18.9"
         private_ip_address_version = "IPv4"
