@@ -1032,15 +1032,7 @@ module "load_balancer" {
           public_ip_name                = "public-ip-ddi-lb"
           subnet_name                   = null
           private_ip_address_allocation = null
-        },
-        {
-          name                          = "lb-pip-ddi-dev"
-          zones                         = []
-          public_ip_name                = "public-ip-ddi-lb-1"
-          subnet_name                   = null
-          private_ip_address_allocation = null
-        }
-        
+        } 
       ]
     },
 
