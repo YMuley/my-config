@@ -1452,7 +1452,7 @@ module "private_link_service" {
       resource_group_name              = "rg-ddi-dev1"
       location                         = "westus"
       lb_frontend_ip_configuration     = [{name = "lb-ddi-devone"
-                                            index = "lb-pip-ddi-devone"}] ##[module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration[0].id]
+                                            index = "0"}] ##[module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration[0].id]
       tags = {
         environment = "dev"
       }
