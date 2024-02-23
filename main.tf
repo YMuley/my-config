@@ -1571,7 +1571,7 @@ module "firewall_nat_rule_collection" {
 }
 
 module "firewall_network_rule_collection" {
-  source                = "app.terraform.io/Motifworks/firewall_networkt_rule_collection/azurerm"
+  source                = "app.terraform.io/Motifworks/firewall_network_rule_collection/azurerm"
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
 
