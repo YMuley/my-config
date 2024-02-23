@@ -811,81 +811,81 @@ module "nsg_nic_association" {
   ]
 }
 
-module "keyvault" {
-  source  = "app.terraform.io/Motifworks/keyvault/azurerm"
-  version = "1.0.6"
+# module "keyvault" {
+#   source  = "app.terraform.io/Motifworks/keyvault/azurerm"
+#   version = "1.0.6"
 
-  key_vault_list = [
-    {
-      name                = "testiefngkvrss2"
-      resource_group_name = "rg-ddi-dev1"
-      location            = "westus"
+#   key_vault_list = [
+#     {
+#       name                = "testiefngkvrss2"
+#       resource_group_name = "rg-ddi-dev1"
+#       location            = "westus"
 
-      sku_name                        = "standard"
-      tenant_id                       = "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-      enabled_for_deployment          = true
-      enabled_for_disk_encryption     = false
-      enabled_for_template_deployment = false
-      enable_rbac_authorization       = false
-      soft_delete_retention_days      = 7
-      purge_protection_enabled        = false
-      public_network_access_enabled   = true
-      enable_rbac_authorization       = true
-      network_acls = [
-        {
-          bypass         = "AzureServices"
-          default_action = "Allow"
-        }
-      ]
-      access_policy = [
-        {
-          tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-          object_id : "0ac91507-a04a-4fac-bfca-a143cea93b33"
-          resource_type           = "user"
-          application_id          = null
-          certificate_permissions = ["Get", "Create", "Delete", "Update"]
-          key_permissions         = ["Get", "Create", "Delete", "Update"]
-          secret_permissions      = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
-          storage_permissions     = ["Get", "Set", "Delete", "Update"]
-        },
-        {
-          tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-          object_id : "ea7d721a-3358-433d-b26f-1d79421f920d"
-          resource_type           = "user"
-          application_id          = null
-          certificate_permissions = ["Get", "Create", "Delete", "Update"]
-          key_permissions         = ["Get", "Create", "Delete", "Update"]
-          secret_permissions      = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
-          storage_permissions     = ["Get", "Set", "Delete", "Update"]
-        },
-        {
-          tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
-          object_id : "c5a7e9ba-7140-4953-b220-f84706a36eea"
-          resource_type           = "user"
-          application_id          = null
-          certificate_permissions = ["Get", "Create", "Delete", "Update"]
-          key_permissions         = ["Get", "Create", "Delete", "Update"]
-          secret_permissions      = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
-          storage_permissions     = ["Get", "Set", "Delete", "Update"]
-        }
-      ]
+#       sku_name                        = "standard"
+#       tenant_id                       = "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+#       enabled_for_deployment          = true
+#       enabled_for_disk_encryption     = false
+#       enabled_for_template_deployment = false
+#       enable_rbac_authorization       = false
+#       soft_delete_retention_days      = 7
+#       purge_protection_enabled        = false
+#       public_network_access_enabled   = true
+#       enable_rbac_authorization       = true
+#       network_acls = [
+#         {
+#           bypass         = "AzureServices"
+#           default_action = "Allow"
+#         }
+#       ]
+#       access_policy = [
+#         {
+#           tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+#           object_id : "0ac91507-a04a-4fac-bfca-a143cea93b33"
+#           resource_type           = "user"
+#           application_id          = null
+#           certificate_permissions = ["Get", "Create", "Delete", "Update"]
+#           key_permissions         = ["Get", "Create", "Delete", "Update"]
+#           secret_permissions      = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
+#           storage_permissions     = ["Get", "Set", "Delete", "Update"]
+#         },
+#         {
+#           tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+#           object_id : "ea7d721a-3358-433d-b26f-1d79421f920d"
+#           resource_type           = "user"
+#           application_id          = null
+#           certificate_permissions = ["Get", "Create", "Delete", "Update"]
+#           key_permissions         = ["Get", "Create", "Delete", "Update"]
+#           secret_permissions      = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
+#           storage_permissions     = ["Get", "Set", "Delete", "Update"]
+#         },
+#         {
+#           tenant_id : "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
+#           object_id : "c5a7e9ba-7140-4953-b220-f84706a36eea"
+#           resource_type           = "user"
+#           application_id          = null
+#           certificate_permissions = ["Get", "Create", "Delete", "Update"]
+#           key_permissions         = ["Get", "Create", "Delete", "Update"]
+#           secret_permissions      = ["Get", "List", "Set", "Delete", "Recover", "Backup", "Restore", "Purge"]
+#           storage_permissions     = ["Get", "Set", "Delete", "Update"]
+#         }
+#       ]
 
-      #       #       contact = [
-      #       #         {
-      #       #           email = "Vijay.Yadav@motifworks.com"
-      #       #           name  = "Vijay Yadav"
-      #       #           phone = "93042322"
-      #       #         }
-      #       #       ]
+#       #       #       contact = [
+#       #       #         {
+#       #       #           email = "Vijay.Yadav@motifworks.com"
+#       #       #           name  = "Vijay Yadav"
+#       #       #           phone = "93042322"
+#       #       #         }
+#       #       #       ]
 
-      tags = {
-        env = "poc"
-      }
-    }
-  ]
-  depends_on = [module.resource_Group]
+#       tags = {
+#         env = "poc"
+#       }
+#     }
+#   ]
+#   depends_on = [module.resource_Group]
 
-}
+# }
 
 module "vault_secret" {
   source           = "app.terraform.io/Motifworks/vault_secret/key"
@@ -903,65 +903,66 @@ module "vault_secret" {
 }
 
 
-module "storage_account" {
-  source                = "app.terraform.io/Motifworks/storage_account/azurerm"
-  version               = "1.0.0"
-  resource_group_output = module.resource_Group.resource_group_output
-  subnet_output         = module.subnet.vnet_subnet_output
+# module "storage_account" {
+#   source                = "app.terraform.io/Motifworks/storage_account/azurerm"
+#   version               = "1.0.0"
+#   resource_group_output = module.resource_Group.resource_group_output
+#   subnet_output         = module.subnet.vnet_subnet_output
 
 
-  storage_account_list = [
-    {
-      name                      = "ddistorageacc2"
-      resource_group_name       = "rg-ddi-dev1"
-      location                  = "westus"
-      account_tier              = "Standard"
-      account_replication_type  = "LRS"
-      enable_https_traffic_only = true
-      tags = {
-        environment = "dev"
-      }
-      allow_https_only              = true
-      minimum_tls_version           = "TLS1_2"
-      shared_access_key_enabled     = true
-      public_network_access_enabled = true
-      network_rules = [
-        {
-          default_action       = "Allow"
-          bypass               = ["AzureServices"]
-          ip_rules             = ["23.45.1.0/30"]
-          virtual_network_name = "vnet-ddi-dev1"
-          subnet_name          = "sub-ddi-dev-web"
-        }
-      ]
-    },
+#   storage_account_list = [
+#     {
+#       name                      = "ddistorageacc2"
+#       resource_group_name       = "rg-ddi-dev1"
+#       location                  = "westus"
+#       account_tier              = "Standard"
+#       account_replication_type  = "LRS"
+#       enable_https_traffic_only = true
+#       tags = {
+#         environment = "dev"
+#       }
+#       allow_https_only              = true
+#       minimum_tls_version           = "TLS1_2"
+#       shared_access_key_enabled     = true
+#       public_network_access_enabled = true
+#       network_rules = [
+#         {
+#           default_action       = "Allow"
+#           bypass               = ["AzureServices"]
+#           ip_rules             = ["23.45.1.0/30"]
+#           virtual_network_name = "vnet-ddi-dev1"
+#           subnet_name          = "sub-ddi-dev-web"
+#         }
+#       ]
+#     },
 
-    {
-      name                      = "ddistorageaccone"
-      resource_group_name       = "rg-ddi-dev1"
-      location                  = "westus"
-      account_tier              = "Standard"
-      account_replication_type  = "LRS"
-      enable_https_traffic_only = true
-      tags = {
-        environment = "dev"
-      }
-      allow_https_only              = true
-      minimum_tls_version           = "TLS1_2"
-      shared_access_key_enabled     = false
-      public_network_access_enabled = true
-      network_rules = [
-        # {
-        #   default_action       = "Allow"
-        #   bypass               = ["AzureServices"]
-        #   ip_rules             = ["23.45.1.0/30"]
-        #   virtual_network_name = "vnet-ddi-dev1"
-        #   subnet_name          = "sub-ddi-dev-web"
-        # }
-      ]
-    }
-  ]
-}
+#     {
+#       name                      = "ddistorageaccone"
+#       resource_group_name       = "rg-ddi-dev1"
+#       location                  = "westus"
+#       account_tier              = "Standard"
+#       account_replication_type  = "LRS"
+#       enable_https_traffic_only = true
+#       tags = {
+#         environment = "dev"
+#       }
+#       allow_https_only              = true
+#       minimum_tls_version           = "TLS1_2"
+#       shared_access_key_enabled     = false
+#       public_network_access_enabled = true
+#       network_rules = [
+#         # {
+#         #   default_action       = "Allow"
+#         #   bypass               = ["AzureServices"]
+#         #   ip_rules             = ["23.45.1.0/30"]
+#         #   virtual_network_name = "vnet-ddi-dev1"
+#         #   subnet_name          = "sub-ddi-dev-web"
+#         # }
+#       ]
+#     }
+#   ]
+# }
+
 module "useridentity" {
   source  = "app.terraform.io/Motifworks/useridentity/azurerm"
   version = "1.0.2"
