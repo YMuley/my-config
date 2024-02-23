@@ -334,7 +334,7 @@ module "subnet" {
       virtual_network_name                          = "vnet-ddi-dev1"
       address_prefixes                              = ["10.100.16.0/24"]
       service_endpoints                             = ["Microsoft.Storage", "Microsoft.Sql", "Microsoft.Web"]
-      service_endpoint_policy_ids                   = ["ddi-sep-dev","ddi-sep-poc"]
+      service_endpoint_policy_ids                   = ["ddi-sep-dev", "ddi-sep-poc"]
       private_endpoint_network_polices_enabled      = "false"
       private_link_service_network_policies_enabled = "false"
 
@@ -639,7 +639,7 @@ module "public_ip" {
       }
       sku_tier = "Regional"
     },
-        {
+    {
       name                = "public-ip-ddi-lb-1"
       location            = "westus"
       resource_group_name = "rg-ddi-dev1"
@@ -1027,7 +1027,7 @@ module "load_balancer" {
       }
       frontend_ip_configuration = [
         {
-          name                          = "lb-pip-ddi-dev"       // Note:- load balancer frontend ip can either a private(subnet) or publicip
+          name                          = "lb-pip-ddi-dev" // Note:- load balancer frontend ip can either a private(subnet) or publicip
           zones                         = []
           public_ip_name                = "public-ip-ddi-lb"
           subnet_name                   = null
@@ -1050,7 +1050,7 @@ module "load_balancer" {
           name                          = "lb-pip-ddi-devone"
           zones                         = []
           public_ip_name                = null
-          subnet_name                   = format("%s/%s", "vnet-ddi-dev1", "sub-ddi-dev-web")   // Note:- load balancer frontend ip can either a private(subnet) or publicip
+          subnet_name                   = format("%s/%s", "vnet-ddi-dev1", "sub-ddi-dev-web") // Note:- load balancer frontend ip can either a private(subnet) or publicip
           private_ip_address_allocation = "Dynamic"
         }
       ]
@@ -1069,7 +1069,7 @@ module "load_balancer" {
           name                          = "lb-pip-ddi-poc"
           zones                         = [] #availability zone supported only with Standard SKU
           public_ip_name                = null
-          subnet_name                   = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-lb")   // Note:- load balancer frontend ip can either a private(subnet) or publicip
+          subnet_name                   = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-lb") // Note:- load balancer frontend ip can either a private(subnet) or publicip
           private_ip_address_allocation = "Dynamic"
         }
       ]
@@ -1448,21 +1448,21 @@ module "private_link_service" {
 
   private_link_service_list = [
     {
-      name                             = "privatelinkservice1"  
-      resource_group_name              = "rg-ddi-dev1"
-      location                         = "westus"
-      lb_frontend_ip_configuration     = [{name = "lb-ddi-dev"
-                                            index = "0"}] ##[module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration[0].id]
+      name                = "privatelinkservice1"
+      resource_group_name = "rg-ddi-dev1"
+      location            = "westus"
+      lb_frontend_ip_configuration = [{ name = "lb-ddi-dev"
+      index = "0" }] ##[module.load_balancer.load_balancer_output["lb-ddi-dev"].frontend_ip_configuration[0].id]
       tags = {
-        environment = "dev"                   // Note:- lb_frontend_ip_configuration or lb_frontend_ip_configuration_id is list of single value . Private link service will work when "lb_frontend_ip_configuration" input is public ip
+        environment = "dev" // Note:- lb_frontend_ip_configuration or lb_frontend_ip_configuration_id is list of single value . Private link service will work when "lb_frontend_ip_configuration" input is public ip
       }
       nat_ip_configuration = [
         {
-        name                       = "nat-config-1"
-        private_ip_address         = "10.100.18.9"
-        private_ip_address_version = "IPv4"
-        virtual_network_name       = "vnet-ddi-dev1"
-        subnet_name                = "sub-ddi-dev2-web"
+          name                       = "nat-config-1"
+          private_ip_address         = "10.100.18.9"
+          private_ip_address_version = "IPv4"
+          virtual_network_name       = "vnet-ddi-dev1"
+          subnet_name                = "sub-ddi-dev2-web"
       }]
     }
   ]
@@ -1559,9 +1559,36 @@ module "firewall_nat_rule_collection" {
           name                  = "rule-1"
           source_addresses      = ["10.0.0.0/24"]
           destination_addresses = ["13.64.185.193"]
-          destination_ports     = ["80"]              //only single value is supported ,multiple value or ports will throw error
+          destination_ports     = ["80"] //only single value is supported ,multiple value or ports will throw error
           translated_address    = "192.168.1.1"
           translated_port       = 443
+          protocols             = ["TCP"]
+        }
+      ]
+    }
+  ]
+  depends_on = [module.firewall]
+}
+
+module "firewall_network_rule_collection" {
+  source                = "app.terraform.io/Motifworks/firewall_networkt_rule_collection/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+
+  azure_firewall_network_rule_collection_list = [
+    {
+      name                = "network-rule-collection-1"
+      resource_group_name = "rg-ddi-dev1"
+      azure_firewall_name = "fw-ddi-westus"
+      priority            = 100
+      action              = "Deny"
+
+      rule_list = [
+        {
+          name                  = "rule-1-ddi"
+          source_addresses      = ["10.0.0.0/24"]
+          destination_addresses = ["13.64.185.193"]
+          destination_ports     = ["80"] //only single value is supported ,multiple value or ports will throw error
           protocols             = ["TCP"]
         }
       ]
