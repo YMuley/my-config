@@ -1468,6 +1468,40 @@ module "private_link_service" {
   ]
 }
 
+module "azure_firewall" {
+  source                = "app.terraform.io/Motifworks/firewall/azurerm"
+  version               = "1.0.0"
+  azure_firewall_list   = var.azure_firewall_list
+  resource_group_output = module.resource_Group.resource_group_output
+  public_ip_output      = module.network.public_ip_output
+  subnet_output         = module.network.subnet_output
+}
+
+module "firewall_application_rule_collection" {
+  source                                          = "app.terraform.io/Motifworks/firewall_application_rule_collection/azurerm"
+  version                                         = "1.0.0"
+  resource_group_output                           = module.resource_Group.resource_group_output
+  azure_firewall_application_rule_collection_list = var.azure_firewall_application_rule_collection_list
+  depends_on                                      = [module.firewall]
+}
+
+module "firewall_nat_rule_collection" {
+  source                                  = "app.terraform.io/Motifworks/firewall_nat_rule_collection/azurerm"
+  version                                 = "1.0.0"
+  resource_group_output                   = module.resource_Group.resource_group_output
+  azure_firewall_nat_rule_collection_list = var.azure_firewall_nat_rule_collection_list
+  depends_on                              = [module.firewall]
+}
+
+module "firewall_network_rule_collection" {
+  source                                      = "app.terraform.io/Motifworks/firewall_network_rule_collection/azurerm"
+  version                                     = "1.0.0"
+  resource_group_output                       = module.resource_Group.resource_group_output
+  azure_firewall_network_rule_collection_list = var.azure_firewall_network_rule_collection_list
+  depends_on                                  = [module.firewall]
+}
+
+
 # module "application_gateway" {
 #   source  = "app.terraform.io/Motifworks/application_gateway/azurerm"
 #   version = "1.0.0"
