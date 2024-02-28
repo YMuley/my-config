@@ -1,5 +1,3 @@
-
-
 azure_firewall_list = [
   {
     name                = "fw-ddi-westus"
@@ -98,4 +96,4 @@ azure_firewall_network_rule_collection_list = [
     ]
   }
 ]
- 
+
