@@ -1482,7 +1482,7 @@ module "firewall_application_rule_collection" {
   version                                         = "1.0.0"
   resource_group_output                           = module.resource_Group.resource_group_output
   azure_firewall_application_rule_collection_list = var.azure_firewall_application_rule_collection_list
-  depends_on                                      = [module.firewall]
+  depends_on                                      = [module.azure_firewall]
 }
 
 module "firewall_nat_rule_collection" {
@@ -1490,7 +1490,7 @@ module "firewall_nat_rule_collection" {
   version                                 = "1.0.0"
   resource_group_output                   = module.resource_Group.resource_group_output
   azure_firewall_nat_rule_collection_list = var.azure_firewall_nat_rule_collection_list
-  depends_on                              = [module.firewall]
+  depends_on                              = [module.azure_firewall]
 }
 
 module "firewall_network_rule_collection" {
@@ -1498,7 +1498,7 @@ module "firewall_network_rule_collection" {
   version                                     = "1.0.0"
   resource_group_output                       = module.resource_Group.resource_group_output
   azure_firewall_network_rule_collection_list = var.azure_firewall_network_rule_collection_list
-  depends_on                                  = [module.firewall]
+  depends_on                                  = [module.azure_firewall]
 }
 
 
