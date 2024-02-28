@@ -1473,8 +1473,8 @@ module "azure_firewall" {
   version               = "1.0.0"
   azure_firewall_list   = var.azure_firewall_list
   resource_group_output = module.resource_Group.resource_group_output
-  public_ip_output      = module.network.public_ip_output
-  subnet_output         = module.network.subnet_output
+  public_ip_output      = module.public_ip_output
+  subnet_output         = module.subnet_output
 }
 
 module "firewall_application_rule_collection" {
