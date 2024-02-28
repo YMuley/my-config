@@ -1474,7 +1474,7 @@ module "azure_firewall" {
   azure_firewall_list   = var.azure_firewall_list
   resource_group_output = module.resource_Group.resource_group_output
   public_ip_output      = module.public_ip.public_ip_output
-  subnet_output         = module.subnet.subnet_output
+  subnet_output         = module.subnet.vnet_subnet_output
 }
 
 module "firewall_application_rule_collection" {
