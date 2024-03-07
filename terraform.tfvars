@@ -89,7 +89,7 @@ azure_firewall_network_rule_collection_list = [
       {
         name                  = "rule-1-ddi"
         source_addresses      = ["10.0.0.0/24"]
-        destination_addresses = ["13.64.185.193"]
+        destination_addresses = ["13.64.185.194"]
         destination_ports     = ["80"] //only single value is supported ,multiple value or ports will throw error
         protocols             = ["TCP"]
       }
