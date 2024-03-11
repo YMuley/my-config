@@ -1505,7 +1505,6 @@ module "firewall_policy" {
   source                     = "app.terraform.io/Motifworks/firewall_policy/azurerm"
   version                    = "1.0.0"
   resource_group_output      = module.resource_Group.resource_group_output
-  azure_firewall_policy_list = var.azure_firewall_policy_list
   depends_on                 = [module.azure_firewall]
 }
 
