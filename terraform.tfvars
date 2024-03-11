@@ -97,3 +97,100 @@ azure_firewall_network_rule_collection_list = [
   }
 ]
 
+azure_firewall_policy_list = [
+  {
+    name                              = "fw-ddi-westus"
+    resource_group_name               = "rg-ddi-dev1"
+    private_ip_ranges                 = ["10.0.0.0/16", "192.168.0.0/16"]
+    auto_learn_private_ranges_enabled = true
+    sku                               = "AZFW_VNet"
+    threat_intelligence_mode          = "Prevention"
+    sql_redirect_allowed              = true
+
+    dns = [
+      {
+        proxy_enabled = true
+        servers       = ["8.8.8.8", "8.8.4.4"]
+      }
+    ]
+
+    identity = [
+      "user_assigned_identity_1",
+      "user_assigned_identity_2"
+    ]
+
+    insights = [
+      {
+        enabled                              = true
+        default_log_analytics_workspace_name = "la-workspace-1"
+        retention_in_days                    = 30
+        log_analytics_workspace = [
+          {
+            log_analytics_workspace_name = "la-workspace-2"
+            firewall_location            = "West US"
+          },
+          {
+            log_analytics_workspace_name = "la-workspace-3"
+            firewall_location            = "East US"
+          }
+        ]
+      }
+    ]
+
+    intrusion_detection = [
+      {
+        mode           = "Alert"
+        private_ranges = ["192.168.1.0/24", "10.1.1.0/24"]
+
+        signature_overrides = [
+          {
+            id    = "signature-1"
+            state = "Disabled"
+          }
+        ]
+
+        traffic_bypass = [
+          {
+            name                  = "bypass-rule-1"
+            protocol              = "TCP"
+            description           = "Bypass rule description"
+            destination_addresses = ["192.168.1.1"]
+            destination_ports     = ["8080"]
+            source_addresses      = ["10.0.0.1"]
+          }
+        ]
+      }
+    ]
+
+    tls_certificate = [
+      {
+        Key_vault_name        = "key-vault-1"
+        secret_name           = "cert-secret-1"
+        key_vault_secret_name = "cert-secret-name-1"
+      }
+    ]
+
+    explicit_proxy = [
+      {
+        enabled         = true
+        http_port       = 8080
+        https_port      = 8443
+        enable_pac_file = true
+        pac_file_port   = 8888
+        pac_file        = "http://example.com/proxy.pac"
+      }
+    ]
+
+    threat_intelligence_allowlist = [
+      {
+        fqdns        = ["allowed-domain.com"]
+        ip_addresses = ["10.0.0.1"]
+      }
+    ]
+
+    tags = {
+      environment = "Production"
+      project     = "FirewallProject"
+    }
+  }
+]

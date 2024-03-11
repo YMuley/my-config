@@ -1501,6 +1501,14 @@ module "firewall_network_rule_collection" {
   depends_on                                  = [module.azure_firewall]
 }
 
+module "firewall_policy" {
+  source                     = "app.terraform.io/Motifworks/firewall_network_rule_collection/azurerm"
+  version                    = "1.0.0"
+  resource_group_output      = module.resource_Group.resource_group_output
+  azure_firewall_policy_list = var.azure_firewall_policy_list
+  depends_on                 = [module.azure_firewall]
+}
+
 
 # module "application_gateway" {
 #   source  = "app.terraform.io/Motifworks/application_gateway/azurerm"

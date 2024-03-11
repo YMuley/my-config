@@ -4,11 +4,11 @@ variable "azure_firewall_list" {
   description = "list of azure firewall objects "
 }
 
-# variable "azure_firewall_policy_list" {
-#   type        = list(any)
-#   default     = []
-#   description = "list of azure firewall policy objects "
-# }
+variable "azure_firewall_policy_list" {
+  type        = list(any)
+  default     = []
+  description = "list of azure firewall policy objects "
+}
 
 variable "azure_firewall_application_rule_collection_list" {
   type        = list(any)
