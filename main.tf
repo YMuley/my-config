@@ -54,116 +54,116 @@ module "resource_Group" {
 #     }
 #   ]
 # }
-module "azurerm_cdn_frontdoor_profile" {
-  source  = "app.terraform.io/Motifworks/azurerm_cdn_frontdoor_profile/azurerm"
-  version = "1.0.2"
+# module "azurerm_cdn_frontdoor_profile" {
+#   source  = "app.terraform.io/Motifworks/azurerm_cdn_frontdoor_profile/azurerm"
+#   version = "1.0.2"
 
-  cdn_frontdoor_profile_list = [
-    {
-      name                = "test-frontdoor"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
-      sku_name            = "Standard_AzureFrontDoor"
-      tags = {
-        location     = "eastus"
-        subscription = "iac-dev"
-        environment  = "poc"
-      }
-    }
-  ]
-  depends_on = [module.resource_Group]
-}
-module "cdn_frontdoor_rule_set" {
-  source                       = "app.terraform.io/Motifworks/cdn_frontdoor_rule_set/azurerm"
-  version                      = "1.0.1"
-  cdn_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
-  cdn_frontdoor_rule_set_list = [
-    {
-      name             = "ruleset"
-      cdn_profile_name = "test-frontdoor"
-    }
-  ]
-  depends_on = [module.azurerm_cdn_frontdoor_profile]
-}
-module "cdn_frontdoor_custom_domain" {
-  source                                = "app.terraform.io/Motifworks/cdn_frontdoor_custom_domain/azurerm"
-  version                               = "1.0.1"
-  cdn_endpoint_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
-  cdn_endpoint_custom_domain_list = [
-    {
-      name                       = "admin2re"
-      cdn_frontdoor_profile_name = "test-frontdoor"
-      host_name                  = "adminw2.talentportal.ddiworld.com"
-      tls = [
-        {
-          certificate_type    = "ManagedCertificate"
-          minimum_tls_version = "TLS12"
-        }
-      ]
-    }
-  ]
-}
-module "cdn_frontdoor_endpoint" {
-  source                       = "app.terraform.io/Motifworks/cdn_frontdoor_endpoint/azurerm"
-  version                      = "1.0.1"
-  cdn_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
-  cdn_frontdoor_endpoint_list = [{
-    name                       = "fd-ddi-demo-endpoint-eastus-001"
-    cdn_frontdoor_profile_name = "test-frontdoor"
-    enabled                    = true
-    tags = {
-      env = "dev"
-    }
-  }]
-}
-module "cdn_frontdoor_origin_group" {
-  source                       = "app.terraform.io/Motifworks/cdn-frontdoor_origin_group/azurerm"
-  version                      = "1.0.1"
-  cdn_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
-  cdn_frontdoor_origin_group_list = [
-    {
-      name                       = "origin-added"
-      cdn_frontdoor_profile_name = "test-frontdoor"
-      session_affinity_enabled   = false
-      health_probe = [
-        {
-          interval_in_seconds = 50
-          path                = "/"
-          protocol            = "Http"
-          request_type        = "HEAD"
-        }
-      ]
-      load_balancing = [
-        {
-          additional_latency_in_milliseconds = 50
-          sample_size                        = 4
-          successful_samples_required        = 3
-        }
-      ]
-    }
-  ]
-}
-module "cdn_frontdoor_origin" {
-  source                            = "app.terraform.io/Motifworks/cdn_frontdoor_origin/azurerm"
-  version                           = "1.0.1"
-  cdn_frontdoor_origin_group_output = module.cdn_frontdoor_origin_group.cdn_frontdoor_origin_group_output
-  cdn_frontdoor_origin_list = [
-    {
-      name                            = "origingrip"
-      cdn_frontdoor_origin_group_name = "origin-added"
-      enabled                         = true
-      certificate_name_check_enabled  = false
-      host_name                       = "fdplatform.ddiworld.com"
-      http_port                       = 80
-      https_port                      = 443
-      origin_host_header              = "fdplatform.ddiworld.com"
-      priority                        = 1
-      weight                          = 1000
-      private_link                    = []
+#   cdn_frontdoor_profile_list = [
+#     {
+#       name                = "test-frontdoor"
+#       location            = "westus"
+#       resource_group_name = "rg-ddi-dev1"
+#       sku_name            = "Standard_AzureFrontDoor"
+#       tags = {
+#         location     = "eastus"
+#         subscription = "iac-dev"
+#         environment  = "poc"
+#       }
+#     }
+#   ]
+#   depends_on = [module.resource_Group]
+# }
+# module "cdn_frontdoor_rule_set" {
+#   source                       = "app.terraform.io/Motifworks/cdn_frontdoor_rule_set/azurerm"
+#   version                      = "1.0.1"
+#   cdn_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
+#   cdn_frontdoor_rule_set_list = [
+#     {
+#       name             = "ruleset"
+#       cdn_profile_name = "test-frontdoor"
+#     }
+#   ]
+#   depends_on = [module.azurerm_cdn_frontdoor_profile]
+# }
+# module "cdn_frontdoor_custom_domain" {
+#   source                                = "app.terraform.io/Motifworks/cdn_frontdoor_custom_domain/azurerm"
+#   version                               = "1.0.1"
+#   cdn_endpoint_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
+#   cdn_endpoint_custom_domain_list = [
+#     {
+#       name                       = "admin2re"
+#       cdn_frontdoor_profile_name = "test-frontdoor"
+#       host_name                  = "adminw2.talentportal.ddiworld.com"
+#       tls = [
+#         {
+#           certificate_type    = "ManagedCertificate"
+#           minimum_tls_version = "TLS12"
+#         }
+#       ]
+#     }
+#   ]
+# }
+# module "cdn_frontdoor_endpoint" {
+#   source                       = "app.terraform.io/Motifworks/cdn_frontdoor_endpoint/azurerm"
+#   version                      = "1.0.1"
+#   cdn_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
+#   cdn_frontdoor_endpoint_list = [{
+#     name                       = "fd-ddi-demo-endpoint-eastus-001"
+#     cdn_frontdoor_profile_name = "test-frontdoor"
+#     enabled                    = true
+#     tags = {
+#       env = "dev"
+#     }
+#   }]
+# }
+# module "cdn_frontdoor_origin_group" {
+#   source                       = "app.terraform.io/Motifworks/cdn-frontdoor_origin_group/azurerm"
+#   version                      = "1.0.1"
+#   cdn_frontdoor_profile_output = module.azurerm_cdn_frontdoor_profile.cdn_frontdoor_profile_output
+#   cdn_frontdoor_origin_group_list = [
+#     {
+#       name                       = "origin-added"
+#       cdn_frontdoor_profile_name = "test-frontdoor"
+#       session_affinity_enabled   = false
+#       health_probe = [
+#         {
+#           interval_in_seconds = 50
+#           path                = "/"
+#           protocol            = "Http"
+#           request_type        = "HEAD"
+#         }
+#       ]
+#       load_balancing = [
+#         {
+#           additional_latency_in_milliseconds = 50
+#           sample_size                        = 4
+#           successful_samples_required        = 3
+#         }
+#       ]
+#     }
+#   ]
+# }
+# module "cdn_frontdoor_origin" {
+#   source                            = "app.terraform.io/Motifworks/cdn_frontdoor_origin/azurerm"
+#   version                           = "1.0.1"
+#   cdn_frontdoor_origin_group_output = module.cdn_frontdoor_origin_group.cdn_frontdoor_origin_group_output
+#   cdn_frontdoor_origin_list = [
+#     {
+#       name                            = "origingrip"
+#       cdn_frontdoor_origin_group_name = "origin-added"
+#       enabled                         = true
+#       certificate_name_check_enabled  = false
+#       host_name                       = "fdplatform.ddiworld.com"
+#       http_port                       = 80
+#       https_port                      = 443
+#       origin_host_header              = "fdplatform.ddiworld.com"
+#       priority                        = 1
+#       weight                          = 1000
+#       private_link                    = []
 
-    }
-  ]
-}
+#     }
+#   ]
+# }
 # module "cdn_frontdoor_origin" {
 #   source  = "app.terraform.io/Motifworks/cdn_frontdoor_origin/azurerm"
 #   version = "1.0.1"
@@ -185,88 +185,88 @@ module "cdn_frontdoor_origin" {
 #   ]
 # }
 
-module "window_vm" {
-  source                        = "app.terraform.io/Motifworks/window-vm/azurerm"
-  version                       = "1.0.3"
-  network_interface_card_output = module.network_interface_card.network_interface_card_output
-  windows_vm_list = [
-    {
-      name : "vm-windows"
-      resource_group_name             = "rg-ddi-dev1"
-      location                        = "westus"
-      size                            = "Standard_F2"
-      disable_password_authentication = false
-      allow_extension_operations      = true
-      availability_set_name           = null
-      network_interface_card_name     = ["nic1"]
-      admin_username                  = "adminuser"
-      admin_password                  = "P@$$w0rd1234!"
-      #  network_interface_ids = [
-      #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev1/providers/Microsoft.Network/networkInterfaces/nic1"
-      #  ]
-      os_disk = [
-        {
-          name                 = "testing"
-          caching              = "ReadWrite"
-          storage_account_type = "Standard_LRS"
-        }
-      ]
+# module "window_vm" {
+#   source                        = "app.terraform.io/Motifworks/window-vm/azurerm"
+#   version                       = "1.0.3"
+#   network_interface_card_output = module.network_interface_card.network_interface_card_output
+#   windows_vm_list = [
+#     {
+#       name : "vm-windows"
+#       resource_group_name             = "rg-ddi-dev1"
+#       location                        = "westus"
+#       size                            = "Standard_F2"
+#       disable_password_authentication = false
+#       allow_extension_operations      = true
+#       availability_set_name           = null
+#       network_interface_card_name     = ["nic1"]
+#       admin_username                  = "adminuser"
+#       admin_password                  = "P@$$w0rd1234!"
+#       #  network_interface_ids = [
+#       #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev1/providers/Microsoft.Network/networkInterfaces/nic1"
+#       #  ]
+#       os_disk = [
+#         {
+#           name                 = "testing"
+#           caching              = "ReadWrite"
+#           storage_account_type = "Standard_LRS"
+#         }
+#       ]
 
-      source_image_reference = [
-        {
-          publisher = "MicrosoftWindowsServer"
-          offer     = "WindowsServer"
-          sku       = "2016-Datacenter"
-          version   = "latest"
-        }
-      ]
-    }
-  ]
-}
-module "linux_vm" {
-  source                        = "app.terraform.io/Motifworks/linux-vm/azurerm"
-  version                       = "1.0.0"
-  network_interface_card_output = module.network_interface_card.network_interface_card_output
+#       source_image_reference = [
+#         {
+#           publisher = "MicrosoftWindowsServer"
+#           offer     = "WindowsServer"
+#           sku       = "2016-Datacenter"
+#           version   = "latest"
+#         }
+#       ]
+#     }
+#   ]
+# }
+# module "linux_vm" {
+#   source                        = "app.terraform.io/Motifworks/linux-vm/azurerm"
+#   version                       = "1.0.0"
+#   network_interface_card_output = module.network_interface_card.network_interface_card_output
 
-  linux_vm_list = [
-    {
-      name : "vm1-linux"
-      resource_group_name             = "rg-ddi-dev1"
-      location                        = "westus"
-      size                            = "Standard_F2"
-      disable_password_authentication = false
-      allow_extension_operations      = true
-      availability_set_name           = null
-      network_interface_card_name     = ["vm1-linux-nic"]
-      admin_username                  = "adminuser"
-      admin_password                  = "P@$$w0rd1234!"
-      tags = {
-        location     = "eastus"
-        subscription = "iac-dev"
-        environment  = "poc"
-      }
-      #  network_interface_ids = [
-      #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev1/providers/Microsoft.Network/networkInterfaces/1"
-      #  ]
-      os_disk = [
-        {
-          name                 = "testing2"
-          caching              = "ReadWrite"
-          storage_account_type = "Standard_LRS"
-        }
-      ]
+#   linux_vm_list = [
+#     {
+#       name : "vm1-linux"
+#       resource_group_name             = "rg-ddi-dev1"
+#       location                        = "westus"
+#       size                            = "Standard_F2"
+#       disable_password_authentication = false
+#       allow_extension_operations      = true
+#       availability_set_name           = null
+#       network_interface_card_name     = ["vm1-linux-nic"]
+#       admin_username                  = "adminuser"
+#       admin_password                  = "P@$$w0rd1234!"
+#       tags = {
+#         location     = "eastus"
+#         subscription = "iac-dev"
+#         environment  = "poc"
+#       }
+#       #  network_interface_ids = [
+#       #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev1/providers/Microsoft.Network/networkInterfaces/1"
+#       #  ]
+#       os_disk = [
+#         {
+#           name                 = "testing2"
+#           caching              = "ReadWrite"
+#           storage_account_type = "Standard_LRS"
+#         }
+#       ]
 
-      source_image_reference = [
-        {
-          publisher = "Canonical"
-          offer     = "0001-com-ubuntu-server-jammy"
-          sku       = "22_04-lts"
-          version   = "latest"
-        }
-      ]
-    }
-  ]
-}
+#       source_image_reference = [
+#         {
+#           publisher = "Canonical"
+#           offer     = "0001-com-ubuntu-server-jammy"
+#           sku       = "22_04-lts"
+#           version   = "latest"
+#         }
+#       ]
+#     }
+#   ]
+# }
 
 module "virtual_network" {
   source                = "app.terraform.io/Motifworks/virtual_network/azurerm"
@@ -1504,6 +1504,7 @@ module "firewall_network_rule_collection" {
 module "firewall_policy" {
   source                     = "app.terraform.io/Motifworks/firewall_policy/azurerm"
   version                    = "1.0.0"
+  azure_firewall_policy_list = var.azure_firewall_policy_list
   resource_group_output      = module.resource_Group.resource_group_output
   depends_on                 = [module.azure_firewall]
 }
