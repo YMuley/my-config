@@ -1425,7 +1425,7 @@ module "private_endpoint" {
 
   private_endpoint_list = [
     {
-      name                           = "privateendpoint1"
+      name                           = "privateendpoint2"
       resource_group_name            = "rg-ddi-dev1"
       location                       = "westus"
       virtual_network_name           = "vnet-ddi-dev1"
