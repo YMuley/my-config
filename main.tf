@@ -822,7 +822,7 @@ module "keyvault" {
       location            = "westus"
 
       sku_name                        = "standard"
-       tenant_id                       = "fd41ee0d-0d97-4102-9a50-c7c3c5470454" #"fd41ee0d-0d97-4102-9a50-c7c3c5470454" 
+      tenant_id                       = "fd41ee0d-0d97-4102-9a50-c7c3c5470454"  
       enabled_for_deployment          = true
       enabled_for_disk_encryption     = false
       enabled_for_template_deployment = false
