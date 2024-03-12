@@ -887,20 +887,20 @@ module "keyvault" {
 
 }
 
-module "vault_secret" {
-  source           = "app.terraform.io/Motifworks/vault_secret/key"
-  version          = "1.0.0"
-  key_vault_output = module.keyvault.key_vault_output
-  key_vault_secret_list = [
-    {
-      name           = "secrauce"
-      value          = "szechuan"
-      key_vault_name = "testiefngkvrss2"
+# module "vault_secret" {
+#   source           = "app.terraform.io/Motifworks/vault_secret/key"
+#   version          = "1.0.0"
+#   key_vault_output = module.keyvault.key_vault_output
+#   key_vault_secret_list = [
+#     {
+#       name           = "secrauce"
+#       value          = "szechuan"
+#       key_vault_name = "testiefngkvrss2"
 
-    }
-  ]
-  depends_on = [module.keyvault]
-}
+#     }
+#   ]
+#   depends_on = [module.keyvault]
+# }
 
 
 module "storage_account" {
