@@ -1415,29 +1415,29 @@ module "traffic_manager_profile" {
   ]
 }
 
-# module "private_endpoint" {
-#   source                = "app.terraform.io/Motifworks/private_endpoint/azurerm"
-#   version               = "1.0.0"
-#   resource_group_output = module.resource_Group.resource_group_output
-#   # virtual_network_output = module.virtual_network.virtual_network_output
-#   subnet_output          = module.subnet.vnet_subnet_output
-#   storage_account_output = module.storage_account.storage_account_output
+module "private_endpoint" {
+  source                = "app.terraform.io/Motifworks/private_endpoint/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+  # virtual_network_output = module.virtual_network.virtual_network_output
+  subnet_output          = module.subnet.vnet_subnet_output
+  storage_account_output = module.storage_account.storage_account_output
 
-#   private_endpoint_list = [
-#     {
-#       name                           = "privateendpoint1"
-#       resource_group_name            = "rg-ddi-dev1"
-#       location                       = "westus"
-#       virtual_network_name           = "vnet-ddi-dev1"
-#       subnet_name                    = "sub-ddi-dev-web"
-#       private_connection_resource_id = module.storage_account.storage_account_output["ddistorageacc2"].id
-#       subresource_name               = ["blob"]
-#       tags = {
-#         environment = "dev"
-#       }
-#     }
-#   ]
-# }
+  private_endpoint_list = [
+    {
+      name                           = "privateendpoint1"
+      resource_group_name            = "rg-ddi-dev1"
+      location                       = "westus"
+      virtual_network_name           = "vnet-ddi-dev1"
+      subnet_name                    = "sub-ddi-dev-web"
+      private_connection_resource_id = module.storage_account.storage_account_output["ddistorageacc2"].id
+      subresource_name               = ["blob"]
+      tags = {
+        environment = "dev"
+      }
+    }
+  ]
+}
 
 module "private_link_service" {
   source                = "app.terraform.io/Motifworks/private_link_service/azurerm"
