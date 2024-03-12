@@ -120,23 +120,23 @@ azure_firewall_policy_list = [
       "user_assigned_identity_2"
     ]
 
-    insights = [
-      {
-        enabled                              = true
-        default_log_analytics_workspace_name = "la-workspace-1"
-        retention_in_days                    = 30
-        log_analytics_workspace = [
-          {
-            log_analytics_workspace_name = "la-workspace-2"
-            firewall_location            = "West US"
-          },
-          {
-            log_analytics_workspace_name = "la-workspace-3"
-            firewall_location            = "East US"
-          }
-        ]
-      }
-    ]
+    # insights = [
+    #   {
+    #     enabled                              = true
+    #     default_log_analytics_workspace_name = "la-workspace-1"
+    #     retention_in_days                    = 30
+    #     log_analytics_workspace = [
+    #       {
+    #         log_analytics_workspace_name = "la-workspace-2"
+    #         firewall_location            = "West US"
+    #       },
+    #       {
+    #         log_analytics_workspace_name = "la-workspace-3"
+    #         firewall_location            = "East US"
+    #       }
+    #     ]
+    #   }
+    # ]
 
     intrusion_detection = [
       {
