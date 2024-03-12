@@ -101,6 +101,7 @@ azure_firewall_policy_list = [
   {
     name                              = "fw-ddi-westus"
     resource_group_name               = "rg-ddi-dev1"
+    location                          = "westus"
     private_ip_ranges                 = ["10.0.0.0/16", "192.168.0.0/16"]
     auto_learn_private_ranges_enabled = true
     sku                               = "AZFW_VNet"
