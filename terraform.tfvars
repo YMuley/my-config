@@ -104,8 +104,8 @@ azure_firewall_policy_list = [
     location                          = "westus"
     private_ip_ranges                 = ["10.0.0.0/16", "192.168.0.0/16"]
     auto_learn_private_ranges_enabled = true
-    sku                               = ""
-    threat_intelligence_mode          = ""
+    sku                               = "Premium"
+    threat_intelligence_mode          = "Alert"
     sql_redirect_allowed              = true
 
     dns = [
@@ -146,7 +146,7 @@ azure_firewall_policy_list = [
         signature_overrides = [
           {
             id    = "signature-1"
-            state = ""
+            state = "Off"
           }
         ]
 
