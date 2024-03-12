@@ -99,13 +99,13 @@ azure_firewall_network_rule_collection_list = [
 
 azure_firewall_policy_list = [
   {
-    name                              = "fw-ddi-westus"
+    name                              = "fwP-ddi-westus"
     resource_group_name               = "rg-ddi-dev1"
     location                          = "westus"
     private_ip_ranges                 = ["10.0.0.0/16", "192.168.0.0/16"]
     auto_learn_private_ranges_enabled = true
-    sku                               = "AZFW_VNet"
-    threat_intelligence_mode          = "Prevention"
+    sku                               = ""
+    threat_intelligence_mode          = ""
     sql_redirect_allowed              = true
 
     dns = [
@@ -146,7 +146,7 @@ azure_firewall_policy_list = [
         signature_overrides = [
           {
             id    = "signature-1"
-            state = "Disabled"
+            state = ""
           }
         ]
 
@@ -165,8 +165,8 @@ azure_firewall_policy_list = [
 
     tls_certificate = [
       {
-        Key_vault_name        = "key-vault-1"
-        secret_name           = "cert-secret-1"
+        Key_vault_name        = "testiefngkvrss2"
+        secret_name           = "secrauce"
         key_vault_secret_name = "cert-secret-name-1"
       }
     ]
