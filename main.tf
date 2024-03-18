@@ -421,48 +421,48 @@ module "subnet" {
   depends_on = [module.virtual_network]
 }
 
-# module "service_endpoint_policy" {
-#   source                 = "app.terraform.io/Motifworks/service_endpoint_policy/azurerm"
-#   version                = "1.0.0"
-#   resource_group_output  = module.resource_Group.resource_group_output
-#   storage_account_output = module.storage_account.storage_account_output
-#   service_endpoint_policy_list = [
-#     {
-#       name                = "ddi-sep-poc"
-#       resource_group_name = "rg-ddi-dev1"
-#       location            = "westus"
+module "service_endpoint_policy" {
+  source                 = "app.terraform.io/Motifworks/service_endpoint_policy/azurerm"
+  version                = "1.0.0"
+  resource_group_output  = module.resource_Group.resource_group_output
+  storage_account_output = module.storage_account.storage_account_output
+  service_endpoint_policy_list = [
+    {
+      name                = "ddi-sep-poc"
+      resource_group_name = "rg-ddi-dev1"
+      location            = "westus"
 
-#       definition = [
-#         {
-#           name              = "spe-stg-ddi-poc"
-#           description       = "poc policy"
-#           service           = "Microsoft.Storage"
-#           service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc1"].id]
+      definition = [
+        {
+          name              = "spe-stg-ddi-poc"
+          description       = "poc policy"
+          service           = "Microsoft.Storage"
+          service_resources = [module.resource_Group.resource_group_output["rg-ddi-poc1"].id]
 
-#         }
+        }
 
-#       ]
-#     },
-#     {
-#       name                = "ddi-sep-dev"
-#       resource_group_name = "rg-ddi-dev1"
-#       location            = "westus"
+      ]
+    },
+    {
+      name                = "ddi-sep-dev"
+      resource_group_name = "rg-ddi-dev1"
+      location            = "westus"
 
-#       definition = [
-#         {
-#           name              = "spe-stg-ddi-dev"
-#           description       = "poc policy"
-#           service           = "Microsoft.Storage"
-#           service_resources = [module.resource_Group.resource_group_output["rg-ddi-dev1"].id] #module.storage_account.storage_account_output["ddistorageacc"].id
+      definition = [
+        {
+          name              = "spe-stg-ddi-dev"
+          description       = "poc policy"
+          service           = "Microsoft.Storage"
+          service_resources = [module.resource_Group.resource_group_output["rg-ddi-dev1"].id] #module.storage_account.storage_account_output["ddistorageacc"].id
 
-#         }
+        }
 
-#       ]
-#     }
-#   ]
+      ]
+    }
+  ]
 
 
-# }
+}
 
 # module "network_security_group" {
 #   source                = "app.terraform.io/Motifworks/network_security_group/azurerm"

@@ -6,9 +6,9 @@ output "virtual_network_output" {
   value = module.virtual_network.virtual_network_output
 }
 
-# output "service_endpoint_policy_output" {
-#   value = module.service_endpoint_policy.service_endpoint_policy_output
-# }
+output "service_endpoint_policy_output" {
+  value = module.service_endpoint_policy.service_endpoint_policy_output
+}
 
 # output "vnet_subnet_output" {
 #   value = module.subnet.vnet_subnet_output
