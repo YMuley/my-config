@@ -586,7 +586,7 @@ module "public_ip" {
         environment = "poc"
       }
       sku_tier = "Regional"
-    # },
+    },
     # {
     #   name                = "public-ip-ddi-appgw"
     #   location            = "eastus"
@@ -651,20 +651,20 @@ module "public_ip" {
     #     environment = "dev"
     #   }
     #   sku_tier = "Regional"
-    # },
-  #   {
-  #     name                = "public-ip-ddi-fw"
-  #     location            = "westus"
-  #     resource_group_name = "rg-ddi-dev1"
-  #     allocation_method   = "Static"
-  #     sku                 = "Standard"
-  #     zones               = []
-  #     domain_name_label   = null
-  #     tags = {
-  #       environment = "dev"
-  #     }
-  #   sku_tier = "Regional" }
- } ]
+    # }
+    {
+      name                = "public-ip-ddi-fw"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev1"
+      allocation_method   = "Static"
+      sku                 = "Standard"
+      zones               = []
+      domain_name_label   = null
+      tags = {
+        environment = "dev"
+      }
+    sku_tier = "Regional" }
+  ]
 }
 
 # module "route_table" {
