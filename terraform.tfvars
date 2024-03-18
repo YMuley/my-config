@@ -115,10 +115,8 @@ azure_firewall_policy_list = [
       }
     ]
 
-    identity = [
-      "user_assigned_identity_1",
-      "user_assigned_identity_2"
-    ]
+    identity = []
+    
 
     # insights = [
     #   {

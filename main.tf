@@ -1509,6 +1509,22 @@ module "firewall_policy" {
   depends_on                 = [module.azure_firewall]
 }
 
+module "ip_group" {
+  source                = "app.terraform.io/Motifworks/private_endpoint/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+
+  ip_group_list = [
+    {
+      ip_group_name       = "ddi-ip-group-1"
+      resource_group_name = "rg-ddi-dev1"
+      location            = "westus"
+      cidrs               = ["10.0.0.0/24", "192.168.0.0/24"]
+      tags = {
+        environment = "Prod"
+      }
+  }]
+}
 
 # # module "application_gateway" {
 # #   source  = "app.terraform.io/Motifworks/application_gateway/azurerm"
@@ -1518,7 +1534,6 @@ module "firewall_policy" {
 # #   subnet_output         = module.subnet.vnet_subnet_output
 # #   public_ip_output      = module.public_ip.public_ip_output
 # #   user_assigned_identity_output = module.useridentity.user_assigned_identity_output
-
 
 # #   application_gateway_list = [
 # #     {
