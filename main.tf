@@ -586,85 +586,85 @@ module "public_ip" {
         environment = "poc"
       }
       sku_tier = "Regional"
-    },
-    {
-      name                = "public-ip-ddi-appgw"
-      location            = "eastus"
-      resource_group_name = "rg-ddi-poc1"
-      allocation_method   = "Static"
-      sku                 = "Standard"
-      zones               = ["1", "2", "3"]
-      domain_name_label   = null
-      tags = {
-        environment = "poc"
-      }
-      sku_tier = "Regional"
-    },
-    {
-      name                = "public-ip-ddi-dev"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
-      allocation_method   = "Static"
-      sku                 = "Basic"
-      zones               = []
-      domain_name_label   = "another-unique-label-one"
-      tags = {
-        environment = "dev"
-      }
-      sku_tier = "Regional"
-    },
-    {
-      name                = "public-ip-ddi-dev2"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
-      allocation_method   = "Static"
-      sku                 = "Basic"
-      zones               = []
-      domain_name_label   = "officers-choice-label"
-      tags = {
-        environment = "dev"
-      }
-      sku_tier = "Regional"
-    },
-    {
-      name                = "public-ip-ddi-lb"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
-      allocation_method   = "Static"
-      sku                 = "Standard"
-      zones               = []
-      domain_name_label   = "one-lb-unique-label"
-      tags = {
-        environment = "dev"
-      }
-      sku_tier = "Regional"
-    },
-    {
-      name                = "public-ip-ddi-lb-1"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
-      allocation_method   = "Static"
-      sku                 = "Standard"
-      zones               = []
-      domain_name_label   = "two-lb-unique-label"
-      tags = {
-        environment = "dev"
-      }
-      sku_tier = "Regional"
-    },
-    {
-      name                = "public-ip-ddi-fw"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
-      allocation_method   = "Static"
-      sku                 = "Standard"
-      zones               = []
-      domain_name_label   = null
-      tags = {
-        environment = "dev"
-      }
-    sku_tier = "Regional" }
-  ]
+    # },
+    # {
+    #   name                = "public-ip-ddi-appgw"
+    #   location            = "eastus"
+    #   resource_group_name = "rg-ddi-poc1"
+    #   allocation_method   = "Static"
+    #   sku                 = "Standard"
+    #   zones               = ["1", "2", "3"]
+    #   domain_name_label   = null
+    #   tags = {
+    #     environment = "poc"
+    #   }
+    #   sku_tier = "Regional"
+    # },
+    # {
+    #   name                = "public-ip-ddi-dev"
+    #   location            = "westus"
+    #   resource_group_name = "rg-ddi-dev1"
+    #   allocation_method   = "Static"
+    #   sku                 = "Basic"
+    #   zones               = []
+    #   domain_name_label   = "another-unique-label-one"
+    #   tags = {
+    #     environment = "dev"
+    #   }
+    #   sku_tier = "Regional"
+    # },
+    # {
+    #   name                = "public-ip-ddi-dev2"
+    #   location            = "westus"
+    #   resource_group_name = "rg-ddi-dev1"
+    #   allocation_method   = "Static"
+    #   sku                 = "Basic"
+    #   zones               = []
+    #   domain_name_label   = "officers-choice-label"
+    #   tags = {
+    #     environment = "dev"
+    #   }
+    #   sku_tier = "Regional"
+    # },
+    # {
+    #   name                = "public-ip-ddi-lb"
+    #   location            = "westus"
+    #   resource_group_name = "rg-ddi-dev1"
+    #   allocation_method   = "Static"
+    #   sku                 = "Standard"
+    #   zones               = []
+    #   domain_name_label   = "one-lb-unique-label"
+    #   tags = {
+    #     environment = "dev"
+    #   }
+    #   sku_tier = "Regional"
+    # }
+    # {
+    #   name                = "public-ip-ddi-lb-1"
+    #   location            = "westus"
+    #   resource_group_name = "rg-ddi-dev1"
+    #   allocation_method   = "Static"
+    #   sku                 = "Standard"
+    #   zones               = []
+    #   domain_name_label   = "two-lb-unique-label"
+    #   tags = {
+    #     environment = "dev"
+    #   }
+    #   sku_tier = "Regional"
+    # },
+  #   {
+  #     name                = "public-ip-ddi-fw"
+  #     location            = "westus"
+  #     resource_group_name = "rg-ddi-dev1"
+  #     allocation_method   = "Static"
+  #     sku                 = "Standard"
+  #     zones               = []
+  #     domain_name_label   = null
+  #     tags = {
+  #       environment = "dev"
+  #     }
+  #   sku_tier = "Regional" }
+ } ]
 }
 
 # module "route_table" {
@@ -911,7 +911,7 @@ module "storage_account" {
 
   storage_account_list = [
     {
-      name                      = "ddistorageacc2"
+      name                      = "ddistorageacctwo"
       resource_group_name       = "rg-ddi-dev1"
       location                  = "westus"
       account_tier              = "Standard"
@@ -936,7 +936,7 @@ module "storage_account" {
     },
 
     {
-      name                      = "ddistorageaccone"
+      name                      = "ddistorageacc1"
       resource_group_name       = "rg-ddi-dev1"
       location                  = "westus"
       account_tier              = "Standard"
