@@ -574,19 +574,19 @@ module "public_ip" {
   resource_group_output = module.resource_Group.resource_group_output
 
   public_ip_list = [
-    {
-      name                = "publicip-ddi-poc"
-      location            = "eastus"
-      resource_group_name = "rg-ddi-poc1"
-      allocation_method   = "Dynamic"
-      sku                 = "Basic"
-      zones               = []
-      domain_name_label   = "unique-testing-label-one"
-      tags = {
-        environment = "poc"
-      }
-      sku_tier = "Regional"
-    },
+    # {
+    #   name                = "publicip-ddi-poc"
+    #   location            = "eastus"
+    #   resource_group_name = "rg-ddi-poc1"
+    #   allocation_method   = "Dynamic"
+    #   sku                 = "Basic"
+    #   zones               = []
+    #   domain_name_label   = "unique-testing-label-one"
+    #   tags = {
+    #     environment = "poc"
+    #   }
+    #   sku_tier = "Regional"
+    # },
     # {
     #   name                = "public-ip-ddi-appgw"
     #   location            = "eastus"
