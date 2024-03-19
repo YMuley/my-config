@@ -115,7 +115,11 @@ azure_firewall_policy_list = [
       }
     ]
 
-    identity = []
+    identity = [
+      {
+        type = "User Assigned"
+      }
+    ]
     
 
     # insights = [
@@ -136,30 +140,30 @@ azure_firewall_policy_list = [
     #   }
     # ]
 
-    intrusion_detection = [
-      {
-        mode           = "Alert"
-        private_ranges = ["192.168.1.0/24", "10.1.1.0/24"]
+    # intrusion_detection = [
+    #   {
+    #     mode           = "Alert"
+    #     private_ranges = ["192.168.1.0/24", "10.1.1.0/24"]
 
-        signature_overrides = [
-          {
-            id    = "signature-1"
-            state = "Off"
-          }
-        ]
+        # signature_overrides = [
+        #   {
+        #     id    = "signature-1"
+        #     state = "Off"
+        #   }
+        # ]
 
-        traffic_bypass = [
-          {
-            name                  = "bypass-rule-1"
-            protocol              = "TCP"
-            description           = "Bypass rule description"
-            destination_addresses = ["192.168.1.1"]
-            destination_ports     = ["8080"]
-            source_addresses      = ["10.0.0.1"]
-          }
-        ]
-      }
-    ]
+    #     traffic_bypass = [
+    #       {
+    #         name                  = "bypass-rule-1"
+    #         protocol              = "TCP"
+    #         description           = "Bypass rule description"
+    #         destination_addresses = ["192.168.1.1"]
+    #         destination_ports     = ["8080"]
+    #         source_addresses      = ["10.0.0.1"]
+    #       }
+    #     ]
+    #   }
+    # ]
 
     # tls_certificate = [
     #   {
@@ -169,16 +173,16 @@ azure_firewall_policy_list = [
     #   }
     # ]
 
-    explicit_proxy = [
-      {
-        enabled         = true
-        http_port       = 8080
-        https_port      = 8443
-        enable_pac_file = true
-        pac_file_port   = 8888
-        pac_file        = "http://example.com/proxy.pac"
-      }
-    ]
+    # explicit_proxy = [
+    #   {
+    #     enabled         = true
+    #     http_port       = 8080
+    #     https_port      = 8443
+    #     enable_pac_file = true
+    #     pac_file_port   = 8888
+    #     pac_file        = "http://example.com/proxy.pac"
+    #   }
+    # ]
 
     threat_intelligence_allowlist = [
       {
