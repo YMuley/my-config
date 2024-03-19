@@ -67,7 +67,7 @@ azure_firewall_nat_rule_collection_list = [
       {
         name                  = "rule-1"
         source_addresses      = ["10.0.0.0/24"]
-        destination_addresses = ["13.93.206.253"]
+        destination_addresses = ["13.64.185.194"]
         destination_ports     = ["80"] //only single value is supported ,multiple value or ports will throw error
         translated_address    = "192.168.1.1"
         translated_port       = 443
