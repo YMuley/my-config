@@ -1516,7 +1516,7 @@ module "ip_group" {
 
   ip_group_list = [
     {
-      ip_group_name       = "ddi-ip-group-1"
+      name                = "ddi-ip-group-1"
       resource_group_name = "rg-ddi-dev1"
       location            = "westus"
       cidrs               = ["10.0.0.0/24", "192.168.0.0/24"]
