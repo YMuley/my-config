@@ -165,6 +165,7 @@ azure_firewall_policy_list = [
     tls_certificate = [
       {
         Key_vault_name        = "testiefngkvrss2"
+        secret_name           = "secrauce"
         key_vault_secret_name = "cert-secret-name-1"
       }
     ]
