@@ -110,17 +110,13 @@ azure_firewall_policy_list = [
 
     dns = [
       {
-        proxy_enabled = true
-        servers       = ["8.8.8.8", "8.8.4.4"]
+        proxy_enabled = false
+        servers       = []
       }
     ]
 
-    identity = [
-      {
-        type = "User Assigned"
-      }
-    ]
-    
+    identity = []   //only premimum 
+
 
     # insights = [
     #   {
@@ -140,17 +136,17 @@ azure_firewall_policy_list = [
     #   }
     # ]
 
-    # intrusion_detection = [
+    # intrusion_detection = [  //only premimum
     #   {
     #     mode           = "Alert"
     #     private_ranges = ["192.168.1.0/24", "10.1.1.0/24"]
 
-        # signature_overrides = [
-        #   {
-        #     id    = "signature-1"
-        #     state = "Off"
-        #   }
-        # ]
+    #    signature_overrides = [
+    #         # {
+    #         #     id = "" #12-digit number (id) which identifies your signature.
+    #         #     state = "Alert" #state can be any of Off, Alert or Deny.
+    #         # }
+    #     ]
 
     #     traffic_bypass = [
     #       {
@@ -162,13 +158,13 @@ azure_firewall_policy_list = [
     #         source_addresses      = ["10.0.0.1"]
     #       }
     #     ]
+   # private_ranges = []
     #   }
     # ]
 
     # tls_certificate = [
     #   {
     #     Key_vault_name        = "testiefngkvrss2"
-    #     secret_name           = "secrauce"
     #     key_vault_secret_name = "cert-secret-name-1"
     #   }
     # ]
