@@ -67,7 +67,7 @@ azure_firewall_nat_rule_collection_list = [
       {
         name                  = "rule-1"
         source_addresses      = ["10.0.0.0/24"]
-        destination_addresses = ["13.64.185.194"]
+        destination_addresses = ["10.100.19.4"]
         destination_ports     = ["80"] //only single value is supported ,multiple value or ports will throw error
         translated_address    = "192.168.1.1"
         translated_port       = 443
@@ -115,59 +115,59 @@ azure_firewall_policy_list = [
       }
     ]
 
-    identity = []   //only premimum 
+    identity = [] //only premimum 
 
 
-    # insights = [
-    #   {
-    #     enabled                              = true
-    #     default_log_analytics_workspace_name = "la-workspace-1"
-    #     retention_in_days                    = 30
-    #     log_analytics_workspace = [
-    #       {
-    #         log_analytics_workspace_name = "la-workspace-2"
-    #         firewall_location            = "West US"
-    #       },
-    #       {
-    #         log_analytics_workspace_name = "la-workspace-3"
-    #         firewall_location            = "East US"
-    #       }
-    #     ]
-    #   }
-    # ]
+    insights = [
+      {
+        enabled                              = true
+        default_log_analytics_workspace_name = "la-workspace-1"
+        retention_in_days                    = 30
+        log_analytics_workspace = [
+          {
+            log_analytics_workspace_name = "la-workspace-2"
+            firewall_location            = "West US"
+          },
+          {
+            log_analytics_workspace_name = "la-workspace-3"
+            firewall_location            = "East US"
+          }
+        ]
+      }
+    ]
 
-    # intrusion_detection = [  //only premimum
-    #   {
-    #     mode           = "Alert"
-    #     private_ranges = ["192.168.1.0/24", "10.1.1.0/24"]
+    intrusion_detection = [ //only premimum
+      {
+        mode           = "Alert"
+        private_ranges = ["192.168.1.0/24", "10.1.1.0/24"]
 
-    #    signature_overrides = [
-    #         # {
-    #         #     id = "" #12-digit number (id) which identifies your signature.
-    #         #     state = "Alert" #state can be any of Off, Alert or Deny.
-    #         # }
-    #     ]
+        signature_overrides = [
+          {
+            id    = ""      #12-digit number (id) which identifies your signature.
+            state = "Alert" #state can be any of Off, Alert or Deny.
+          }
+        ]
 
-    #     traffic_bypass = [
-    #       {
-    #         name                  = "bypass-rule-1"
-    #         protocol              = "TCP"
-    #         description           = "Bypass rule description"
-    #         destination_addresses = ["192.168.1.1"]
-    #         destination_ports     = ["8080"]
-    #         source_addresses      = ["10.0.0.1"]
-    #       }
-    #     ]
-   # private_ranges = []
-    #   }
-    # ]
+        traffic_bypass = [
+          {
+            name                  = "bypass-rule-1"
+            protocol              = "TCP"
+            description           = "Bypass rule description"
+            destination_addresses = ["192.168.1.1"]
+            destination_ports     = ["8080"]
+            source_addresses      = ["10.0.0.1"]
+          }
+        ]
+        private_ranges = []
+      }
+    ]
 
-    # tls_certificate = [
-    #   {
-    #     Key_vault_name        = "testiefngkvrss2"
-    #     key_vault_secret_name = "cert-secret-name-1"
-    #   }
-    # ]
+    tls_certificate = [
+      {
+        Key_vault_name        = "testiefngkvrss2"
+        key_vault_secret_name = "cert-secret-name-1"
+      }
+    ]
 
     # explicit_proxy = [
     #   {
