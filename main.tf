@@ -1510,7 +1510,7 @@ module "firewall_policy" {
 }
 
 module "ip_group" {
-  source                = "app.terraform.io/Motifworks/private_endpoint/azurerm"
+  source                = "app.terraform.io/Motifworks/ip_group/azurerm"
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
 
