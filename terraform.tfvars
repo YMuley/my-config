@@ -155,7 +155,6 @@ azure_firewall_policy_list = [
             description           = "Bypass rule description"
             destination_addresses = ["192.168.1.1"]
             destination_ports     = ["8080"]
-            source_addresses      = ["10.0.0.1"]
           }
         ]
         private_ranges = []
