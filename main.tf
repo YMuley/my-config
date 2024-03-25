@@ -1379,41 +1379,41 @@ module "storage_account" {
 #   ]
 # }
 
-# module "traffic_manager_profile" {
-#   source                = "app.terraform.io/Motifworks/traffic_manager_profile/azurerm"
-#   version               = "1.0.0"
-#   resource_group_output = module.resource_Group.resource_group_output
+module "traffic_manager_profile" {
+  source                = "app.terraform.io/Motifworks/traffic_manager_profile/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
 
-#   traffic_manager_profile_list = [
-#     {
-#       name                   = "dditestprofile"
-#       resource_group_name    = "rg-ddi-dev1"
-#       traffic_routing_method = "Weighted"
+  traffic_manager_profile_list = [
+    {
+      name                   = "dditestprofile"
+      resource_group_name    = "rg-ddi-dev1"
+      traffic_routing_method = "Weighted"
 
-#       dns_config = [
-#         {
-#           relative_name = "dev-app-one-one"
-#           ttl           = 100
-#         }
-#       ]
+      dns_config = [
+        {
+          relative_name = "dev-app-one-one"
+          ttl           = 100
+        }
+      ]
 
-#       monitor_config = [
-#         {
-#           protocol                     = "HTTP"
-#           port                         = 80
-#           path                         = "/"
-#           interval_in_seconds          = 30
-#           timeout_in_seconds           = 9
-#           tolerated_number_of_failures = 3
-#         }
-#       ]
+      monitor_config = [
+        {
+          protocol                     = "HTTP"
+          port                         = 80
+          path                         = "/"
+          interval_in_seconds          = 30
+          timeout_in_seconds           = 9
+          tolerated_number_of_failures = 3
+        }
+      ]
 
-#       tags = {
-#         environment = "Production"
-#       }
-#     }
-#   ]
-# }
+      tags = {
+        environment = "Production"
+      }
+    }
+  ]
+}
 
 # module "private_endpoint" {
 #   source                = "app.terraform.io/Motifworks/private_endpoint/azurerm"
@@ -1526,6 +1526,52 @@ module "ip_group" {
   }]
 }
 
+module "traffic_manager_azure_endpoint" {
+  source                         = "app.terraform.io/Motifworks/traffic_manager_azure_endpoint/azurerm"
+  version                        = "1.0.0"
+  traffic_manager_profile_output = module.traffic_manager_profile.profile_output
+  public_ip_output               = module.public_ip.public_ip_output
+
+  traffic_manager_azure_endpoint = [
+    {
+      name                         = "ddi-azure-endpoint-1"
+      traffic_manager_profile_name = "dditestprofile"
+      weight                       = 1
+      public_ip_name               = "public-ip-ddi-fw"
+    }
+  ]
+}
+
+module "traffic_manager_external_endpoint" {
+  source                         = "app.terraform.io/Motifworks/traffic_manager_external_endpoint/azurerm"
+  version                        = "1.0.0"
+  traffic_manager_profile_output = module.traffic_manager_profile.profile_output
+
+  traffic_manager_external_endpoint = [
+    {
+      name                         = "ddi-external-endpoint-1"
+      traffic_manager_profile_name = "dditestprofile"
+      weight                       = 1
+      target                       = "http://example.com"
+    }
+  ]
+}
+
+module "traffic_manager_nested_endpoint" {
+  source                         = "app.terraform.io/Motifworks/traffic_manager_nested_endpoint/azurerm"
+  version                        = "1.0.0"
+  traffic_manager_profile_output = module.traffic_manager_profile.profile_output
+
+  traffic_manager_nested_endpoint = [
+    {
+      name                         = "ddi-nested-endpoint-1"
+      traffic_manager_profile_name = "dditestprofile"
+      weight                       = 1
+      target_resource_id           = "/subscriptions/subscription-id/resourceGroups/resource-group-name/providers/Microsoft.Compute/virtualMachines/vm-name"
+      minimum_child_endpoints      = 1
+    }
+  ]
+}
 # # module "application_gateway" {
 # #   source  = "app.terraform.io/Motifworks/application_gateway/azurerm"
 # #   version = "1.0.0"
