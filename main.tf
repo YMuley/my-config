@@ -1526,49 +1526,50 @@ module "ip_group" {
   }]
 }
 
-# module "traffic_manager_azure_endpoint" {
-#   source                         = "app.terraform.io/Motifworks/traffic_manager_azure_endpoint/azurerm"
-#   version                        = "1.0.0"
-#   public_ip_output               = module.public_ip.public_ip_output
+module "traffic_manager_azure_endpoint" {
+  source                         = "app.terraform.io/Motifworks/traffic_manager_azure_endpoint/azurerm"
+  version                        = "1.0.0"
+  public_ip_output               = module.public_ip.public_ip_output
 
-#   traffic_manager_azure_endpoint_list = [
-#     {
-#       name                         = "ddi-azure-endpoint-1"
-#       traffic_manager_profile_name = "dditestprofile"
-#       weight                       = 1
-#       public_ip_name               = "public-ip-ddi-fw"
-#     }
-#   ]
-# }
+  traffic_manager_azure_endpoint_list = [
+    {
+      name                         = "ddi-azure-endpoint-1"
+      traffic_manager_profile_name = "dditestprofile"
+      weight                       = 1
+      public_ip_name               = "public-ip-ddi-fw"
+    }
+  ]
+}
 
-# module "traffic_manager_external_endpoint" {
-#   source                         = "app.terraform.io/Motifworks/traffic_manager_external_endpoint/azurerm"
-#   version                        = "1.0.0"
+module "traffic_manager_external_endpoint" {
+  source                         = "app.terraform.io/Motifworks/traffic_manager_external_endpoint/azurerm"
+  version                        = "1.0.0"
 
-#   traffic_manager_external_endpoint_list = [
-#     {
-#       name                         = "ddi-external-endpoint-1"
-#       traffic_manager_profile_name = "dditestprofile"
-#       weight                       = 1
-#       target                       = "http://example.com"
-#     }
-#   ]
-# }
+  traffic_manager_external_endpoint_list = [
+    {
+      name                         = "ddi-external-endpoint-1"
+      traffic_manager_profile_name = "dditestprofile"
+      weight                       = 1
+      target                       = "http://example.com"
+    }
+  ]
+}
 
-# module "traffic_manager_nested_endpoint" {
-#   source                         = "app.terraform.io/Motifworks/traffic_manager_nested_endpoint/azurerm"
-#   version                        = "1.0.0"
+module "traffic_manager_nested_endpoint" {
+  source                         = "app.terraform.io/Motifworks/traffic_manager_nested_endpoint/azurerm"
+  version                        = "1.0.0"
 
-#   traffic_manager_nested_endpoint_list = [
-#     {
-#       name                         = "ddi-nested-endpoint-1"
-#       traffic_manager_profile_name = "dditestprofile"
-#       weight                       = 1
-#       target_resource_id           = "/subscriptions/subscription-id/resourceGroups/resource-group-name/providers/Microsoft.Compute/virtualMachines/vm-name"
-#       minimum_child_endpoints      = 1
-#     }
-#   ]
-# }
+  traffic_manager_nested_endpoint_list = [
+    {
+      name                         = "ddi-nested-endpoint-1"
+      traffic_manager_profile_name = "dditestprofile"
+      weight                       = 1
+      target_resource_id           = "/subscriptions/subscription-id/resourceGroups/resource-group-name/providers/Microsoft.Compute/virtualMachines/vm-name"
+      minimum_child_endpoints      = 1
+    }
+  ]
+}
+
 # # module "application_gateway" {
 # #   source  = "app.terraform.io/Motifworks/application_gateway/azurerm"
 # #   version = "1.0.0"
