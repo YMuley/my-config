@@ -1527,23 +1527,23 @@ module "ip_group" {
 }
 
 module "traffic_manager_azure_endpoint" {
-  source                         = "app.terraform.io/Motifworks/traffic_manager_azure_endpoint/azurerm"
-  version                        = "1.0.0"
-  public_ip_output               = module.public_ip.public_ip_output
+  source           = "app.terraform.io/Motifworks/traffic_manager_azure_endpoint/azurerm"
+  version          = "1.0.0"
+  public_ip_output = module.public_ip.public_ip_output
 
   traffic_manager_azure_endpoint_list = [
     {
-      name                         = "ddi-azure-endpoint-1"
-      traffic_manager_profile_name = "dditestprofile"
-      weight                       = 1
-      public_ip_name               = "public-ip-ddi-fw"
+      name           = "ddi-azure-endpoint-1"
+      profile_id     = "dditestprofile"
+      weight         = 1
+      public_ip_name = "public-ip-ddi-fw"
     }
   ]
 }
 
 module "traffic_manager_external_endpoint" {
-  source                         = "app.terraform.io/Motifworks/traffic_manager_external_endpoint/azurerm"
-  version                        = "1.0.0"
+  source  = "app.terraform.io/Motifworks/traffic_manager_external_endpoint/azurerm"
+  version = "1.0.0"
 
   traffic_manager_external_endpoint_list = [
     {
@@ -1556,8 +1556,8 @@ module "traffic_manager_external_endpoint" {
 }
 
 module "traffic_manager_nested_endpoint" {
-  source                         = "app.terraform.io/Motifworks/traffic_manager_nested_endpoint/azurerm"
-  version                        = "1.0.0"
+  source  = "app.terraform.io/Motifworks/traffic_manager_nested_endpoint/azurerm"
+  version = "1.0.0"
 
   traffic_manager_nested_endpoint_list = [
     {
