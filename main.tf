@@ -1529,7 +1529,6 @@ module "ip_group" {
 module "traffic_manager_azure_endpoint" {
   source                         = "app.terraform.io/Motifworks/traffic_manager_azure_endpoint/azurerm"
   version                        = "1.0.0"
-  traffic_manager_profile_output = module.traffic_manager_profile.profile_output
   public_ip_output               = module.public_ip.public_ip_output
 
   traffic_manager_azure_endpoint_list = [
@@ -1545,7 +1544,6 @@ module "traffic_manager_azure_endpoint" {
 module "traffic_manager_external_endpoint" {
   source                         = "app.terraform.io/Motifworks/traffic_manager_external_endpoint/azurerm"
   version                        = "1.0.0"
-  traffic_manager_profile_output = module.traffic_manager_profile.profile_output
 
   traffic_manager_external_endpoint_list = [
     {
@@ -1560,7 +1558,6 @@ module "traffic_manager_external_endpoint" {
 module "traffic_manager_nested_endpoint" {
   source                         = "app.terraform.io/Motifworks/traffic_manager_nested_endpoint/azurerm"
   version                        = "1.0.0"
-  traffic_manager_profile_output = module.traffic_manager_profile.profile_output
 
   traffic_manager_nested_endpoint_list = [
     {
