@@ -1532,7 +1532,7 @@ module "traffic_manager_azure_endpoint" {
   traffic_manager_profile_output = module.traffic_manager_profile.profile_output
   public_ip_output               = module.public_ip.public_ip_output
 
-  traffic_manager_azure_endpoint = [
+  traffic_manager_azure_endpoint_list = [
     {
       name                         = "ddi-azure-endpoint-1"
       traffic_manager_profile_name = "dditestprofile"
@@ -1547,7 +1547,7 @@ module "traffic_manager_external_endpoint" {
   version                        = "1.0.0"
   traffic_manager_profile_output = module.traffic_manager_profile.profile_output
 
-  traffic_manager_external_endpoint = [
+  traffic_manager_external_endpoint_list = [
     {
       name                         = "ddi-external-endpoint-1"
       traffic_manager_profile_name = "dditestprofile"
@@ -1562,7 +1562,7 @@ module "traffic_manager_nested_endpoint" {
   version                        = "1.0.0"
   traffic_manager_profile_output = module.traffic_manager_profile.profile_output
 
-  traffic_manager_nested_endpoint = [
+  traffic_manager_nested_endpoint_list = [
     {
       name                         = "ddi-nested-endpoint-1"
       traffic_manager_profile_name = "dditestprofile"
