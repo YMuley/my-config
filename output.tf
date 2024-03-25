@@ -42,7 +42,7 @@ output "azure_firewall_output" {
 #   value = module.load_balancer.load_balancer_output
 # }
 
-output "traffic_manager_profile" {
+output "traffic_manager_profile_output" {
   value = module.traffic_manager_profile.traffic_manager_profile_output
 }
 
