@@ -60,7 +60,7 @@ azure_firewall_nat_rule_collection_list = [
     name                = "nat-rule-collection-2"
     resource_group_name = "rg-ddi-dev1"
     azure_firewall_name = "fw-ddi-westus"
-    priority            = 100
+    priority            = 101
     action              = "Dnat"
 
     rule_list = [
