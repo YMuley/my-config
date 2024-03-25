@@ -1552,7 +1552,7 @@ module "traffic_manager_external_endpoint" {
       name                         = "ddi-external-endpoint-1"
       traffic_manager_profile_name = "dditestprofile"
       weight                       = 1
-      target                       = "http://example.com"
+      target                       = "www.example.com"
     }
   ]
 }
