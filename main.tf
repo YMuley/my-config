@@ -772,15 +772,9 @@ module "network_security_group" {
 module "subnet_nsg_association" {
   source                        = "app.terraform.io/Motifworks/subnet_nsg_association/azurerm"
   version                       = "1.0.0"
+  subnet_nsg_association_list   = var.subnet_nsg_association_list
   subnet_output                 = module.subnet.vnet_subnet_output
   network_security_group_output = module.network_security_group.network_security_group_output
-
-  association_list = [
-    {
-      nsg_name  = "nsg-ddi-poc"
-      subnet_id = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-web") #
-    }
-  ]
 }
 
 # # module "subnet_route_table_association" {
