@@ -196,7 +196,8 @@
 
 subnet_nsg_association_list = [
   {
-    nsg_name  = "nsg-ddi-poc"
-    subnet_id = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-web")
+    nsg_name             = "nsg-ddi-poc"
+    virtual_network_name = "vnet-ddi-poc1"
+    subnet_name          = "sub-ddi-poc-web"
   }
 ]
