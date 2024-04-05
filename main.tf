@@ -583,7 +583,7 @@ module "public_ip" {
       allocation_method   = "Dynamic"
       sku                 = "Basic"
       zones               = []
-      domain_name_label   = ""
+      domain_name_label   = null
       tags = {
         environment = "poc"
       }
