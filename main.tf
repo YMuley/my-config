@@ -286,7 +286,7 @@ module "virtual_network" {
     },
     {
       name                = "vnet-ddi-dev1"
-      location            = "westus"
+      location            = "eastus"
       resource_group_name = "rg-ddi-dev1"
       address_space       = ["10.100.16.0/20"] //["172.21.0.0/16"]
       tags = {
