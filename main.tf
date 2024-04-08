@@ -185,46 +185,44 @@ module "resource_Group" {
 # # #   ]
 # # # }
 
-module "window_vm" {
-  source                        = "app.terraform.io/Motifworks/window-vm/azurerm"
-  version                       = "1.0.3"
-  network_interface_card_output = module.network_interface_card.network_interface_card_output
-  windows_vm_list = [
-    {
-      name                            = "sql-server-vm"
-      resource_group_name             = "rg-ddi-poc1"
-      location                        = "eastus"
-      size                            = "Standard_F2"
-      disable_password_authentication = false
-      allow_extension_operations      = true
-      availability_set_name           = null
-      network_interface_card_name     = ["sql-vm-nic"]
-      admin_username                  = "adminuser"
-      admin_password                  = "P@$$w0rd1234!"
-      #  network_interface_ids = [
-      #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev1/providers/Microsoft.Network/networkInterfaces/nic1"
-      #  ]
-      os_disk = [
-        {
-          name                 = "sql-server-vm"
-          caching              = "ReadWrite"
-          storage_account_type = "Standard_LRS"
-        }
-      ]
+# # # module "window_vm" {
+# # #   source                        = "app.terraform.io/Motifworks/window-vm/azurerm"
+# # #   version                       = "1.0.3"
+# # #   network_interface_card_output = module.network_interface_card.network_interface_card_output
+# # #   windows_vm_list = [
+# # #     {
+# # #       name : "vm-windows"
+# # #       resource_group_name             = "rg-ddi-dev1"
+# # #       location                        = "westus"
+# # #       size                            = "Standard_F2"
+# # #       disable_password_authentication = false
+# # #       allow_extension_operations      = true
+# # #       availability_set_name           = null
+# # #       network_interface_card_name     = ["nic1"]
+# # #       admin_username                  = "adminuser"
+# # #       admin_password                  = "P@$$w0rd1234!"
+# # #       #  network_interface_ids = [
+# # #       #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev1/providers/Microsoft.Network/networkInterfaces/nic1"
+# # #       #  ]
+# # #       os_disk = [
+# # #         {
+# # #           name                 = "testing"
+# # #           caching              = "ReadWrite"
+# # #           storage_account_type = "Standard_LRS"
+# # #         }
+# # #       ]
 
-      source_image_reference = [
-        {
-          publisher = "MicrosoftWindowsServer"
-          offer     = "WindowsServer"
-          sku       = "2019-Datacenter"
-          version   = "latest"
-        }
-      ]
-    }
-  ]
-}
-
-
+# # #       source_image_reference = [
+# # #         {
+# # #           publisher = "MicrosoftWindowsServer"
+# # #           offer     = "WindowsServer"
+# # #           sku       = "2016-Datacenter"
+# # #           version   = "latest"
+# # #         }
+# # #       ]
+# # #     }
+# # #   ]
+# # # }
 # # # module "linux_vm" {
 # # #   source                        = "app.terraform.io/Motifworks/linux-vm/azurerm"
 # # #   version                       = "1.0.0"
@@ -286,7 +284,7 @@ module "virtual_network" {
     },
     {
       name                = "vnet-ddi-dev1"
-      location            = "eastus"
+      location            = "westus"
       resource_group_name = "rg-ddi-dev1"
       address_space       = ["10.100.16.0/20"] //["172.21.0.0/16"]
       tags = {
@@ -317,16 +315,16 @@ module "subnet" {
       private_link_service_network_policies_enabled = "false"
 
       delegation = [
-        # {
-        #   name = "delegation"
-        #   service_delegation = [{
-        #     name    = "Microsoft.ContainerInstance/containerGroups"
-        #     actions = ["Microsoft.Network/virtualNetworks/subnets/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+        {
+          name = "delegation"
+          service_delegation = [{
+            name    = "Microsoft.ContainerInstance/containerGroups"
+            actions = ["Microsoft.Network/virtualNetworks/subnets/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
 
-        #   }]
+          }]
 
 
-        # }
+        }
       ]
     },
 
@@ -570,25 +568,25 @@ module "network_security_group" {
 # #   depends_on = [module.virtual_network]
 # # }
 
-module "public_ip" {
-  source                = "app.terraform.io/Motifworks/public_ip/azurerm"
-  version               = "1.0.0"
-  resource_group_output = module.resource_Group.resource_group_output
+# module "public_ip" {
+#   source                = "app.terraform.io/Motifworks/public_ip/azurerm"
+#   version               = "1.0.0"
+#   resource_group_output = module.resource_Group.resource_group_output
 
-  public_ip_list = [
-    {
-      name                = "public-ip-ddi-poc"
-      location            = "eastus"
-      resource_group_name = "rg-ddi-poc1"
-      allocation_method   = "Dynamic"
-      sku                 = "Basic"
-      zones               = []
-      domain_name_label   = null
-      tags = {
-        environment = "poc"
-      }
-      sku_tier = "Regional"
-    },
+#   public_ip_list = [
+#     # {
+#     #   name                = "publicip-ddi-poc"
+#     #   location            = "eastus"
+#     #   resource_group_name = "rg-ddi-poc1"
+#     #   allocation_method   = "Dynamic"
+#     #   sku                 = "Basic"
+#     #   zones               = []
+#     #   domain_name_label   = "unique-testing-label-one"
+#     #   tags = {
+#     #     environment = "poc"
+#     #   }
+#     #   sku_tier = "Regional"
+#     # },
 #     # {
 #     #   name                = "public-ip-ddi-appgw"
 #     #   location            = "eastus"
@@ -666,8 +664,8 @@ module "public_ip" {
 #         environment = "dev"
 #       }
 #     sku_tier = "Regional" }
-   ]
-  }
+#   ]
+# }
 
 module "route_table" {
   source                = "app.terraform.io/Motifworks/route_table/azurerm"
@@ -703,32 +701,32 @@ module "route_table" {
   ]
 }
 
-module "network_interface_card" {
-  source                = "app.terraform.io/Motifworks/network_interface_card/azurerm"
-  version               = "1.0.0"
-  resource_group_output = module.resource_Group.resource_group_output
-  subnet_output         = module.subnet.vnet_subnet_output
-  public_ip_output      = module.public_ip.public_ip_output
+# # module "network_interface_card" {
+# #   source                = "app.terraform.io/Motifworks/network_interface_card/azurerm"
+# #   version               = "1.0.0"
+# #   resource_group_output = module.resource_Group.resource_group_output
+# #   subnet_output         = module.subnet.vnet_subnet_output
+# #   public_ip_output      = module.public_ip.public_ip_output
 
-  network_interface_card_list = [
-    {
-      name                = "sql-vm-nic"
-      location            = "eastus"
-      resource_group_name = "rg-ddi-poc1"
-      tags = {
-        environment = "dev"
-      }
-      ip_configuration = [
-        {
-          name                          = "config1"
-          virtual_network_name          = "vnet-ddi-poc1"
-          subnet_name                   = "sub-ddi-poc-web"
-          private_ip_address_allocation = "Dynamic"
-          public_ip_name                = "public-ip-ddi-poc"
-          private_ip_address            = null
-        }
-      ]
-    },
+# #   network_interface_card_list = [
+# #     {
+# #       name                = "nic1"
+# #       location            = "westus"
+# #       resource_group_name = "rg-ddi-dev1"
+# #       tags = {
+# #         environment = "dev"
+# #       }
+# #       ip_configuration = [
+# #         {
+# #           name                          = "config1"
+# #           virtual_network_name          = "vnet-ddi-dev1"
+# #           subnet_name                   = "sub-ddi-dev-web"
+# #           private_ip_address_allocation = "Dynamic"
+# #           public_ip_name                = "public-ip-ddi-dev"
+# #           private_ip_address            = null
+# #         }
+# #       ]
+# #     },
 
 # #     {
 # #       name                = "vm1-linux-nic"
@@ -748,26 +746,28 @@ module "network_interface_card" {
 # #         }
 # #       ]
 # #     },
-    # {
-    #   name                = "lb-ddi-dev-nic"
-    #   location            = "westus"
-    #   resource_group_name = "rg-ddi-dev1"
-    #   tags = {
-    #     environment = "dev"
-    #   }
-    #   ip_configuration = [
-    #     {
-    #       name                          = "lb-ddi-dev-ip"
-    #       virtual_network_name          = "vnet-ddi-dev1"
-    #       subnet_name                   = "sub-ddi-dev-web"
-    #       private_ip_address_allocation = "Dynamic"
-    #       public_ip_name                = null
-    #       private_ip_address            = null
-    #     }
-    #   ]
-    # }
-  ]
-}
+# #     {
+# #       name                = "lb-ddi-dev-nic"
+# #       location            = "westus"
+# #       resource_group_name = "rg-ddi-dev1"
+# #       tags = {
+# #         environment = "dev"
+# #       }
+# #       ip_configuration = [
+# #         {
+# #           name                          = "lb-ddi-dev-ip"
+# #           virtual_network_name          = "vnet-ddi-dev1"
+# #           subnet_name                   = "sub-ddi-dev-web"
+# #           private_ip_address_allocation = "Dynamic"
+# #           public_ip_name                = null
+# #           private_ip_address            = null
+# #         }
+# #       ]
+# #     }
+# #   ]
+
+
+# # }
 
 module "subnet_nsg_association" {
   source                        = "app.terraform.io/Motifworks/subnet_nsg_association/azurerm"
