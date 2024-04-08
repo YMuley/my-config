@@ -32,3 +32,8 @@ variable "subnet_nsg_association_list" {
   type    = list(any)
   default = []
 }
+
+variable "subnet_route_table_association_list" {
+  type    = list(any)
+  default = []
+}

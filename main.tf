@@ -667,39 +667,39 @@ module "network_security_group" {
 #   ]
 # }
 
-# # module "route_table" {
-# #   source                = "app.terraform.io/Motifworks/route_table/azurerm"
-# #   version               = "1.0.0"
-# #   resource_group_output = module.resource_Group.resource_group_output
+module "route_table" {
+  source                = "app.terraform.io/Motifworks/route_table/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
 
-# #   route_table_list = [
-# #     {
-# #       name                = "rt-table1"
-# #       location            = "eastus"
-# #       resource_group_name = "rg-ddi-dev1"
-# #       tags = {
-# #         environment = "poc"
-# #         application = "example"
-# #       }
+  route_table_list = [
+    {
+      name                = "rt-table1"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-dev1"
+      tags = {
+        environment = "poc"
+        application = "example"
+      }
 
-# #       disable_bgp_route_propagation = true
-# #       route_list = [
-# #         {
-# #           name                   = "route1"
-# #           address_prefix         = "10.0.0.0/16"
-# #           next_hop_type          = "VirtualAppliance"
-# #           next_hop_in_ip_address = "10.0.0.1"
-# #         },
-# #         {
-# #           name                   = "route2"
-# #           address_prefix         = "10.1.0.0/16"
-# #           next_hop_type          = "VirtualAppliance"
-# #           next_hop_in_ip_address = "10.0.0.2"
-# #         }
-# #       ]
-# #     }
-# #   ]
-# # }
+      disable_bgp_route_propagation = true
+      route_list = [
+        {
+          name                   = "route1"
+          address_prefix         = "10.0.0.0/16"
+          next_hop_type          = "VirtualAppliance"
+          next_hop_in_ip_address = "10.0.0.1"
+        },
+        {
+          name                   = "route2"
+          address_prefix         = "10.1.0.0/16"
+          next_hop_type          = "VirtualAppliance"
+          next_hop_in_ip_address = "10.0.0.2"
+        }
+      ]
+    }
+  ]
+}
 
 # # module "network_interface_card" {
 # #   source                = "app.terraform.io/Motifworks/network_interface_card/azurerm"
@@ -777,19 +777,13 @@ module "subnet_nsg_association" {
   network_security_group_output = module.network_security_group.network_security_group_output
 }
 
-# # module "subnet_route_table_association" {
-# #   source             = "app.terraform.io/Motifworks/subnet_route_table_association/azurerm"
-# #   version            = "1.0.0"
-# #   subnet_output      = module.subnet.vnet_subnet_output
-# #   route_table_output = module.route_table.route_table_output
-
-# #   association_list = [
-# #     {
-# #       route_table_name = "rt-table1"
-# #       subnet_id        = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-web")
-# #     }
-# #   ]
-# # }
+module "subnet_route_table_association" {
+  source                              = "app.terraform.io/Motifworks/subnet_route_table_association/azurerm"
+  version                             = "1.0.0"
+  subnet_route_table_association_list = var.subnet_route_table_association_list
+  subnet_output                       = module.subnet.vnet_subnet_output
+  route_table_output                  = module.route_table.route_table_output
+}
 
 # # module "nsg_nic_association" {
 # #   source                        = "app.terraform.io/Motifworks/nsg_nic_association/azurerm"

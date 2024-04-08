@@ -206,3 +206,12 @@ subnet_nsg_association_list = [
     subnet_name          = "sub-ddi-dev-web"
   }
 ]
+
+
+subnet_route_table_association_list = [
+  {
+    route_table_name     = "rt-table1"
+    virtual_network_name = "vnet-ddi-poc1"
+    subnet_name          = "sub-ddi-poc-web"
+  }
+]
