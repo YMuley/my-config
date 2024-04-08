@@ -200,11 +200,11 @@ subnet_nsg_association_list = [
     virtual_network_name = "vnet-ddi-poc1"
     subnet_name          = "sub-ddi-poc-web"
   },
-  # {
-  #   nsg_name             = "nsg-ddi-poc"
-  #   virtual_network_name = "vnet-ddi-dev1"
-  #   subnet_name          = "sub-ddi-dev-web"
-  # }
+  {
+    nsg_name             = "nsg-ddi-poc"
+    virtual_network_name = "vnet-ddi-dev1"
+    subnet_name          = "sub-ddi-dev-web"
+  }
 ]
 
 
