@@ -319,7 +319,7 @@ mssql_vm_list = [
       run_immediately = "false"                              //Defaults to false.
       schedule = [
         {
-        weekly_interval = "1"                                //Valid values are between 1 and 6.  #Either one of weekly_interval or monthly_occurrence must be specified.
+        weekly_interval = "0"                                //Valid values are between 1 and 6.  #Either one of weekly_interval or monthly_occurrence must be specified.
         monthly_occurrence = "2"                             //Valid values are between 1 and 5.
         day_of_week = "Wednesday"                            //Possible values are Friday, Monday, Saturday, Sunday, Thursday, Tuesday and Wednesday.
         start_time = "19:00"                                 //Must be in the format HH:mm.
