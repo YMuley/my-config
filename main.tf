@@ -1946,7 +1946,7 @@ module "storage_account" {
 # # # }
 
 module "mssql_vm" {
- source = "app.terraform.io/Motifworks/mssql-virtual--mchine/azurerm"
+ source = "app.terraform.io/Motifworks/mssql_virtual_mchine/azurerm"
  version = "1.0.0"
  mssql_vm_list = var.mssql_vm_list
  windows_vm_output = module.window_vm.windows_vm_output
