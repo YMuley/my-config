@@ -48,6 +48,7 @@ output "route_table_output" {
 
 output "windows_vm_output" {
   value = module.window_vm.windows_vm_output
+  sensitive = true
 }
 
 output "mssql_vm_output" {

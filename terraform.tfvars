@@ -284,17 +284,23 @@ mssql_vm_list = [
       disk_type = "NEW"                              //Valid values include NEW, EXTEND, or ADD
       storage_workload_type = "GENERAL"              //Valid values include GENERAL, OLTP, or DW
       
-      data_settings = {
+      data_settings = [
+        {
         default_file_path = "F:\\data"
         luns = [0]
       }
-      log_settings = {
+      ]
+
+      log_settings = [
+        {
         default_file_path = "L:\\log"
         luns = [1]
       }
+      ]
       system_db_on_data_disk_enabled = "false"             // Possible values are true and false. Defaults to false
 
-      temp_db_settings = {
+      temp_db_settings = [
+        {
         default_file_path = "T:\\tempDb"
         luns = [2]
         data_file_count = "8"                               //This value defaults to 8.                      
@@ -303,6 +309,7 @@ mssql_vm_list = [
         log_file_size_mb = "256"                            //This value defaults to 256.
         log_file_growth_mb = "512"                          //This value defaults to 512.
       }
+      ]
     }
     ]
 
@@ -310,12 +317,14 @@ mssql_vm_list = [
       {
       enabled = "true"                                       //Defaults to true.
       run_immediately = "false"                              //Defaults to false.
-      schedule = {
+      schedule = [
+        {
         weekly_interval = "1"                                //Valid values are between 1 and 6.  #Either one of weekly_interval or monthly_occurrence must be specified.
         monthly_occurrence = "2"                             //Valid values are between 1 and 5.
         day_of_week = "Wednesday"                            //Possible values are Friday, Monday, Saturday, Sunday, Thursday, Tuesday and Wednesday.
         start_time = "19:00"                                 //Must be in the format HH:mm.
       }
+      ]
     }
     ]
 
