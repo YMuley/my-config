@@ -185,44 +185,46 @@ module "resource_Group" {
 # # #   ]
 # # # }
 
-# # # module "window_vm" {
-# # #   source                        = "app.terraform.io/Motifworks/window-vm/azurerm"
-# # #   version                       = "1.0.3"
-# # #   network_interface_card_output = module.network_interface_card.network_interface_card_output
-# # #   windows_vm_list = [
-# # #     {
-# # #       name : "vm-windows"
-# # #       resource_group_name             = "rg-ddi-dev1"
-# # #       location                        = "westus"
-# # #       size                            = "Standard_F2"
-# # #       disable_password_authentication = false
-# # #       allow_extension_operations      = true
-# # #       availability_set_name           = null
-# # #       network_interface_card_name     = ["nic1"]
-# # #       admin_username                  = "adminuser"
-# # #       admin_password                  = "P@$$w0rd1234!"
-# # #       #  network_interface_ids = [
-# # #       #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev1/providers/Microsoft.Network/networkInterfaces/nic1"
-# # #       #  ]
-# # #       os_disk = [
-# # #         {
-# # #           name                 = "testing"
-# # #           caching              = "ReadWrite"
-# # #           storage_account_type = "Standard_LRS"
-# # #         }
-# # #       ]
+module "window_vm" {
+  source                        = "app.terraform.io/Motifworks/window-vm/azurerm"
+  version                       = "1.0.3"
+  network_interface_card_output = module.network_interface_card.network_interface_card_output
+    windows_vm_list = [
+    {
+      name                            = "sql-server-vm"
+      resource_group_name             = "rg-ddi-poc1"
+      location                        = "eastus"
+      size                            = "Standard_F2"
+      disable_password_authentication = false
+      allow_extension_operations      = true
+      availability_set_name           = null
+      network_interface_card_name     = ["sql-vm-nic"]
+      admin_username                  = "adminuser"
+      admin_password                  = "P@$$w0rd1234!"
+      #  network_interface_ids = [
+      #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev1/providers/Microsoft.Network/networkInterfaces/nic1"
+      #  ]
+      os_disk = [
+        {
+          name                 = "sql-server-vm"
+          caching              = "ReadWrite"
+          storage_account_type = "Standard_LRS"
+        }
+      ]
 
-# # #       source_image_reference = [
-# # #         {
-# # #           publisher = "MicrosoftWindowsServer"
-# # #           offer     = "WindowsServer"
-# # #           sku       = "2016-Datacenter"
-# # #           version   = "latest"
-# # #         }
-# # #       ]
-# # #     }
-# # #   ]
-# # # }
+      source_image_reference = [
+        {
+          publisher = "MicrosoftWindowsServer"
+          offer     = "WindowsServer"
+          sku       = "2019-Datacenter"
+          version   = "latest"
+        }
+      ]
+    }
+  ]
+}
+
+
 # # # module "linux_vm" {
 # # #   source                        = "app.terraform.io/Motifworks/linux-vm/azurerm"
 # # #   version                       = "1.0.0"
