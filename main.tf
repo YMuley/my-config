@@ -954,7 +954,7 @@ module "storage_account" {
     },
 
     {
-      name                      = "stgsqlddI"
+      name                      = "stgsqlddi"
       resource_group_name       = "rg-ddi-poc1"
       location                  = "eastus"
       account_tier              = "Standard"
