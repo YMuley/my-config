@@ -206,3 +206,116 @@ subnet_nsg_association_list = [
   #   subnet_name          = "sub-ddi-dev-web"
   # }
 ]
+
+mssql_vm_list = [
+  {
+    virtual_machine_name = "sql-server-vm"    // name of windows machine where sql connection agent will be installed
+    sql_license_type = "PAYG"                 //AHUB (Azure Hybrid Benefit), DR (Disaster Recovery), and PAYG (Pay-As-You-Go)
+    r_services_enabled  = true
+    sql_connectivity_port = "1433"
+    sql_connectivity_type = "PRIVATE"         //LOCAL, PRIVATE and PUBLIC. Defaults to PRIVATE
+    sql_connectivity_update_password = "Ddi@123456789"
+    sql_connectivity_update_username = "ddiadmin"
+    sql_virtual_machine_group_id = null
+    tags                         = {
+      environment = "test"
+    }
+    auto_patching = [
+      {
+      day_of_week = "Sunday"
+      maintenance_window_duration_in_minutes = "60"
+      maintenance_window_starting_hour = "2"
+    }
+    ]
+
+    auto_backup = [
+    #   {
+    #   encryption_enabled  = false
+    #   encryption_password = ""
+    #   retention_period_in_days = "30"
+    #   storage_blob_endpoint = "stgsqlddi"
+    #   storage_account_access_key  = ""
+    #   system_databases_backup_enabled = "false"
+    #   manual_schedule = [
+    #     {
+    #     full_backup_frequency  = "Weekly"                                   //Valid values include Daily or Weekly.
+    #     full_backup_start_hour = "19"                                   //Valid values are from 0 to 23.
+    #     full_backup_window_in_hours = "19"                              //Valid values are between 1 and 23.
+    #     log_backup_frequency_in_minutes = "5"                          //Valid values are from 5 to 60.
+    #     days_of_week  = "Wednesday"                                            //Possible values are Monday, Tuesday, Wednesday, Thursday, Friday, Saturday and Sunday
+    #   }
+    #   ]
+    # }
+    ]
+
+    key_vault_credential = [
+    #   {
+    #   name  = ""
+    #   key_vault_url = ""
+    #   service_principal_name  = ""
+    #   service_principal_secret = ""
+    # }
+    ]
+
+
+    sql_instance = [
+      {
+      adhoc_workloads_optimization_enabled = ""
+      collation = "SQL_Latin1_General_CP1_CI_AS"
+      instant_file_initialization_enabled = true   // Possible values are true and false. Defaults to false
+      lock_pages_in_memory_enabled = false          //Possible values are true and false. Defaults to false
+      max_dop = "1000"                              //Possible values are between 0 and 32767. Defaults to 0
+      max_server_memory_mb = "8064"                 //Possible values are between 128 and 2147483647 Defaults to 2147483647
+      min_server_memory_mb = "4064"                 // Possible values are between 0 and 2147483647 Defaults to 0
+    }
+    ]
+
+    storage_configuration = [
+      {
+      disk_type = "NEW"                              //Valid values include NEW, EXTEND, or ADD
+      storage_workload_type = "GENERAL"              //Valid values include GENERAL, OLTP, or DW
+      
+      data_settings = {
+        default_file_path = "F:\\data"
+        luns = [0]
+      }
+      log_settings = {
+        default_file_path = "L:\\log"
+        luns = [1]
+      }
+      system_db_on_data_disk_enabled = "false"             // Possible values are true and false. Defaults to false
+
+      temp_db_settings = {
+        default_file_path = "T:\\tempDb"
+        luns = [2]
+        data_file_count = "8"                               //This value defaults to 8.                      
+        data_file_size_mb = "256"                           //This value defaults to 256.
+        data_file_growth_in_mb = "512"                      //This value defaults to 512.
+        log_file_size_mb = "256"                            //This value defaults to 256.
+        log_file_growth_mb = "512"                          //This value defaults to 512.
+      }
+    }
+    ]
+
+    assessment = [
+      {
+      enabled = "true"                                       //Defaults to true.
+      run_immediately = "false"                              //Defaults to false.
+      schedule = {
+        weekly_interval = "1"                                //Valid values are between 1 and 6.  #Either one of weekly_interval or monthly_occurrence must be specified.
+        monthly_occurrence = "2"                             //Valid values are between 1 and 5.
+        day_of_week = "Wednesday"                            //Possible values are Friday, Monday, Saturday, Sunday, Thursday, Tuesday and Wednesday.
+        start_time = "19:00"                                 //Must be in the format HH:mm.
+      }
+    }
+    ]
+
+    wsfc_domain_credential = [
+      {
+      cluster_bootstrap_account_password = "Dddi@123456789"
+      cluster_operator_account_password = "Dddi@123456789"
+      sql_service_account_password = "Dddi@123456789"
+    }
+    ]
+  }
+]

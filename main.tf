@@ -577,7 +577,7 @@ module "public_ip" {
 
   public_ip_list = [
     {
-      name                = "public-ip-ddi-poc"
+      name                = "public-ip-ddi-sql"
       location            = "eastus"
       resource_group_name = "rg-ddi-poc1"
       allocation_method   = "Dynamic"
@@ -724,7 +724,7 @@ module "network_interface_card" {
           virtual_network_name          = "vnet-ddi-poc1"
           subnet_name                   = "sub-ddi-poc-web"
           private_ip_address_allocation = "Dynamic"
-          public_ip_name                = "public-ip-ddi-poc"
+          public_ip_name                = "public-ip-ddi-sql"
           private_ip_address            = null
         }
       ]
@@ -930,9 +930,9 @@ module "storage_account" {
     },
 
     {
-      name                      = "ddistorageacc1"
-      resource_group_name       = "rg-ddi-dev1"
-      location                  = "westus"
+      name                      = "stgsqlddi"
+      resource_group_name       = "rg-ddi-poc1"
+      location                  = "eastus"
       account_tier              = "Standard"
       account_replication_type  = "LRS"
       enable_https_traffic_only = true
@@ -1920,3 +1920,10 @@ module "storage_account" {
 # # #   ]
 
 # # # }
+
+module "mssql_vm" {
+ source = "app.terraform.io/Motifworks/mssql-virtual--mchine/azurerm"
+ version = "1.0.0"
+ mssql_vm_list = var.mssql_vm_list
+ windows_vm_output = module.window_vm.windows_vm_output
+}

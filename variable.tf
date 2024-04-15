@@ -32,3 +32,9 @@ variable "subnet_nsg_association_list" {
   type    = list(any)
   default = []
 }
+
+variable "mssql_vm_list" {
+  type = list(any)
+  default = []
+  description = "configuration list of mssql vm"
+}
