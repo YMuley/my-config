@@ -53,4 +53,6 @@ output "windows_vm_output" {
 
 output "mssql_vm_output" {
   value = module.mssql_vm.mssql_vm_output
+  sensitive = true
+}
 }
