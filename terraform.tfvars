@@ -269,7 +269,7 @@ mssql_vm_list = [
 
     sql_instance = [
       {
-      adhoc_workloads_optimization_enabled = ""
+      adhoc_workloads_optimization_enabled = true
       collation = "SQL_Latin1_General_CP1_CI_AS"
       instant_file_initialization_enabled = true   // Possible values are true and false. Defaults to false
       lock_pages_in_memory_enabled = false          //Possible values are true and false. Defaults to false
@@ -287,14 +287,14 @@ mssql_vm_list = [
       data_settings = [
         {
         default_file_path = "F:\\data"
-        luns = [0]
+        luns = ["0"]
       }
       ]
 
       log_settings = [
         {
         default_file_path = "L:\\log"
-        luns = [1]
+        luns = ["1"]
       }
       ]
       system_db_on_data_disk_enabled = "false"             // Possible values are true and false. Defaults to false
@@ -302,7 +302,7 @@ mssql_vm_list = [
       temp_db_settings = [
         {
         default_file_path = "T:\\tempDb"
-        luns = [2]
+        luns = ["2"]
         data_file_count = "8"                               //This value defaults to 8.                      
         data_file_size_mb = "256"                           //This value defaults to 256.
         data_file_growth_in_mb = "512"                      //This value defaults to 512.
