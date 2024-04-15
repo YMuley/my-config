@@ -214,9 +214,9 @@ module "window_vm" {
 
       source_image_reference = [
         {
-          publisher = "MicrosoftWindowsServer"
-          offer     = "WindowsServer"
-          sku       = "2019-Datacenter"
+          publisher = "microsoftsqlserver"
+          offer     = "sql2022-ws2022"
+          sku       = "enterprise-gen2"
           version   = "latest"
         }
       ]
