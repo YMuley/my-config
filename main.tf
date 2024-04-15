@@ -194,7 +194,7 @@ module "window_vm" {
       name                            = "sql-server-vm"
       resource_group_name             = "rg-ddi-poc1"
       location                        = "eastus"
-      size                            = "Standard_F2"
+      size                            = "Standard_B4ms"
       disable_password_authentication = false
       allow_extension_operations      = true
       availability_set_name           = null
@@ -215,8 +215,8 @@ module "window_vm" {
       source_image_reference = [
         {
           publisher = "microsoftsqlserver"
-          offer     = "sql2022-ws2022"
-          sku       = "enterprise-gen2"
+          offer     =  "sql2022-ws2022"
+          sku       = "sqldev-gen2" #"enterprise-gen2"
           version   = "latest"
         }
       ]
