@@ -200,11 +200,20 @@ subnet_nsg_association_list = [
     virtual_network_name = "vnet-ddi-poc1"
     subnet_name          = "sub-ddi-poc-web"
   },
-  # {
-  #   nsg_name             = "nsg-ddi-poc"
-  #   virtual_network_name = "vnet-ddi-dev1"
-  #   subnet_name          = "sub-ddi-dev-web"
-  # }
+  {
+    nsg_name             = "nsg-ddi-poc"
+    virtual_network_name = "vnet-ddi-dev1"
+    subnet_name          = "sub-ddi-dev-web"
+  }
+]
+
+
+subnet_route_table_association_list = [
+  {
+    route_table_name     = "rt-table1"
+    virtual_network_name = "vnet-ddi-poc1"
+    subnet_name          = "sub-ddi-poc-web"
+  }
 ]
 
 mssql_vm_list = [
