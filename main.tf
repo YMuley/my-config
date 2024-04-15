@@ -754,7 +754,7 @@ module "network_interface_card" {
           virtual_network_name          = "vnet-ddi-poc1"
           subnet_name                   = "sub-ddi-poc-web"
           private_ip_address_allocation = "Dynamic"
-          public_ip_name                = "public-ip-ddi-poc"
+          public_ip_name                = "public-ip-ddi-sql"
           private_ip_address            = null
         }
       ]
