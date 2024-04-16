@@ -185,44 +185,45 @@ module "resource_Group" {
 #   ]
 # }
 
-# module "window_vm" {
-#   source                        = "app.terraform.io/Motifworks/window-vm/azurerm"
-#   version                       = "1.0.3"
-#   network_interface_card_output = module.network_interface_card.network_interface_card_output
-#   windows_vm_list = [
-#     {
-#       name : "vm-windows"
-#       resource_group_name             = "rg-ddi-dev1"
-#       location                        = "westus"
-#       size                            = "Standard_F2"
-#       disable_password_authentication = false
-#       allow_extension_operations      = true
-#       availability_set_name           = null
-#       network_interface_card_name     = ["nic1"]
-#       admin_username                  = "adminuser"
-#       admin_password                  = "P@$$w0rd1234!"
-#       #  network_interface_ids = [
-#       #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev1/providers/Microsoft.Network/networkInterfaces/nic1"
-#       #  ]
-#       os_disk = [
-#         {
-#           name                 = "testing"
-#           caching              = "ReadWrite"
-#           storage_account_type = "Standard_LRS"
-#         }
-#       ]
+module "window_vm" {
+  source                        = "app.terraform.io/Motifworks/window-vm/azurerm"
+  version                       = "1.0.3"
+  network_interface_card_output = module.network_interface_card.network_interface_card_output
+  windows_vm_list = [
+    {
+      name                            = "vm-windows"
+      resource_group_name             = "rg-ddi-dev1"
+      location                        = "westus"
+      size                            = "Standard_F2"
+      disable_password_authentication = false
+      allow_extension_operations      = true
+      availability_set_name           = null
+      network_interface_card_name     = ["nic1"]
+      admin_username                  = "adminuser"
+      admin_password                  = "P@$$w0rd1234!"
+      #  network_interface_ids = [
+      #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev1/providers/Microsoft.Network/networkInterfaces/nic1"
+      #  ]
+      os_disk = [
+        {
+          name                 = "testing"
+          caching              = "ReadWrite"
+          storage_account_type = "Standard_LRS"
+        }
+      ]
 
-#       source_image_reference = [
-#         {
-#           publisher = "MicrosoftWindowsServer"
-#           offer     = "WindowsServer"
-#           sku       = "2016-Datacenter"
-#           version   = "latest"
-#         }
-#       ]
-#     }
-#   ]
-# }
+      source_image_reference = [
+        {
+          publisher = "MicrosoftWindowsServer"
+          offer     = "WindowsServer"
+          sku       = "2016-Datacenter"
+          version   = "latest"
+        }
+      ]
+    }
+  ]
+}
+
 # module "linux_vm" {
 #   source                        = "app.terraform.io/Motifworks/linux-vm/azurerm"
 #   version                       = "1.0.0"
@@ -1001,6 +1002,15 @@ module "managed_disk" {
   resource_group_output = module.resource_Group.resource_group_output
   managed_disk_list     = var.managed_disk_list
 }
+
+module "vm_data_disk_attach" {
+  source                   = "app.terraform.io/Motifworks/vm_data_disk_attach/azurerm"
+  version                  = "1.0.0"
+  vm_data_disk_attach_list = var.vm_data_disk_attach_list
+  windows_vm_output        = module.window_vm.windows_vm_output
+  managed_disk_output      = module.managed_disk.managed_disk_output
+}
+
 
 # # module "load_balancer" {
 # #   source  = "app.terraform.io/Motifworks/load_balancer/azurerm"

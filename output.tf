@@ -22,9 +22,9 @@ output "route_table_output" {
   value = module.route_table.route_table_output
 }
 
-# output "managed_disk_output" {
-#     value = module.managed_disk.managed_disk
-# }
+output "managed_disk_output" {
+    value = module.managed_disk.managed_disk
+}
 
 # output "virtual_network_dns_output" {
 #   value = module.virtual_network_dns.virtual_network_dns_output
@@ -50,13 +50,13 @@ output "route_table_output" {
 #   value = module.traffic_manager_profile.traffic_manager_profile_output
 # }
 
-# output "windows_vm_output" {
-#   value = module.window_vm.windows_vm_output
-#   sensitive = true
-# }
+output "windows_vm_output" {
+  value = module.window_vm.windows_vm_output
+  sensitive = true
+}
 
-# output "mssql_vm_output" {
-#   value = module.mssql_vm.mssql_vm_output
-#   sensitive = true
-# }
+output "mssql_vm_output" {
+  value = module.mssql_vm.mssql_vm_output
+  sensitive = true
+}
 

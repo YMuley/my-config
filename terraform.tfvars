@@ -251,3 +251,13 @@ managed_disk_list = [
     }
   }
 ]
+
+vm_data_disk_attach_list = [
+  {
+    managed_disk_name = "window-disk"
+    resource_type     = "windows" #linux or windows
+    resource_name     = "vm-windows"
+    lun               = "10"
+    caching           = "ReadWrite"
+  }
+]

@@ -39,11 +39,16 @@ variable "subnet_route_table_association_list" {
 }
 
 variable "mssql_vm_list" {
-  type = list(any)
-  default = []
+  type        = list(any)
+  default     = []
   description = "configuration list of mssql vm"
 }
 variable "managed_disk_list" {
-    type = list(any)
-    default = []  
+  type    = list(any)
+  default = []
+}
+
+variable "vm_data_disk_attach_list" {
+  type    = list(any)
+  default = []
 }
