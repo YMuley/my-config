@@ -345,7 +345,7 @@ managed_disk_list = [
     location             = "eastus"
     storage_account_type = "Standard_LRS"
     create_option        = "Empty"
-    disk_size_gb         = 10
+    disk_size_gb         = 1000
     tags = {
       environment = "dev"
     }
@@ -356,7 +356,7 @@ managed_disk_list = [
     location             = "eastus"
     storage_account_type = "Standard_LRS"
     create_option        = "Empty"
-    disk_size_gb         = 50
+    disk_size_gb         = 500
     tags = {
       environment = "dev"
     }
@@ -367,7 +367,7 @@ managed_disk_list = [
     location             = "eastus"
     storage_account_type = "Standard_LRS"
     create_option        = "Empty"
-    disk_size_gb         = 10
+    disk_size_gb         = 100
     tags = {
       environment = "dev"
     }
