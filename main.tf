@@ -569,25 +569,26 @@ module "network_security_group" {
 # #   depends_on = [module.virtual_network]
 # # }
 
-# module "public_ip" {
-#   source                = "app.terraform.io/Motifworks/public_ip/azurerm"
-#   version               = "1.0.0"
-#   resource_group_output = module.resource_Group.resource_group_output
+module "public_ip" {
+  source                = "app.terraform.io/Motifworks/public_ip/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
 
-#   public_ip_list = [
-#     # {
-#     #   name                = "publicip-ddi-poc"
-#     #   location            = "eastus"
-#     #   resource_group_name = "rg-ddi-poc1"
-#     #   allocation_method   = "Dynamic"
-#     #   sku                 = "Basic"
-#     #   zones               = []
-#     #   domain_name_label   = "unique-testing-label-one"
-#     #   tags = {
-#     #     environment = "poc"
-#     #   }
-#     #   sku_tier = "Regional"
-#     # },
+  public_ip_list = [
+    {
+      name                = "publicip-ddi-poc"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-poc1"
+      allocation_method   = "Dynamic"
+      sku                 = "Basic"
+      zones               = []
+      domain_name_label   = "unique-testing-label-one"
+      tags = {
+        environment = "poc"
+      }
+      sku_tier = "Regional"
+    }]
+}
 #     # {
 #     #   name                = "public-ip-ddi-appgw"
 #     #   location            = "eastus"
