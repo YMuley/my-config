@@ -191,14 +191,14 @@ module "window_vm" {
   network_interface_card_output = module.network_interface_card.network_interface_card_output
   windows_vm_list = [
     {
-      name                            = "vm-windows"
-      resource_group_name             = "rg-ddi-dev1"
-      location                        = "westus"
-      size                            = "Standard_F2"
+      name                            = "sql-server-vm"
+      resource_group_name             = "rg-ddi-poc1"
+      location                        = "eastus"
+      size                            = "Standard_B4ms"
       disable_password_authentication = false
       allow_extension_operations      = true
       availability_set_name           = null
-      network_interface_card_name     = ["nic1"]
+      network_interface_card_name     = ["sql-vm-nic"]
       admin_username                  = "adminuser"
       admin_password                  = "P@$$w0rd1234!"
       #  network_interface_ids = [
@@ -206,7 +206,7 @@ module "window_vm" {
       #  ]
       os_disk = [
         {
-          name                 = "testing"
+          name                 = "sql-server-vm"
           caching              = "ReadWrite"
           storage_account_type = "Standard_LRS"
         }
@@ -214,9 +214,9 @@ module "window_vm" {
 
       source_image_reference = [
         {
-          publisher = "MicrosoftWindowsServer"
-          offer     = "WindowsServer"
-          sku       = "2016-Datacenter"
+          publisher = "microsoftsqlserver"
+          offer     = "sql2022-ws2022"
+          sku       = "sqldev-gen2" #"enterprise-gen2"
           version   = "latest"
         }
       ]
@@ -575,98 +575,98 @@ module "public_ip" {
 
   public_ip_list = [
     {
-      name                = "publicip-ddi-poc"
+      name                = "public-ip-ddi-sql"
       location            = "eastus"
       resource_group_name = "rg-ddi-poc1"
       allocation_method   = "Dynamic"
       sku                 = "Basic"
       zones               = []
-      domain_name_label   = "unique-testing-label-one"
+      domain_name_label   = null
       tags = {
         environment = "poc"
       }
       sku_tier = "Regional"
-  }]
+     },
+    # {
+    #   name                = "public-ip-ddi-appgw"
+    #   location            = "eastus"
+    #   resource_group_name = "rg-ddi-poc1"
+    #   allocation_method   = "Static"
+    #   sku                 = "Standard"
+    #   zones               = ["1", "2", "3"]
+    #   domain_name_label   = null
+    #   tags = {
+    #     environment = "poc"
+    #   }
+    #   sku_tier = "Regional"
+    # },
+    # {
+    #   name                = "public-ip-ddi-dev"
+    #   location            = "westus"
+    #   resource_group_name = "rg-ddi-dev1"
+    #   allocation_method   = "Static"
+    #   sku                 = "Basic"
+    #   zones               = []
+    #   domain_name_label   = "another-unique-label-one"
+    #   tags = {
+    #     environment = "dev"
+    #   }
+    #   sku_tier = "Regional"
+    # },
+    # {
+    #   name                = "public-ip-ddi-dev2"
+    #   location            = "westus"
+    #   resource_group_name = "rg-ddi-dev1"
+    #   allocation_method   = "Static"
+    #   sku                 = "Basic"
+    #   zones               = []
+    #   domain_name_label   = "officers-choice-label"
+    #   tags = {
+    #     environment = "dev"
+    #   }
+    #   sku_tier = "Regional"
+    # },
+    # {
+    #   name                = "public-ip-ddi-lb"
+    #   location            = "westus"
+    #   resource_group_name = "rg-ddi-dev1"
+    #   allocation_method   = "Static"
+    #   sku                 = "Standard"
+    #   zones               = []
+    #   domain_name_label   = "one-lb-unique-label"
+    #   tags = {
+    #     environment = "dev"
+    #   }
+    #   sku_tier = "Regional"
+    # },
+    # {
+    #   name                = "public-ip-ddi-lb-1"
+    #   location            = "westus"
+    #   resource_group_name = "rg-ddi-dev1"
+    #   allocation_method   = "Static"
+    #   sku                 = "Standard"
+    #   zones               = []
+    #   domain_name_label   = "two-lb-unique-label"
+    #   tags = {
+    #     environment = "dev"
+    #   }
+    #   sku_tier = "Regional"
+    # },
+    # {
+    #   name                = "public-ip-ddi-fw"
+    #   location            = "westus"
+    #   resource_group_name = "rg-ddi-dev1"
+    #   allocation_method   = "Static"
+    #   sku                 = "Standard"
+    #   zones               = []
+    #   domain_name_label   = null
+    #   tags = {
+    #     environment = "dev"
+    #   }
+    # sku_tier = "Regional" }
+  ]
 }
-#     # {
-#     #   name                = "public-ip-ddi-appgw"
-#     #   location            = "eastus"
-#     #   resource_group_name = "rg-ddi-poc1"
-#     #   allocation_method   = "Static"
-#     #   sku                 = "Standard"
-#     #   zones               = ["1", "2", "3"]
-#     #   domain_name_label   = null
-#     #   tags = {
-#     #     environment = "poc"
-#     #   }
-#     #   sku_tier = "Regional"
-#     # },
-#     # {
-#     #   name                = "public-ip-ddi-dev"
-#     #   location            = "westus"
-#     #   resource_group_name = "rg-ddi-dev1"
-#     #   allocation_method   = "Static"
-#     #   sku                 = "Basic"
-#     #   zones               = []
-#     #   domain_name_label   = "another-unique-label-one"
-#     #   tags = {
-#     #     environment = "dev"
-#     #   }
-#     #   sku_tier = "Regional"
-#     # },
-#     # {
-#     #   name                = "public-ip-ddi-dev2"
-#     #   location            = "westus"
-#     #   resource_group_name = "rg-ddi-dev1"
-#     #   allocation_method   = "Static"
-#     #   sku                 = "Basic"
-#     #   zones               = []
-#     #   domain_name_label   = "officers-choice-label"
-#     #   tags = {
-#     #     environment = "dev"
-#     #   }
-#     #   sku_tier = "Regional"
-#     # },
-#     # {
-#     #   name                = "public-ip-ddi-lb"
-#     #   location            = "westus"
-#     #   resource_group_name = "rg-ddi-dev1"
-#     #   allocation_method   = "Static"
-#     #   sku                 = "Standard"
-#     #   zones               = []
-#     #   domain_name_label   = "one-lb-unique-label"
-#     #   tags = {
-#     #     environment = "dev"
-#     #   }
-#     #   sku_tier = "Regional"
-#     # }
-#     # {
-#     #   name                = "public-ip-ddi-lb-1"
-#     #   location            = "westus"
-#     #   resource_group_name = "rg-ddi-dev1"
-#     #   allocation_method   = "Static"
-#     #   sku                 = "Standard"
-#     #   zones               = []
-#     #   domain_name_label   = "two-lb-unique-label"
-#     #   tags = {
-#     #     environment = "dev"
-#     #   }
-#     #   sku_tier = "Regional"
-#     # }
-#     {
-#       name                = "public-ip-ddi-fw"
-#       location            = "westus"
-#       resource_group_name = "rg-ddi-dev1"
-#       allocation_method   = "Static"
-#       sku                 = "Standard"
-#       zones               = []
-#       domain_name_label   = null
-#       tags = {
-#         environment = "dev"
-#       }
-#     sku_tier = "Regional" }
-#   ]
-# }
+
 
 module "route_table" {
   source                = "app.terraform.io/Motifworks/route_table/azurerm"
@@ -709,68 +709,65 @@ module "network_interface_card" {
   subnet_output         = module.subnet.vnet_subnet_output
   public_ip_output      = module.public_ip.public_ip_output
 
-  network_interface_card_list = [
+    network_interface_card_list = [
     {
-      name                = "nic1"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
+      name                = "sql-vm-nic"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-poc1"
       tags = {
         environment = "dev"
       }
       ip_configuration = [
         {
           name                          = "config1"
-          virtual_network_name          = "vnet-ddi-dev1"
-          subnet_name                   = "sub-ddi-dev-web"
+          virtual_network_name          = "vnet-ddi-poc1"
+          subnet_name                   = "sub-ddi-poc-web"
           private_ip_address_allocation = "Dynamic"
-          public_ip_name                = "publicip-ddi-poc"
+          public_ip_name                = "public-ip-ddi-sql"
           private_ip_address            = null
         }
       ]
-    }
+    },
+ 
+    # {
+    #   name                = "vm1-linux-nic"
+    #   location            = "westus"
+    #   resource_group_name = "rg-ddi-dev1"
+    #   tags = {
+    #     environment = "dev"
+    #   }
+    #   ip_configuration = [
+    #     {
+    #       name                          = "config2"
+    #       virtual_network_name          = "vnet-ddi-dev1"
+    #       subnet_name                   = "sub-ddi-dev2-web"
+    #       private_ip_address_allocation = "Dynamic"
+    #       public_ip_name                = "public-ip-ddi-dev2"
+    #       private_ip_address            = null
+    #     }
+    #   ]
+    # },
+    # {
+    #   name                = "lb-ddi-dev-nic"
+    #   location            = "westus"
+    #   resource_group_name = "rg-ddi-dev1"
+    #   tags = {
+    #     environment = "dev"
+    #   }
+    #   ip_configuration = [
+    #     {
+    #       name                          = "lb-ddi-dev-ip"
+    #       virtual_network_name          = "vnet-ddi-dev1"
+    #       subnet_name                   = "sub-ddi-dev-web"
+    #       private_ip_address_allocation = "Dynamic"
+    #       public_ip_name                = null
+    #       private_ip_address            = null
+    #     }
+    #   ]
+    # }
   ]
 }
 
-# #     {
-# #       name                = "vm1-linux-nic"
-# #       location            = "westus"
-# #       resource_group_name = "rg-ddi-dev1"
-# #       tags = {
-# #         environment = "dev"
-# #       }
-# #       ip_configuration = [
-# #         {
-# #           name                          = "config2"
-# #           virtual_network_name          = "vnet-ddi-dev1"
-# #           subnet_name                   = "sub-ddi-dev2-web"
-# #           private_ip_address_allocation = "Dynamic"
-# #           public_ip_name                = "public-ip-ddi-dev2"
-# #           private_ip_address            = null
-# #         }
-# #       ]
-# #     },
-# #     {
-# #       name                = "lb-ddi-dev-nic"
-# #       location            = "westus"
-# #       resource_group_name = "rg-ddi-dev1"
-# #       tags = {
-# #         environment = "dev"
-# #       }
-# #       ip_configuration = [
-# #         {
-# #           name                          = "lb-ddi-dev-ip"
-# #           virtual_network_name          = "vnet-ddi-dev1"
-# #           subnet_name                   = "sub-ddi-dev-web"
-# #           private_ip_address_allocation = "Dynamic"
-# #           public_ip_name                = null
-# #           private_ip_address            = null
-# #         }
-# #       ]
-# #     }
-# #   ]
-
-
-# # }
 
 module "subnet_nsg_association" {
   source                        = "app.terraform.io/Motifworks/subnet_nsg_association/azurerm"
@@ -1935,8 +1932,8 @@ module "vm_data_disk_attach" {
 # }
 
 module "mssql_vm" {
- source = "app.terraform.io/Motifworks/mssql_virtual_mchine/azurerm"
- version = "1.0.0"
- mssql_vm_list = var.mssql_vm_list
- windows_vm_output = module.window_vm.windows_vm_output
+  source            = "app.terraform.io/Motifworks/mssql_virtual_mchine/azurerm"
+  version           = "1.0.0"
+  mssql_vm_list     = var.mssql_vm_list
+  windows_vm_output = module.window_vm.windows_vm_output
 }
