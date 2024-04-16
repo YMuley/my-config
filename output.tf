@@ -50,13 +50,13 @@ output "route_table_output" {
 #   value = module.traffic_manager_profile.traffic_manager_profile_output
 # }
 
-output "windows_vm_output" {
-  value = module.window_vm.windows_vm_output
-  sensitive = true
-}
+# output "windows_vm_output" {
+#   value = module.window_vm.windows_vm_output
+#   sensitive = true
+# }
 
-output "mssql_vm_output" {
-  value = module.mssql_vm.mssql_vm_output
-  sensitive = true
-}
+# output "mssql_vm_output" {
+#   value = module.mssql_vm.mssql_vm_output
+#   sensitive = true
+# }
 
