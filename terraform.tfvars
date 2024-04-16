@@ -285,30 +285,30 @@ mssql_vm_list = [
       storage_workload_type = "GENERAL"              //Valid values include GENERAL, OLTP, or DW
       
       data_settings = [
-      #   {
-      #   default_file_path = "F:\\data"
-      #   luns = ["0"]
-      # }
+        {
+        default_file_path = "F:\\data"
+        luns = ["0"]
+      }
       ]
 
       log_settings = [
-      #   {
-      #   default_file_path = "L:\\log"
-      #   luns = ["1"]
-      # }
+        {
+        default_file_path = "L:\\log"
+        luns = ["1"]
+      }
       ]
       system_db_on_data_disk_enabled = "false"             // Possible values are true and false. Defaults to false
 
       temp_db_settings = [
-      #   {
-      #   default_file_path = "T:\\tempDb"
-      #   luns = ["2"]
-      #   data_file_count = "8"                               //This value defaults to 8.                      
-      #   data_file_size_mb = "256"                           //This value defaults to 256.
-      #   data_file_growth_in_mb = "512"                      //This value defaults to 512.
-      #   log_file_size_mb = "256"                            //This value defaults to 256.
-      #   log_file_growth_mb = "512"                          //This value defaults to 512.
-      # }
+        {
+        default_file_path = "T:\\tempDb"
+        luns = ["2"]
+        data_file_count = "8"                               //This value defaults to 8.                      
+        data_file_size_mb = "256"                           //This value defaults to 256.
+        data_file_growth_in_mb = "512"                      //This value defaults to 512.
+        log_file_size_mb = "256"                            //This value defaults to 256.
+        log_file_growth_mb = "512"                          //This value defaults to 512.
+      }
       ]
     }
     ]
@@ -376,10 +376,24 @@ managed_disk_list = [
 
 vm_data_disk_attach_list = [
   {
-    managed_disk_name = ""
+    managed_disk_name = "data-disk-1"
     resource_type     = "windows" #linux or windows
     resource_name     = "sql-server-vm"
-    lun               = "10"
+    lun               = "0"
+    caching           = "ReadWrite"
+  },
+  {
+    managed_disk_name = "sql-log"
+    resource_type     = "windows" #linux or windows
+    resource_name     = "sql-server-vm"
+    lun               = "1"
+    caching           = "ReadWrite"
+  },
+  {
+    managed_disk_name = "temp-db"
+    resource_type     = "windows" #linux or windows
+    resource_name     = "sql-server-vm"
+    lun               = "2"
     caching           = "ReadWrite"
   }
 ]
