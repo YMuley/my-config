@@ -224,50 +224,50 @@ module "window_vm" {
   ]
 }
 
-module "linux_vm" {
-  source                        = "app.terraform.io/Motifworks/linux-vm/azurerm"
-  version                       = "1.0.0"
-  network_interface_card_output = module.network_interface_card.network_interface_card_output
+# module "linux_vm" {
+#   source                        = "app.terraform.io/Motifworks/linux-vm/azurerm"
+#   version                       = "1.0.0"
+#   network_interface_card_output = module.network_interface_card.network_interface_card_output
 
-  linux_vm_list = [
-    {
-      name                            = "vm1-linux"
-      resource_group_name             = "rg-ddi-dev1"
-      location                        = "westus"
-      size                            = "Standard_F2"
-      disable_password_authentication = false
-      allow_extension_operations      = true
-      availability_set_name           = null
-      network_interface_card_name     = ["vm1-linux-nic"]
-      admin_username                  = "adminuser"
-      admin_password                  = "P@$$w0rd1234!"
-      tags = {
-        location     = "eastus"
-        subscription = "iac-dev"
-        environment  = "poc"
-      }
-      #  network_interface_ids = [
-      #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev1/providers/Microsoft.Network/networkInterfaces/1"
-      #  ]
-      os_disk = [
-        {
-          name                 = "testing2"
-          caching              = "ReadWrite"
-          storage_account_type = "Standard_LRS"
-        }
-      ]
+#   linux_vm_list = [
+#     {
+#       name                            = "vm1-linux"
+#       resource_group_name             = "rg-ddi-dev1"
+#       location                        = "westus"
+#       size                            = "Standard_F2"
+#       disable_password_authentication = false
+#       allow_extension_operations      = true
+#       availability_set_name           = null
+#       network_interface_card_name     = ["vm1-linux-nic"]
+#       admin_username                  = "adminuser"
+#       admin_password                  = "P@$$w0rd1234!"
+#       tags = {
+#         location     = "eastus"
+#         subscription = "iac-dev"
+#         environment  = "poc"
+#       }
+#       #  network_interface_ids = [
+#       #   "/subscriptions/8694217e-4a30-4107-9a12-aeac74b82f5c/resourceGroups/rg-ddi-dev1/providers/Microsoft.Network/networkInterfaces/1"
+#       #  ]
+#       os_disk = [
+#         {
+#           name                 = "testing2"
+#           caching              = "ReadWrite"
+#           storage_account_type = "Standard_LRS"
+#         }
+#       ]
 
-      source_image_reference = [
-        {
-          publisher = "Canonical"
-          offer     = "0001-com-ubuntu-server-jammy"
-          sku       = "22_04-lts"
-          version   = "latest"
-        }
-      ]
-    }
-  ]
-}
+#       source_image_reference = [
+#         {
+#           publisher = "Canonical"
+#           offer     = "0001-com-ubuntu-server-jammy"
+#           sku       = "22_04-lts"
+#           version   = "latest"
+#         }
+#       ]
+#     }
+#   ]
+# }
 
 module "virtual_network" {
   source                = "app.terraform.io/Motifworks/virtual_network/azurerm"
