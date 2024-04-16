@@ -577,7 +577,7 @@ module "public_ip" {
   public_ip_list = [
     {
       name                = "publicip-ddi-poc"
-      location            = "eastus"
+      location            = "westus"
       resource_group_name = "rg-ddi-poc1"
       allocation_method   = "Dynamic"
       sku                 = "Basic"
