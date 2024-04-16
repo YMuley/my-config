@@ -702,32 +702,34 @@ module "route_table" {
   ]
 }
 
-# # module "network_interface_card" {
-# #   source                = "app.terraform.io/Motifworks/network_interface_card/azurerm"
-# #   version               = "1.0.0"
-# #   resource_group_output = module.resource_Group.resource_group_output
-# #   subnet_output         = module.subnet.vnet_subnet_output
-# #   public_ip_output      = module.public_ip.public_ip_output
+module "network_interface_card" {
+  source                = "app.terraform.io/Motifworks/network_interface_card/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+  subnet_output         = module.subnet.vnet_subnet_output
+  public_ip_output      = module.public_ip.public_ip_output
 
-# #   network_interface_card_list = [
-# #     {
-# #       name                = "nic1"
-# #       location            = "westus"
-# #       resource_group_name = "rg-ddi-dev1"
-# #       tags = {
-# #         environment = "dev"
-# #       }
-# #       ip_configuration = [
-# #         {
-# #           name                          = "config1"
-# #           virtual_network_name          = "vnet-ddi-dev1"
-# #           subnet_name                   = "sub-ddi-dev-web"
-# #           private_ip_address_allocation = "Dynamic"
-# #           public_ip_name                = "public-ip-ddi-dev"
-# #           private_ip_address            = null
-# #         }
-# #       ]
-# #     },
+  network_interface_card_list = [
+    {
+      name                = "nic1"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev1"
+      tags = {
+        environment = "dev"
+      }
+      ip_configuration = [
+        {
+          name                          = "config1"
+          virtual_network_name          = "vnet-ddi-dev1"
+          subnet_name                   = "sub-ddi-dev-web"
+          private_ip_address_allocation = "Dynamic"
+          public_ip_name                = "public-ip-ddi-dev"
+          private_ip_address            = null
+        }
+      ]
+    }
+  ]
+}
 
 # #     {
 # #       name                = "vm1-linux-nic"
