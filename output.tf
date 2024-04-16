@@ -55,11 +55,7 @@ output "windows_vm_output" {
   sensitive = true
 }
 
-# output "mssql_vm_output" {
-#   value = module.mssql_vm.mssql_vm_output
-#   sensitive = true
-# }
-
-output "managed_disk_output" {
-    value = module.managed_disk.managed_disk_output
+output "mssql_vm_output" {
+  value = module.mssql_vm.mssql_vm_output
+  sensitive = true
 }
