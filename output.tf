@@ -22,9 +22,9 @@ output "route_table_output" {
   value = module.route_table.route_table_output
 }
 
-output "managed_disk_output" {
-    value = module.managed_disk.managed_disk
-}
+# output "managed_disk_output" {
+#     value = module.managed_disk.managed_disk
+# }
 
 # output "virtual_network_dns_output" {
 #   value = module.virtual_network_dns.virtual_network_dns_output

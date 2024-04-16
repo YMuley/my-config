@@ -999,7 +999,7 @@ module "managed_disk" {
   source                = "app.terraform.io/Motifworks/managed_disk/azurerm"
   version               = "1.0.0"
   resource_group_output = module.resource_Group.resource_group_output
-  managed_disk_list     = var.managed_disk.managed_disk_output
+  managed_disk_list     = var.managed_disk_list
 }
 
 # # module "load_balancer" {
