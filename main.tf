@@ -316,16 +316,16 @@ module "subnet" {
       private_link_service_network_policies_enabled = "false"
 
       delegation = [
-        {
-          name = "delegation"
-          service_delegation = [{
-            name    = "Microsoft.ContainerInstance/containerGroups"
-            actions = ["Microsoft.Network/virtualNetworks/subnets/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+        # {
+        #   name = "delegation"
+        #   service_delegation = [{
+        #     name    = "Microsoft.ContainerInstance/containerGroups"
+        #     actions = ["Microsoft.Network/virtualNetworks/subnets/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
 
-          }]
+        #   }]
 
 
-        }
+        # }
       ]
     },
 
