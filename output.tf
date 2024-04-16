@@ -23,7 +23,7 @@ output "route_table_output" {
 }
 
 output "managed_disk_output" {
-    value = azurerm_managed_disk.managed_disk
+    value = module.managed_disk.managed_disk
 }
 
 # output "virtual_network_dns_output" {
