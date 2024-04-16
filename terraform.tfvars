@@ -259,5 +259,12 @@ vm_data_disk_attach_list = [
     resource_name     = "vm-windows"
     lun               = "10"
     caching           = "ReadWrite"
+  },
+   {
+    managed_disk_name = "test-disk"
+    resource_type     = "linux" #linux or windows
+    resource_name     = "vm1-linux"
+    lun               = "10"
+    caching           = "ReadWrite"
   }
 ]
