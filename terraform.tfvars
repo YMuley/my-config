@@ -215,3 +215,39 @@ subnet_route_table_association_list = [
     subnet_name          = "sub-ddi-poc-web"
   }
 ]
+
+managed_disk_list = [
+  {
+    name                 = "window-disk"
+    resource_group_name  = "rg-ddi-dev1"
+    location             = "westus"
+    storage_account_type = "Standard_LRS"
+    create_option        = "Empty"
+    disk_size_gb         = 10
+    tags = {
+      environment = "dev"
+    }
+  },
+  {
+    name                 = "test-disk"
+    resource_group_name  = "rg-ddi-dev1"
+    location             = "westus"
+    storage_account_type = "Standard_LRS"
+    create_option        = "Empty"
+    disk_size_gb         = 10
+    tags = {
+      environment = "dev"
+    }
+  },
+  {
+    name                 = "data-disk"
+    resource_group_name  = "rg-ddi-dev1"
+    location             = "westus"
+    storage_account_type = "Standard_LRS"
+    create_option        = "Empty"
+    disk_size_gb         = 10
+    tags = {
+      environment = "dev"
+    }
+  }
+]
