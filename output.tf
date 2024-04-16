@@ -22,17 +22,21 @@ output "route_table_output" {
   value = module.route_table.route_table_output
 }
 
+output "managed_disk_output" {
+    value = module.managed_disk.managed_disk_output
+}
+
 # output "virtual_network_dns_output" {
 #   value = module.virtual_network_dns.virtual_network_dns_output
 # }
 
-# output "public_ip_output" {
-#   value = module.public_ip.public_ip_output
-# }
+output "public_ip_output" {
+  value = module.public_ip.public_ip_output
+}
 
-# output "network_interface_card_output" {
-#   value = module.network_interface_card.network_interface_card_output
-# }
+output "network_interface_card_output" {
+  value = module.network_interface_card.network_interface_card_output
+}
 
 # output "azure_firewall_output" {
 #   value = module.azure_firewall.azure_firewall_output
@@ -51,10 +55,10 @@ output "windows_vm_output" {
   sensitive = true
 }
 
-output "mssql_vm_output" {
-  value = module.mssql_vm.mssql_vm_output
-  sensitive = true
-}
+# output "mssql_vm_output" {
+#   value = module.mssql_vm.mssql_vm_output
+#   sensitive = true
+# }
 
 output "managed_disk_output" {
     value = module.managed_disk.managed_disk_output
