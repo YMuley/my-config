@@ -225,10 +225,10 @@ module "window_vm" {
   depends_on = [ module.managed_disk ]
 }
 
-# module "linux_vm" {
-#   source                        = "app.terraform.io/Motifworks/linux-vm/azurerm"
-#   version                       = "1.0.0"
-#   network_interface_card_output = module.network_interface_card.network_interface_card_output
+module "linux_vm" {
+  source                        = "app.terraform.io/Motifworks/linux-vm/azurerm"
+  version                       = "1.0.0"
+  network_interface_card_output = module.network_interface_card.network_interface_card_output
 
 #   linux_vm_list = [
 #     {
@@ -268,7 +268,8 @@ module "window_vm" {
 #       ]
 #     }
 #   ]
-# }
+    depends_on = [ module.managed_disk ]
+ }
 
 module "virtual_network" {
   source                = "app.terraform.io/Motifworks/virtual_network/azurerm"
