@@ -552,6 +552,20 @@ module "network_security_group" {
   ]
 }
 
+module "managed_disk" {
+  source                = "app.terraform.io/Motifworks/managed_disk/azurerm"
+  version               = "1.0.0"
+  resource_group_output = module.resource_Group.resource_group_output
+  managed_disk_list     = var.managed_disk_list
+}
+
+module "vm_data_disk_attach" {
+  source                   = "app.terraform.io/Motifworks/vm_data_disk_attach/azurerm"
+  version                  = "1.0.0"
+  vm_data_disk_attach_list = var.vm_data_disk_attach_list
+  windows_vm_output        = module.window_vm.windows_vm_output
+  managed_disk_output      = module.managed_disk.managed_disk_output
+}
 
 # # module "virtual_network_dns" {
 # #   source                 = "app.terraform.io/Motifworks/virtual_network_dns/azurerm"

@@ -43,3 +43,13 @@ variable "mssql_vm_list" {
   default = []
   description = "configuration list of mssql vm"
 }
+
+variable "managed_disk_list" {
+  type    = list(any)
+  default = []
+}
+
+variable "vm_data_disk_attach_list" {
+  type    = list(any)
+  default = []
+}

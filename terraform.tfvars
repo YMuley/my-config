@@ -337,3 +337,49 @@ mssql_vm_list = [
     ]
   }
 ]
+
+managed_disk_list = [
+  {
+    name                 = "data-disk-1"
+    resource_group_name  = "rg-ddi-poc1"
+    location             = "eastus"
+    storage_account_type = "Standard_LRS"
+    create_option        = "Empty"
+    disk_size_gb         = 10
+    tags = {
+      environment = "dev"
+    }
+  },
+  {
+    name                 = "sql-log"
+    resource_group_name  = "rg-ddi-poc1"
+    location             = "eastus"
+    storage_account_type = "Standard_LRS"
+    create_option        = "Empty"
+    disk_size_gb         = 50
+    tags = {
+      environment = "dev"
+    }
+  },
+  {
+    name                 = "temp-db"
+    resource_group_name  = "rg-ddi-poc1"
+    location             = "eastus"
+    storage_account_type = "Standard_LRS"
+    create_option        = "Empty"
+    disk_size_gb         = 10
+    tags = {
+      environment = "dev"
+    }
+  }
+]
+
+vm_data_disk_attach_list = [
+  {
+    managed_disk_name = ""
+    resource_type     = "windows" #linux or windows
+    resource_name     = "sql-server-vm"
+    lun               = "10"
+    caching           = "ReadWrite"
+  }
+]

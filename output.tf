@@ -56,3 +56,6 @@ output "mssql_vm_output" {
   sensitive = true
 }
 
+output "managed_disk_output" {
+    value = module.managed_disk.managed_disk_output
+}
