@@ -222,12 +222,13 @@ module "window_vm" {
       ]
     }
   ]
+  depends_on = [ module.managed_disk ]
 }
 
-# module "linux_vm" {
-#   source                        = "app.terraform.io/Motifworks/linux-vm/azurerm"
-#   version                       = "1.0.0"
-#   network_interface_card_output = module.network_interface_card.network_interface_card_output
+module "linux_vm" {
+  source                        = "app.terraform.io/Motifworks/linux-vm/azurerm"
+  version                       = "1.0.0"
+  network_interface_card_output = module.network_interface_card.network_interface_card_output
 
 #   linux_vm_list = [
 #     {
@@ -267,7 +268,8 @@ module "window_vm" {
 #       ]
 #     }
 #   ]
-# }
+    depends_on = [ module.managed_disk ]
+ }
 
 module "virtual_network" {
   source                = "app.terraform.io/Motifworks/virtual_network/azurerm"
@@ -1009,6 +1011,7 @@ module "vm_data_disk_attach" {
   vm_data_disk_attach_list = var.vm_data_disk_attach_list
   windows_vm_output        = module.window_vm.windows_vm_output
   managed_disk_output      = module.managed_disk.managed_disk_output
+  depends_on = [ module.managed_disk, module.window_vm, module.linux_vm ]
 }
 
 
@@ -1948,4 +1951,5 @@ module "mssql_vm" {
   version           = "1.0.0"
   mssql_vm_list     = var.mssql_vm_list
   windows_vm_output = module.window_vm.windows_vm_output
+  depends_on = [ module.managed_disk, module.vm_data_disk_attach , module.window_vm ]
 }
