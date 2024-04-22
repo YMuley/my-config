@@ -53,3 +53,8 @@ variable "vm_data_disk_attach_list" {
   type    = list(any)
   default = []
 }
+
+variable "application_gateway_list" {
+  type    = list(any)
+  default = []
+}

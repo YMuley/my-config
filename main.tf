@@ -320,6 +320,7 @@ module "subnet" {
         #   name = "delegation"
         #   service_delegation = [{
         #     name    = "Microsoft.ContainerInstance/containerGroups"
+
         #     actions = ["Microsoft.Network/virtualNetworks/subnets/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
 
         #   }]
@@ -586,7 +587,7 @@ module "public_ip" {
         environment = "poc"
       }
       sku_tier = "Regional"
-     },
+    },
     # {
     #   name                = "public-ip-ddi-appgw"
     #   location            = "eastus"
@@ -709,7 +710,7 @@ module "network_interface_card" {
   subnet_output         = module.subnet.vnet_subnet_output
   public_ip_output      = module.public_ip.public_ip_output
 
-    network_interface_card_list = [
+  network_interface_card_list = [
     {
       name                = "sql-vm-nic"
       location            = "eastus"
@@ -728,7 +729,7 @@ module "network_interface_card" {
         }
       ]
     },
- 
+
     # {
     #   name                = "vm1-linux-nic"
     #   location            = "westus"
@@ -1930,6 +1931,17 @@ module "vm_data_disk_attach" {
 #   ]
 
 # }
+
+module "application_gateway" {
+  source  = "app.terraform.io/Motifworks/application_gateway/azurerm"
+  version = "1.0.0"
+
+  resource_group_output         = module.resource_Group.resource_group_output
+  subnet_output                 = module.subnet.vnet_subnet_output
+  public_ip_output              = module.public_ip.public_ip_output
+  user_assigned_identity_output = module.useridentity.user_assigned_identity_output
+  application_gateway_list      = var.application_gateway_list
+}
 
 module "mssql_vm" {
   source            = "app.terraform.io/Motifworks/mssql_virtual_mchine/azurerm"

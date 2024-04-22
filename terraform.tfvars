@@ -218,122 +218,122 @@ subnet_route_table_association_list = [
 
 mssql_vm_list = [
   {
-    virtual_machine_name = "sql-server-vm"    // name of windows machine where sql connection agent will be installed
-    sql_license_type = "PAYG"                 //AHUB (Azure Hybrid Benefit), DR (Disaster Recovery), and PAYG (Pay-As-You-Go)
-    r_services_enabled  = true
-    sql_connectivity_port = "1433"
-    sql_connectivity_type = "PRIVATE"         //LOCAL, PRIVATE and PUBLIC. Defaults to PRIVATE
+    virtual_machine_name             = "sql-server-vm" // name of windows machine where sql connection agent will be installed
+    sql_license_type                 = "PAYG"          //AHUB (Azure Hybrid Benefit), DR (Disaster Recovery), and PAYG (Pay-As-You-Go)
+    r_services_enabled               = true
+    sql_connectivity_port            = "1433"
+    sql_connectivity_type            = "PRIVATE" //LOCAL, PRIVATE and PUBLIC. Defaults to PRIVATE
     sql_connectivity_update_password = "Ddi@123456789"
     sql_connectivity_update_username = "ddiadmin"
-    sql_virtual_machine_group_id = null
-    tags                         = {
+    sql_virtual_machine_group_id     = null
+    tags = {
       environment = "test"
     }
     auto_patching = [
       {
-      day_of_week = "Sunday"
-      maintenance_window_duration_in_minutes = "60"
-      maintenance_window_starting_hour = "2"
-    }
+        day_of_week                            = "Sunday"
+        maintenance_window_duration_in_minutes = "60"
+        maintenance_window_starting_hour       = "2"
+      }
     ]
 
     auto_backup = [
-    #   {
-    #   encryption_enabled  = false
-    #   encryption_password = ""
-    #   retention_period_in_days = "30"
-    #   storage_blob_endpoint = "stgsqlddi"
-    #   storage_account_access_key  = ""
-    #   system_databases_backup_enabled = "false"
-    #   manual_schedule = [
-    #     {
-    #     full_backup_frequency  = "Weekly"                                   //Valid values include Daily or Weekly.
-    #     full_backup_start_hour = "19"                                   //Valid values are from 0 to 23.
-    #     full_backup_window_in_hours = "19"                              //Valid values are between 1 and 23.
-    #     log_backup_frequency_in_minutes = "5"                          //Valid values are from 5 to 60.
-    #     days_of_week  = "Wednesday"                                            //Possible values are Monday, Tuesday, Wednesday, Thursday, Friday, Saturday and Sunday
-    #   }
-    #   ]
-    # }
+      #   {
+      #   encryption_enabled  = false
+      #   encryption_password = ""
+      #   retention_period_in_days = "30"
+      #   storage_blob_endpoint = "stgsqlddi"
+      #   storage_account_access_key  = ""
+      #   system_databases_backup_enabled = "false"
+      #   manual_schedule = [
+      #     {
+      #     full_backup_frequency  = "Weekly"                                   //Valid values include Daily or Weekly.
+      #     full_backup_start_hour = "19"                                   //Valid values are from 0 to 23.
+      #     full_backup_window_in_hours = "19"                              //Valid values are between 1 and 23.
+      #     log_backup_frequency_in_minutes = "5"                          //Valid values are from 5 to 60.
+      #     days_of_week  = "Wednesday"                                            //Possible values are Monday, Tuesday, Wednesday, Thursday, Friday, Saturday and Sunday
+      #   }
+      #   ]
+      # }
     ]
 
     key_vault_credential = [
-    #   {
-    #   name  = ""
-    #   key_vault_url = ""
-    #   service_principal_name  = ""
-    #   service_principal_secret = ""
-    # }
+      #   {
+      #   name  = ""
+      #   key_vault_url = ""
+      #   service_principal_name  = ""
+      #   service_principal_secret = ""
+      # }
     ]
 
 
     sql_instance = [
       {
-      adhoc_workloads_optimization_enabled = true
-      collation = "SQL_Latin1_General_CP1_CI_AS"
-      instant_file_initialization_enabled = true   // Possible values are true and false. Defaults to false
-      lock_pages_in_memory_enabled = false          //Possible values are true and false. Defaults to false
-      max_dop = "1000"                              //Possible values are between 0 and 32767. Defaults to 0
-      max_server_memory_mb = "8064"                 //Possible values are between 128 and 2147483647 Defaults to 2147483647
-      min_server_memory_mb = "4064"                 // Possible values are between 0 and 2147483647 Defaults to 0
-    }
+        adhoc_workloads_optimization_enabled = true
+        collation                            = "SQL_Latin1_General_CP1_CI_AS"
+        instant_file_initialization_enabled  = true   // Possible values are true and false. Defaults to false
+        lock_pages_in_memory_enabled         = false  //Possible values are true and false. Defaults to false
+        max_dop                              = "1000" //Possible values are between 0 and 32767. Defaults to 0
+        max_server_memory_mb                 = "8064" //Possible values are between 128 and 2147483647 Defaults to 2147483647
+        min_server_memory_mb                 = "4064" // Possible values are between 0 and 2147483647 Defaults to 0
+      }
     ]
 
     storage_configuration = [
       {
-      disk_type = "NEW"                              //Valid values include NEW, EXTEND, or ADD
-      storage_workload_type = "GENERAL"              //Valid values include GENERAL, OLTP, or DW
-      
-      data_settings = [
-        {
-        default_file_path = "F:\\data"
-        luns = ["0"]
-      }
-      ]
+        disk_type             = "NEW"     //Valid values include NEW, EXTEND, or ADD
+        storage_workload_type = "GENERAL" //Valid values include GENERAL, OLTP, or DW
 
-      log_settings = [
-        {
-        default_file_path = "L:\\log"
-        luns = ["1"]
-      }
-      ]
-      system_db_on_data_disk_enabled = "false"             // Possible values are true and false. Defaults to false
+        data_settings = [
+          {
+            default_file_path = "F:\\data"
+            luns              = ["0"]
+          }
+        ]
 
-      temp_db_settings = [
-        {
-        default_file_path = "T:\\tempDb"
-        luns = ["2"]
-        data_file_count = "8"                               //This value defaults to 8.                      
-        data_file_size_mb = "256"                           //This value defaults to 256.
-        data_file_growth_in_mb = "512"                      //This value defaults to 512.
-        log_file_size_mb = "256"                            //This value defaults to 256.
-        log_file_growth_mb = "512"                          //This value defaults to 512.
+        log_settings = [
+          {
+            default_file_path = "L:\\log"
+            luns              = ["1"]
+          }
+        ]
+        system_db_on_data_disk_enabled = "false" // Possible values are true and false. Defaults to false
+
+        temp_db_settings = [
+          {
+            default_file_path      = "T:\\tempDb"
+            luns                   = ["2"]
+            data_file_count        = "8"   //This value defaults to 8.                      
+            data_file_size_mb      = "256" //This value defaults to 256.
+            data_file_growth_in_mb = "512" //This value defaults to 512.
+            log_file_size_mb       = "256" //This value defaults to 256.
+            log_file_growth_mb     = "512" //This value defaults to 512.
+          }
+        ]
       }
-      ]
-    }
     ]
 
     assessment = [
       {
-      enabled = "true"                                       //Defaults to true.
-      run_immediately = "false"                              //Defaults to false.
-      schedule = [
-        {
-        weekly_interval = "0"                                //Valid values are between 1 and 6.  #Either one of weekly_interval or monthly_occurrence must be specified.
-        monthly_occurrence = "2"                             //Valid values are between 1 and 5.
-        day_of_week = "Wednesday"                            //Possible values are Friday, Monday, Saturday, Sunday, Thursday, Tuesday and Wednesday.
-        start_time = "19:00"                                 //Must be in the format HH:mm.
+        enabled         = "true"  //Defaults to true.
+        run_immediately = "false" //Defaults to false.
+        schedule = [
+          {
+            weekly_interval    = "0"         //Valid values are between 1 and 6.  #Either one of weekly_interval or monthly_occurrence must be specified.
+            monthly_occurrence = "2"         //Valid values are between 1 and 5.
+            day_of_week        = "Wednesday" //Possible values are Friday, Monday, Saturday, Sunday, Thursday, Tuesday and Wednesday.
+            start_time         = "19:00"     //Must be in the format HH:mm.
+          }
+        ]
       }
-      ]
-    }
     ]
 
     wsfc_domain_credential = [
       {
-      cluster_bootstrap_account_password = "Dddi@123456789"
-      cluster_operator_account_password = "Dddi@123456789"
-      sql_service_account_password = "Dddi@123456789"
-    }
+        cluster_bootstrap_account_password = "Dddi@123456789"
+        cluster_operator_account_password  = "Dddi@123456789"
+        sql_service_account_password       = "Dddi@123456789"
+      }
     ]
   }
 ]
@@ -397,3 +397,348 @@ vm_data_disk_attach_list = [
     caching           = "ReadWrite"
   }
 ]
+
+
+application_gateway_list = [
+  {
+    name                = "appgw-ddi-poc"
+    resource_group_name = "rg-ddi-poc1"
+    location            = "eastus"
+    tags = {
+      env = "poc"
+    location = "eastus" },
+    web_application_firewall_name = null // name is required when WAf is enabled.
+
+    sku = {
+      name     = "WAF_v2" // possible values : Standard_Small, Standard_Medium, Standard_Large, Standard_v2, WAF_Medium, WAF_Large, and WAF_v2 //
+      tier     = "WAF_v2" // possible values : Standard, Standard_v2, WAF and WAF_v2 //
+      capacity = 0
+    }
+
+    autoscale_configuration = {
+      min_capacity = "1"
+      max_capacity = "3"
+    }
+
+    enable_http2 = "false"
+    zones        = ["1", "2"]
+
+    gateway_ip_configuration = {
+      name        = "gateway-ip-config"
+      subnet_name = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-appgw")
+    }
+
+    frontend_ip_configuration = [
+      {
+        name                            = "frnt-public-ip-ddi"
+        subnet_name                     = null
+        private_ip_address              = null
+        public_ip_name                  = "publicip-ddi-appgw"
+        private_ip_address_allocation   = null
+        private_link_configuration_name = null
+      },
+      {
+        name                            = "frnt-private-ip-ddi"
+        subnet_name                     = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-appgw")
+        private_ip_address              = "10.100.3.5"
+        public_ip_name                  = null
+        private_ip_address_allocation   = "Static" // always be static
+        private_link_configuration_name = "pvt-link-appgw"
+      }
+    ]
+
+    backend_address_pool = [
+      {
+        name         = "bkp-ddi-app-fqdn"
+        fqdns        = ["app-ddi-dev.cloudservice.microsoft.net", "app-ddi-dev2.cloudservice.microsoft.net"]
+        ip_addresses = null
+      },
+      {
+        name         = "bkp-ddi-app-vm"
+        fqdns        = null
+        ip_addresses = ["10.100.0.5", "10.100.0.6"]
+      }
+    ]
+
+    backend_http_settings = [
+      {
+        name                                = "bkp-http-ddi-app-fqdn-settings"
+        cookie_based_affinity               = "Enabled" // possible ["Enabled" "Disabled"]
+        affinity_cookie_name                = "affinity cookie"
+        path                                = "/"
+        port                                = "80"
+        probe_name                          = "probe-app-fqdn-http"
+        protocol                            = "Http" //Http or Https
+        request_timeout                     = "30"
+        host_name                           = "app-ddi-dev.com"
+        pick_host_name_from_backend_address = null // true or false
+        trusted_root_certificate_names      = null
+        connection_draining = {
+          enabled           = false // true or false
+          drain_timeout_sec = "3"   // possible range (1 - 3600)
+        }
+      },
+      {
+        name                                = "bkp-http-ddi-app-vm-settings"
+        cookie_based_affinity               = "Enabled" //possible ["Enabled" "Disabled"]
+        affinity_cookie_name                = "affinity cookie"
+        path                                = "/"
+        port                                = "80"
+        probe_name                          = "probe-app-vm-http"
+        protocol                            = "Http" //Http or Https
+        request_timeout                     = "30"
+        host_name                           = ".*.ddi-qa.com"
+        pick_host_name_from_backend_address = null // true or false
+        trusted_root_certificate_names      = null
+        connection_draining = {
+          enabled           = true
+          drain_timeout_sec = "5" // possible range (1 - 3600)
+        }
+      }
+    ]
+
+    http_listener = [
+      {
+        name                           = "listener-http-fqdns"
+        frontend_ip_configuration_name = "frnt-public-ip-ddi"
+        port                           = 80
+        host_name                      = "app-ddi-dev.com"
+        host_names                     = null
+        protocol                       = "Http"
+        listener_type                  = " "
+        ssl_certificate_name           = null
+        web_application_firewall_name  = null
+        custom_error_configuration = [
+          # {
+          #  status_code = "HttpStatus502"   //possible ["HttpStatus403" "HttpStatus502"]
+          #  custom_error_page_url  =  "https://ddiworld.com/error.html"
+          # }
+        ]
+      },
+      {
+        name                           = "listener-http-vm"
+        frontend_ip_configuration_name = "frnt-private-ip-ddi"
+        port                           = 8080
+        host_name                      = null
+        host_names                     = [".*.ddi-qa.com"]
+        protocol                       = "Http"
+        listener_type                  = " "
+        ssl_certificate_name           = null
+        web_application_firewall_name  = null
+        custom_error_configuration = [
+          # {
+          #  status_code = "HttpStatus502"  //possible ["HttpStatus403" "HttpStatus502"]
+          #  custom_error_page_url  =  "https://ddiworld.com/error.html"
+          # }
+        ]
+      }
+
+    ]
+
+    identity = [
+      {
+        type         = "UserAssigned"
+        identity_ids = [module.useridentity.user_assigned_identity_output["ddi-appgw-identity"].id]
+      }
+    ]
+
+
+    private_link_configuration = [
+      {
+        name = "pvt-link-appgw"
+        ip_configuration = [
+          {
+            name                          = "pvt-link-appgw-ip"
+            subnet_name                   = format("%s/%s", "vnet-ddi-poc1", "sub-ddi-poc-appgw")
+            private_ip_address_allocation = "Dynamic"
+            primary                       = true
+            private_ip_address            = null
+          }
+        ]
+      }
+    ]
+
+    probe = [
+      {
+        name                                      = "probe-app-fqdn-http"
+        host                                      = "app-ddi-dev.com"
+        pick_host_name_from_backend_http_settings = null
+        interval                                  = "20"
+        protocol                                  = "Http"
+        path                                      = "/"
+        timeout                                   = "5"
+        unhealthy_threshold                       = "5"
+        port                                      = "80"
+        match = {
+          body        = null
+          status_code = [200, 399]
+        }
+      },
+      {
+        name                                      = "probe-app-vm-http"
+        host                                      = null #".*.ddi-qa.com"
+        pick_host_name_from_backend_http_settings = true
+        interval                                  = "20"
+        protocol                                  = "Http"
+        path                                      = "/"
+        timeout                                   = "5"
+        unhealthy_threshold                       = "5"
+        port                                      = "80"
+        match = {
+          body        = null
+          status_code = [200, 399]
+        }
+      }
+    ]
+
+    request_routing_rule = [
+      {
+        name                        = "http-fqdns-request"
+        rule_type                   = "Basic" // Basic or PathBasedRouting
+        http_listener_name          = "listener-http-fqdns"
+        backend_address_pool_name   = "bkp-ddi-app-fqdn"
+        backend_http_settings_name  = "bkp-http-ddi-app-fqdn-settings"
+        redirect_configuration_name = null
+        rewrite_rule_set_name       = null
+        url_path_map_name           = null // empty block when rule_type is basic
+        priority                    = 101
+      },
+      {
+        name                        = "http-vm-request"
+        rule_type                   = "Basic" // Basic or PathBasedRouting
+        http_listener_name          = "listener-http-vm"
+        backend_address_pool_name   = "bkp-ddi-app-vm"
+        backend_http_settings_name  = "bkp-http-ddi-app-vm-settings"
+        redirect_configuration_name = null
+        rewrite_rule_set_name       = null
+        url_path_map_name           = null // empty block when rule_type is basic
+        priority                    = 102
+      }
+    ]
+
+    global = {
+      request_buffering_enabled  = true
+      response_buffering_enabled = true
+    }
+
+    ssl_certificate = [
+      #   {
+      #     name =
+      #     Key_vault_name =
+      #     secret_name =
+      # }
+    ]
+
+    url_path_map = [
+      {
+        name                                = "path-based-url"
+        default_backend_address_pool_name   = "bkp-ddi-app-vm"
+        default_backend_http_settings_name  = "bkp-http-ddi-app-vm-settings"
+        default_redirect_configuration_name = null
+        default_rewrite_rule_set_name       = null
+        path_rule = [
+          {
+            name                          = "path-based-url-test"
+            paths                         = ["/test"]
+            backend_address_pool_name     = "bkp-ddi-app-vm"
+            backend_http_settings_name    = "bkp-http-ddi-app-vm-settings"
+            redirect_configuration_name   = null
+            rewrite_rule_set_name         = null
+            web_application_firewall_name = null
+          }
+        ]
+      }
+
+    ]
+    trusted_root_certificate = [
+      # {
+      #   name =
+      #   key_vault_secret_id =
+      # }
+    ]
+
+    waf_configuration = [
+      {
+        enabled                  = true
+        firewall_mode            = "Detection" #Detection and Prevention
+        rule_set_type            = "OWASP"     #OWASP and Microsoft_BotManagerRuleSet
+        rule_set_version         = "3.2"       #0.1, 1.0, 2.2.9, 3.0, 3.1 and 3.
+        file_upload_limit_mb     = "60"        #1MB to 750MB for the WAF_v2 SKU, and 1MB to 500MB for all other SKUs. Defaults to 100MB
+        request_body_check       = true        #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_gateway#request_body_check
+        max_request_body_size_kb = 128         #1KB to 128KB
+
+        disabled_rule_group = [
+          { rule_group_name = "REQUEST-944-APPLICATION-ATTACK-JAVA" #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_gateway#rule_group_name
+            rules           = []                                    # list name of rules to disbale. to disable all rules in a group paas empty list
+          }
+        ]
+
+        exclusion = [
+          {
+            match_variable          = "RequestHeaderNames" #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_gateway#match_variable
+            selector_match_operator = "Equals"             #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_gateway#selector_match_operator
+            selector                = "testhost"           #null if you want to exclude for all match variable 
+          }
+        ]
+      }
+    ]
+
+    redirect_configuration = [
+      # {
+      #   name  = ""
+      #   redirect_type = ""
+      #   target_listener_name  = ""
+      #   target_url  = ""
+      #   include_path  = ""
+      #   include_query_string  ""
+      # }
+    ]
+
+
+    rewrite_rule_set = [
+      {
+        name = "rewrite_rule_set_test_name"
+        rewrite_rule = [
+          {
+            name          = "client_port_80_rule"
+            rule_sequence = 1
+            condition = [
+              {
+                variable    = "var_host" #https://learn.microsoft.com/en-us/azure/application-gateway/rewrite-http-headers-url#server-variables
+                pattern     = "sampleddi.com"
+                ignore_case = true  //true false
+                negate      = false //true false
+              }
+            ]
+
+            request_header_configuration = [
+              {
+                header_name  = "X-isThroughProxy"
+                header_value = "True"
+              }
+            ]
+
+            response_header_configuration = [
+              {
+                header_name  = "Strict-Transport-Security"
+                header_value = "max-age=31536000"
+              }
+            ]
+
+            url = [
+              {
+                path         = "/artical.aspx"
+                query_string = ".*article/(.*)/(.*)" #One or both of path and query_string must be specified. If one of these is not specified, it means the value will be empty. If you only want to rewrite path or query_string, use components
+                components   = null                  #path_only and query_string_only
+                reroute      = false                 #Used to determine whether the URL path map is to be reevaluated or not. If not set, the original URL path will be used to match the path-pattern in the URL path map. If set, the URL path map will be reevaluated to check the match with the rewritten path.
+              }
+            ]
+
+          }
+        ]
+      }
+    ]
+
+  }
+]
+
