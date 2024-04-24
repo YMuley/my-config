@@ -58,3 +58,8 @@ variable "application_gateway_list" {
   type    = list(any)
   default = []
 }
+
+variable "storage_account_list" {
+  type    = list(any)
+  default = []
+}
