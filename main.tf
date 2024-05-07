@@ -1900,5 +1900,6 @@ module "mssql_vm" {
   version           = "1.0.0"
   mssql_vm_list     = var.mssql_vm_list
   windows_vm_output = module.window_vm.windows_vm_output
-  depends_on        = [module.managed_disk, module.vm_data_disk_attach, module.window_vm]
+  storage_account_output = module.storage_account.storage_account_output
+  depends_on        = [module.managed_disk, module.vm_data_disk_attach, module.window_vm, module.storage_account]
 }

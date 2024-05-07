@@ -238,23 +238,23 @@ mssql_vm_list = [
     ]
 
     auto_backup = [
-      #   {
-      #   encryption_enabled  = false
-      #   encryption_password = ""
-      #   retention_period_in_days = "30"
-      #   storage_blob_endpoint = "stgsqlddi"
-      #   storage_account_access_key  = ""
-      #   system_databases_backup_enabled = "false"
-      #   manual_schedule = [
-      #     {
-      #     full_backup_frequency  = "Weekly"                                   //Valid values include Daily or Weekly.
-      #     full_backup_start_hour = "19"                                   //Valid values are from 0 to 23.
-      #     full_backup_window_in_hours = "19"                              //Valid values are between 1 and 23.
-      #     log_backup_frequency_in_minutes = "5"                          //Valid values are from 5 to 60.
-      #     days_of_week  = "Wednesday"                                            //Possible values are Monday, Tuesday, Wednesday, Thursday, Friday, Saturday and Sunday
-      #   }
-      #   ]
-      # }
+        {
+        encryption_enabled  = false
+        encryption_password = ""
+        retention_period_in_days = "30"
+        storage_blob_endpoint = "stgsqlddi"    //In mssql_VM module we are fetching the primary blob endpoint of storage acct. If in case, want to use secondary endpoint modify the module code.
+                                               // "storage_account_access_key" do not need to declare here. Module will fetch the primary access key using storage acc name. Go through the "terraform-azurerm-mssql-virtual-machine".
+        system_databases_backup_enabled = "false"
+        manual_schedule = [
+          {
+          full_backup_frequency  = "Weekly"                                   //Valid values include Daily or Weekly.
+          full_backup_start_hour = "19"                                   //Valid values are from 0 to 23.
+          full_backup_window_in_hours = "19"                              //Valid values are between 1 and 23.
+          log_backup_frequency_in_minutes = "5"                          //Valid values are from 5 to 60.
+          days_of_week  = "Wednesday"                                            //Possible values are Monday, Tuesday, Wednesday, Thursday, Friday, Saturday and Sunday
+        }
+        ]
+      }
     ]
 
     key_vault_credential = [
