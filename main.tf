@@ -788,19 +788,19 @@ module "subnet_route_table_association" {
   route_table_output                  = module.route_table.route_table_output
 }
 
-module "nsg_nic_association" {
-  source                        = "app.terraform.io/Motifworks/nsg_nic_association/azurerm"
-  version                       = "1.0.0"
-  network_interface_card_output = module.network_interface_card.network_interface_card_output
-  network_security_group_output = module.network_security_group.network_security_group_output
+# module "nsg_nic_association" {
+#   source                        = "app.terraform.io/Motifworks/nsg_nic_association/azurerm"
+#   version                       = "1.0.0"
+#   network_interface_card_output = module.network_interface_card.network_interface_card_output
+#   network_security_group_output = module.network_security_group.network_security_group_output
 
-  association_list = [
-    {
-      network_security_group_name = "nsg-ddi-dev-one"
-      network_interface_card_name = format("%s/%s", "rg-ddi-dev1", "nic1")
-    }
-  ]
-}
+#   association_list = [
+#     {
+#       network_security_group_name = "nsg-ddi-dev-one"
+#       network_interface_card_name = format("%s/%s", "rg-ddi-dev1", "nic1")
+#     }
+#   ]
+# }
 
 # module "keyvault" {
 #   source  = "app.terraform.io/Motifworks/keyvault/azurerm"
