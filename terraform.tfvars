@@ -262,7 +262,7 @@ mssql_vm_list = [
       #     name  = "testiefngkvrss2"
       # #   key_vault_url = ""
       #     service_principal_name  = "terraform cloud app reg"
-      #     service_principal_secret = "LlW8Q~Slp36jMTSd81324Ionn5Wp-ubvhx2sUdlF"
+      #     service_principal_secret = ""
       #  }
     ]
 
