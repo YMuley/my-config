@@ -902,30 +902,30 @@ module "storage_account" {
   storage_account_list  = var.storage_account_list
 }
 
-# module "useridentity" {
-#   source  = "app.terraform.io/Motifworks/useridentity/azurerm"
-#   version = "1.0.2"
+module "useridentity" {
+  source  = "app.terraform.io/Motifworks/useridentity/azurerm"
+  version = "1.0.2"
 
-#   user_assigned_identity_list = [
-#     {
-#       name                = "user-managed24"
-#       resource_group_name = "rg-ddi-dev1"
-#       location            = "eastus"
-#       tags = {
-#         environment = "nertwork-team"
-#       }
-#     },
-#     {
-#       name                = "ddi-appgw-identity"
-#       resource_group_name = "rg-ddi-poc1"
-#       location            = "eastus"
-#       tags = {
-#         environment = "nertwork-team"
-#       }
-#     }
-#   ]
-#   depends_on = [module.resource_Group]
-# }
+  user_assigned_identity_list = [
+    {
+      name                = "user-managed24"
+      resource_group_name = "rg-ddi-dev1"
+      location            = "eastus"
+      tags = {
+        environment = "nertwork-team"
+      }
+    },
+    {
+      name                = "ddi-appgw-identity"
+      resource_group_name = "rg-ddi-poc1"
+      location            = "eastus"
+      tags = {
+        environment = "nertwork-team"
+      }
+    }
+  ]
+  depends_on = [module.resource_Group]
+}
 
 # module "managed_disk" {
 #   source                = "app.terraform.io/Motifworks/managed_disk/azurerm"
