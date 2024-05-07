@@ -258,12 +258,12 @@ mssql_vm_list = [
     ]
 
     key_vault_credential = [
-      #   {
-      #   name  = ""
+        {
+          name  = "testiefngkvrss2"
       #   key_vault_url = ""
-      #   service_principal_name  = ""
-      #   service_principal_secret = ""
-      # }
+          service_principal_name  = "terraform cloud app reg"
+          service_principal_secret = "LlW8Q~Slp36jMTSd81324Ionn5Wp-ubvhx2sUdlF"
+       }
     ]
 
 
