@@ -1463,7 +1463,7 @@ module "firewall_policy" {
   version                    = "1.0.0"
   azure_firewall_policy_list = var.azure_firewall_policy_list
   resource_group_output      = module.resource_Group.resource_group_output
-  azure_firewall_output      = module.azure_firewall_azure_firewall_output
+  depends_on                 = [module.azure_firewall]
 }
 
 module "firewall_policy_rule_collection_group" {
@@ -1471,7 +1471,7 @@ module "firewall_policy_rule_collection_group" {
   version                                          = "1.0.0"
   azure_firewall_policy_rule_collection_group_list = var.azure_firewall_policy_rule_collection_group_list
   resource_group_output                            = module.resource_Group.resource_group_output
-  depends_on                                       = [module.azure_firewall_policy]
+  azure_firewall_policy_output                     = module.azure_firewall_policy_azure_firewall_policy_output
 }
 
 # module "ip_group" {
