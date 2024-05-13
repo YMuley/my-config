@@ -1459,11 +1459,11 @@ module "azure_firewall" {
 # }
 
 module "azure_firewall_policy" {
-  source                     = "app.terraform.io/Motifworks/firewall_policy/azurerm"
-  version                    = "1.0.0"
-  azure_firewall_policy_list = var.azure_firewall_policy_list
-  resource_group_output      = module.resource_Group.resource_group_output
-  depends_on                 = [module.azure_firewall]
+  source                = "app.terraform.io/Motifworks/firewall_policy/azurerm"
+  version               = "1.0.0"
+  firewall_policy_list  = var.azure_firewall_policy_list
+  resource_group_output = module.resource_Group.resource_group_output
+  depends_on            = [module.azure_firewall]
 }
 
 module "azure_firewall_policy_rule_collection_group" {
