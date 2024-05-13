@@ -1466,7 +1466,7 @@ module "azure_firewall_policy" {
   depends_on                 = [module.azure_firewall]
 }
 
-module "firewall_policy_rule_collection_group" {
+module "azure_firewall_policy_rule_collection_group" {
   source                                           = "app.terraform.io/Motifworks/firewall_policy_rule_collection_group/azurerm"
   version                                          = "1.0.0"
   azure_firewall_policy_rule_collection_group_list = var.azure_firewall_policy_rule_collection_group_list
