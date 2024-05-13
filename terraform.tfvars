@@ -1,30 +1,30 @@
-# azure_firewall_list = [
-#   {
-#     name                = "fw-ddi-westus"
-#     resource_group_name = "rg-ddi-dev1"
-#     location            = "westus"
-#     sku_name            = "AZFW_VNet"
-#     sku_tier            = "Standard"
-#     dns_servers         = ["168.63.129.16"]
-#     private_ip_ranges   = ["10.0.0.0/8"]
-#     zones               = []
-#     threat_intel_mode   = "Alert"
+azure_firewall_list = [
+  {
+    name                = "fw-ddi-westus"
+    resource_group_name = "rg-ddi-dev1"
+    location            = "westus"
+    sku_name            = "AZFW_VNet"
+    sku_tier            = "Standard"
+    dns_servers         = ["168.63.129.16"]
+    private_ip_ranges   = ["10.0.0.0/8"]
+    zones               = []
+    threat_intel_mode   = "Alert"
 
-#     ip_configuration = [
-#       {
-#         name                 = "ip-config-1"
-#         virtual_network_name = "vnet-ddi-dev1"
-#         subnet_name          = "AzureFirewallSubnet"
-#         public_ip_name       = "public-ip-ddi-fw"
+    ip_configuration = [
+      {
+        name                 = "ip-config-1"
+        virtual_network_name = "vnet-ddi-dev1"
+        subnet_name          = "AzureFirewallSubnet"
+        public_ip_name       = "public-ip-ddi-fw"
 
-#       }
-#     ]
+      }
+    ]
 
-#     tags = {
-#       environment = "dev"
-#     }
-#   }
-# ]
+    tags = {
+      environment = "dev"
+    }
+  }
+]
 
 # azure_firewall_application_rule_collection_list = [
 #   {
@@ -77,122 +77,163 @@
 #   }
 # ]
 
-# azure_firewall_network_rule_collection_list = [
-#   {
-#     name                = "network-rule-collection-1"
-#     resource_group_name = "rg-ddi-dev1"
-#     azure_firewall_name = "fw-ddi-westus"
-#     priority            = 100
-#     action              = "Deny"
+azure_firewall_network_rule_collection_list = [
+  {
+    name                = "network-rule-collection-1"
+    resource_group_name = "rg-ddi-dev1"
+    azure_firewall_name = "fw-ddi-westus"
+    priority            = 100
+    action              = "Deny"
 
-#     rule_list = [
-#       {
-#         name                  = "rule-1-ddi"
-#         source_addresses      = ["10.0.0.0/24"]
-#         destination_addresses = ["13.64.185.194"]
-#         destination_ports     = ["80"] //only single value is supported ,multiple value or ports will throw error
-#         protocols             = ["TCP"]
-#       }
-#     ]
-#   }
-# ]
+    rule_list = [
+      {
+        name                  = "rule-1-ddi"
+        source_addresses      = ["10.0.0.0/24"]
+        destination_addresses = ["13.64.185.194"]
+        destination_ports     = ["80"] //only single value is supported ,multiple value or ports will throw error
+        protocols             = ["TCP"]
+      }
+    ]
+  }
+]
 
-# azure_firewall_policy_list = [
-#   {
-#     name                              = "fwP-ddi-westus"
-#     resource_group_name               = "rg-ddi-dev1"
-#     location                          = "westus"
-#     private_ip_ranges                 = ["10.0.0.0/16", "192.168.0.0/16"]
-#     auto_learn_private_ranges_enabled = true
-#     sku                               = "Premium"
-#     threat_intelligence_mode          = "Alert"
-#     sql_redirect_allowed              = true
+azure_firewall_policy_list = [
+  {
+    name                              = "fwP-ddi-westus"
+    resource_group_name               = "rg-ddi-dev1"
+    location                          = "westus"
+    private_ip_ranges                 = ["10.0.0.0/16", "192.168.0.0/16"]
+    auto_learn_private_ranges_enabled = true
+    sku                               = "Premium"
+    threat_intelligence_mode          = "Alert"
+    sql_redirect_allowed              = true
 
-#     dns = [
-#       {
-#         proxy_enabled = false
-#         servers       = []
-#       }
-#     ]
+    dns = [
+      {
+        proxy_enabled = false
+        servers       = []
+      }
+    ]
 
-#     identity = [] //only premimum 
+    identity = [] //only premimum 
 
 
-#     insights = [
-#       {
-#         enabled                              = true
-#         default_log_analytics_workspace_name = "la-workspace-1"
-#         retention_in_days                    = 30
-#         log_analytics_workspace = [
-#           {
-#             log_analytics_workspace_name = "la-workspace-2"
-#             firewall_location            = "West US"
-#           },
-#           {
-#             log_analytics_workspace_name = "la-workspace-3"
-#             firewall_location            = "East US"
-#           }
-#         ]
-#       }
-#     ]
+    insights = [
+      {
+        enabled                              = true
+        default_log_analytics_workspace_name = "la-workspace-1"
+        retention_in_days                    = 30
+        log_analytics_workspace = [
+          {
+            log_analytics_workspace_name = "la-workspace-2"
+            firewall_location            = "West US"
+          },
+          {
+            log_analytics_workspace_name = "la-workspace-3"
+            firewall_location            = "East US"
+          }
+        ]
+      }
+    ]
 
-#     intrusion_detection = [ //only premimum
-#       {
-#         mode           = "Alert"
-#         private_ranges = ["192.168.1.0/24", "10.1.1.0/24"]
+    intrusion_detection = [ //only premimum
+      {
+        mode           = "Alert"
+        private_ranges = ["192.168.1.0/24", "10.1.1.0/24"]
 
-#         signature_overrides = [
-#           {
-#             id    = ""      #12-digit number (id) which identifies your signature.
-#             state = "Alert" #state can be any of Off, Alert or Deny.
-#           }
-#         ]
+        signature_overrides = [
+          {
+            id    = ""      #12-digit number (id) which identifies your signature.
+            state = "Alert" #state can be any of Off, Alert or Deny.
+          }
+        ]
 
-#         traffic_bypass = [
-#           {
-#             name                  = "bypass-rule-1"
-#             protocol              = "TCP"
-#             description           = "Bypass rule description"
-#             destination_addresses = ["192.168.1.1"]
-#             destination_ports     = ["8080"]
-#           }
-#         ]
-#         private_ranges = []
-#       }
-#     ]
+        traffic_bypass = [
+          {
+            name                  = "bypass-rule-1"
+            protocol              = "TCP"
+            description           = "Bypass rule description"
+            destination_addresses = ["192.168.1.1"]
+            destination_ports     = ["8080"]
+          }
+        ]
+        private_ranges = []
+      }
+    ]
 
-#     tls_certificate = [
-#       {
-#         Key_vault_name        = "testiefngkvrss2"
-#         secret_name           = "secrauce"
-#         key_vault_secret_name = "cert-secret-name-1"
-#       }
-#     ]
+    tls_certificate = [
+      {
+        Key_vault_name        = "testiefngkvrss2"
+        secret_name           = "secrauce"
+        key_vault_secret_name = "cert-secret-name-1"
+      }
+    ]
 
-#     # explicit_proxy = [
-#     #   {
-#     #     enabled         = true
-#     #     http_port       = 8080
-#     #     https_port      = 8443
-#     #     enable_pac_file = true
-#     #     pac_file_port   = 8888
-#     #     pac_file        = "http://example.com/proxy.pac"
-#     #   }
-#     # ]
+    # explicit_proxy = [
+    #   {
+    #     enabled         = true
+    #     http_port       = 8080
+    #     https_port      = 8443
+    #     enable_pac_file = true
+    #     pac_file_port   = 8888
+    #     pac_file        = "http://example.com/proxy.pac"
+    #   }
+    # ]
 
-#     threat_intelligence_allowlist = [
-#       {
-#         fqdns        = ["allowed-domain.com"]
-#         ip_addresses = ["10.0.0.1"]
-#       }
-#     ]
+    threat_intelligence_allowlist = [
+      {
+        fqdns        = ["allowed-domain.com"]
+        ip_addresses = ["10.0.0.1"]
+      }
+    ]
 
-#     tags = {
-#       environment = "Production"
-#       project     = "FirewallProject"
-#     }
-#   }
-# ]
+    tags = {
+      environment = "Production"
+      project     = "FirewallProject"
+    }
+  }
+]
+
+azurerm_firewall_policy_rule_collection_group_list = [
+  {
+    name            = "example-fwpolicy-rcg"
+    firewall_policy = "fwP-ddi-westus"
+    priority        = 500
+
+    application_rule_collection = [
+      {
+        name     = "app_rule_collection1"
+        priority = 500
+        action   = "Deny"
+
+        rule = [
+          {
+            name              = "app_rule_collection1_rule1"
+            rule_type         = "FirewallPolicyFilterRule"
+            rule_filter       = "ApplicationRuleFilter"
+            action            = "Deny"
+            rule_order        = 100
+            source_addresses  = ["10.0.0.1"]
+            destination_fqdns = ["*.microsoft.com"]
+            protocols = [
+              {
+                type = "Http"
+                port = 80
+              },
+              {
+                type = "Https"
+                port = 443
+              }
+            ]
+            target_fqdns = []
+            target_urls  = []
+            fqdn_tags    = []
+          }
+        ]
+      }
+    ]
+  }
+]
 
 subnet_nsg_association_list = [
   {
