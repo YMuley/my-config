@@ -63,8 +63,8 @@ azure_firewall_application_rule_collection_list = [
     rule_list = [
       {
         name             = "rule-2"
-        source_addresses = ["192.168.1.0/24"]
-        target_fqdns     = ["example.com", "contoso.com"]
+        source_addresses = ["192.168.1.0/26"]
+        target_fqdns     = [ "contoso.com"]
 
         protocol_list = [
           {
