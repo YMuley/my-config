@@ -1463,7 +1463,7 @@ module "firewall_policy" {
   version                    = "1.0.0"
   azure_firewall_policy_list = var.azure_firewall_policy_list
   resource_group_output      = module.resource_Group.resource_group_output
-  depends_on                 = [module.azure_firewall]
+  azure_firewall_output      = module.azure_firewall_azure_firewall_output
 }
 
 module "firewall_policy_rule_collection_group" {
