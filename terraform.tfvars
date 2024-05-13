@@ -209,10 +209,6 @@ azure_firewall_policy_rule_collection_group_list = [
         rule = [
           {
             name              = "app_rule_collection1_rule1"
-            rule_type         = "FirewallPolicyFilterRule"
-            rule_filter       = "ApplicationRuleFilter"
-            action            = "Deny"
-            rule_order        = 100
             source_addresses  = ["10.0.0.1"]
             destination_fqdns = ["*.microsoft.com"]
             protocols = [
@@ -225,9 +221,6 @@ azure_firewall_policy_rule_collection_group_list = [
                 port = 443
               }
             ]
-            target_fqdns = []
-            target_urls  = []
-            fqdn_tags    = []
           }
         ]
       }
