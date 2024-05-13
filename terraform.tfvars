@@ -206,12 +206,12 @@ azure_firewall_policy_rule_collection_group_list = [
         priority = 500
         action   = "Deny"
 
-        rule = [
+        rule_list = [
           {
             name              = "app_rule_collection1_rule1"
             source_addresses  = ["10.0.0.1"]
             destination_fqdns = ["*.microsoft.com"]
-            protocols = [
+            protocols_list = [
               {
                 type = "Http"
                 port = 80
