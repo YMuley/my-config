@@ -196,7 +196,7 @@ azure_firewall_policy_list = [
 
 azure_firewall_policy_rule_collection_group_list = [
   {
-    name                 = "example-fwpolicy-rcg"
+    name                 = "fwpolicy-rcg"
     firewall_policy_name = "AfwP-ddi-westus"
     priority             = 500
 
