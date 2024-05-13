@@ -139,14 +139,14 @@ azure_firewall_policy_list = [
     intrusion_detection = [ //only premimum
       {
         mode           = "Alert"
-        private_ranges = ["192.168.1.0/24", "10.1.1.0/24"]
+         private_ranges = ["192.168.1.0/24"]
 
-        signature_overrides = [
-          {
-            id    = ""      #12-digit number (id) which identifies your signature.
-            state = "Alert" #state can be any of Off, Alert or Deny.
-          }
-        ]
+        # signature_overrides = [
+        #   {
+        #     id    = ""      #12-digit number (id) which identifies your signature.
+        #     state = "Alert" #state can be any of Off, Alert or Deny.
+        #   }
+        # ]
 
         traffic_bypass = [
           {
