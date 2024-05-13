@@ -1434,13 +1434,13 @@ module "azure_firewall" {
   subnet_output         = module.subnet.vnet_subnet_output
 }
 
-# module "firewall_application_rule_collection" {
-#   source                                          = "app.terraform.io/Motifworks/firewall_application_rule_collection/azurerm"
-#   version                                         = "1.0.0"
-#   resource_group_output                           = module.resource_Group.resource_group_output
-#   azure_firewall_application_rule_collection_list = var.azure_firewall_application_rule_collection_list
-#   depends_on                                      = [module.azure_firewall]
-# }
+module "firewall_application_rule_collection" {
+  source                                          = "app.terraform.io/Motifworks/firewall_application_rule_collection/azurerm"
+  version                                         = "1.0.0"
+  resource_group_output                           = module.resource_Group.resource_group_output
+  azure_firewall_application_rule_collection_list = var.azure_firewall_application_rule_collection_list
+  depends_on                                      = [module.azure_firewall]
+}
 
 # module "firewall_nat_rule_collection" {
 #   source                                  = "app.terraform.io/Motifworks/firewall_nat_rule_collection/azurerm"
@@ -1466,14 +1466,14 @@ module "azure_firewall_policy" {
   depends_on                 = [module.azure_firewall]
 }
 
-module "azure_firewall_policy_rule_collection_group" {
-  source                                           = "app.terraform.io/Motifworks/firewall_policy_rule_collection_group/azurerm"
-  version                                          = "1.0.0"
-  azure_firewall_policy_rule_collection_group_list = var.azure_firewall_policy_rule_collection_group_list
-  resource_group_output                            = module.resource_Group.resource_group_output
-  azure_firewall_policy_output                     = module.azure_firewall_policy.azure_firewall_policy_output
-  //depends_on                                       = [module.azure_firewall_policy]
-}
+# module "azure_firewall_policy_rule_collection_group" {
+#   source                                           = "app.terraform.io/Motifworks/firewall_policy_rule_collection_group/azurerm"
+#   version                                          = "1.0.0"
+#   azure_firewall_policy_rule_collection_group_list = var.azure_firewall_policy_rule_collection_group_list
+#   resource_group_output                            = module.resource_Group.resource_group_output
+#   azure_firewall_policy_output                     = module.azure_firewall_policy.azure_firewall_policy_output
+#   //depends_on                                       = [module.azure_firewall_policy]
+# }
 
 # module "ip_group" {
 #   source                = "app.terraform.io/Motifworks/ip_group/azurerm"

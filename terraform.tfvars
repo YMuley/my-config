@@ -26,34 +26,34 @@ azure_firewall_list = [
   }
 ]
 
-# azure_firewall_application_rule_collection_list = [
-#   {
-#     name                = "firewall-rule-collection-1"
-#     resource_group_name = "rg-ddi-dev1"
-#     azure_firewall_name = "fw-ddi-westus"
-#     priority            = 100
-#     action              = "Allow"
+azure_firewall_application_rule_collection_list = [
+  {
+    name                = "firewall-rule-collection-1"
+    resource_group_name = "rg-ddi-dev1"
+    azure_firewall_name = "fw-ddi-westus"
+    priority            = 100
+    action              = "Allow"
 
-#     rule_list = [
-#       {
-#         name             = "rule-1"
-#         source_addresses = ["192.168.1.0/24"]
-#         target_fqdns     = ["example.com", "contoso.com"]
+    rule_list = [
+      {
+        name             = "rule-1"
+        source_addresses = ["192.168.1.0/24"]
+        target_fqdns     = ["example.com", "contoso.com"]
 
-#         protocol_list = [
-#           {
-#             port = 80
-#             type = "Http"
-#           },
-#           {
-#             port = 443
-#             type = "Https"
-#           }
-#         ]
-#       }
-#     ]
-#   }
-# ]
+        protocol_list = [
+          {
+            port = 80
+            type = "Http"
+          },
+          {
+            port = 443
+            type = "Https"
+          }
+        ]
+      }
+    ]
+  }
+]
 
 # azure_firewall_nat_rule_collection_list = [
 #   {
@@ -194,39 +194,39 @@ azure_firewall_policy_list = [
   }
 ]
 
-azure_firewall_policy_rule_collection_group_list = [
-  {
-    name                 = "fwpolicy-rcg"
-    firewall_policy_name = "AfwP-ddi-westus"
-    priority             = 500
+# azure_firewall_policy_rule_collection_group_list = [
+#   {
+#     name                 = "fwpolicy-rcg"
+#     firewall_policy_name = "AfwP-ddi-westus"
+#     priority             = 500
 
-    application_rule_collection_list = [
-      {
-        name     = "app_rule_collection1"
-        priority = 500
-        action   = "Deny"
+#     application_rule_collection_list = [
+#       {
+#         name     = "app_rule_collection1"
+#         priority = 500
+#         action   = "Deny"
 
-        rule_list = [
-          {
-            name              = "app_rule_collection1_rule1"
-            source_addresses  = ["10.0.0.1"]
-            destination_fqdns = ["*.microsoft.com"]
-            protocols_list = [
-              {
-                type = "Http"
-                port = 80
-              },
-              {
-                type = "Https"
-                port = 443
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-]
+#         rule_list = [
+#           {
+#             name              = "app_rule_collection1_rule1"
+#             source_addresses  = ["10.0.0.1"]
+#             destination_fqdns = ["*.microsoft.com"]
+#             protocols_list = [
+#               {
+#                 type = "Http"
+#                 port = 80
+#               },
+#               {
+#                 type = "Https"
+#                 port = 443
+#               }
+#             ]
+#           }
+#         ]
+#       }
+#     ]
+#   }
+# ]
 
 subnet_nsg_association_list = [
   {
