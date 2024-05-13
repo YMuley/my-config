@@ -194,7 +194,7 @@ azure_firewall_policy_list = [
   }
 ]
 
-azurerm_firewall_policy_rule_collection_group_list = [
+azure_firewall_policy_rule_collection_group_list = [
   {
     name            = "example-fwpolicy-rcg"
     firewall_policy = "fwP-ddi-westus"
