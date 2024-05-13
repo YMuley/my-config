@@ -52,6 +52,32 @@ azure_firewall_application_rule_collection_list = [
         ]
       }
     ]
+  },
+  {
+    name                = "firewall-rule-collection-2"
+    resource_group_name = "rg-ddi-dev1"
+    azure_firewall_name = "fw-ddi-westus"
+    priority            = 100
+    action              = "Deny"
+
+    rule_list = [
+      {
+        name             = "rule-2"
+        source_addresses = ["192.168.1.0/24"]
+        target_fqdns     = ["example.com", "contoso.com"]
+
+        protocol_list = [
+          {
+            port = 80
+            type = "Http"
+          },
+          {
+            port = 443
+            type = "Https"
+          }
+        ]
+      }
+    ]
   }
 ]
 
