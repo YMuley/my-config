@@ -99,7 +99,7 @@ azure_firewall_network_rule_collection_list = [
 
 azure_firewall_policy_list = [
   {
-    name                              = "fwP-ddi-westus"
+    name                              = "AfwP-ddi-westus"
     resource_group_name               = "rg-ddi-dev1"
     location                          = "westus"
     private_ip_ranges                 = ["10.0.0.0/16", "192.168.0.0/16"]
@@ -197,7 +197,7 @@ azure_firewall_policy_list = [
 azure_firewall_policy_rule_collection_group_list = [
   {
     name                 = "example-fwpolicy-rcg"
-    firewall_policy_name = "fwP-ddi-westus"
+    firewall_policy_name = "AfwP-ddi-westus"
     priority             = 500
 
     application_rule_collection_list = [
