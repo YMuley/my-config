@@ -136,30 +136,30 @@ azure_firewall_policy_list = [
       }
     ]
 
-    intrusion_detection = [ //only premimum
-      {
-        mode           = "Alert"
-         private_ranges = ["192.168.1.0/24"]
+    # intrusion_detection = [ //only premimum
+    #   {
+    #     mode           = "Alert"
+    #      private_ranges = ["192.168.1.0/24"]
 
-        # signature_overrides = [
-        #   {
-        #     id    = ""      #12-digit number (id) which identifies your signature.
-        #     state = "Alert" #state can be any of Off, Alert or Deny.
-        #   }
-        # ]
+    #     # signature_overrides = [
+    #     #   {
+    #     #     id    = ""      #12-digit number (id) which identifies your signature.
+    #     #     state = "Alert" #state can be any of Off, Alert or Deny.
+    #     #   }
+    #     # ]
 
-        traffic_bypass = [
-          {
-            name                  = "bypass-rule-1"
-            protocol              = "TCP"
-            description           = "Bypass rule description"
-            destination_addresses = ["192.168.1.1"]
-            destination_ports     = ["8080"]
-          }
-        ]
-        private_ranges = []
-      }
-    ]
+    #     traffic_bypass = [
+    #       {
+    #         name                  = "bypass-rule-1"
+    #         protocol              = "TCP"
+    #         description           = "Bypass rule description"
+    #         destination_addresses = ["192.168.1.1"]
+    #         destination_ports     = ["8080"]
+    #       }
+    #     ]
+    #     private_ranges = []
+    #   }
+    # ]
 
     # tls_certificate = [
     #   {
