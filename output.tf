@@ -63,3 +63,7 @@ output "mssql_vm_output" {
   value     = module.mssql_vm.mssql_vm_output
   sensitive = true
 }
+
+output "pass_sql_server_output" {
+  value = module.pass_sql_server.sql_server_output
+}

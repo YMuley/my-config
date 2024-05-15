@@ -69,3 +69,8 @@ variable "storage_account_list" {
   type    = list(any)
   default = []
 }
+
+variable "sql_server_list" {
+  type = list(any)
+  description = "list of sql servers "
+}
