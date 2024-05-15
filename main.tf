@@ -655,18 +655,18 @@ module "public_ip" {
     #   }
     #   sku_tier = "Regional"
     # },
-    # {
-    #   name                = "public-ip-ddi-fw"
-    #   location            = "westus"
-    #   resource_group_name = "rg-ddi-dev1"
-    #   allocation_method   = "Static"
-    #   sku                 = "Standard"
-    #   zones               = []
-    #   domain_name_label   = null
-    #   tags = {
-    #     environment = "dev"
-    #   }
-    # sku_tier = "Regional" }
+    {
+      name                = "public-ip-ddi-fw"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev1"
+      allocation_method   = "Static"
+      sku                 = "Standard"
+      zones               = []
+      domain_name_label   = null
+      tags = {
+        environment = "dev"
+      }
+    sku_tier = "Regional" }
   ]
 }
 
@@ -813,7 +813,7 @@ module "keyvault" {
       location            = "eastus"
 
       sku_name                        = "standard"
-      tenant_id                       = "fd41ee0d-0d97-4102-9a50-c7c3c5470454"  
+      tenant_id                       = "fd41ee0d-0d97-4102-9a50-c7c3c5470454"
       enabled_for_deployment          = true
       enabled_for_disk_encryption     = false
       enabled_for_template_deployment = false
@@ -861,13 +861,13 @@ module "keyvault" {
         }
       ]
 
-                  contact = [
-                    {
-                      email = "Vijay.Yadav@motifworks.com"
-                      name  = "Vijay Yadav"
-                      phone = "93042322"
-                    }
-                  ]
+      contact = [
+        {
+          email = "Vijay.Yadav@motifworks.com"
+          name  = "Vijay Yadav"
+          phone = "93042322"
+        }
+      ]
 
       tags = {
         env = "poc"
@@ -1425,22 +1425,22 @@ module "vm_data_disk_attach" {
 # #   ]
 # # }
 
-# module "azure_firewall" {
-#   source                = "app.terraform.io/Motifworks/firewall/azurerm"
-#   version               = "1.0.0"
-#   azure_firewall_list   = var.azure_firewall_list
-#   resource_group_output = module.resource_Group.resource_group_output
-#   public_ip_output      = module.public_ip.public_ip_output
-#   subnet_output         = module.subnet.vnet_subnet_output
-# }
+module "azure_firewall" {
+  source                = "app.terraform.io/Motifworks/firewall/azurerm"
+  version               = "1.0.0"
+  azure_firewall_list   = var.azure_firewall_list
+  resource_group_output = module.resource_Group.resource_group_output
+  public_ip_output      = module.public_ip.public_ip_output
+  subnet_output         = module.subnet.vnet_subnet_output
+}
 
-# module "firewall_application_rule_collection" {
-#   source                                          = "app.terraform.io/Motifworks/firewall_application_rule_collection/azurerm"
-#   version                                         = "1.0.0"
-#   resource_group_output                           = module.resource_Group.resource_group_output
-#   azure_firewall_application_rule_collection_list = var.azure_firewall_application_rule_collection_list
-#   depends_on                                      = [module.azure_firewall]
-# }
+module "firewall_application_rule_collection" {
+  source                                          = "app.terraform.io/Motifworks/firewall_application_rule_collection/azurerm"
+  version                                         = "1.0.0"
+  resource_group_output                           = module.resource_Group.resource_group_output
+  azure_firewall_application_rule_collection_list = var.azure_firewall_application_rule_collection_list
+  depends_on                                      = [module.azure_firewall]
+}
 
 # module "firewall_nat_rule_collection" {
 #   source                                  = "app.terraform.io/Motifworks/firewall_nat_rule_collection/azurerm"
@@ -1458,12 +1458,21 @@ module "vm_data_disk_attach" {
 #   depends_on                                  = [module.azure_firewall]
 # }
 
-# module "firewall_policy" {
-#   source                     = "app.terraform.io/Motifworks/firewall_policy/azurerm"
-#   version                    = "1.0.0"
-#   azure_firewall_policy_list = var.azure_firewall_policy_list
-#   resource_group_output      = module.resource_Group.resource_group_output
-#   depends_on                 = [module.azure_firewall]
+module "azure_firewall_policy" {
+  source                     = "app.terraform.io/Motifworks/firewall_policy/azurerm"
+  version                    = "1.0.0"
+  azure_firewall_policy_list = var.azure_firewall_policy_list
+  resource_group_output      = module.resource_Group.resource_group_output
+  depends_on                 = [module.azure_firewall]
+}
+
+# module "azure_firewall_policy_rule_collection_group" {
+#   source                                           = "app.terraform.io/Motifworks/firewall_policy_rule_collection_group/azurerm"
+#   version                                          = "1.0.0"
+#   azure_firewall_policy_rule_collection_group_list = var.azure_firewall_policy_rule_collection_group_list
+#   resource_group_output                            = module.resource_Group.resource_group_output
+#   azure_firewall_policy_output                     = module.azure_firewall_policy.azure_firewall_policy_output
+#   //depends_on                                       = [module.azure_firewall_policy]
 # }
 
 # module "ip_group" {
@@ -1896,10 +1905,10 @@ module "application_gateway" {
 }
 
 module "mssql_vm" {
-  source            = "app.terraform.io/Motifworks/mssql_virtual_mchine/azurerm"
-  version           = "1.0.0"
-  mssql_vm_list     = var.mssql_vm_list
-  windows_vm_output = module.window_vm.windows_vm_output
+  source                 = "app.terraform.io/Motifworks/mssql_virtual_mchine/azurerm"
+  version                = "1.0.0"
+  mssql_vm_list          = var.mssql_vm_list
+  windows_vm_output      = module.window_vm.windows_vm_output
   storage_account_output = module.storage_account.storage_account_output
-  depends_on        = [module.managed_disk, module.vm_data_disk_attach, module.window_vm, module.storage_account]
+  depends_on             = [module.managed_disk, module.vm_data_disk_attach, module.window_vm, module.storage_account]
 }

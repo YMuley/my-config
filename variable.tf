@@ -28,6 +28,12 @@ variable "azure_firewall_network_rule_collection_list" {
   description = "list of azure firewall network rule collection objects "
 }
 
+variable "azure_firewall_policy_rule_collection_group_list" {
+  type        = list(any)
+  default     = []
+  description = "list of azure firewall rule collection objects "
+}
+
 variable "subnet_nsg_association_list" {
   type    = list(any)
   default = []
