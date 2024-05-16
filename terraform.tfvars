@@ -252,29 +252,30 @@ azure_firewall_policy_rule_collection_group_list = [
         ]
       }
     ]
-    network_rule_collection_list = [
-      {
-        action   = "Allow"
-        name     = "application-gateway"
-        priority = 100
+    
+    # network_rule_collection_list = [
+    #   {
+    #     action   = "Allow"
+    #     name     = "application-gateway"
+    #     priority = 100
 
-        rule_list = [
-          {
-            name                  = "int-agw-to-gts-avd"
-            protocols             = ["TCP"]
-            source_addresses      = ["10.225.51.0/24"]
-            destination_addresses = ["10.222.0.0/16"]
-            destination_ip_groups = ["ip-grp-spokes-int-agws"]
-            destination_ports     = [80, 443]
-            # source_ip_groups      = []
-            # destination_fqdns     = []
-          }
-        ]
-      },
-      {
+    #     rule_list = [
+    #       {
+    #         name                  = "int-agw-to-gts-avd"
+    #         protocols             = ["TCP"]
+    #         source_addresses      = ["10.225.51.0/24"]
+    #         destination_addresses = ["10.222.0.0/16"]
+    #         destination_ip_groups = ["ip-grp-spokes-int-agws"]
+    #         destination_ports     = [80, 443]
+    #         # source_ip_groups      = []
+    #         # destination_fqdns     = []
+    #       }
+    #     ]
+    #   },
+    #   {
 
-      }
-    ]
+    #   }
+    # ]
   }
 ]
 
