@@ -200,25 +200,25 @@ azure_firewall_policy_list = [
 #   }
 # ]
 
-azure_firewall_network_rule_collection_list = [
-  {
-    name                = "network-rule-collection-1"
-    resource_group_name = "rg-ddi-dev1"
-    azure_firewall_name = "fw-ddi-westus"
-    priority            = 100
-    action              = "Deny"
+# azure_firewall_network_rule_collection_list = [
+#   {
+#     name                = "network-rule-collection-1"
+#     resource_group_name = "rg-ddi-dev1"
+#     azure_firewall_name = "fw-ddi-westus"
+#     priority            = 100
+#     action              = "Deny"
 
-    rule_list = [
-      {
-        name                  = "rule-1-ddi"
-        source_addresses      = ["10.0.0.0/24"]
-        destination_addresses = ["13.64.185.194"]
-        destination_ports     = ["80"] //only single value is supported ,multiple value or ports will throw error
-        protocols             = ["TCP"]
-      }
-    ]
-  }
-]
+#     rule_list = [
+#       {
+#         name                  = "rule-1-ddi"
+#         source_addresses      = ["10.0.0.0/24"]
+#         destination_addresses = ["13.64.185.194"]
+#         destination_ports     = ["80"] //only single value is supported ,multiple value or ports will throw error
+#         protocols             = ["TCP"]
+#       }
+#     ]
+#   }
+# ]
 
 azure_firewall_policy_rule_collection_group_list = [
   {
@@ -276,7 +276,7 @@ azure_firewall_policy_rule_collection_group_list = [
    {
     name                 = "Products-Development-NetworkRuleCollectionGroup"
     firewall_policy_name = "AfwP-ddi-westus"
-    priority             = 500
+    priority             = 100
 
     network_rule_collection_list = [
       {
