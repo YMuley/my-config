@@ -274,7 +274,7 @@ azure_firewall_policy_rule_collection_group_list = [
     ]
   },
    {
-    name                 = "Products-Development-NetworkRuleCollectionGroup"
+    name                 = "Products-Development-NetworkRuleCollectionGroup2"
     firewall_policy_name = "AfwP-ddi-westus"
     priority             = 100
 
