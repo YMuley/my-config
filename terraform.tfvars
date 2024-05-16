@@ -268,16 +268,8 @@ azure_firewall_policy_rule_collection_group_list = [
             destination_ports     = [80, 443]
             source_ip_groups      = []
             destination_fqdns     = []
-          }
-        ]
-      },
-      {
-        name     = "application-gateway"
-        priority = 100
-        action   = "Allow"
-
-        rule_list = [
-          {
+          },
+           {
             name                  = "dev-webs-to-agw"
             protocols             = ["TCP"]
             source_addresses      = ["10.225.10.0/24"]
@@ -289,8 +281,8 @@ azure_firewall_policy_rule_collection_group_list = [
           }
         ]
       }
-    ]
-  },
+        ]
+      },
   #  {
   #   name                 = "Products-Development-NetworkRuleCollectionGroup"
   #   firewall_policy_name = "AfwP-ddi-westus"
