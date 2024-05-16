@@ -1913,12 +1913,12 @@ module "mssql_vm" {
   depends_on             = [module.managed_disk, module.vm_data_disk_attach, module.window_vm, module.storage_account]
 }
 
-module "pass_sql_server" {
-  source                        = "value"
-  version                       = "value"
-  sql_server_list               = var.sql_server_list
-  resource_group_output         = var.resource_group_output
-  user_assigned_identity_output = var.user_assigned_identity_output
-  key_vault_output              = var.key_vault_output
-  depends_on                    = [module.useridentity, module.keyvault]
-}
+# module "pass_sql_server" {
+#   source                        = "value"
+#   version                       = "value"
+#   sql_server_list               = var.sql_server_list
+#   resource_group_output         = var.resource_group_output
+#   user_assigned_identity_output = var.user_assigned_identity_output
+#   key_vault_output              = var.key_vault_output
+#   depends_on                    = [module.useridentity, module.keyvault]
+# }
