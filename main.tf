@@ -1426,12 +1426,13 @@ module "vm_data_disk_attach" {
 # # }
 
 module "azure_firewall" {
-  source                = "app.terraform.io/Motifworks/firewall/azurerm"
-  version               = "1.0.0"
-  azure_firewall_list   = var.azure_firewall_list
-  resource_group_output = module.resource_Group.resource_group_output
-  public_ip_output      = module.public_ip.public_ip_output
-  subnet_output         = module.subnet.vnet_subnet_output
+  source                       = "app.terraform.io/Motifworks/firewall/azurerm"
+  version                      = "1.0.0"
+  azure_firewall_list          = var.azure_firewall_list
+  resource_group_output        = module.resource_Group.resource_group_output
+  public_ip_output             = module.public_ip.public_ip_output
+  subnet_output                = module.subnet.vnet_subnet_output
+  azure_firewall_policy_output = module.azure_firewall_policy.azure_firewall_policy_output
 }
 
 module "firewall_application_rule_collection" {
