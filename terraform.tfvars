@@ -1,14 +1,15 @@
 azure_firewall_list = [
   {
-    name                = "fw-ddi-westus"
-    resource_group_name = "rg-ddi-dev1"
-    location            = "westus"
-    sku_name            = "AZFW_VNet"
-    sku_tier            = "Premium"
-    dns_servers         = ["168.63.129.16"]
-    private_ip_ranges   = ["10.0.0.0/8"]
-    zones               = []
-    threat_intel_mode   = "Alert"
+    name                 = "fw-ddi-westus"
+    resource_group_name  = "rg-ddi-dev1"
+    location             = "westus"
+    sku_name             = "AZFW_VNet"
+    sku_tier             = "Premium"
+    firewall_policy_name = "AfwP-ddi-westus"
+    dns_servers          = ["168.63.129.16"]
+    private_ip_ranges    = ["10.0.0.0/8"]
+    zones                = []
+    threat_intel_mode    = "Alert"
 
     ip_configuration = [
       {
