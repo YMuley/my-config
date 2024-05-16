@@ -270,15 +270,7 @@ azure_firewall_policy_rule_collection_group_list = [
             destination_fqdns     = []
           }
         ]
-      }
-    ]
-  },
-   {
-    name                 = "Products-Development-NetworkRuleCollectionGroup2"
-    firewall_policy_name = "AfwP-ddi-westus"
-    priority             = 100
-
-    network_rule_collection_list = [
+      },
       {
         name     = "application-gateway"
         priority = 100
@@ -298,7 +290,16 @@ azure_firewall_policy_rule_collection_group_list = [
         ]
       }
     ]
-  }
+  },
+  #  {
+  #   name                 = "Products-Development-NetworkRuleCollectionGroup"
+  #   firewall_policy_name = "AfwP-ddi-westus"
+  #   priority             = 100
+
+  #   network_rule_collection_list = [
+      
+  #   ]
+  # }
 ]
 
 subnet_nsg_association_list = [
