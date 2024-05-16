@@ -123,60 +123,60 @@ azure_firewall_policy_list = [
   }
 ]
 
-azure_firewall_application_rule_collection_list = [
-  {
-    name                = "firewall-rule-collection-1"
-    resource_group_name = "rg-ddi-dev1"
-    azure_firewall_name = "fw-ddi-westus"
-    priority            = 100
-    action              = "Allow"
+# azure_firewall_application_rule_collection_list = [
+#   {
+#     name                = "firewall-rule-collection-1"
+#     resource_group_name = "rg-ddi-dev1"
+#     azure_firewall_name = "fw-ddi-westus"
+#     priority            = 100
+#     action              = "Allow"
 
-    rule_list = [
-      {
-        name             = "rule-1"
-        source_addresses = ["192.168.1.0/24"]
-        target_fqdns     = ["example.com", "contoso.com"]
+#     rule_list = [
+#       {
+#         name             = "rule-1"
+#         source_addresses = ["192.168.1.0/24"]
+#         target_fqdns     = ["example.com", "contoso.com"]
 
-        protocol_list = [
-          {
-            port = 80
-            type = "Http"
-          },
-          {
-            port = 443
-            type = "Https"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    name                = "firewall-rule-collection-2"
-    resource_group_name = "rg-ddi-dev1"
-    azure_firewall_name = "fw-ddi-westus"
-    priority            = 200
-    action              = "Deny"
+#         protocol_list = [
+#           {
+#             port = 80
+#             type = "Http"
+#           },
+#           {
+#             port = 443
+#             type = "Https"
+#           }
+#         ]
+#       }
+#     ]
+#   },
+#   {
+#     name                = "firewall-rule-collection-2"
+#     resource_group_name = "rg-ddi-dev1"
+#     azure_firewall_name = "fw-ddi-westus"
+#     priority            = 200
+#     action              = "Deny"
 
-    rule_list = [
-      {
-        name             = "rule-2"
-        source_addresses = ["192.168.1.0/26"]
-        target_fqdns     = ["contoso.com"]
+#     rule_list = [
+#       {
+#         name             = "rule-2"
+#         source_addresses = ["192.168.1.0/26"]
+#         target_fqdns     = ["contoso.com"]
 
-        protocol_list = [
-          {
-            port = 80
-            type = "Http"
-          },
-          {
-            port = 443
-            type = "Https"
-          }
-        ]
-      }
-    ]
-  }
-]
+#         protocol_list = [
+#           {
+#             port = 80
+#             type = "Http"
+#           },
+#           {
+#             port = 443
+#             type = "Https"
+#           }
+#         ]
+#       }
+#     ]
+#   }
+# ]
 
 # azure_firewall_nat_rule_collection_list = [
 #   {
@@ -200,25 +200,25 @@ azure_firewall_application_rule_collection_list = [
 #   }
 # ]
 
-azure_firewall_network_rule_collection_list = [
-  {
-    name                = "network-rule-collection-1"
-    resource_group_name = "rg-ddi-dev1"
-    azure_firewall_name = "fw-ddi-westus"
-    priority            = 100
-    action              = "Deny"
+# azure_firewall_network_rule_collection_list = [
+#   {
+#     name                = "network-rule-collection-1"
+#     resource_group_name = "rg-ddi-dev1"
+#     azure_firewall_name = "fw-ddi-westus"
+#     priority            = 100
+#     action              = "Deny"
 
-    rule_list = [
-      {
-        name                  = "rule-1-ddi"
-        source_addresses      = ["10.0.0.0/24"]
-        destination_addresses = ["13.64.185.194"]
-        destination_ports     = ["80"] //only single value is supported ,multiple value or ports will throw error
-        protocols             = ["TCP"]
-      }
-    ]
-  }
-]
+#     rule_list = [
+#       {
+#         name                  = "rule-1-ddi"
+#         source_addresses      = ["10.0.0.0/24"]
+#         destination_addresses = ["13.64.185.194"]
+#         destination_ports     = ["80"] //only single value is supported ,multiple value or ports will throw error
+#         protocols             = ["TCP"]
+#       }
+#     ]
+#   }
+# ]
 
 azure_firewall_policy_rule_collection_group_list = [
   {
