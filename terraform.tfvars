@@ -154,7 +154,7 @@ azure_firewall_application_rule_collection_list = [
     name                = "firewall-rule-collection-2"
     resource_group_name = "rg-ddi-dev1"
     azure_firewall_name = "fw-ddi-westus"
-    priority            = 100
+    priority            = 200
     action              = "Deny"
 
     rule_list = [
@@ -269,6 +269,9 @@ azure_firewall_policy_rule_collection_group_list = [
             destination_fqdns     = []
           }
         ]
+      },
+      {
+
       }
     ]
   }
