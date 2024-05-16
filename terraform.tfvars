@@ -258,7 +258,7 @@ azure_firewall_policy_rule_collection_group_list = [
         name     = "application-gateway"
         priority = 100
 
-        rule = [
+        rule_list = [
           {
             name                  = "int-agw-to-gts-avd"
             protocols             = ["TCP"]
