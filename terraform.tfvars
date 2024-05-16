@@ -265,6 +265,8 @@ azure_firewall_policy_rule_collection_group_list = [
             destination_addresses = ["10.222.0.0/16"]
             destination_ip_groups = ["ip-grp-spokes-int-agws"]
             destination_ports     = [80, 443]
+            source_ip_groups      = []
+            destination_fqdns     = []
           }
         ]
       }
