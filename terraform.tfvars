@@ -1,14 +1,14 @@
 azure_firewall_list = [
   {
-    name                = "fw-ddi-westus"
-    resource_group_name = "rg-ddi-dev1"
-    location            = "westus"
-    sku_name            = "AZFW_VNet"
-    sku_tier            = "Premium"
-    dns_servers         = ["168.63.129.16"]
-    private_ip_ranges   = ["10.0.0.0/8"]
-    zones               = []
-    threat_intel_mode   = "Alert"
+    name                 = "fw-ddi-westus"
+    resource_group_name  = "rg-ddi-dev1"
+    location             = "westus"
+    sku_name             = "AZFW_VNet"
+    sku_tier             = "Premium"
+    firewall_policy_name = "AfwP-ddi-westus"
+    private_ip_ranges    = ["10.0.0.0/8"]
+    zones                = []
+    threat_intel_mode    = "Alert"
 
     ip_configuration = [
       {
@@ -23,103 +23,6 @@ azure_firewall_list = [
     tags = {
       environment = "dev"
     }
-  }
-]
-
-azure_firewall_application_rule_collection_list = [
-  {
-    name                = "firewall-rule-collection-1"
-    resource_group_name = "rg-ddi-dev1"
-    azure_firewall_name = "fw-ddi-westus"
-    priority            = 100
-    action              = "Allow"
-
-    rule_list = [
-      {
-        name             = "rule-1"
-        source_addresses = ["192.168.1.0/24"]
-        target_fqdns     = ["example.com", "contoso.com"]
-
-        protocol_list = [
-          {
-            port = 80
-            type = "Http"
-          },
-          {
-            port = 443
-            type = "Https"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    name                = "firewall-rule-collection-2"
-    resource_group_name = "rg-ddi-dev1"
-    azure_firewall_name = "fw-ddi-westus"
-    priority            = 100
-    action              = "Deny"
-
-    rule_list = [
-      {
-        name             = "rule-2"
-        source_addresses = ["192.168.1.0/26"]
-        target_fqdns     = [ "contoso.com"]
-
-        protocol_list = [
-          {
-            port = 80
-            type = "Http"
-          },
-          {
-            port = 443
-            type = "Https"
-          }
-        ]
-      }
-    ]
-  }
-]
-
-# azure_firewall_nat_rule_collection_list = [
-#   {
-#     name                = "nat-rule-collection-2"
-#     resource_group_name = "rg-ddi-dev1"
-#     azure_firewall_name = "fw-ddi-westus"
-#     priority            = 101
-#     action              = "Dnat"
-
-#     rule_list = [
-#       {
-#         name                  = "rule-1"
-#         source_addresses      = ["10.0.0.0/24"]
-#         destination_addresses = ["10.100.19.4"]
-#         destination_ports     = ["80"] //only single value is supported ,multiple value or ports will throw error
-#         translated_address    = "192.168.1.1"
-#         translated_port       = 443
-#         protocols             = ["TCP"]
-#       }
-#     ]
-#   }
-# ]
-
-azure_firewall_network_rule_collection_list = [
-  {
-    name                = "network-rule-collection-1"
-    resource_group_name = "rg-ddi-dev1"
-    azure_firewall_name = "fw-ddi-westus"
-    priority            = 100
-    action              = "Deny"
-
-    rule_list = [
-      {
-        name                  = "rule-1-ddi"
-        source_addresses      = ["10.0.0.0/24"]
-        destination_addresses = ["13.64.185.194"]
-        destination_ports     = ["80"] //only single value is supported ,multiple value or ports will throw error
-        protocols             = ["TCP"]
-      }
-    ]
   }
 ]
 
@@ -220,39 +123,176 @@ azure_firewall_policy_list = [
   }
 ]
 
-# azure_firewall_policy_rule_collection_group_list = [
+# azure_firewall_application_rule_collection_list = [
 #   {
-#     name                 = "fwpolicy-rcg"
-#     firewall_policy_name = "AfwP-ddi-westus"
-#     priority             = 500
+#     name                = "firewall-rule-collection-1"
+#     resource_group_name = "rg-ddi-dev1"
+#     azure_firewall_name = "fw-ddi-westus"
+#     priority            = 100
+#     action              = "Allow"
 
-#     application_rule_collection_list = [
+#     rule_list = [
 #       {
-#         name     = "app_rule_collection1"
-#         priority = 500
-#         action   = "Deny"
+#         name             = "rule-1"
+#         source_addresses = ["192.168.1.0/24"]
+#         target_fqdns     = ["example.com", "contoso.com"]
 
-#         rule_list = [
+#         protocol_list = [
 #           {
-#             name              = "app_rule_collection1_rule1"
-#             source_addresses  = ["10.0.0.1"]
-#             destination_fqdns = ["*.microsoft.com"]
-#             protocols_list = [
-#               {
-#                 type = "Http"
-#                 port = 80
-#               },
-#               {
-#                 type = "Https"
-#                 port = 443
-#               }
-#             ]
+#             port = 80
+#             type = "Http"
+#           },
+#           {
+#             port = 443
+#             type = "Https"
+#           }
+#         ]
+#       }
+#     ]
+#   },
+#   {
+#     name                = "firewall-rule-collection-2"
+#     resource_group_name = "rg-ddi-dev1"
+#     azure_firewall_name = "fw-ddi-westus"
+#     priority            = 200
+#     action              = "Deny"
+
+#     rule_list = [
+#       {
+#         name             = "rule-2"
+#         source_addresses = ["192.168.1.0/26"]
+#         target_fqdns     = ["contoso.com"]
+
+#         protocol_list = [
+#           {
+#             port = 80
+#             type = "Http"
+#           },
+#           {
+#             port = 443
+#             type = "Https"
 #           }
 #         ]
 #       }
 #     ]
 #   }
 # ]
+
+# azure_firewall_nat_rule_collection_list = [
+#   {
+#     name                = "nat-rule-collection-2"
+#     resource_group_name = "rg-ddi-dev1"
+#     azure_firewall_name = "fw-ddi-westus"
+#     priority            = 101
+#     action              = "Dnat"
+
+#     rule_list = [
+#       {
+#         name                  = "rule-1"
+#         source_addresses      = ["10.0.0.0/24"]
+#         destination_addresses = ["10.100.19.4"]
+#         destination_ports     = ["80"] //only single value is supported ,multiple value or ports will throw error
+#         translated_address    = "192.168.1.1"
+#         translated_port       = 443
+#         protocols             = ["TCP"]
+#       }
+#     ]
+#   }
+# ]
+
+# azure_firewall_network_rule_collection_list = [
+#   {
+#     name                = "network-rule-collection-1"
+#     resource_group_name = "rg-ddi-dev1"
+#     azure_firewall_name = "fw-ddi-westus"
+#     priority            = 100
+#     action              = "Deny"
+
+#     rule_list = [
+#       {
+#         name                  = "rule-1-ddi"
+#         source_addresses      = ["10.0.0.0/24"]
+#         destination_addresses = ["13.64.185.194"]
+#         destination_ports     = ["80"] //only single value is supported ,multiple value or ports will throw error
+#         protocols             = ["TCP"]
+#       }
+#     ]
+#   }
+# ]
+
+azure_firewall_policy_rule_collection_group_list = [
+  {
+    name                 = "Products-Development-NetworkRuleCollectionGroup"
+    firewall_policy_name = "AfwP-ddi-westus"
+    priority             = 500
+
+    application_rule_collection_list = [
+      {
+        name     = "app_rule_collection1"
+        priority = 500
+        action   = "Deny"
+
+        rule_list = [
+          {
+            name              = "app_rule_collection1_rule1"
+            source_addresses  = ["10.0.0.1"]
+            destination_fqdns = ["*.microsoft.com"]
+            protocols_list = [
+              {
+                type = "Http"
+                port = 80
+              },
+              {
+                type = "Https"
+                port = 443
+              }
+            ]
+          }
+        ]
+      }
+    ]
+
+    network_rule_collection_list = [
+      {
+        name     = "application-gateway"
+        priority = 100
+        action   = "Allow"
+
+        rule_list = [
+          {
+            name                  = "int-agw-to-gts-avd"
+            protocols             = ["TCP"]
+            source_addresses      = ["10.225.51.0/24"]
+            destination_addresses = ["10.222.0.0/16"]
+            # destination_ip_groups = ["ip-grp-spokes-int-agws"]
+            destination_ports     = [80, 443]
+            source_ip_groups      = []
+            destination_fqdns     = []
+          },
+           {
+            name                  = "dev-webs-to-agw"
+            protocols             = ["TCP"]
+            source_addresses      = ["10.225.10.0/24"]
+            destination_addresses = ["10.225.50.0/24"]
+            # destination_ip_groups = ["ip-grp-spokes-int-agws"]
+            destination_ports     = [80, 443]
+            source_ip_groups      = []
+            destination_fqdns     = []
+          }
+        ]
+      }
+        ]
+      },
+  #  {
+  #   name                 = "Products-Development-NetworkRuleCollectionGroup"
+  #   firewall_policy_name = "AfwP-ddi-westus"
+  #   priority             = 100
+
+  #   network_rule_collection_list = [
+      
+  #   ]
+  # }
+]
 
 subnet_nsg_association_list = [
   {

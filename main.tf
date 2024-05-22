@@ -1426,12 +1426,13 @@ module "vm_data_disk_attach" {
 # # }
 
 module "azure_firewall" {
-  source                = "app.terraform.io/Motifworks/firewall/azurerm"
-  version               = "1.0.0"
-  azure_firewall_list   = var.azure_firewall_list
-  resource_group_output = module.resource_Group.resource_group_output
-  public_ip_output      = module.public_ip.public_ip_output
-  subnet_output         = module.subnet.vnet_subnet_output
+  source                       = "app.terraform.io/Motifworks/firewall/azurerm"
+  version                      = "1.0.0"
+  azure_firewall_list          = var.azure_firewall_list
+  resource_group_output        = module.resource_Group.resource_group_output
+  public_ip_output             = module.public_ip.public_ip_output
+  subnet_output                = module.subnet.vnet_subnet_output
+  azure_firewall_policy_output = module.azure_firewall_policy.azure_firewall_policy_output
 }
 
 module "firewall_application_rule_collection" {
@@ -1450,30 +1451,29 @@ module "firewall_application_rule_collection" {
 #   depends_on                              = [module.azure_firewall]
 # }
 
-# module "firewall_network_rule_collection" {
-#   source                                      = "app.terraform.io/Motifworks/firewall_network_rule_collection/azurerm"
-#   version                                     = "1.0.0"
-#   resource_group_output                       = module.resource_Group.resource_group_output
-#   azure_firewall_network_rule_collection_list = var.azure_firewall_network_rule_collection_list
-#   depends_on                                  = [module.azure_firewall]
-# }
+module "firewall_network_rule_collection" {
+  source                                      = "app.terraform.io/Motifworks/firewall_network_rule_collection/azurerm"
+  version                                     = "1.0.0"
+  resource_group_output                       = module.resource_Group.resource_group_output
+  azure_firewall_network_rule_collection_list = var.azure_firewall_network_rule_collection_list
+  depends_on                                  = [module.azure_firewall]
+}
 
 module "azure_firewall_policy" {
   source                     = "app.terraform.io/Motifworks/firewall_policy/azurerm"
   version                    = "1.0.0"
   azure_firewall_policy_list = var.azure_firewall_policy_list
   resource_group_output      = module.resource_Group.resource_group_output
-  depends_on                 = [module.azure_firewall]
 }
 
-# module "azure_firewall_policy_rule_collection_group" {
-#   source                                           = "app.terraform.io/Motifworks/firewall_policy_rule_collection_group/azurerm"
-#   version                                          = "1.0.0"
-#   azure_firewall_policy_rule_collection_group_list = var.azure_firewall_policy_rule_collection_group_list
-#   resource_group_output                            = module.resource_Group.resource_group_output
-#   azure_firewall_policy_output                     = module.azure_firewall_policy.azure_firewall_policy_output
-#   //depends_on                                       = [module.azure_firewall_policy]
-# }
+module "azure_firewall_policy_rule_collection_group" {
+  source                                           = "app.terraform.io/Motifworks/firewall_policy_rule_collection_group/azurerm"
+  version                                          = "1.0.0"
+  azure_firewall_policy_rule_collection_group_list = var.azure_firewall_policy_rule_collection_group_list
+  resource_group_output                            = module.resource_Group.resource_group_output
+  azure_firewall_policy_output                     = module.azure_firewall_policy.azure_firewall_policy_output
+  //depends_on                                       = [module.azure_firewall_policy]
+}
 
 # module "ip_group" {
 #   source                = "app.terraform.io/Motifworks/ip_group/azurerm"
@@ -1913,12 +1913,12 @@ module "mssql_vm" {
   depends_on             = [module.managed_disk, module.vm_data_disk_attach, module.window_vm, module.storage_account]
 }
 
-module "pass_sql_server" {
-  source = "value"
-  version = "value"
-  sql_server_list                 = var.sql_server_list
-  resource_group_output           = var.resource_group_output
-  user_assigned_identity_output   = var.user_assigned_identity_output
-  key_vault_output                = var.key_vault_output
-  depends_on                      = [ module.useridentity , module.keyvault ]
-}
+# module "pass_sql_server" {
+#   source                        = "value"
+#   version                       = "value"
+#   sql_server_list               = var.sql_server_list
+#   resource_group_output         = var.resource_group_output
+#   user_assigned_identity_output = var.user_assigned_identity_output
+#   key_vault_output              = var.key_vault_output
+#   depends_on                    = [module.useridentity, module.keyvault]
+# }
