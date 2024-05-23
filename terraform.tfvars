@@ -927,13 +927,12 @@ pass_sql_server_list = [
   administrator_login_password    = "Qwest@72hrNight"
   minimum_tls_version             = "1.2"     // valid values: 1.0, 1.1 , 1.2 and Disabled. Defaults to 1.2
   public_network_access_enabled   = true
-
+  key_vault_name                  = "testiefngkvrss2"
   azuread_administrator = [
     {
       azuread_authentication_only = false
       login_username              = "ddi-appgw-identity"
     }
   ]
-  Key_vault_name                  = "testiefngkvrss2"
 }
 ]
