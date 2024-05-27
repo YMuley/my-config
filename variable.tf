@@ -70,7 +70,7 @@ variable "storage_account_list" {
   default = []
 }
 
-variable "pass_sql_server_list" {
-  type = list(any)
-  description = "list of sql servers "
-}
+# variable "pass_sql_server_list" {
+#   type = list(any)
+#   description = "list of sql servers "
+# }
