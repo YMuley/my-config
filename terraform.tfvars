@@ -312,13 +312,13 @@ subnet_route_table_association_list = [
   {
     route_table_name     = "rt-table1"
     virtual_network_name = "Vnet-ddi-poc1"
-    subnet_name          = "Subnet1"
+    subnet_name          = ["Subnet1"]
     resource_group_name  = "RG-YogeshMuley"
   },
   {
     route_table_name     = "rt-table2"
     virtual_network_name = "Vnet-ddi-poc1"
-    subnet_name          = "Subnet2"
+    subnet_name          = ["Subnet2"]
     resource_group_name  = "RG-YogeshMuley"
   }
 ]
