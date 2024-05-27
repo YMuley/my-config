@@ -311,8 +311,15 @@ subnet_nsg_association_list = [
 subnet_route_table_association_list = [
   {
     route_table_name     = "rt-table1"
-    virtual_network_name = "vnet-ddi-poc1"
-    subnet_name          = "sub-ddi-poc-web"
+    virtual_network_name = "Vnet-ddi-poc1"
+    subnet_name          = "Subnet1"
+    resource_group_name  = "RG-YogeshMuley"
+  },
+  {
+    route_table_name     = "rt-table2"
+    virtual_network_name = "Vnet-ddi-poc1"
+    subnet_name          = "Subnet2"
+    resource_group_name  = "RG-YogeshMuley"
   }
 ]
 
@@ -918,21 +925,21 @@ storage_account_list = [
   }
 ]
 
-pass_sql_server_list = [
-{
-  name                            = "ddi-poc-sql-server"
-  resource_group_name             = "rg-ddi-poc1"
-  version                         = "12.0"
-  administrator_login_name        = "sqladmin"
-  administrator_login_password    = "Qwest@72hrNight"
-  minimum_tls_version             = "1.2"     // valid values: 1.0, 1.1 , 1.2 and Disabled. Defaults to 1.2
-  public_network_access_enabled   = true
-  key_vault_name                  = "testiefngkvrss2"
-  azuread_administrator = [
-    {
-      azuread_authentication_only = false
-      login_username              = "ddi-appgw-identity"
-    }
-  ]
-}
-]
+# pass_sql_server_list = [
+# {
+#   name                            = "ddi-poc-sql-server"
+#   resource_group_name             = "rg-ddi-poc1"
+#   version                         = "12.0"
+#   administrator_login_name        = "sqladmin"
+#   administrator_login_password    = "Qwest@72hrNight"
+#   minimum_tls_version             = "1.2"     // valid values: 1.0, 1.1 , 1.2 and Disabled. Defaults to 1.2
+#   public_network_access_enabled   = true
+#   key_vault_name                  = "testiefngkvrss2"
+#   azuread_administrator = [
+#     {
+#       azuread_authentication_only = false
+#       login_username              = "ddi-appgw-identity"
+#     }
+#   ]
+# }
+# ]

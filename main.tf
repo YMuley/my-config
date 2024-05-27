@@ -680,7 +680,32 @@ module "route_table" {
     {
       name                = "rt-table1"
       location            = "eastus"
-      resource_group_name = "rg-ddi-dev1"
+      resource_group_name = "rg-ddi-poc1"
+      tags = {
+        environment = "poc"
+        application = "example"
+      }
+
+      disable_bgp_route_propagation = true
+      route_list = [
+        {
+          name                   = "route1"
+          address_prefix         = "10.0.0.0/16"
+          next_hop_type          = "VirtualAppliance"
+          next_hop_in_ip_address = "10.0.0.1"
+        },
+        {
+          name                   = "route2"
+          address_prefix         = "10.1.0.0/16"
+          next_hop_type          = "VirtualAppliance"
+          next_hop_in_ip_address = "10.0.0.2"
+        }
+      ]
+    },
+   {
+      name                = "rt-table2"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-poc1"
       tags = {
         environment = "poc"
         application = "example"
@@ -784,7 +809,7 @@ module "subnet_route_table_association" {
   source                              = "app.terraform.io/Motifworks/subnet_route_table_association/azurerm"
   version                             = "1.0.0"
   subnet_route_table_association_list = var.subnet_route_table_association_list
-  subnet_output                       = module.subnet.vnet_subnet_output
+  #subnet_output                       = module.subnet.vnet_subnet_output
   route_table_output                  = module.route_table.route_table_output
 }
 
@@ -1913,12 +1938,12 @@ module "mssql_vm" {
   depends_on             = [module.managed_disk, module.vm_data_disk_attach, module.window_vm, module.storage_account]
 }
 
-module "pass_sql_server" {
-  source                        = "app.terraform.io/Motifworks/mssql-server/azurerm"
-  version                       = "1.0.0"
-  pass_sql_server_list          = var.pass_sql_server_list
-  resource_group_output         = module.resource_Group.resource_group_output
-  user_assigned_identity_output = module.useridentity.user_assigned_identity_output
-  key_vault_output              = module.keyvault.key_vault_output
-  depends_on                    = [module.useridentity, module.keyvault]
-}
+# module "pass_sql_server" {
+#   source                        = "app.terraform.io/Motifworks/mssql-server/azurerm"
+#   version                       = "1.0.0"
+#   pass_sql_server_list          = var.pass_sql_server_list
+#   resource_group_output         = module.resource_Group.resource_group_output
+#   user_assigned_identity_output = module.useridentity.user_assigned_identity_output
+#   key_vault_output              = module.keyvault.key_vault_output
+#   depends_on                    = [module.useridentity, module.keyvault]
+# }
