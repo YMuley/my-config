@@ -320,6 +320,24 @@ subnet_route_table_association_list = [
     virtual_network_name = "Vnet-ddi-poc1"
     subnet_name          = "Subnet2"
     resource_group_name  = "RG-YogeshMuley"
+  },
+  {
+    route_table_name     = "rt-table3"
+    virtual_network_name = "vnet-ddi-poc2"
+    subnet_name          = "Subnet1"
+    resource_group_name  = "RG-DDI-POC"
+  },
+  {
+    route_table_name     = "rt-table3"
+    virtual_network_name = "vnet-ddi-poc2"
+    subnet_name          = "Subnet2"
+    resource_group_name  = "RG-DDI-POC"
+  },
+  {
+    route_table_name     = "rt-table4"
+    virtual_network_name = "vnet-ddi-dev1"
+    subnet_name          = "sub-ddi-dev-web"
+    resource_group_name  = "rg-ddi-dev1"
   }
 ]
 
