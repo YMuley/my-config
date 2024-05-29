@@ -751,31 +751,6 @@ module "route_table" {
           next_hop_in_ip_address = "10.0.0.2"
         }
       ]
-    },
-       {
-      name                = "rt-table4"
-      location            = "westus"
-      resource_group_name = "rg-ddi-dev1"
-      tags = {
-        environment = "poc"
-        application = "example"
-      }
-
-      disable_bgp_route_propagation = true
-      route_list = [
-        {
-          name                   = "route1"
-          address_prefix         = "10.0.0.0/16"
-          next_hop_type          = "VirtualAppliance"
-          next_hop_in_ip_address = "10.0.0.1"
-        },
-        {
-          name                   = "route2"
-          address_prefix         = "10.1.0.0/16"
-          next_hop_type          = "VirtualAppliance"
-          next_hop_in_ip_address = "10.0.0.2"
-        }
-      ]
     }
   ]
 }

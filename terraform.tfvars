@@ -333,12 +333,7 @@ subnet_route_table_association_list = [
     subnet_name          = "Subnet2"
     resource_group_name  = "RG-DDI-POC"
   },
-  # {
-  #   route_table_name     = "rt-table4"
-  #   virtual_network_name = "vnet-ddi-dev1"
-  #   subnet_name          = "sub-ddi-dev-web"
-  #   resource_group_name  = "rg-ddi-dev1"
-  # }
+
 ]
 
 mssql_vm_list = [
