@@ -751,6 +751,31 @@ module "route_table" {
           next_hop_in_ip_address = "10.0.0.2"
         }
       ]
+    },
+    {
+      name                = "rt-table4"
+      location            = "westus"
+      resource_group_name = "rg-ddi-dev1"
+      tags = {
+        environment = "poc"
+        application = "example"
+      }
+
+      disable_bgp_route_propagation = true
+      route_list = [
+        {
+          name                   = "route1"
+          address_prefix         = "10.0.0.0/16"
+          next_hop_type          = "VirtualAppliance"
+          next_hop_in_ip_address = "10.0.0.1"
+        },
+        {
+          name                   = "route2"
+          address_prefix         = "10.1.0.0/16"
+          next_hop_type          = "VirtualAppliance"
+          next_hop_in_ip_address = "10.0.0.2"
+        }
+      ]
     }
   ]
 }
@@ -835,6 +860,14 @@ module "subnet_route_table_association" {
   version                             = "1.0.0"
   subnet_route_table_association_list = var.subnet_route_table_association_list
   #subnet_output                       = module.subnet.vnet_subnet_output
+  route_table_output                  = module.route_table.route_table_output
+}
+
+module "terraform_subnet_route_table_association" {
+  source                              = "app.terraform.io/Motifworks/new-subnet_route_table_association/azurerm"
+  version                             = "1.0.0"
+  terraform_subnet_route_table_association_list = var.terraform_subnet_route_table_association_list
+  subnet_output                       = module.subnet.vnet_subnet_output
   route_table_output                  = module.route_table.route_table_output
 }
 

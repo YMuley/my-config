@@ -332,9 +332,18 @@ subnet_route_table_association_list = [
     virtual_network_name = "vnet-ddi-poc2"
     subnet_name          = "Subnet2"
     resource_group_name  = "RG-DDI-POC"
-  },
+  }
 
 ]
+
+terraform_subnet_route_table_association_list = [
+  {
+    route_table_name     = "rt-table4"
+    virtual_network_name = "vnet-ddi-dev1"
+    subnet_name          = "sub-ddi-dev-web"
+  }
+]
+
 
 mssql_vm_list = [
   {
