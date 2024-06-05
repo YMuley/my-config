@@ -1998,7 +1998,7 @@ module "mssql_vm" {
 
 module "pass_sql_server" {
   source                        = "app.terraform.io/Motifworks/mssql-server/azurerm"
-  version                       = "1.0.0"
+  version                       = "1.0.1"
   pass_sql_server_list          = var.pass_sql_server_list
   resource_group_output         = module.resource_Group.resource_group_output
   user_assigned_identity_output = module.useridentity.user_assigned_identity_output
