@@ -75,7 +75,7 @@ variable "terraform_subnet_route_table_association_list" {
   description = "list of route table subnets for association"
 }
 
-# variable "pass_sql_server_list" {
-#   type = list(any)
-#   description = "list of sql servers "
-# }
+variable "pass_sql_server_list" {
+  type = list(any)
+  description = "list of sql servers "
+}
