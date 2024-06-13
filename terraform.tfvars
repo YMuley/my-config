@@ -947,21 +947,43 @@ storage_account_list = [
   }
 ]
 
-pass_sql_server_list = [
+# pass_sql_server_list = [
+# {
+#   name                            = "ddi-poc-sql-server"
+#   resource_group_name             = "rg-ddi-poc1"
+#   version                         = "12.0"
+#   administrator_login_name        = "sqladmin"
+#   administrator_login_password    = "Qwest@72hrNight"
+#   minimum_tls_version             = "1.2"     // valid values: 1.0, 1.1 , 1.2 and Disabled. Defaults to 1.2
+#   public_network_access_enabled   = true
+#   key_vault_name                  = "testiefngkvrss2"
+#   azuread_administrator = [
+#     {
+#       azuread_authentication_only = false
+#       login_username              = "ddi-appgw-identity"
+#     }
+#   ]
+# }
+# ]
+
+local_network_gateway_list = [
 {
-  name                            = "ddi-poc-sql-server"
-  resource_group_name             = "rg-ddi-poc1"
-  version                         = "12.0"
-  administrator_login_name        = "sqladmin"
-  administrator_login_password    = "Qwest@72hrNight"
-  minimum_tls_version             = "1.2"     // valid values: 1.0, 1.1 , 1.2 and Disabled. Defaults to 1.2
-  public_network_access_enabled   = true
-  key_vault_name                  = "testiefngkvrss2"
-  azuread_administrator = [
-    {
-      azuread_authentication_only = false
-      login_username              = "ddi-appgw-identity"
+    name                = "myoffice"
+    resource_group_name = "rg-ddi-poc1"
+    gateway_address     = "12.13.14.15"
+    gateway_fqdn        = ""
+    address_space       = ["10.0.0.0/16", "192.168.0.0/16"]
+    tags                = {
+      owner = "Network Team"
+      made_through  = "Terraform"
     }
-  ]
+    enable_bgp          = false //true or false
+    bgp_settings        = [
+      {
+          asn                  = "65050"
+          bgp_peering_address  = "10.51.255.254"
+          peer_weight          = "100"
+    }
+    ]
 }
 ]

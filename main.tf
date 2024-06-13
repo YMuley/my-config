@@ -2005,3 +2005,10 @@ module "pass_sql_server" {
   key_vault_output              = module.keyvault.key_vault_output
   depends_on                    = [module.useridentity, module.keyvault]
 }
+
+module "local_network_gateway" {
+  source                      = "app.terraform.io/Motifworks/local-network-gateway/azurerm"
+  version                     = "1.0.0"
+  local_network_gateway_list  = var.local_network_gateway_list
+  resource_group_output       = module.resource_Group.resource_group_output
+}

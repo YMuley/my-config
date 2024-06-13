@@ -79,3 +79,8 @@ variable "pass_sql_server_list" {
   type = list(any)
   description = "list of sql servers "
 }
+
+variable "local_network_gateway_list" {
+  type = list(any)
+  description = "list of local network gateways config"
+}
