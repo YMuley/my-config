@@ -970,14 +970,14 @@ local_network_gateway_list = [
 {
     name                = "myoffice"
     resource_group_name = "rg-ddi-poc1"
-    gateway_address     = "12.13.14.15"
-    gateway_fqdn        = ""
+    gateway_address     = null   // Both gateway_address and gateway_fqdn can be given as input either of one should be null.
+    gateway_fqdn        = "abc.com"
     address_space       = ["10.0.0.0/16", "192.168.0.0/16"]
     tags                = {
       owner = "Network Team"
       made_through  = "Terraform"
     }
-    enable_bgp          = false //true or false
+    enable_bgp          = true //true or false
     bgp_settings        = [
       {
           asn                  = "65050"
