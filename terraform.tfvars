@@ -999,7 +999,7 @@ vpn_list = [
     sku                         = "VpnGw2AZ"
     generation                  = "Generation2"
     edge_zone                   = null
-    private_ip_address_enabled  = false
+    private_ip_address_enabled  = true
     tags                        = {owner = "Motifworks"}
     bgp_settings                = [
       {
