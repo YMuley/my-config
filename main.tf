@@ -603,6 +603,19 @@ module "public_ip" {
       }
       sku_tier = "Regional"
     },
+      {
+      name                = "public-ip-ddi-vpn1"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-poc1"
+      allocation_method   = "Static"
+      sku                 = "Standard"
+      zones               = ["1", "2", "3"]
+      domain_name_label   = null
+      tags = {
+        environment = "poc"
+      }
+      sku_tier = "Regional"
+    }
     # {
     #   name                = "public-ip-ddi-appgw"
     #   location            = "eastus"
