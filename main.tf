@@ -590,6 +590,19 @@ module "public_ip" {
       }
       sku_tier = "Regional"
     },
+      {
+      name                = "public-ip-ddi-vpn"
+      location            = "eastus"
+      resource_group_name = "rg-ddi-poc1"
+      allocation_method   = "Dynamic"
+      sku                 = "Standard"
+      zones               = []
+      domain_name_label   = null
+      tags = {
+        environment = "poc"
+      }
+      sku_tier = "Regional"
+    },
     # {
     #   name                = "public-ip-ddi-appgw"
     #   location            = "eastus"
@@ -2011,4 +2024,13 @@ module "local_network_gateway" {
   version                     = "1.0.0"
   local_network_gateway_list  = var.local_network_gateway_list
   resource_group_output       = module.resource_Group.resource_group_output
+}
+
+module "virtual_network_gateway" {
+  source                     = "app.terraform.io/Motifworks/virtual-network-gateway/azurerm"
+  version                    = "1.0.0" 
+  vpn_list                   = var.vpn_list               
+  resource_group_output      = module.resource_Group.resource_group_output
+  subnet_output              = module.subnet.vnet_subnet_output
+  public_ip_output           = module.public_ip.public_ip_output
 }

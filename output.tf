@@ -67,3 +67,11 @@ output "mssql_vm_output" {
 # output "pass_sql_server_output" {
 #   value = module.pass_sql_server.sql_server_output
 # }
+
+output "local_network_gateway_output" {
+  value = module.local_network_gateway.local_network_gateway_output
+}
+
+output "virtual_network_gateway_output" {
+  value = module.virtual_network_gateway.virtual_network_gateway_output
+}

@@ -987,3 +987,40 @@ local_network_gateway_list = [
     ]
 }
 ]
+
+vpn_list = [ 
+  {
+    name                        = "myCloud"
+    resource_group_name         = "rg-ddi-poc1"
+    type                        = "Vpn"
+    vpn_type                    = "RouteBased"
+    active_active               = false
+    enable_bgp                  = false
+    sku                         = "Standard"
+    generation                  = "Generation2"
+    edge_zone                   = null
+    private_ip_address_enabled  = false
+    tags                        = {owner = "Motifworks"}
+    bgp_settings                = [
+      {
+        asn    = "65050"
+        peer_weight = "100"
+        peering_addresses = [
+          {
+            ip_configuration_name  = "myCloud-ip"
+            apipa_addresses        = ["169.254.21.0"]
+          }
+        ]
+      }
+    ]
+
+    ip_configuration    = [
+      {
+        name                            = "myCloud-ip"
+        private_ip_address_allocation   = "Dynamic"
+        subnet_name                     = "GatewaySubnet"
+        public_ip_name                  = "public-ip-ddi-vpn"
+    }
+    ]
+  }
+ ]
