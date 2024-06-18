@@ -596,7 +596,7 @@ module "public_ip" {
       resource_group_name = "rg-ddi-poc1"
       allocation_method   = "Static"
       sku                 = "Standard"
-      zones               = ["1","2","3"]
+      zones               = ["1", "2", "3"]
       domain_name_label   = null
       tags = {
         environment = "poc"
