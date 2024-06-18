@@ -594,7 +594,7 @@ module "public_ip" {
       name                = "public-ip-ddi-vpn"
       location            = "eastus"
       resource_group_name = "rg-ddi-poc1"
-      allocation_method   = "Dynamic"
+      allocation_method   = "Static"
       sku                 = "Standard"
       zones               = []
       domain_name_label   = null
