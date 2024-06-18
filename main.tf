@@ -615,7 +615,7 @@ module "public_ip" {
         environment = "poc"
       }
       sku_tier = "Regional"
-    }
+    },
     # {
     #   name                = "public-ip-ddi-appgw"
     #   location            = "eastus"
