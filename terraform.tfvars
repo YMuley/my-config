@@ -994,7 +994,7 @@ vpn_list = [
     resource_group_name         = "rg-ddi-poc1"
     type                        = "Vpn"
     vpn_type                    = "RouteBased"
-    active_active               = true
+    active_active               = false
     enable_bgp                  = true
     sku                         = "VpnGw2AZ"
     generation                  = "Generation2"
@@ -1022,13 +1022,13 @@ vpn_list = [
         subnet_name                     = "GatewaySubnet"
         public_ip_name                  = "public-ip-ddi-vpn"
     },
-    {
-        name                            = "myCloud-ip1"
-        private_ip_address_allocation   = ""
-        virtual_network_name            = "vnet-ddi-poc1"
-        subnet_name                     = "GatewaySubnet"
-        public_ip_name                  = "public-ip-ddi-vpn1"
-    }    
+    # {
+    #     name                            = "myCloud-ip1"
+    #     private_ip_address_allocation   = ""
+    #     virtual_network_name            = "vnet-ddi-poc1"
+    #     subnet_name                     = "GatewaySubnet"
+    #     public_ip_name                  = "public-ip-ddi-vpn1"
+    # }    
     ]
   }
  ]
