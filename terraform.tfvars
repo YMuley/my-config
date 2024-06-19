@@ -1011,6 +1011,16 @@ vpn_list = [
             apipa_addresses        = ["169.254.21.0","169.254.21.2" ]
           }
         ]
+      },
+            {
+        asn    = "65051"
+        peer_weight = "110"
+        peering_addresses = [
+          {
+            ip_configuration_name  = "myCloud-ip1"
+            apipa_addresses        = ["169.254.22.0","169.254.22.2" ]
+          }
+        ]
       }
     ]
 
