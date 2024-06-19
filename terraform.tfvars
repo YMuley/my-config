@@ -1008,7 +1008,7 @@ vpn_list = [
         peering_addresses = [
           {
             ip_configuration_name  = "myCloud-ip"
-            apipa_addresses        = ["169.254.21.0"]
+            apipa_addresses        = ["169.254.21.0","169.254.21.2" ]
           }
         ]
       }
