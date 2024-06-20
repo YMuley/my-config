@@ -1036,3 +1036,17 @@ vpn_list = [
     ]
   }
  ]
+
+ vpn_connection_list   = [
+  {
+    name                          = "myvpn-connection"
+    resource_group_name           = "rg-ddi-poc1"
+    type                          = "IPsec"
+    vpn_gateway_name              = "myCloud"
+    local_network_gateway_name    = "myoffice"
+    shared_key                    = "4-v3ry-53cr37-1p53c-5h4r3d-k3y"
+    connection_protocol           = "IKEv2"
+    connection_mode               = "Default"
+    dpd_timeout_seconds           = "20"
+  }
+ ]
