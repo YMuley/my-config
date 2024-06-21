@@ -1021,14 +1021,14 @@ vpn_list = [
     ip_configuration    = [
       {
         name                            = "myCloud-ip"
-        private_ip_address_allocation   = ""
+        private_ip_address_allocation   = "Dynamic"
         virtual_network_name            = "vnet-ddi-poc1"
         subnet_name                     = "GatewaySubnet"
         public_ip_name                  = "public-ip-ddi-vpn"
     },
     {
         name                            = "myCloud-ip1"
-        private_ip_address_allocation   = ""
+        private_ip_address_allocation   = "Dynamic"
         virtual_network_name            = "vnet-ddi-poc1"
         subnet_name                     = "GatewaySubnet"
         public_ip_name                  = "public-ip-ddi-vpn1"
