@@ -1049,10 +1049,10 @@ vpn_list = [
     connection_mode               = "Default"
     dpd_timeout_seconds           = "45"
     enable_bgp                    = true
-    custom_bgp_addresses          = {
+    custom_bgp_addresses          = [{
       primary       = "169.254.21.0"
       secondary     = "169.254.22.0"
-    }
+    }]
     tags                          = {owner = "motifworks"}
   }
  ]
