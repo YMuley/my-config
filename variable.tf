@@ -90,8 +90,8 @@ variable "vpn_list" {
   description = "list of vpn gateway config"
 }
 
-# variable "vpn_connection_list" {
-#   type = list(any)
-#   default = []
-#   description = "vpn configuration list"
-# }
+variable "vpn_connection_list" {
+  type = list(any)
+  default = []
+  description = "vpn configuration list"
+}
