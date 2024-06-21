@@ -1053,7 +1053,6 @@ vpn_list = [
       primary       = "169.254.21.0"
       secondary     = "169.254.22.0"
     }]
-    use_policy_based_traffic_selectors = false
     tags                          = {owner = "motifworks"}
   }
  ]
