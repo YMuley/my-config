@@ -1003,7 +1003,7 @@ vpn_list = [
     tags                        = {owner = "Motifworks"}
     bgp_settings                = [
       {
-        asn    = "65050"
+        asn    = "65051"
         peer_weight = "100"
         peering_addresses = [
           {
