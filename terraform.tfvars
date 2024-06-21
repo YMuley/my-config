@@ -1048,11 +1048,12 @@ vpn_list = [
     connection_protocol           = "IKEv2"
     connection_mode               = "Default"
     dpd_timeout_seconds           = "45"
-    enable_bgp                    = "true"
+    enable_bgp                    = true
     custom_bgp_addresses          = [{
       primary       = "169.254.21.0"
       secondary     = "169.254.22.0"
     }]
+    use_policy_based_traffic_selectors = true
     tags                          = {owner = "motifworks"}
   }
  ]
