@@ -2048,13 +2048,13 @@ module "virtual_network_gateway" {
   public_ip_output           = module.public_ip.public_ip_output
 }
 
-module "virtual_network_gateway_connection" {
-  source = "app.terraform.io/Motifworks/virtual-network-gateway-connection/azurerm"
-  version = "1.0.0"
-  vpn_connection_list              = var.vpn_connection_list
-  resource_group_output            = module.resource_Group.resource_group_output
-  virtual_network_gateway_output   = module.virtual_network_gateway.virtual_network_gateway_output
-  local_network_gateway_output     = module.local_network_gateway.local_network_gateway_output
+# module "virtual_network_gateway_connection" {
+#   source = "app.terraform.io/Motifworks/virtual-network-gateway-connection/azurerm"
+#   version = "1.0.0"
+#   vpn_connection_list              = var.vpn_connection_list
+#   resource_group_output            = module.resource_Group.resource_group_output
+#   virtual_network_gateway_output   = module.virtual_network_gateway.virtual_network_gateway_output
+#   local_network_gateway_output     = module.local_network_gateway.local_network_gateway_output
 
-  depends_on = [ module.local_network_gateway, module.virtual_network_gateway ]
-}
+#   depends_on = [ module.local_network_gateway, module.virtual_network_gateway ]
+# }
